@@ -39,21 +39,17 @@ local classification = {
 function TT:SetStatusBarAnchor(pos)
 	GameTooltipStatusBar:ClearAllPoints()
 	
-	if pos == 'BOTTOM' then
-		GameTooltipStatusBar:Point("TOPLEFT", GameTooltipStatusBar:GetParent(), "BOTTOMLEFT", 2, -5)
-		GameTooltipStatusBar:Point("TOPRIGHT", GameTooltipStatusBar:GetParent(), "BOTTOMRIGHT", -2, -5)			
-	else	
 		GameTooltipStatusBar:Point("BOTTOMLEFT", GameTooltipStatusBar:GetParent(), "TOPLEFT", 2, 5)
 		GameTooltipStatusBar:Point("BOTTOMRIGHT", GameTooltipStatusBar:GetParent(), "TOPRIGHT", -2, 5)			
-	end
+
 	
 	if not GameTooltipStatusBar.text then return end
 	GameTooltipStatusBar.text:ClearAllPoints()
 	
 	if pos == 'BOTTOM' then
-		GameTooltipStatusBar.text:Point("CENTER", GameTooltipStatusBar, 0, -3)
+		GameTooltipStatusBar.text:Point("CENTER", GameTooltipStatusBar, 0, 0)
 	else
-		GameTooltipStatusBar.text:Point("CENTER", GameTooltipStatusBar, 0, 3)	
+		GameTooltipStatusBar.text:Point("CENTER", GameTooltipStatusBar, 0, 0)	
 	end
 end
 
@@ -572,7 +568,7 @@ function TT:Initialize()
 	GameTooltipStatusBar.text:FontTemplate(nil, nil, 'OUTLINE')
 	
 	local GameTooltipAnchor = CreateFrame('Frame', 'GameTooltipAnchor', E.UIParent)
-	GameTooltipAnchor:Point('BOTTOMRIGHT', RightChatToggleButton, 'BOTTOMRIGHT')
+	GameTooltipAnchor:Point('BOTTOMRIGHT', ElvUI_Bar4, 'BOTTOMLEFT', -4, -38)
 	GameTooltipAnchor:Size(130, 20)
 	E:CreateMover(GameTooltipAnchor, 'TooltipMover', 'Tooltip')
 	
@@ -585,53 +581,53 @@ function TT:Initialize()
 	self:HookScript(GameTooltip, 'OnTooltipSetItem', 'GameTooltip_OnTooltipSetItem')
 	self:HookScript(GameTooltip, 'OnTooltipSetUnit', 'GameTooltip_OnTooltipSetUnit')
 	self:HookScript(GameTooltipStatusBar, 'OnValueChanged', 'GameTooltipStatusBar_OnValueChanged')
-	
-	--SpellIDs
-	hooksecurefunc(GameTooltip, "SetUnitBuff", function(self,...)
-		local id = select(11,UnitBuff(...))
-		if id then
-			self:AddLine("|cFFCA3C3C"..ID.."|r".." "..id)
-			self:Show()
-		end
-	end)
+	if self.db.itemid then
+		--SpellIDs
+		hooksecurefunc(GameTooltip, "SetUnitBuff", function(self,...)
+			local id = select(11,UnitBuff(...))
+			if id then
+				self:AddLine("|cFFCA3C3C"..ID.."|r".." "..id)
+				self:Show()
+			end
+		end)
 
-	hooksecurefunc(GameTooltip, "SetUnitDebuff", function(self,...)
-		local id = select(11,UnitDebuff(...))
-		if id then
-			self:AddLine("|cFFCA3C3C"..ID.."|r".." "..id)
-			self:Show()
-		end
-	end)
+		hooksecurefunc(GameTooltip, "SetUnitDebuff", function(self,...)
+			local id = select(11,UnitDebuff(...))
+			if id then
+				self:AddLine("|cFFCA3C3C"..ID.."|r".." "..id)
+				self:Show()
+			end
+		end)
 
-	hooksecurefunc(GameTooltip, "SetUnitAura", function(self,...)
-		local id = select(11,UnitAura(...))
-		if id then
-			self:AddLine("|cFFCA3C3C"..ID.."|r".." "..id)
-			self:Show()
-		end
-	end)
+		hooksecurefunc(GameTooltip, "SetUnitAura", function(self,...)
+			local id = select(11,UnitAura(...))
+			if id then
+				self:AddLine("|cFFCA3C3C"..ID.."|r".." "..id)
+				self:Show()
+			end
+		end)
 
-	hooksecurefunc("SetItemRef", function(link, text, button, chatFrame)
-		if string.find(link,"^spell:") then
-			local id = string.sub(link,7)
-			ItemRefTooltip:AddLine("|cFFCA3C3C"..ID.."|r".." "..id)
-			ItemRefTooltip:Show()
-		end
-	end)
+		hooksecurefunc("SetItemRef", function(link, text, button, chatFrame)
+			if string.find(link,"^spell:") then
+				local id = string.sub(link,7)
+				ItemRefTooltip:AddLine("|cFFCA3C3C"..ID.."|r".." "..id)
+				ItemRefTooltip:Show()
+			end
+		end)
 
-	GameTooltip:HookScript("OnTooltipSetSpell", function(self)
+		GameTooltip:HookScript("OnTooltipSetSpell", function(self)
 		local id = select(3,self:GetSpell())
-		if id then
-			self:AddLine("|cFFCA3C3C"..ID.."|r".." "..id)
-			self:Show()
-		end
-	end)
-	
-	
-	BNToastFrame:Point('TOPRIGHT', MMHolder, 'BOTTOMRIGHT', 0, -10);
+			if id then
+				self:AddLine("|cFFCA3C3C"..ID.."|r".." "..id)
+				self:Show()
+			end
+		end)
+	end
+	BNToastFrame:Point('TOPRIGHT', MMHolder, 'BOTTOMRIGHT', 0, -4);
 	E:CreateMover(BNToastFrame, 'BNETMover', 'BNet Frame')
 	BNToastFrame.SetPoint = E.noop
-	BNToastFrame.ClearAllPoints = E.noop	
+	BNToastFrame.ClearAllPoints = E.noop 	
+	
 end
 
 E:RegisterModule(TT:GetName())

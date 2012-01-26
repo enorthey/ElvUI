@@ -11,10 +11,12 @@ local function SetupChat()
 	FCF_DockFrame(ChatFrame2)
 	FCF_SetLocked(ChatFrame2, 1)
 
-	FCF_OpenNewWindow(LOOT)
-	FCF_UnDockFrame(ChatFrame3)
-	FCF_SetLocked(ChatFrame3, 1)
-	ChatFrame3:Show()			
+	if not E.db.skins.recount.embed then
+		FCF_OpenNewWindow(LOOT)
+		FCF_UnDockFrame(ChatFrame3)
+		FCF_SetLocked(ChatFrame3, 1)
+		ChatFrame3:Show()
+	end		
 			
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format("ChatFrame%s", i)]
@@ -78,19 +80,28 @@ local function SetupChat()
 	ChatFrame_AddMessageGroup(ChatFrame1, "BN_CONVERSATION")
 	ChatFrame_AddMessageGroup(ChatFrame1, "BN_INLINE_TOAST_ALERT")
 	
-
-	ChatFrame_RemoveAllMessageGroups(ChatFrame3)	
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_FACTION_CHANGE")
-	ChatFrame_AddMessageGroup(ChatFrame3, "SKILL")
-	ChatFrame_AddMessageGroup(ChatFrame3, "LOOT")
-	ChatFrame_AddMessageGroup(ChatFrame3, "MONEY")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_XP_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_HONOR_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_GUILD_XP_GAIN")
-	ChatFrame_AddChannel(ChatFrame1, GENERAL)
-	ChatFrame_RemoveChannel(ChatFrame1, L['Trade'])
-	ChatFrame_AddChannel(ChatFrame3, L['Trade'])
-
+	if not E.db.skins.recount.embed then
+		ChatFrame_RemoveAllMessageGroups(ChatFrame3)	
+		ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_FACTION_CHANGE")
+		ChatFrame_AddMessageGroup(ChatFrame3, "SKILL")
+		ChatFrame_AddMessageGroup(ChatFrame3, "LOOT")
+		ChatFrame_AddMessageGroup(ChatFrame3, "MONEY")
+		ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_XP_GAIN")
+		ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_HONOR_GAIN")
+		ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_GUILD_XP_GAIN")
+		ChatFrame_AddChannel(ChatFrame1, GENERAL)
+		ChatFrame_RemoveChannel(ChatFrame1, L['Trade'])
+		ChatFrame_AddChannel(ChatFrame3, L['Trade'])
+	else
+		ChatFrame_AddMessageGroup(ChatFrame1, "COMBAT_FACTION_CHANGE")
+		ChatFrame_AddMessageGroup(ChatFrame1, "SKILL")
+		ChatFrame_AddMessageGroup(ChatFrame1, "LOOT")
+		ChatFrame_AddMessageGroup(ChatFrame1, "MONEY")
+		ChatFrame_AddMessageGroup(ChatFrame1, "COMBAT_XP_GAIN")
+		ChatFrame_AddMessageGroup(ChatFrame1, "COMBAT_HONOR_GAIN")
+		ChatFrame_AddMessageGroup(ChatFrame1, "COMBAT_GUILD_XP_GAIN")
+		ChatFrame_AddChannel(ChatFrame1, L['Trade'])
+	end
 	
 	if E.myname == "Elv" then
 		--keep losing my god damn channels everytime i resetui
@@ -131,14 +142,6 @@ local function SetupChat()
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL10")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL11")
 	
-	--Adjust Chat Colors
-	--General
-	ChangeChatColor("CHANNEL1", 195/255, 230/255, 232/255)
-	--Trade
-	ChangeChatColor("CHANNEL2", 232/255, 158/255, 121/255)
-	--Local Defense
-	ChangeChatColor("CHANNEL3", 232/255, 228/255, 121/255)
-	
 	if E.Chat then
 		E.Chat:PositionChat(true)
 		if E.db['RightChatPanelFaded'] then
@@ -173,29 +176,29 @@ local function SetupLayout(isPrimary, layout)
 	if isPrimary then
 		if layout == 'tank' then
 			--datatexts
-			E.db.datatexts.panels.spec1.LeftChatDataPanel.left = 'Armor';
-			E.db.datatexts.panels.spec1.LeftChatDataPanel.right = 'Avoidance';
+			E.db.datatexts.panels.spec1.LowerCDPPanel.left = 'Armor';
+			E.db.datatexts.panels.spec1.LowerLDPPanel = 'Avoidance';
 			
 			--unitframes
 			E.db.unitframe.mainSpec = 'Primary';
 		elseif layout == 'healer' then
 			--datatexts
-			E.db.datatexts.panels.spec1.LeftChatDataPanel.left = 'Spell/Heal Power';
-			E.db.datatexts.panels.spec1.LeftChatDataPanel.right = 'Haste';
+			E.db.datatexts.panels.spec1.LowerCDPPanel.left = 'Spell/Heal Power';
+			E.db.datatexts.panels.spec1.LowerLDPPanel = 'Crit Chance';
 			
 			--unitframes
 			E.db.unitframe.mainSpec = 'Secondary';		
 		elseif layout == 'dpsCaster' then
 			--datatexts
-			E.db.datatexts.panels.spec1.LeftChatDataPanel.left = 'Spell/Heal Power';
-			E.db.datatexts.panels.spec1.LeftChatDataPanel.right = 'Haste';
+			E.db.datatexts.panels.spec1.LowerCDPPanel.left = 'Spell/Heal Power';
+			E.db.datatexts.panels.spec1.LowerLDPPanel = 'Crit Chance';
 			
 			--unitframes
 			E.db.unitframe.mainSpec = 'Primary';			
 		else
 			--datatexts
-			E.db.datatexts.panels.spec1.LeftChatDataPanel.left = 'Attack Power';
-			E.db.datatexts.panels.spec1.LeftChatDataPanel.right = 'Crit Chance';
+			E.db.datatexts.panels.spec1.LowerCDPPanel.left = 'Attack Power';
+			E.db.datatexts.panels.spec1.LowerLDPPanel = 'Crit Chance';
 			
 			--unitframes
 			E.db.unitframe.mainSpec = 'Primary';			
@@ -206,29 +209,29 @@ local function SetupLayout(isPrimary, layout)
 	else
 		if layout == 'tank' then
 			--datatexts
-			E.db.datatexts.panels.spec2.LeftChatDataPanel.left = 'Armor';
-			E.db.datatexts.panels.spec2.LeftChatDataPanel.right = 'Avoidance';
+			E.db.datatexts.panels.spec2.LowerCDPPanel.left = 'Armor';
+			E.db.datatexts.panels.spec2.LowerLDPPanel = 'Avoidance';
 			
 			--unitframes
 			E.db.unitframe.offSpec = 'Primary';
 		elseif layout == 'healer' then
 			--datatexts
-			E.db.datatexts.panels.spec2.LeftChatDataPanel.left = 'Spell/Heal Power';
-			E.db.datatexts.panels.spec2.LeftChatDataPanel.right = 'Haste';
+			E.db.datatexts.panels.spec2.LowerCDPPanel.left = 'Spell/Heal Power';
+			E.db.datatexts.panels.spec2.LowerLDPPanel = 'Crit Chance';
 			
 			--unitframes
 			E.db.unitframe.offSpec = 'Secondary';		
 		elseif layout == 'dpsCaster' then
 			--datatexts
-			E.db.datatexts.panels.spec2.LeftChatDataPanel.left = 'Spell/Heal Power';
-			E.db.datatexts.panels.spec2.LeftChatDataPanel.right = 'Haste';
+			E.db.datatexts.panels.spec2.LowerCDPPanel.left = 'Spell/Heal Power';
+			E.db.datatexts.panels.spec2.LowerLDPPanel = 'Crit Chance';
 			
 			--unitframes
 			E.db.unitframe.offSpec = 'Primary';			
 		else
 			--datatexts
-			E.db.datatexts.panels.spec2.LeftChatDataPanel.left = 'Attack Power';
-			E.db.datatexts.panels.spec2.LeftChatDataPanel.right = 'Crit Chance';
+			E.db.datatexts.panels.spec2.LowerCDPPanel.left = 'Attack Power';
+			E.db.datatexts.panels.spec2.LowerLDPPanel = 'Crit Chance';
 			
 			--unitframes
 			E.db.unitframe.offSpec = 'Primary';			

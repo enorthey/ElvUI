@@ -55,73 +55,15 @@ E.Options.args.core = {
 			name = L["General"],
 			guiInline = true,
 			args = {
-				interruptAnnounce = {
-					order = 1,
-					name = L['Announce Interrupts'],
-					desc = L['Announce when you interrupt a spell to the specified chat channel.'],
-					type = 'select',
-					values = {
-						['NONE'] = NONE,
-						['SAY'] = SAY,
-						['PARTY'] = PARTY,
-						['RAID'] = RAID,
-					},
-				},
-				autoRepair = {
-					order = 2,
-					name = L['Auto Repair'],
-					desc = L['Automatically repair using the following method when visiting a merchant.'],
-					type = 'select',
-					values = {
-						['NONE'] = NONE,
-						['GUILD'] = GUILD,
-						['PLAYER'] = PLAYER,
-					},				
-				},
-				expRepPos = {
-					order = 3,
-					type = 'select',
-					name = L['Exp/Rep Position'],
-					desc = L['Change the position of the experience/reputation bar.'],
-					set = function(info, value) E.db.core.expRepPos = value; E:GetModule('Misc'):UpdateExpRepBarAnchor() end,
-					values = {
-						['TOP_SCREEN'] = L['Top Screen'],
-						['MINIMAP_BOTTOM'] = L["Below Minimap"],
-					},
-				},
-				bags = {
-					order = 4,
-					type = "toggle",
-					name = L['Bags'],
-					desc = L['Enable\Disable the all-in-one bag.'],
-					get = function(info) return E.db.core.bags end,
-					set = function(info, value) E.db.core.bags = value; StaticPopup_Show("CONFIG_RL") end
-				},
-				loot = {
-					order = 5,
-					type = "toggle",
-					name = L['Loot'],
-					desc = L['Enable\Disable the loot frame.'],
-					get = function(info) return E.db.core.loot end,
-					set = function(info, value) E.db.core.loot = value; StaticPopup_Show("CONFIG_RL") end
-				},
-				lootRoll = {
-					order = 6,
-					type = "toggle",
-					name = L['Loot Roll'],
-					desc = L['Enable\Disable the loot roll frame.'],
-					get = function(info) return E.db.core.lootRoll end,
-					set = function(info, value) E.db.core.lootRoll = value; StaticPopup_Show("CONFIG_RL") end
-				},
 				autoscale = {
-					order = 7,
+					order = 1,
 					name = L["Auto Scale"],
 					desc = L["Automatically scale the User Interface based on your screen resolution"],
 					type = "toggle",	
 					set = function(info, value) E.db.core[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end
 				},
 				uiscale = {
-					order = 8,
+					order = 2,
 					name = L["Scale"],
 					desc = L["Controls the scaling of the entire User Interface"],
 					disabled = function(info) return E.db["core"].autoscale end,
@@ -129,33 +71,63 @@ E.Options.args.core = {
 					min = 0.64, max = 1, step = 0.01,
 					isPercent = true,
 					set = function(info, value) E.db.core[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end
-				},		
-				mapTransparency = {
-					order = 9,
-					name = L['Map Transparency'],
-					desc = L['Controls what the transparency of the worldmap will be set to when you are moving.'],
-					type = 'range',
-					isPercent = true,
-					min = 0, max = 1, step = 0.01,
-				},
+				},				
+				bags = {
+					order = 3,
+					type = "toggle",
+					name = L['Toggle Bags'],
+					desc = L['Enable\Disable the all-in-one bag.'],
+					get = function(info) return E.db.core.bags end,
+					set = function(info, value) E.db.core.bags = value; StaticPopup_Show("CONFIG_RL") end
+				},	
+				lootRoll = {
+					order = 4,
+					type = "toggle",
+					name = L['Loot Roll'],
+					desc = L['Enable\Disable the loot roll frame.'],
+					get = function(info) return E.db.core.lootRoll end,
+					set = function(info, value) E.db.core.lootRoll = value; StaticPopup_Show("CONFIG_RL") end
+				},	
+				loot = {
+					order = 5,
+					type = "toggle",
+					name = L['Loot'],
+					desc = L['Enable\Disable the loot frame.'],
+					get = function(info) return E.db.core.loot end,
+					set = function(info, value) E.db.core.loot = value; StaticPopup_Show("CONFIG_RL") end
+				},									
 				panelWidth = {
-					order = 100,
+					order = 6,
 					type = 'range',
 					name = L['Panel Width'],
 					desc = L['PANEL_DESC'],
 					set = function(info, value) E.db.core.panelWidth = value; E:GetModule('Chat'):PositionChat(true); local bags = E:GetModule('Bags'); bags:Layout(); bags:Layout(true); end,
-					min = 150, max = 700, step = 1,
+					min = 315, max = 700, step = 1,
 				},
 				panelHeight = {
-					order = 101,
+					order = 7,
 					type = 'range',
 					name = L['Panel Height'],
 					desc = L['PANEL_DESC'],
 					set = function(info, value) E.db.core.panelHeight = value; E:GetModule('Chat'):PositionChat(true) end,
 					min = 150, max = 600, step = 1,
+				},	
+				lowerPanel = {
+					order = 8,
+					type = 'toggle',
+					name = L['Lower Panel'],
+					desc = L['Enable The Panel Accross The Bottom of the UI.'],
+					set = function(info, value) E.db.core.lowerPanel = value; StaticPopup_Show("CONFIG_RL") end,
+				},
+				upperPanel = {
+					order = 9,
+					type = 'toggle',
+					name = L['Upper Panel'],
+					desc = L['Enable The Panel Accross The Top of UI.'],
+					set = function(info, value) E.db.core.upperPanel = value; StaticPopup_Show("CONFIG_RL") end,
 				},
 				panelBackdrop = {
-					order = 102,
+					order = 101,
 					type = 'select',
 					name = L['Panel Backdrop'],
 					desc = L['Toggle showing of the left and right chat panels.'],
@@ -168,7 +140,7 @@ E.Options.args.core = {
 					},
 				},
 				panelBackdropNameLeft = {
-					order = 103,
+					order = 102,
 					type = 'input',
 					width = 'full',
 					name = L['Panel Texture (Left)'],
@@ -179,7 +151,7 @@ E.Options.args.core = {
 					end,
 				},
 				panelBackdropNameRight = {
-					order = 104,
+					order = 103,
 					type = 'input',
 					width = 'full',
 					name = L['Panel Texture (Right)'],
@@ -226,6 +198,22 @@ E.Options.args.core = {
 							desc = L["The font that combat text will use. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r"],
 							values = AceGUIWidgetLSMlists.font,		
 							set = function(info, value) E.db.core[ info[#info] ] = value; E:UpdateMedia(); E:UpdateFontTemplates(); end,
+						},	
+						dtfont = {
+							type = "select", dialogControl = 'LSM30_Font',
+							order = 4,
+							name = L["DataText Font"],
+							desc = L["The font that datatext will use."],
+							values = AceGUIWidgetLSMlists.font,		
+							set = function(info, value) E.db.core[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end,
+						},	
+						dtfontsize = {
+							order = 5,
+							name = L["Datatext Font Size"],
+							desc = L["Sets The Font size of Datatexts"],
+							type = "range",
+							min = 6, max = 22, step = 1,
+							set = function(info, value) E.db.core[ info[#info] ] = value; E:UpdateMedia(); E:UpdateFontTemplates(); end,
 						},							
 					},
 				},	
@@ -238,16 +226,16 @@ E.Options.args.core = {
 						normTex = {
 							type = "select", dialogControl = 'LSM30_Statusbar',
 							order = 1,
-							name = L["StatusBar Texture"],
-							desc = L["Main statusbar texture."],
+							name = L["Primary Texture"],
+							desc = L["The texture that will be used mainly for statusbars."],
 							values = AceGUIWidgetLSMlists.statusbar,
 							set = function(info, value) E.db.core[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end							
 						},
 						glossTex = {
 							type = "select", dialogControl = 'LSM30_Statusbar',
 							order = 2,
-							name = L["Gloss Texture"],
-							desc = L["This gets used by some objects."],
+							name = L["Secondary Texture"],
+							desc = L["This texture will get used on objects like chat windows and dropdown menus."],
 							values = AceGUIWidgetLSMlists.statusbar,	
 							set = function(info, value) E.db.core[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end
 						},				
@@ -346,7 +334,89 @@ E.Options.args.core = {
 					},
 				},
 			},
-		},	
+		},
+		miscGroup = {
+			name = L['Misc'],
+			type = 'group',
+			guiInline = true,
+			order = 8,
+			args = {
+				spincam = {
+					order = 1,
+					type = "toggle",
+					name = L["spincam"],
+					desc = L['Spin Camera While AFK'],
+					get = function(info) return E.db.core.spincam end,
+					set = function(info, value) E.db.core.spincam = value; StaticPopup_Show("CONFIG_RL") end
+				},	
+				autolag = {
+					order = 2,
+					type = "toggle",
+					name = L['Auto Custom Lag Tolerance'],
+					desc = L['Auto Custom Lag Tolerance based off of latency'],
+					get = function(info) return E.db.core.autocustomlagtolerance end,
+					set = function(info, value) E.db.core.autocustomlagtolerance = value; StaticPopup_Show("CONFIG_RL") end
+				},		
+				autoinvite = {
+					order = 3,
+					type = "toggle",
+					name = L['AutoInvite'],
+					desc = L['Auto excepts invites from friends and guildmates'],
+					get = function(info) return E.db.core.autoinvite end,
+					set = function(info, value) E.db.core.autoinvite = value; StaticPopup_Show("CONFIG_RL") end
+				},	
+				autoRepair = {
+					order = 4,
+					name = L['Auto Repair'],
+					desc = L['Automatically repair using the following method when visiting a merchant.'],
+					type = 'select',
+					values = {
+						['NONE'] = NONE,
+						['GUILD'] = GUILD,
+						['PLAYER'] = PLAYER,
+					},				
+				},	
+				interruptAnnounce = {
+					order = 5,
+					name = L['Announce Interrupts'],
+					desc = L['Announce when you interrupt a spell to the specified chat channel.'],
+					type = 'select',
+					values = {
+						['NONE'] = NONE,
+						['SAY'] = SAY,
+						['PARTY'] = PARTY,
+						['RAID'] = RAID,
+					},
+				},	
+				sellgrays = {
+					order = 6,
+					name = L['Vendor Grays'],
+					desc = L['Automatically vendor gray quailty items when visiting a merchant'],
+					type = 'toggle',
+					get = function(info) return E.db.core.sellgrays end,
+					set = function(info, value) E.db.core.sellgrays = value; StaticPopup_Show("CONFIG_RL") end
+				},		
+				expRepPos = {
+					order = 7,
+					type = 'select',
+					name = L['Exp/Rep Position'],
+					desc = L['Change the position of the experience/reputation bar.'],
+					set = function(info, value) E.db.core.expRepPos = value; E:GetModule('Misc'):UpdateExpRepBarAnchor() end,
+					values = {
+						['TOP_SCREEN'] = L['Top Screen'],
+						['MINIMAP_BOTTOM'] = L["Below Minimap"],
+					},
+				},
+				mapTransparency = {
+					order = 8,
+					name = L['Map Transparency'],
+					desc = L['Controls what the transparency of the worldmap will be set to when you are moving.'],
+					type = 'range',
+					isPercent = true,
+					min = 0, max = 1, step = 0.01,
+				},				
+			},
+		},			
 	},
 }
 

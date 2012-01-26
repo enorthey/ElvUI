@@ -44,7 +44,7 @@ function E:UpdateMedia()
 	--Fonts
 	self["media"].normFont = LSM:Fetch("font", self.db["core"].font)
 	self["media"].combatFont = LSM:Fetch("font", self.db["core"].dmgfont)
-	
+	self["media"].dtFont = LSM:Fetch("font", self.db["core"].dtfont)
 
 	--Textures
 	self["media"].blankTex = LSM:Fetch("background", "ElvUI Blank")
@@ -333,7 +333,7 @@ function E:Initialize()
 	self.db = self.data.profile;
 
 	if self.db.core.loginmessage then
-		print(format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version))
+		print(format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version, self["media"].hexvaluecolor))
 	end
 	
 	self:CheckIncompatible()
@@ -355,6 +355,7 @@ function E:Initialize()
 	RegisterAddonMessagePrefix('ElvUI')
 	
 	self:UpdateMedia()
+	self:UpdateFrameTemplates()
 	self:CreateMoverPopup()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "CheckRole");
 	self:RegisterEvent("PLAYER_TALENT_UPDATE", "CheckRole");
@@ -365,6 +366,7 @@ function E:Initialize()
 	self:RegisterEvent("RAID_ROSTER_UPDATE", "SendRecieve")
 	self:RegisterEvent("PARTY_MEMBERS_CHANGED", "SendRecieve")
 	self:RegisterEvent("CHAT_MSG_ADDON", "SendRecieve")
+	collectgarbage("collect");
 end
 
 local toggle

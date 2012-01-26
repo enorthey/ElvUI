@@ -28,10 +28,11 @@ function CH:StyleChat(frame)
 	_G[tab:GetName()..'Glow']:SetTexture('Interface\\ChatFrame\\ChatFrameTab-NewMessage')
 	
 	tab.text = _G[name.."TabText"]
-	tab.text:FontTemplate()
+	tab.text:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
 	tab.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	tab.text.OldSetTextColor = tab.text.SetTextColor 
 	tab.text.SetTextColor = E.noop
+	tab.text:SetPoint('LEFT', 5, -4)
 	
 	frame:SetClampRectInsets(0,0,0,0)
 	frame:SetClampedToScreen(false)

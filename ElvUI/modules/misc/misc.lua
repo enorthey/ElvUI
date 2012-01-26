@@ -35,27 +35,59 @@ function M:COMBAT_LOG_EVENT_UNFILTERED(_, _, event, _, sourceGUID, _, _, _, _, d
 end
 
 function M:MERCHANT_SHOW()
-	local autoRepair = E.db.core.autoRepair
-	if IsShiftKeyDown() or autoRepair == 'NONE' or not CanMerchantRepair() then return end
-	
-	local cost, possible = GetRepairAllCost()
-	local withdrawLimit = GetGuildBankWithdrawMoney();
-	if autoRepair == 'GUILD' and (not CanGuildBankRepair() or cost > withdrawLimit) then
-		autoRepair = 'PLAYER'
-	end
-		
-	if cost > 0 then
-		if possible then
-			RepairAllItems(autoRepair == 'GUILD')
-			local c, s, g = cost%100, math.floor((cost%10000)/100), math.floor(cost/10000)
+	if not IsShiftKeyDown() or not E.db.core.autoRepair == 'NONE' or CanMerchantRepair() then
+		local autoRepair = E.db.core.autoRepair
+		local cost, possible = GetRepairAllCost()
+		local withdrawLimit = GetGuildBankWithdrawMoney();
+		if autoRepair == 'GUILD' and (not CanGuildBankRepair() or cost > withdrawLimit) then
+			autoRepair = 'PLAYER'
+		end
+		if cost > 0 then
+			if possible then
+				RepairAllItems(autoRepair == 'GUILD')
+				local c, s, g = cost%100, math.floor((cost%10000)/100), math.floor(cost/10000)
 			
-			if autoRepair == 'GUILD' then
-				E:Print(L['Your items have been repaired using guild bank funds for: ']..GetCoinTextureString(cost, 12))
+				if autoRepair == 'GUILD' then
+					E:Print(L['Your items have been repaired using guild bank funds for: ']..GetCoinTextureString(cost, 12))
+				else
+					E:Print(L['Your items have been repaired for: ']..GetCoinTextureString(cost, 12))
+				end
 			else
-				E:Print(L['Your items have been repaired for: ']..GetCoinTextureString(cost, 12))
+				E:Print(L["You don't have enough money to repair."])
 			end
-		else
-			E:Print(L["You don't have enough money to repair."])
+		end
+	
+		local savedMerchantItemButton_OnModifiedClick = MerchantItemButton_OnModifiedClick
+		function MerchantItemButton_OnModifiedClick(self, ...)
+			if ( IsAltKeyDown() ) then
+				local maxStack = select(8, GetItemInfo(GetMerchantItemLink(self:GetID())))
+				local name, texture, price, quantity, numAvailable, isUsable, extendedCost = GetMerchantItemInfo(self:GetID())
+				if ( maxStack and maxStack > 1 ) then
+					BuyMerchantItem(self:GetID(), floor(maxStack / quantity))
+				end
+			end
+			savedMerchantItemButton_OnModifiedClick(self, ...)
+		end
+	end
+	
+	if E.db.core.sellgrays then
+		local link, payed
+		local cost = 0
+		for bag = 0, 4 do
+			for slot = 1 ,GetContainerNumSlots(bag) do
+				link = GetContainerItemLink(bag, slot)
+				if link then
+					local payed = select(11, GetItemInfo(link)) * select(2, GetContainerItemInfo(bag, slot))
+					if select(3, GetItemInfo(link)) == 0 then
+						UseContainerItem(bag, slot)
+						PickupMerchantItem()
+						cost = cost + payed
+					end
+				end
+			end
+		end
+		if cost > 0 then 
+			E:Print(L['Vendored gray items for:']..GetCoinTextureString(cost, 12))
 		end
 	end
 end
@@ -103,16 +135,119 @@ function M:CheckMovement()
 	end
 end
 
+function M:LoadMisc(event)
+	if E.db.core.spincam == true then
+		local SpinCam = CreateFrame("Frame")
+
+		local OnEvent = function(self, event, unit)
+			if (event == "PLAYER_FLAGS_CHANGED") then
+				if unit == "player" then
+					if UnitIsAFK(unit) then
+						SpinStart()
+					else
+						SpinStop()
+					end
+				end
+			elseif (event == "PLAYER_LEAVING_WORLD") then
+				SpinStop()
+			end
+		end
+		SpinCam:RegisterEvent("PLAYER_ENTERING_WORLD")
+		SpinCam:RegisterEvent("PLAYER_LEAVING_WORLD")
+		SpinCam:RegisterEvent("PLAYER_FLAGS_CHANGED")
+		SpinCam:SetScript("OnEvent", OnEvent)
+
+		function SpinStart()
+			spinning = true
+			MoveViewRightStart(0.01)
+		end
+
+		function SpinStop()
+			if not spinning then return end
+			spinning = nil
+			MoveViewRightStop()
+		end
+	end
+
+	--Custom Lag Tolerance 
+	if E.db.core.autocustomlagtolerance == true then
+		InterfaceOptionsCombatPanelMaxSpellStartRecoveryOffset:Hide()
+
+		local customlag = CreateFrame("Frame")
+		local int = 5
+		local LatencyUpdate = function(self, elapsed)
+			int = int - elapsed
+			if int < 0 then
+				if GetCVar("reducedLagTolerance") ~= tostring(1) then SetCVar("reducedLagTolerance", tostring(1)) end
+				if select(3, GetNetStats()) ~= 0 and select(3, GetNetStats()) <= 400 then
+					SetCVar("maxSpellStartRecoveryOffset", tostring(select(3, GetNetStats())))
+				end
+				int = 5
+			end
+		end
+		customlag:SetScript("OnUpdate", LatencyUpdate)
+		LatencyUpdate(customlag, 10)
+	end
+end
+
+function M:AutoInvite()
+	local tAutoAcceptInvite = CreateFrame("Frame")
+	tAutoAcceptInvite:RegisterEvent("PARTY_INVITE_REQUEST")
+	tAutoAcceptInvite:RegisterEvent("PARTY_MEMBERS_CHANGED")
+	
+	local hidestatic -- used to hide static popup when auto-accepting
+	
+	tAutoAcceptInvite:SetScript("OnEvent", function(self, event, ...)
+		arg1 = ...
+		local leader = arg1
+		local ingroup = false
+		
+		if event == "PARTY_INVITE_REQUEST" then
+			if MiniMapLFGFrame:IsShown() then return end -- Prevent losing que inside LFD if someone invites you to group
+			if GetNumPartyMembers() > 0 or GetNumRaidMembers() > 0 then return end
+			hidestatic = true
+		
+			-- Update Guild and Friendlist
+			if GetNumFriends() > 0 then ShowFriends() end
+			if IsInGuild() then GuildRoster() end
+			
+			for friendIndex = 1, GetNumFriends() do
+				local friendName = GetFriendInfo(friendIndex)
+				if friendName == leader then
+					AcceptGroup()
+					ingroup = true
+					break
+				end
+			end
+			
+			if not ingroup then
+				for guildIndex = 1, GetNumGuildMembers(true) do
+					local guildMemberName = GetGuildRosterInfo(guildIndex)
+					if guildMemberName == leader then
+						AcceptGroup()
+						break
+					end
+				end
+			end
+		elseif event == "PARTY_MEMBERS_CHANGED" and hidestatic == true then
+			StaticPopup_Hide("PARTY_INVITE")
+			hidestatic = false
+		end
+	end)
+end
+
 function M:PVPMessageEnhancement(_, msg)
 	RaidNotice_AddMessage(RaidBossEmoteFrame, msg, ChatTypeInfo["RAID_BOSS_EMOTE"]);
 end
 
 function M:Initialize()
+	self:LoadMisc()
 	self:LoadRaidMarker()
 	self:LoadExpRepBar()
 	self:LoadMirrorBars()
 	self:LoadLoot()
 	self:LoadLootRoll()
+	if E.db.core.autoinvite then self.AutoInvite() end
 	self:RegisterEvent('MERCHANT_SHOW')
 	self:RegisterEvent('PLAYER_REGEN_DISABLED', 'ErrorFrameToggle')
 	self:RegisterEvent('PLAYER_REGEN_ENABLED', 'ErrorFrameToggle')

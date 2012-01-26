@@ -3,12 +3,18 @@ local LO = E:NewModule('Layout', 'AceEvent-3.0');
 
 local PANEL_HEIGHT = 22;
 local SIDE_BUTTON_WIDTH = 16;
+local UPPER_PANEL_HEIGHT = 21;
+local LOWER_PANEL_HEIGHT = 21;
 
 E.Layout = LO;
 
 function LO:Initialize()
 	self:CreateChatPanels()
 	self:CreateMinimapPanels()
+	if E.db.core.lowerPanel then self:CreateLowerPanel() end
+	if E.db.core.upperPanel then self:CreateUpperPanel() end
+	if E.db.datatexts.lowerpanels then self.CreateLowerDPPanel() end
+	if E.db.skins.recount.embed then self.CreateImbedRecount() end
 end
 
 local panel
@@ -102,7 +108,9 @@ end
 function LO:CreateChatPanels()
 	--Left Chat
 	local lchat = CreateFrame('Frame', 'LeftChatPanel', E.UIParent)
-	lchat:SetFrameStrata('BACKGROUND')
+	if not E.db.core.lowerPanel then 
+		lchat:SetFrameStrata('BACKGROUND') 
+	end
 	lchat:Width(420)
 	lchat:Height(180)
 	lchat:Point('BOTTOMLEFT', E.UIParent, 4, 4)
@@ -139,14 +147,16 @@ function LO:CreateChatPanels()
 	lchattb:SetScript('OnLeave', ChatButton_OnLeave)
 	lchattb:SetScript('OnClick', ChatButton_OnClick)
 	lchattb.text = lchattb:CreateFontString(nil, 'OVERLAY')
-	lchattb.text:FontTemplate()
+	lchattb.text:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
 	lchattb.text:SetPoint('CENTER')
 	lchattb.text:SetJustifyH('CENTER')
 	lchattb.text:SetText('<')
 	
 	--Right Chat
 	local rchat = CreateFrame('Frame', 'RightChatPanel', E.UIParent)
-	rchat:SetFrameStrata('BACKGROUND')
+	if not E.db.core.lowerPanel then
+		rchat:SetFrameStrata('BACKGROUND')
+	end
 	rchat:Width(420)
 	rchat:Height(180)
 	rchat:Point('BOTTOMRIGHT', E.UIParent, -4, 4)
@@ -183,7 +193,7 @@ function LO:CreateChatPanels()
 	rchattb:SetScript('OnLeave', ChatButton_OnLeave)
 	rchattb:SetScript('OnClick', ChatButton_OnClick)
 	rchattb.text = rchattb:CreateFontString(nil, 'OVERLAY')
-	rchattb.text:FontTemplate()
+	rchattb.text:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
 	rchattb.text:SetPoint('CENTER')
 	rchattb.text:SetJustifyH('CENTER')
 	rchattb.text:SetText('>')
@@ -205,13 +215,13 @@ end
 function LO:CreateMinimapPanels()
 	local lminipanel = CreateFrame('Frame', 'LeftMiniPanel', Minimap)
 	lminipanel:Point('TOPLEFT', Minimap, 'BOTTOMLEFT', -2, -3)
-	lminipanel:Point('BOTTOMRIGHT', Minimap, 'BOTTOM', -1, -(3 + PANEL_HEIGHT))
+	lminipanel:Point('BOTTOMRIGHT', Minimap, 'BOTTOM', -1, -(4 + PANEL_HEIGHT))
 	lminipanel:SetTemplate('Default', true)
 	E:GetModule('DataTexts'):RegisterPanel(lminipanel, 1, 'ANCHOR_BOTTOMLEFT', lminipanel:GetWidth() * 2, -4)
 	
 	local rminipanel = CreateFrame('Frame', 'RightMiniPanel', Minimap)
 	rminipanel:Point('TOPRIGHT', Minimap, 'BOTTOMRIGHT', 2, -3)
-	rminipanel:Point('BOTTOMLEFT', Minimap, 'BOTTOM', 0, -(3 + PANEL_HEIGHT))
+	rminipanel:Point('BOTTOMLEFT', Minimap, 'BOTTOM', 0, -(4 + PANEL_HEIGHT))
 	rminipanel:SetTemplate('Default', true)
 	E:GetModule('DataTexts'):RegisterPanel(rminipanel, 1, 'ANCHOR_BOTTOM', 0, -4)
 	
@@ -221,11 +231,115 @@ function LO:CreateMinimapPanels()
 	configtoggle:Width(E.RBRWidth)
 	configtoggle:SetTemplate('Default', true)
 	configtoggle.text = configtoggle:CreateFontString(nil, 'OVERLAY')
-	configtoggle.text:FontTemplate()
+	configtoggle.text:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
 	configtoggle.text:SetText('C')
-	configtoggle.text:SetPoint('CENTER')
+	configtoggle.text:SetPoint('CENTER', 2, 1)
 	configtoggle.text:SetJustifyH('CENTER')
 	configtoggle:SetScript('OnClick', function() E:ToggleConfig() end)
+end
+
+function LO:CreateLowerPanel()
+	local lpanel = CreateFrame('Frame', 'LowerPanel', E.UIParent)
+	lpanel:SetFrameStrata('BACKGROUND')
+	lpanel:Width(E.UIParent:GetWidth() + (E.mult * 2))
+	lpanel:Height(LOWER_PANEL_HEIGHT)
+	lpanel:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", -E.mult, -E.mult)
+	lpanel:Point("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", E.mult, -E.mult)
+	lpanel:SetTemplate('Default')	
+end
+
+function LO:CreateUpperPanel()
+	local upanel = CreateFrame('Frame', 'UpperPanel', E.UIParent)
+	upanel:SetFrameStrata('BACKGROUND')
+	upanel:Width(E.UIParent:GetWidth() + (E.mult * 2))
+	upanel:Height(UPPER_PANEL_HEIGHT)
+	upanel:Point("TOPLEFT", E.UIParent, "TOPLEFT", -E.mult, E.mult)
+	upanel:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", E.mult, E.mult)
+	upanel:SetTemplate('Default')	
+end
+
+function LO:CreateLowerDPPanel()
+	local lcdppanel = CreateFrame('Frame', 'LowerCDPPanel', E.UIParent)
+	lcdppanel:Width(436)
+	lcdppanel:Height(PANEL_HEIGHT)
+	lcdppanel:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 9)
+	lcdppanel:SetTemplate('Default', true)	
+	E:GetModule('DataTexts'):RegisterPanel(lcdppanel, 3, 'ANCHOR_TOPLEFT', 0, 4)
+	
+	local lldppanel = CreateFrame('Frame', 'LowerLDPPanel', E.UIParent)
+	lldppanel:Width(220)
+	lldppanel:Height(PANEL_HEIGHT)
+	lldppanel:Point("RIGHT", LowerCDPPanel, "LEFT", -3, 0)
+	lldppanel:SetTemplate('Default', true)	
+	E:GetModule('DataTexts'):RegisterPanel(lldppanel, 1, 'ANCHOR_TOPLEFT', 0, 4)
+
+	local lrdppanel = CreateFrame('Frame', 'LowerRDPPanel', E.UIParent)
+	lrdppanel:Width(220)
+	lrdppanel:Height(PANEL_HEIGHT)
+	lrdppanel:Point("LEFT", LowerCDPPanel, "RIGHT", 3, 0)
+	lrdppanel:SetTemplate('Default', true)	
+	E:GetModule('DataTexts'):RegisterPanel(lrdppanel, 1, 'ANCHOR_TOPRIGHT', 0, 4)
+end
+
+function LO:CreateImbedRecount()
+	local recountpanel = CreateFrame('Frame', 'RecountPanel', E.UIParent)
+	recountpanel:Width(E.db.core.panelWidth)
+	recountpanel:Height(E.db.core.panelHeight)
+	recountpanel:Point("TOPLEFT", RightChatPanel,"TOPLEFT", 5, -5)
+	recountpanel:Point("BOTTOMRIGHT", RightChatPanel,"BOTTOMRIGHT", -5, 31)
+	recountpanel:SetFrameLevel(5)
+end
+
+function LO:CreateFilgerPanels()	
+	local PlayerBuffs = CreateFrame('Frame', 'FilgerPlayerBuffs', E.UIParent)
+	PlayerBuffs:Point('CENTER', E.UIParent, 'CENTER', -300, -62)
+	PlayerBuffs:Size(150, 36)
+	E:CreateMover(PlayerBuffs, 'PlayerBuffsMover', 'Move Player Buffs')
+	
+	local PlayerDebuffs = CreateFrame('Frame', 'FilgerPlayerDebuffs', E.UIParent)
+	PlayerDebuffs:Point('CENTER', E.UIParent, 'CENTER', -300, 0)
+	PlayerDebuffs:Size(150, 72)
+	E:CreateMover(PlayerDebuffs, 'PlayerDebuffsMover', 'Move Player debuffs')
+	
+	local PlayerProccs = CreateFrame('Frame', 'FilgerPlayerProccs', E.UIParent)
+	PlayerProccs:Point('CENTER', E.UIParent, 'CENTER', -300, -203)
+	PlayerProccs:Size(150, 32)
+	E:CreateMover(PlayerProccs, 'PlayerProccsMover', 'Move Player Proccs')
+	
+	local PlayerHealBuffs = CreateFrame('Frame', 'FilgerPlayerHealBuffs', E.UIParent)
+	PlayerHealBuffs:Point('CENTER', E.UIParent, 'CENTER', -300, -104)
+	PlayerHealBuffs:Size(150, 32)
+	E:CreateMover(PlayerHealBuffs, 'PlayerHealBuffsMover', 'Move Heal/CD Frame')
+	
+	local TargetDebuffs = CreateFrame('Frame', 'FilgerTargetDebuffs', E.UIParent)
+	TargetDebuffs:Point('CENTER', E.UIParent, 'CENTER', 300, -62)
+	TargetDebuffs:Size(150, 36)
+	E:CreateMover(TargetDebuffs, 'TargetDebuffsMover', 'Move Target Debuffs')
+	
+	local TargetHeals = CreateFrame('Frame', 'FilgerTargetHeals', E.UIParent)
+	TargetHeals:Point('CENTER', E.UIParent, 'CENTER', 300, -104)
+	TargetHeals:Size(150, 32)
+	E:CreateMover(TargetHeals, 'TargetHealsMover', 'Move Target Heals')
+	
+	local PvPBuffs = CreateFrame('Frame', 'FilgerPvPBuffs', E.UIParent)
+	PvPBuffs:Point('CENTER', E.UIParent, 'CENTER', 300, 0)
+	PvPBuffs:Size(150, 72)
+	E:CreateMover(PvPBuffs, 'CreateMoverMover', 'Move PvP Buffs')
+	
+	local WLBuffs = CreateFrame('Frame', 'FilgerWLBuffs', E.UIParent)
+	WLBuffs:Point('CENTER', E.UIParent, 'CENTER', 0, 145)
+	WLBuffs:Size(150, 50)
+	E:CreateMover(WLBuffs, 'WLBuffsMover', 'Move WL Buffs')
+	
+	local DebuffBars = CreateFrame('Frame', 'FilgerDebuffBars', E.UIParent)
+	DebuffBars:Point('CENTER', E.UIParent, 'CENTER', 300, 145)
+	DebuffBars:Size(150, 50)
+	E:CreateMover(DebuffBars, 'DebuffBarsMover', 'Move Debuff Bars')
+	
+	local CDBars = CreateFrame('Frame', 'FilgerCDBars', E.UIParent)
+	CDBars:Point('CENTER', E.UIParent, 'CENTER', -300, 145)
+	CDBars:Size(150, 50)
+	E:CreateMover(CDBars, 'CDBarsMover', 'Move CD Bars')
 end
 
 E:RegisterModule(LO:GetName())

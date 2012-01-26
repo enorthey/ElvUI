@@ -431,9 +431,9 @@ function UF:CustomTimeText(duration)
 	if not db then return end
 	
 	local text
-	if self.channeling then
-		self.Time:SetText(("%.1f"):format(math.abs(duration - self.max)))
-	else
+	--if self.channeling then
+	--	self.Time:SetText(("%.1f"):format(math.abs(duration - self.max)))
+	--else
 		if db.castbar.format == 'CURRENT' then
 			self.Time:SetText(("%.1f"):format(duration))
 		elseif db.castbar.format == 'CURRENTMAX' then
@@ -441,7 +441,7 @@ function UF:CustomTimeText(duration)
 		elseif db.castbar.format == 'REMAINING' then
 			self.Time:SetText(("%.1f"):format(math.abs(duration - self.max)))
 		end		
-	end
+	--end
 end
 
 local ticks = {}
@@ -503,7 +503,7 @@ function UF:PostCastStart(unit, name, rank, castid)
 		else
 			UF:HideTicks()
 		end
-	else
+	elseif unit == 'player' then
 		UF:HideTicks()			
 	end	
 	
