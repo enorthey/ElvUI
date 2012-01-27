@@ -168,8 +168,8 @@ function AB:StyleButton(button, noResize, noBackdrop)
 	
 	if count then
 		count:ClearAllPoints();
-		count:SetPoint("BOTTOMRIGHT", 0, 2);
-		count:FontTemplate(nil, 11, "OUTLINE");
+		count:SetPoint("BOTTOMRIGHT", 1, 3);
+		count:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline);
 	end
 	
 	if _G[name..'FloatingBG'] then
@@ -201,7 +201,7 @@ function AB:StyleButton(button, noResize, noBackdrop)
 	end
 	
 	if self.db.hotkeytext then
-		hotkey:FontTemplate(nil, E.db.actionbar.fontsize, "OUTLINE");
+		hotkey:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline);
 	end
 	
 	--Extra Action Button
@@ -382,7 +382,7 @@ function AB:FixKeybindText(button)
 	end
 	
 	hotkey:ClearAllPoints()
-	hotkey:Point("TOPRIGHT", 0, -3);  
+	hotkey:Point("TOPRIGHT", 0, -2);  
 end
 
 function AB:ToggleMovers(move)

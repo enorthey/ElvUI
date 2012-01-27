@@ -11,6 +11,8 @@ local function OnEvent(self, event)
 	if GetCombatRating(CR_MASTERY) ~= 0 and GetPrimaryTalentTree() then
 		masteryTag = STAT_MASTERY..": "
 		self.text:SetFormattedText(displayString, masteryTag, GetMastery())
+	else
+		self.text:SetText("No Mastery")
 	end
 end
 
