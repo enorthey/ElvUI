@@ -21,8 +21,8 @@ DF["core"] = {
 	["dtfontoutline"] = "OUTLINE, MONOCHROME",
 		
 	-- textures
-	["normTex"] = "Minimalist",
-	["glossTex"] = "Minimalist",
+	["normTex"] = "Ruben",
+	["glossTex"] = "Ruben",
 	
 	--colors
 	["bordercolor"] = { r = .31,g = .31,b = .31 },
@@ -257,7 +257,7 @@ DF['tooltip'] = {
 DF['unitframe'] = {
 	['enable'] = true,
 	['smoothbars'] = true,
-	['statusbar'] = 'Minimalist',
+	['statusbar'] = 'Ruben',
 	['font'] = 'ElvUI Font',
 	['fontsize'] = 12,
 	['fontoutline'] = 'OUTLINE',
