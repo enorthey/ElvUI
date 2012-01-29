@@ -224,6 +224,8 @@ ns.Filger_Spells = {
 			{ spellID = 6991, size = 36, unitId = "pet", caster = "player", filter = "BUFF" },
 			-- Call of the Wild / Ruf der Wildnis
 			{ spellID = 53434, size = 36, unitId = "player", caster = "player", filter = "BUFF" },
+			-- 4 set bonus
+			{ spellID = 105921, size = 36, unitId = "player", caster = "player", filter = "BUFF" },
 		},
 		{
 			Name = "T_DEBUFF_ICON",

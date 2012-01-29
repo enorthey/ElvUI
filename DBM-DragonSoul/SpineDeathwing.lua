@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(318, "DBM-DragonSoul", nil, 187)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7235 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7236 $"):sub(12, -3))
 mod:SetCreatureID(53879)
 mod:SetModelID(35268)
 mod:SetZone()
@@ -44,7 +44,7 @@ local soundNuclearBlast		= mod:NewSound(105845, nil, mod:IsMelee())
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("InfoFrame", true)
 mod:AddBoolOption("SetIconOnGrip", true)
-mod:AddBoolOption("ShowShieldInfo", mod:IsHealer())
+mod:AddBoolOption("ShowShieldInfo", false)--on 25 man this is quite frankly a spammy nightmare, especially on heroic. off by default since it's really only sensible in 10 man. Besides I may be adding an alternate frame option for "grip damage needed"
 
 local gripTargets = {}
 local gripIcon = 6

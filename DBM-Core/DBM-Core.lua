@@ -41,7 +41,7 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 7235 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 7237 $"):sub(12, -3)),
 	DisplayVersion = "4.10.9 alpha", -- the string that is shown as version
 	ReleaseRevision = 7028 -- the revision of the latest stable version that is available
 }
@@ -2361,7 +2361,17 @@ function DBM:StartCombat(mod, delay, synced)
 			savedDifficulty = PLAYER_DIFFICULTY2.." - "
 		elseif mod:IsDifficulty("normal10") then
 			mod.stats.normalPulls = mod.stats.normalPulls + 1
-			savedDifficulty = PLAYER_DIFFICULTY1.." (10) - "
+			local _, _, _, _, maxPlayers = GetInstanceInfo()
+			--Because classic raids that don't have sizes all return 1.
+			if maxPlayers == 40 then
+				savedDifficulty = PLAYER_DIFFICULTY1.." (40) - "
+			elseif maxPlayers == 25 then
+				savedDifficulty = PLAYER_DIFFICULTY1.." (25) - "
+			elseif maxPlayers == 20 then
+				savedDifficulty = PLAYER_DIFFICULTY1.." (20) - "
+			else
+				savedDifficulty = PLAYER_DIFFICULTY1.." (10) - "
+			end
 		elseif mod:IsDifficulty("heroic10") then
 			mod.stats.heroicPulls = mod.stats.heroicPulls + 1
 			savedDifficulty = PLAYER_DIFFICULTY2.." (10) - "

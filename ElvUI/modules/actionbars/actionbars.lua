@@ -199,6 +199,12 @@ function AB:StyleButton(button, noResize, noBackdrop)
 	if shine then
 		shine:SetAllPoints()
 	end
+
+	if macroName then
+		macroName:ClearAllPoints();
+		macroName:SetPoint("BOTTOMLEFT",1,1);
+		macroName:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
+	end
 	
 	if self.db.hotkeytext then
 		hotkey:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline);
