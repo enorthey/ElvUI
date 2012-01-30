@@ -14,7 +14,6 @@ function LO:Initialize()
 	if E.db.core.lowerPanel then self:CreateLowerPanel() end
 	if E.db.core.upperPanel then self:CreateUpperPanel() end
 	if E.db.datatexts.lowerpanels then self.CreateLowerDPPanel() end
-	if E.db.skins.recount.embed then self.CreateImbedRecount() end
 end
 
 local panel
@@ -148,7 +147,7 @@ function LO:CreateChatPanels()
 	lchattb:SetScript('OnClick', ChatButton_OnClick)
 	lchattb.text = lchattb:CreateFontString(nil, 'OVERLAY')
 	lchattb.text:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
-	lchattb.text:SetPoint('CENTER')
+	lchattb.text:SetPoint('CENTER', 2, 0)
 	lchattb.text:SetJustifyH('CENTER')
 	lchattb.text:SetText('<')
 	
@@ -194,7 +193,7 @@ function LO:CreateChatPanels()
 	rchattb:SetScript('OnClick', ChatButton_OnClick)
 	rchattb.text = rchattb:CreateFontString(nil, 'OVERLAY')
 	rchattb.text:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
-	rchattb.text:SetPoint('CENTER')
+	rchattb.text:SetPoint('CENTER', 2, 0)
 	rchattb.text:SetJustifyH('CENTER')
 	rchattb.text:SetText('>')
 	
@@ -279,15 +278,6 @@ function LO:CreateLowerDPPanel()
 	lrdppanel:Point("LEFT", LowerCDPPanel, "RIGHT", 3, 0)
 	lrdppanel:SetTemplate('Default', true)	
 	E:GetModule('DataTexts'):RegisterPanel(lrdppanel, 1, 'ANCHOR_TOPRIGHT', 0, 4)
-end
-
-function LO:CreateImbedRecount()
-	local recountpanel = CreateFrame('Frame', 'RecountPanel', E.UIParent)
-	recountpanel:Width(E.db.core.panelWidth)
-	recountpanel:Height(E.db.core.panelHeight)
-	recountpanel:Point("TOPLEFT", RightChatPanel,"TOPLEFT", 5, -5)
-	recountpanel:Point("BOTTOMRIGHT", RightChatPanel,"BOTTOMRIGHT", -5, 31)
-	recountpanel:SetFrameLevel(5)
 end
 
 function LO:CreateFilgerPanels()	

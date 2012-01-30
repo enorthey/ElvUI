@@ -11,12 +11,12 @@ local function SetupChat()
 	FCF_DockFrame(ChatFrame2)
 	FCF_SetLocked(ChatFrame2, 1)
 
-	if not E.db.skins.recount.embed then
+	if not E.db.skins.embedRight == nil then
 		FCF_OpenNewWindow(LOOT)
 		FCF_UnDockFrame(ChatFrame3)
 		FCF_SetLocked(ChatFrame3, 1)
 		ChatFrame3:Show()
-	end		
+	end			
 			
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format("ChatFrame%s", i)]
@@ -80,7 +80,7 @@ local function SetupChat()
 	ChatFrame_AddMessageGroup(ChatFrame1, "BN_CONVERSATION")
 	ChatFrame_AddMessageGroup(ChatFrame1, "BN_INLINE_TOAST_ALERT")
 	
-	if not E.db.skins.recount.embed then
+	if not E.db.skins.embedRight == nil then
 		ChatFrame_RemoveAllMessageGroups(ChatFrame3)	
 		ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_FACTION_CHANGE")
 		ChatFrame_AddMessageGroup(ChatFrame3, "SKILL")
@@ -102,6 +102,7 @@ local function SetupChat()
 		ChatFrame_AddMessageGroup(ChatFrame1, "COMBAT_GUILD_XP_GAIN")
 		ChatFrame_AddChannel(ChatFrame1, L['Trade'])
 	end
+
 	
 	if E.myname == "Elv" then
 		--keep losing my god damn channels everytime i resetui
@@ -141,7 +142,7 @@ local function SetupChat()
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL9")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL10")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL11")
-
+	
 	--Adjust Chat Colors
 	--General
 	ChangeChatColor("CHANNEL1", 195/255, 230/255, 232/255)

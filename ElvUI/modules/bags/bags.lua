@@ -244,12 +244,12 @@ function B:Layout(isBank)
 
 	if not isBank then
 		bs = BAGS_BACKPACK
-		cols = (floor((E.db.core.panelWidth - 11)/370 * 11))
+		cols = (floor((E.db.core.panelWidth - 10)/370 * 10))
 		f = bagFrame
 		bSize = 30
 	else
 		bs = BAGS_BANK
-		cols = (floor((E.db.core.panelWidth - 11)/370 * 11))
+		cols = (floor((E.db.core.panelWidth - 10)/370 * 10))
 		f = bankFrame
 		bSize = 30
 	end

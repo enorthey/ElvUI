@@ -268,7 +268,7 @@ L["Horizontal"] = "Horizontal"
 L["Hours"] = "Hours"
 L["Hover your mouse over any actionbutton or spellbook button to bind it. Press the escape key or right click to clear the current actionbutton's keybinding."] = "Hover your mouse over any actionbutton or spellbook button to bind it. Press the escape key or right click to clear the current actionbutton's keybinding."
 L["How far away the portrait is from the camera."] = "How far away the portrait is from the camera."
-L["HP"] = "Heal Power"
+L["HP"] = "HP"
 L["HPS"] = "HPS"
 L["Icon"] = "Icon"
 L["If not set to true then the server time will be displayed instead."] = "If not set to true then the server time will be displayed instead."
@@ -674,6 +674,8 @@ L["You must purchase a bank slot first!"] = "You must purchase a bank slot first
 L["Your items have been repaired for: "] = "Your items have been repaired for: "
 L["Your items have been repaired using guild bank funds for: "] = "Your items have been repaired using guild bank funds for: "
 L["Your version of ElvUI is out of date. You can download the latest version from www.curse.com"] = "Your version of ElvUI is out of date. You can download the latest version from www.curse.com"
+L['Embedded Addon'] = true;
+L['Select an addon to embed to the right chat window. This will resize the addon to fit perfectly into the chat window, it will also parent it to the chat window so hiding the chat window will also hide the addon.'] = true;
 
 L['Lower Panel'] = true;
 L['Enable The Panel Accross The Bottom of the UI.'] = true;

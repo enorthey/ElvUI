@@ -388,7 +388,7 @@ function AB:FixKeybindText(button)
 	end
 	
 	hotkey:ClearAllPoints()
-	hotkey:Point("TOPRIGHT", 0, -2);  
+	hotkey:Point("TOPRIGHT", 0, -3);  
 end
 
 function AB:ToggleMovers(move)

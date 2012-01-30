@@ -42,7 +42,7 @@ function AddOn:OnInitialize()
 	self:UIScale();
 	self:UpdateMedia();
 	self:GetModule('RaidUtility'):Initialize()
-	self:GetModule('Layout'):CreateFilgerPanels()
+	self:GetModule('Layout'):CreateFilgerPanels()	
 	self:RegisterEvent('PLAYER_LOGIN', 'Initialize')
 end
 

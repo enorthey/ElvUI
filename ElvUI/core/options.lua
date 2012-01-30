@@ -341,24 +341,8 @@ E.Options.args.core = {
 			guiInline = true,
 			order = 8,
 			args = {
-				spincam = {
-					order = 1,
-					type = "toggle",
-					name = L["spincam"],
-					desc = L['Spin Camera While AFK'],
-					get = function(info) return E.db.core.spincam end,
-					set = function(info, value) E.db.core.spincam = value; StaticPopup_Show("CONFIG_RL") end
-				},	
-				autolag = {
-					order = 2,
-					type = "toggle",
-					name = L['Auto Custom Lag Tolerance'],
-					desc = L['Auto Custom Lag Tolerance based off of latency'],
-					get = function(info) return E.db.core.autocustomlagtolerance end,
-					set = function(info, value) E.db.core.autocustomlagtolerance = value; StaticPopup_Show("CONFIG_RL") end
-				},		
 				autoinvite = {
-					order = 3,
+					order = 1,
 					type = "toggle",
 					name = L['AutoInvite'],
 					desc = L['Auto excepts invites from friends and guildmates'],
@@ -366,7 +350,7 @@ E.Options.args.core = {
 					set = function(info, value) E.db.core.autoinvite = value; StaticPopup_Show("CONFIG_RL") end
 				},	
 				autoRepair = {
-					order = 4,
+					order = 2,
 					name = L['Auto Repair'],
 					desc = L['Automatically repair using the following method when visiting a merchant.'],
 					type = 'select',
@@ -377,7 +361,7 @@ E.Options.args.core = {
 					},				
 				},	
 				interruptAnnounce = {
-					order = 5,
+					order = 3,
 					name = L['Announce Interrupts'],
 					desc = L['Announce when you interrupt a spell to the specified chat channel.'],
 					type = 'select',
@@ -389,7 +373,7 @@ E.Options.args.core = {
 					},
 				},	
 				sellgrays = {
-					order = 6,
+					order = 4,
 					name = L['Vendor Grays'],
 					desc = L['Automatically vendor gray quailty items when visiting a merchant'],
 					type = 'toggle',
@@ -397,7 +381,7 @@ E.Options.args.core = {
 					set = function(info, value) E.db.core.sellgrays = value; StaticPopup_Show("CONFIG_RL") end
 				},		
 				expRepPos = {
-					order = 7,
+					order = 5,
 					type = 'select',
 					name = L['Exp/Rep Position'],
 					desc = L['Change the position of the experience/reputation bar.'],
@@ -408,7 +392,7 @@ E.Options.args.core = {
 					},
 				},
 				mapTransparency = {
-					order = 8,
+					order = 6,
 					name = L['Map Transparency'],
 					desc = L['Controls what the transparency of the worldmap will be set to when you are moving.'],
 					type = 'range',

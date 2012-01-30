@@ -33,7 +33,7 @@ local function LoadSkin()
 			icon:Point("TOPLEFT", 2, -2)
 			icon:Point("BOTTOMRIGHT", -2, 2)
 			icon:SetTexCoord(unpack(E.TexCoords))
-
+			
 			button.searchOverlay:ClearAllPoints()
 			button.searchOverlay:SetAllPoints(icon)
 			

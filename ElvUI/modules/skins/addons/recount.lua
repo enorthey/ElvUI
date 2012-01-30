@@ -3,19 +3,26 @@ local S = E:GetModule('Skins')
 
 local function SkinFrame(frame)
 	frame.bgMain = CreateFrame("Frame", nil, frame)
-	--frame.bgMain:SetTemplate("Transparent")
+	--frame.bgMain:SetTemplate("Default")
 	frame.bgMain:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT")
 	frame.bgMain:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT")
 	frame.bgMain:SetPoint("TOP", frame, "TOP", 0, -30)
 	frame.bgMain:SetFrameLevel(frame:GetFrameLevel())
+	frame.bgMain:SetScale(1)
+	frame.bgMain.SetScale = E.noop
 	
 	frame.bgTitle = CreateFrame('Frame', nil, frame)
 	frame.bgTitle:SetTemplate('Default', true)
 	frame.bgTitle:Point("TOPRIGHT", frame, "TOPRIGHT", 0, -10)
 	frame.bgTitle:Point("TOPLEFT", frame, "TOPLEFT", 0, -6)
 	frame.bgTitle:Point("BOTTOM", frame, "TOP", 0, -28)
-	--frame.bgTitle.backdropTexture:SetVertexColor(unpack(E['media'].bordercolor))
 	frame.bgTitle:SetFrameLevel(frame:GetFrameLevel())
+	frame.bgTitle:SetScale(1)
+	frame.bgTitle.SetScale = E.noop
+	
+	frame.Title:SetPoint("TOPLEFT",frame,"TOPLEFT",7,-11)
+	frame.Title:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
+	frame.Title:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	
 	frame.CloseButton:SetPoint("TOPRIGHT",frame,"TOPRIGHT",-1,-7)
 	frame.CloseButton:SetNormalTexture("")
@@ -27,10 +34,6 @@ local function SkinFrame(frame)
 	frame.CloseButton.t:SetText("X")
 	
 	S:HandleScrollBar(Recount_MainWindow_ScrollBarScrollBar)
-	
-	frame.Title:SetPoint("TOPLEFT",frame,"TOPLEFT",7,-11)
-	frame.Title:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
-	frame.Title:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	frame:SetBackdrop(nil)
 end
 
@@ -41,28 +44,22 @@ local function SkinFrame2(frame)
 	frame.bgMain:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT")
 	frame.bgMain:SetPoint("TOP", frame, "TOP", 0, -30)
 	frame.bgMain:SetFrameLevel(frame:GetFrameLevel())
+	frame.bgMain:SetScale(1)
+	frame.bgMain.SetScale = E.noop
 	
 	frame.bgTitle = CreateFrame('Frame', nil, frame)
 	frame.bgTitle:SetTemplate('Default', true)
 	frame.bgTitle:Point("TOPRIGHT", frame, "TOPRIGHT", 0, -10)
-	frame.bgTitle:Point("TOPLEFT", frame, "TOPLEFT", 0, -6)
-	frame.bgTitle:Point("BOTTOM", frame, "TOP", 0, -28)
+	frame.bgTitle:Point("TOPLEFT", frame, "TOPLEFT", 0, -9)
+	frame.bgTitle:Point("BOTTOM", frame, "TOP", 0, -29)
+	frame.bgTitle.backdropTexture:SetVertexColor(unpack(E['media'].bordercolor))
 	frame.bgTitle:SetFrameLevel(frame:GetFrameLevel())
+	frame.bgTitle:SetScale(1)
+	frame.bgTitle.SetScale = E.noop
 	
-	frame.CloseButton:SetPoint("TOPRIGHT",frame,"TOPRIGHT",-1,-7)
-	frame.CloseButton:SetNormalTexture("")
-	frame.CloseButton:SetPushedTexture("")
-	frame.CloseButton:SetHighlightTexture("")
-	frame.CloseButton.t = frame.CloseButton:CreateFontString(nil, "OVERLAY")
-	frame.CloseButton.t:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
-	frame.CloseButton.t:SetPoint("CENTER", 0, 1)
-	frame.CloseButton.t:SetText("X")
-	
+	frame.CloseButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -1, -9)
+	S:HandleCloseButton(frame.CloseButton)
 	S:HandleScrollBar(Recount_MainWindow_ScrollBarScrollBar)
-	
-	frame.Title:SetPoint("TOPLEFT",frame,"TOPLEFT",7,-11)
-	frame.Title:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
-	frame.Title:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	frame:SetBackdrop(nil)
 end
 
@@ -98,7 +95,7 @@ local function LoadSkin()
 	if _G["Recount_Realtime_Latency_LAG"] then SkinFrame2(_G["Recount_Realtime_Latency_LAG"].Window) end
 	if _G["Recount_Realtime_Downstream Traffic_DOWN_TRAFFIC"] then SkinFrame2(_G["Recount_Realtime_Downstream Traffic_DOWN_TRAFFIC"].Window) end
 	if _G["Recount_Realtime_Upstream Traffic_UP_TRAFFIC"] then SkinFrame2(_G["Recount_Realtime_Upstream Traffic_UP_TRAFFIC"].Window) end
-	
+
 	-- skin dropdown
 	Recount.MainWindow.FileButton:HookScript("OnClick", function(self) if LibDropdownFrame0 then LibDropdownFrame0:SetTemplate() end end)
 	
@@ -136,25 +133,11 @@ local function LoadSkin()
 	Recount.MainWindow.ResetButton.text:SetText(E.ValColor.."R")
 	Recount.MainWindow.FileButton.text:SetText(E.ValColor.."F")
 	Recount.MainWindow.ConfigButton.text:SetText(E.ValColor.."C")
-	Recount.MainWindow.ReportButton.text:SetText(E.ValColor.."S")
-
-	if E.db.skins.recount.embed then
-		local Recount_Skin = CreateFrame("Frame")
-		Recount_Skin:RegisterEvent("PLAYER_ENTERING_WORLD")
-		Recount_Skin:SetScript("OnEvent", function(self)
-		self:UnregisterAllEvents()
-		self = nil
-
-		Recount_MainWindow:ClearAllPoints()
-		Recount_MainWindow:SetPoint("TOPLEFT", RecountPanel,"TOPLEFT", 0, 6)
-		Recount_MainWindow:SetPoint("BOTTOMRIGHT", RecountPanel,"BOTTOMRIGHT", 0, 0)
-		Recount.db.profile.MainWindowWidth = (E.db.core.panelWidth - 5)	
+	Recount.MainWindow.ReportButton.text:SetText(E.ValColor.."S")	
+	
 		Recount.db.profile.Locked = true
 		Recount.db.profile.Font = "ElvUI Font"
-		Recount.db.profile.BarTexture = "Ruben"
-	end)
-end
-
+		Recount.db.profile.BarTexture = "Ruben"	
 end
 
 S:RegisterSkin('Recount', LoadSkin)

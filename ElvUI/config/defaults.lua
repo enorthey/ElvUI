@@ -28,7 +28,7 @@ DF["core"] = {
 	["bordercolor"] = { r = .31,g = .31,b = .31 },
 	["backdropcolor"] = { r = .1,g = .1,b = .1 },
 	["backdropfadecolor"] = { r = .06,g = .06,b = .06, a = 0.9 },
-	["castbarcolor"] = { r = .5,g = .5,b = .5 },
+	["castbarcolor"] = { r = .5,g = .5,b = .5 },	
 	["valuecolor"] = {r = 23/255,g = 132/255,b = 209/255},
 	
 	--panels
@@ -36,20 +36,18 @@ DF["core"] = {
 	['panelHeight'] = 180,
 	['panelBackdropNameLeft'] = '',
 	['panelBackdropNameRight'] = '',
-	['upperPanel'] = true,
-	['lowerPanel'] = true,
 	['panelBackdrop'] = 'SHOWBOTH',
 	['expRepPos'] = 'MINIMAP_BOTTOM',
+	['upperPanel'] = true,
+	['lowerPanel'] = true,
 	
 	--misc
 	['bags'] = true,
 	['loot'] = true,
 	['lootRoll'] = true,
 	['sellgrays'] = true,
-	['mapTransparency'] = 0.5,
 	['autoinvite'] = true,
-	['spincam'] = true,
-	['autocustomlagtolerance'] = true,
+	['mapTransparency'] = 0.5,
 };
 
 --NamePlate
@@ -80,7 +78,7 @@ DF["nameplate"] = {
 --Auras
 DF['auras'] = {
 	['enable'] = true,
-	['size'] = 38,
+	['size'] = 38,	
 	['perRow'] = 12,
 }
 
@@ -115,6 +113,7 @@ DF['classtimer'] = {
 
 --Skins
 DF['skins'] = {
+	['embedRight'] = 'Recount',
 	['bigwigs'] = {
 		['enable'] = true,
 		['spacing'] = 7,
@@ -124,7 +123,6 @@ DF['skins'] = {
 	},
 	['recount'] = {
 		['enable'] = true,
-		['embed'] = true,
 	},	
 	['dbm'] = {
 		['enable'] = true,
@@ -203,7 +201,7 @@ DF['datatexts'] = {
 			['RightChatDataPanel'] = {
 				['left'] = 'System',
 				['middle'] = 'Time',	
-				['right'] = 'SpecSwitch',
+				['right'] = 'Spec Switch',
 			},
 			['LeftMiniPanel'] = 'Guild',
 			['RightMiniPanel'] = 'Friends',	
@@ -224,7 +222,7 @@ DF['datatexts'] = {
 			['RightChatDataPanel'] = {
 				['left'] = 'System',
 				['middle'] = 'Time',	
-				['right'] = 'SpecSwitch',
+				['right'] = 'Spec Switch',
 			},
 			['LeftMiniPanel'] = 'Guild',
 			['RightMiniPanel'] = 'Friends',	
@@ -250,7 +248,6 @@ DF['tooltip'] = {
 	['ufhide'] = false,
 	['whostarget'] = true,
 	['combathide'] = false,
-	['itemid'] = false,
 }
 
 --UnitFrame
@@ -1190,6 +1187,7 @@ DF['unitframe'] = {
 	},
 };
 
+--Actionbar
 DF["actionbar"] = {
 	["enable"] = true,
 	["macrotext"] = true,
