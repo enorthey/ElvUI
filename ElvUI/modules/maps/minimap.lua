@@ -155,7 +155,7 @@ function M:LoadMinimap()
 	HideUIPanel(SpellBookFrame)	
 	
 	Minimap.location = Minimap:CreateFontString(nil, 'OVERLAY')
-	Minimap.location:FontTemplate(nil, nil, 'OUTLINE')
+	Minimap.location:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
 	Minimap.location:Point('TOP', Minimap, 'TOP', 0, -2)
 	Minimap.location:SetJustifyH("CENTER")
 	Minimap.location:SetJustifyV("MIDDLE")			
@@ -254,7 +254,7 @@ function M:LoadMinimap()
 	FarmModeMap:SetScript('OnShow', function() 	
 		if E.db["movers"] == nil or (E.db["movers"] and E.db["movers"]['AurasMover'] == nil) then
 			AurasMover:ClearAllPoints()
-			AurasMover:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -3, -3)
+			AurasMover:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -5, -5)
 		end
 		MinimapCluster:ClearAllPoints()
 		MinimapCluster:SetAllPoints(FarmModeMap)
