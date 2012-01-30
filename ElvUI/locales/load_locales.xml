@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<Script file="english.lua"/>
 	<Script file="french.lua"/>
@@ -8,4 +9,16 @@
 	<Script file="korean.lua"/>
 	<Script file="china.lua"/>
 	<Script file="portuguese.lua"/>
+=======
+<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<Script file="english.lua"/>
+	<Script file="french.lua"/>
+	<Script file="russian.lua"/>
+	<Script file="german.lua"/>
+	<Script file="taiwan.lua"/>
+	<Script file="spanish.lua"/>
+	<Script file="korean.lua"/>
+	<Script file="china.lua"/>
+	<Script file="portuguese.lua"/>
+>>>>>>> origin/master
 </Ui>
