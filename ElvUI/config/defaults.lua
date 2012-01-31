@@ -1195,6 +1195,12 @@ DF["actionbar"] = {
 	["enable"] = true,
 	["macrotext"] = true,
 	["hotkeytext"] = true,
+<<<<<<< HEAD:ElvUI/config/defaults.lua
+=======
+	["buttonsize"] = 32,
+	["altbuttonsize"] = 32,
+	["buttonspacing"] = 4,
+>>>>>>> origin/master:ElvUI/config/defaults.lua
 	['fontsize'] = 11,
 	["enablecd"] = true,
 	["treshold"] = 3,

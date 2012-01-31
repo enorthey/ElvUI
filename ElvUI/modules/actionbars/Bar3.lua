@@ -156,7 +156,11 @@ end
 function AB:CreateBar3()
 	bar:CreateBackdrop('Default');
 	bar.backdrop:SetAllPoints();
+<<<<<<< HEAD:ElvUI/modules/actionbars/Bar3.lua
 	bar:Point('BOTTOM', ElvUI_Bar1, 'TOP', 0, -(E:Scale(self.db[barName].buttonsize) + (E:Scale(self.db[barName].buttonspacing) * 2 )));
+=======
+	bar:Point('BOTTOM', ElvUI_Bar1, 'TOP', 0, -(E:Scale(self.db.buttonsize) + (E:Scale(self.db.buttonspacing) * 2 )));
+>>>>>>> origin/master:ElvUI/modules/actionbars/Bar3.lua
 	bar.buttons = {}
 	bar.bindButtons = 'MULTIACTIONBAR1BUTTON'
 	
