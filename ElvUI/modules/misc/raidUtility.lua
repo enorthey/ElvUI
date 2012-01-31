@@ -86,11 +86,7 @@ function RU:Initialize()
 	RaidUtilityPanel:SetFrameStrata("HIGH")
 
 	--Show Button
-<<<<<<< HEAD:ElvUI/modules/misc/raidUtility.lua
 	self:CreateUtilButton("ShowButton", E.UIParent, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", 135, 20, "TOP", E.UIParent, "TOP", -600, -9, RAID_CONTROL, nil)
-=======
-	self:CreateUtilButton("ShowButton", E.UIParent, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", 80, 22, "TOP", E.UIParent, "TOP", -600, -9, RAID_CONTROL, nil)
->>>>>>> origin/master:ElvUI/modules/misc/raidUtility.lua
 	ShowButton:SetFrameRef("RaidUtilityPanel", RaidUtilityPanel)
 	ShowButton:SetAttribute("_onclick", [=[
 		local raidUtil = self:GetFrameRef("RaidUtilityPanel")

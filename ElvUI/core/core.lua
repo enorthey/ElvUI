@@ -341,13 +341,6 @@ function E:Initialize()
 	self.data.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
 	self.data.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
 	self.db = self.data.profile;
-<<<<<<< HEAD:ElvUI/core/core.lua
-=======
-
-	if self.db.core.loginmessage then
-		print(format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version, self["media"].hexvaluecolor))
-	end
->>>>>>> origin/master:ElvUI/core/core.lua
 	
 	self:CheckIncompatible()
 	
