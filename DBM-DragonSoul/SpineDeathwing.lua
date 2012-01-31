@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(318, "DBM-DragonSoul", nil, 187)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7236 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7239 $"):sub(12, -3))
 mod:SetCreatureID(53879)
 mod:SetModelID(35268)
 mod:SetZone()
@@ -26,16 +26,19 @@ local warnResidue			= mod:NewCountAnnounce("ej4057", 3, nil, false) -- maybe inf
 local warnGrip				= mod:NewTargetAnnounce(109459, 4)
 local warnNuclearBlast		= mod:NewCastAnnounce(105845, 4)
 local warnSealArmor			= mod:NewCastAnnounce(105847, 4)
+local warnAmalgamation		= mod:NewSpellAnnounce("ej4054", 3)--Amalgamation spawning
 
 local specWarnRoll			= mod:NewSpecialWarningSpell("ej4050", nil, nil, nil, true)--The actual roll
 local specWarnTendril		= mod:NewSpecialWarning("SpecWarnTendril")--A personal warning for you only if you're not gripped 3 seconds after roll started
 local specWarnGrip			= mod:NewSpecialWarningSpell(109459, mod:IsDps())
 local specWarnNuclearBlast	= mod:NewSpecialWarningRun(105845, mod:IsMelee())
 local specWarnSealArmor		= mod:NewSpecialWarningSpell(105847, mod:IsDps())
+local specWarnAmalgamation	= mod:NewSpecialWarningSpell("ej4054", false)
 
 local timerSealArmor		= mod:NewCastTimer(23, 105847)
 local timerBarrelRoll		= mod:NewCastTimer(5, "ej4050")
 local timerGripCD			= mod:NewNextTimer(32, 109457)
+local timerDeathCD			= mod:NewCDTimer(8.5, 106199)--8.5-10sec variation.
 
 local countdownRoll			= mod:NewCountdown(5, "ej4050")
 
@@ -54,10 +57,6 @@ local residueCount = 0
 local function checkTendrils()
 	if not UnitDebuff("player", GetSpellInfo(109454)) and not UnitIsDeadOrGhost("player") then
 		specWarnTendril:Show()
-	end
-	if mod.Options.InfoFrame and not DBM.InfoFrame:IsShown() then
-		DBM.InfoFrame:SetHeader(L.NoDebuff:format(GetSpellInfo(109454)))
-		DBM.InfoFrame:Show(5, "playergooddebuff", 109454)
 	end
 end
 
@@ -184,7 +183,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(105248) then
 		residueCount = residueCount - 1
 		warnAbsorbedBlood:Cancel()--Just a little anti spam
-		warnAbsorbedBlood:Schedule(2, args.destName, args.amount or 1)
+		warnAbsorbedBlood:Schedule(1.25, args.destName, args.amount or 1)
 	elseif args:IsSpellID(105490, 109457, 109458, 109459) then
 		gripTargets[#gripTargets + 1] = args.destName
 		timerGripCD:Cancel(args.sourceGUID)
@@ -242,6 +241,10 @@ function mod:RAID_BOSS_EMOTE(msg)
 		self:Schedule(8, clearTendrils)--Clearing 3 seconds after the roll should be sufficent
 		timerBarrelRoll:Start()
 		countdownRoll:Start(5)
+		if self.Options.InfoFrame and not DBM.InfoFrame:IsShown() then
+			DBM.InfoFrame:SetHeader(L.NoDebuff:format(GetSpellInfo(109454)))
+			DBM.InfoFrame:Show(5, "playergooddebuff", 109454)
+		end
 	elseif msg == L.DLevels or msg:find(L.DLevels) then
 		self:Unschedule(checkTendrils)
 		self:Unschedule(clearTendrils)
@@ -255,6 +258,11 @@ function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 53891 or cid == 56162 or cid == 56161 then
 		timerGripCD:Cancel(args.sourceGUID)
+		warnAmalgamation:Schedule(4.5)--4.5-5 seconds after corruption dies.
+		specWarnAmalgamation:Schedule(4.5)
+		if self:IsDifficulty("heroic10", "heroic25") then
+			timerDeathCD:Start(args.destGUID)
+		end
 	elseif cid == 56341 or cid == 56575 then
 		timerSealArmor:Cancel()
 	end
