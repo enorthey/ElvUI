@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(193, "DBM-Firelands", nil, 78)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 6490 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7250 $"):sub(12, -3))
 mod:SetCreatureID(52558)--or does 53772 die instead?didn't actually varify this fires right unit_died event yet so we'll see tonight
 mod:SetModelID(38414)
 mod:SetZone()
@@ -25,8 +25,8 @@ local warnHeatedVolcano		= mod:NewSpellAnnounce(98493, 3)
 local warnFlameStomp		= mod:NewSpellAnnounce(97282, 3, nil, mod:IsMelee())--According to journal only hits players within 20 yards of him, so melee by default?
 local warnMoltenArmor		= mod:NewStackAnnounce(98255, 4, nil, mod:IsTank() or mod:IsHealer())	-- Would this be nice if we could show this in the infoFrame? (changed defaults to tanks/healers, if you aren't either it doesn't concern you unless you find shit to stand in)
 local warnDrinkMagma		= mod:NewSpellAnnounce(98034, 4)	-- if you "kite" him to close to magma
-local warnFragments			= mod:NewSpellAnnounce(98136, 2)
-local warnShard				= mod:NewCountAnnounce(98552, 3)
+local warnFragments			= mod:NewSpellAnnounce("ej2531", 2, 98136)
+local warnShard				= mod:NewCountAnnounce("ej2532", 3, 98552)
 local warnMagmaFlow			= mod:NewSpellAnnounce(97225, 4)
 local warnPhase2Soon		= mod:NewPrePhaseAnnounce(2, 2)
 local warnPhase2			= mod:NewPhaseAnnounce(2, 3)
@@ -34,8 +34,8 @@ local warnPhase2			= mod:NewPhaseAnnounce(2, 3)
 local specWarnMagmaFlow		= mod:NewSpecialWarningSpell(97225, nil, nil, nil, true)
 local specWarnFlameStomp	= mod:NewSpecialWarningSpell(97282, false)
 
-local timerSparkCD			= mod:NewNextCountTimer(22.5, 98552)
-local timerFragmentCD		= mod:NewNextTimer(22.5, 98136)
+local timerFragmentCD		= mod:NewNextTimer(22.5, "ej2531", nil, nil, nil, 98136)
+local timerSparkCD			= mod:NewNextCountTimer(22.5, "ej2532", nil, nil, nil, 98552)
 local timerHeatedVolcano	= mod:NewNextTimer(25.5, 98493)
 local timerFlameStomp		= mod:NewNextTimer(30.5, 97282)
 local timerSuperheated		= mod:NewNextTimer(10, 101305)		--Add the 10 second party in later at some point if i remember to actually log it better
@@ -127,6 +127,10 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.yellPhase2 or msg:find(L.yellPhase2) then
+		StompCountown:Cancel()
+		timerFlameStomp:Cancel()
+		StompCountown:Start(6)
+		timerFlameStomp:Start(6)
 		warnPhase2:Show()
 		phase = 2
 	end

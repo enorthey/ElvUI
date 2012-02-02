@@ -225,7 +225,7 @@ ns.Filger_Spells = {
 			-- Call of the Wild / Ruf der Wildnis
 			{ spellID = 53434, size = 36, unitId = "player", caster = "player", filter = "BUFF" },
 			-- 4 set bonus
-			{ spellID = 105921, size = 36, unitId = "player", caster = "player", filter = "BUFF" },
+			{ spellID = 105919, size = 36, unitId = "player", caster = "player", filter = "BUFF" },
 		},
 		{
 			Name = "T_DEBUFF_ICON",
@@ -932,6 +932,8 @@ ns.Filger_Spells = {
 			{ spellID = 84746, size = 36, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Deep Insight
 			{ spellID = 84747, size = 36, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Recuperate
+			{ spellID = 73651, size = 36, unitId = "player", caster = "player", filter = "BUFF" },
 		},
 		{
 			Name = "T_DEBUFF_ICON",
