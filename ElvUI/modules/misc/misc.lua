@@ -182,6 +182,7 @@ function M:Initialize()
 	self:LoadMirrorBars()
 	self:LoadLoot()
 	self:LoadLootRoll()
+	if E.db.core.autoinvite then self.AutoInvite() end
 	self:RegisterEvent('MERCHANT_SHOW')
 	self:RegisterEvent('PLAYER_REGEN_DISABLED', 'ErrorFrameToggle')
 	self:RegisterEvent('PLAYER_REGEN_ENABLED', 'ErrorFrameToggle')
