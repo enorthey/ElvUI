@@ -622,6 +622,7 @@ function TT:Initialize()
 		end
 	end)
 	
+	
 	BNToastFrame:Point('TOPRIGHT', MMHolder, 'BOTTOMRIGHT', 0, -10);
 	E:CreateMover(BNToastFrame, 'BNETMover', 'BNet Frame')
 	BNToastFrame.SetPoint = E.noop

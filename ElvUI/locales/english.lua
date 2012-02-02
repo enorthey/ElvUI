@@ -8,6 +8,7 @@ else
 end
 
 if not L then return; end
+
 L["24-Hour Time"] = "24-Hour Time"
 L["Achievement Frame"] = "Achievement Frame"
 L["Achievement Popup Frames"] = "Achievement Popup Frames"
@@ -674,10 +675,7 @@ L["You must purchase a bank slot first!"] = "You must purchase a bank slot first
 L["Your items have been repaired for: "] = "Your items have been repaired for: "
 L["Your items have been repaired using guild bank funds for: "] = "Your items have been repaired using guild bank funds for: "
 L["Your version of ElvUI is out of date. You can download the latest version from www.curse.com"] = "Your version of ElvUI is out of date. You can download the latest version from www.curse.com"
-<<<<<<< HEAD:locales/english.lua
-=======
-L['Embedded Addon'] = true;
-L['Select an addon to embed to the right chat window. This will resize the addon to fit perfectly into the chat window, it will also parent it to the chat window so hiding the chat window will also hide the addon.'] = true;
+
 
 L['Lower Panel'] = true;
 L['Enable The Panel Accross The Bottom of the UI.'] = true;
@@ -701,4 +699,3 @@ L['Size'] = true;
 L['Controls the size of the auras.'] = true;
 L['Per Row'] = true;
 L['Controls the number of auras per row.'] = true;	
->>>>>>> origin/master:ElvUI/locales/english.lua

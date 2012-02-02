@@ -953,7 +953,7 @@ DF['unitframe'] = {
 					['anchorPoint'] = 'TOPLEFT',
 					['xOffset'] = -1,
 					['yOffset'] = 0,
-				},				
+				},		
 			},
 			['raid625'] = {
 				['enable'] = true,
@@ -1171,7 +1171,7 @@ DF['unitframe'] = {
 					['anchorPoint'] = 'TOP',
 					['xOffset'] = 0,
 					['yOffset'] = 1,
-				},		
+				},	
 				['targetsGroup'] = {
 					['enable'] = false,
 					['width'] = 80,
@@ -1179,7 +1179,7 @@ DF['unitframe'] = {
 					['anchorPoint'] = 'TOP',
 					['xOffset'] = 0,
 					['yOffset'] = 1,
-				},					
+				},				
 			},
 			['raid625'] = {
 				['healPrediction'] = true,
