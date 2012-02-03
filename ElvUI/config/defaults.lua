@@ -9,14 +9,8 @@ DF["core"] = {
 	["autoscale"] = true,
 	["stickyFrames"] = true,
 	['loginmessage'] = true,
-<<<<<<< HEAD:config/defaults.lua
-	["interruptAnnounce"] = "NONE",
-	["autoRepair"] = "NONE",
-	['autoAcceptInvite'] = false,
-=======
 	["interruptAnnounce"] = "RAID",
 	["autoRepair"] = "GUILD",
->>>>>>> origin/master:ElvUI/config/defaults.lua
 	
 	-- fonts
 	["fontsize"] = 12,
@@ -52,7 +46,7 @@ DF["core"] = {
 	['loot'] = true,
 	['lootRoll'] = true,
 	['sellgrays'] = true,
-	['autoinvite'] = true,
+	['autoAcceptInvite'] = false,
 	['mapTransparency'] = 0.5,
 };
 

@@ -126,50 +126,53 @@ function M:CheckMovement()
 	end
 end
 
-function M:AutoInvite()
-	local tAutoAcceptInvite = CreateFrame("Frame")
-	tAutoAcceptInvite:RegisterEvent("PARTY_INVITE_REQUEST")
-	tAutoAcceptInvite:RegisterEvent("PARTY_MEMBERS_CHANGED")
+local hideStatic = false;
+function M:AutoInvite(event, leaderName)
+	if not E.db.core.autoAcceptInvite then return; end
 	
-	local hidestatic -- used to hide static popup when auto-accepting
+	if event == "PARTY_INVITE_REQUEST" then
+		if MiniMapLFGFrame:IsShown() then return end -- Prevent losing que inside LFD if someone invites you to group
+		if GetNumPartyMembers() > 0 or GetNumRaidMembers() > 0 then return end
+		hideStatic = true
 	
-	tAutoAcceptInvite:SetScript("OnEvent", function(self, event, ...)
-		arg1 = ...
-		local leader = arg1
-		local ingroup = false
+		-- Update Guild and Friendlist
+		if GetNumFriends() > 0 then ShowFriends() end
+		if IsInGuild() then GuildRoster() end
 		
-		if event == "PARTY_INVITE_REQUEST" then
-			if MiniMapLFGFrame:IsShown() then return end -- Prevent losing que inside LFD if someone invites you to group
-			if GetNumPartyMembers() > 0 or GetNumRaidMembers() > 0 then return end
-			hidestatic = true
+		for friendIndex = 1, GetNumFriends() do
+			local friendName = GetFriendInfo(friendIndex)
+			if friendName == leaderName then
+				AcceptGroup()
+				ingroup = true
+				break
+			end
+		end
 		
-			-- Update Guild and Friendlist
-			if GetNumFriends() > 0 then ShowFriends() end
-			if IsInGuild() then GuildRoster() end
-			
-			for friendIndex = 1, GetNumFriends() do
-				local friendName = GetFriendInfo(friendIndex)
-				if friendName == leader then
+		if not ingroup then
+			for guildIndex = 1, GetNumGuildMembers(true) do
+				local guildMemberName = GetGuildRosterInfo(guildIndex)
+				if guildMemberName == leaderName then
 					AcceptGroup()
 					ingroup = true
 					break
 				end
 			end
-			
-			if not ingroup then
-				for guildIndex = 1, GetNumGuildMembers(true) do
-					local guildMemberName = GetGuildRosterInfo(guildIndex)
-					if guildMemberName == leader then
-						AcceptGroup()
-						break
-					end
+		end
+		
+		if not ingroup then
+			for bnIndex = 1, BNGetNumFriends() do
+				local _, _, _, name = BNGetFriendInfo(bnIndex)
+				leaderName = leaderName:match("(.+)%-.+") or leaderName
+				if name == leaderName then
+					AcceptGroup()
+					break
 				end
 			end
-		elseif event == "PARTY_MEMBERS_CHANGED" and hidestatic == true then
-			StaticPopup_Hide("PARTY_INVITE")
-			hidestatic = false
 		end
-	end)
+	elseif event == "PARTY_MEMBERS_CHANGED" and hideStatic == true then
+		StaticPopup_Hide("PARTY_INVITE")
+		hideStatic = false
+	end
 end
 
 function M:PVPMessageEnhancement(_, msg)
@@ -182,7 +185,6 @@ function M:Initialize()
 	self:LoadMirrorBars()
 	self:LoadLoot()
 	self:LoadLootRoll()
-	if E.db.core.autoinvite then self.AutoInvite() end
 	self:RegisterEvent('MERCHANT_SHOW')
 	self:RegisterEvent('PLAYER_REGEN_DISABLED', 'ErrorFrameToggle')
 	self:RegisterEvent('PLAYER_REGEN_ENABLED', 'ErrorFrameToggle')
@@ -190,6 +192,8 @@ function M:Initialize()
 	self:RegisterEvent('CHAT_MSG_BG_SYSTEM_HORDE', 'PVPMessageEnhancement')
 	self:RegisterEvent('CHAT_MSG_BG_SYSTEM_ALLIANCE', 'PVPMessageEnhancement')
 	self:RegisterEvent('CHAT_MSG_BG_SYSTEM_NEUTRAL', 'PVPMessageEnhancement')
+	self:RegisterEvent('PARTY_INVITE_REQUEST', 'AutoInvite')
+	self:RegisterEvent('PARTY_MEMBERS_CHANGED', 'AutoInvite')
 	
 	self.MovingTimer = self:ScheduleRepeatingTimer("CheckMovement", 0.1)
 	

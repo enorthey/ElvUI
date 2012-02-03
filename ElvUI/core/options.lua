@@ -64,36 +64,6 @@ E.Options.args.core = {
 				},
 				uiscale = {
 					order = 2,
-<<<<<<< HEAD:core/options.lua
-					name = L['Auto Repair'],
-					desc = L['Automatically repair using the following method when visiting a merchant.'],
-					type = 'select',
-					values = {
-						['NONE'] = NONE,
-						['GUILD'] = GUILD,
-						['PLAYER'] = PLAYER,
-					},				
-				},
-				expRepPos = {
-					order = 3,
-					type = 'select',
-					name = L['Exp/Rep Position'],
-					desc = L['Change the position of the experience/reputation bar.'],
-					set = function(info, value) E.db.core.expRepPos = value; E:GetModule('Misc'):UpdateExpRepBarAnchor() end,
-					values = {
-						['TOP_SCREEN'] = L['Top Screen'],
-						['MINIMAP_BOTTOM'] = L["Below Minimap"],
-					},
-				},				
-				autoAcceptInvite = {
-					order = 4,
-					name = L['Accept Invites'],
-					desc = L['Automatically accept invites from guild/friends.'],
-					type = 'toggle',
-				},
-				bags = {
-					order = 5,
-=======
 					name = L["Scale"],
 					desc = L["Controls the scaling of the entire User Interface"],
 					disabled = function(info) return E.db["core"].autoscale end,
@@ -104,7 +74,6 @@ E.Options.args.core = {
 				},				
 				bags = {
 					order = 3,
->>>>>>> origin/master:ElvUI/core/options.lua
 					type = "toggle",
 					name = L['Toggle Bags'],
 					desc = L['Enable\Disable the all-in-one bag.'],
@@ -120,62 +89,20 @@ E.Options.args.core = {
 					set = function(info, value) E.db.core.lootRoll = value; StaticPopup_Show("CONFIG_RL") end
 				},	
 				loot = {
-					order = 6,
+					order = 5,
 					type = "toggle",
 					name = L['Loot'],
 					desc = L['Enable\Disable the loot frame.'],
 					get = function(info) return E.db.core.loot end,
 					set = function(info, value) E.db.core.loot = value; StaticPopup_Show("CONFIG_RL") end
-<<<<<<< HEAD:core/options.lua
-				},
-				lootRoll = {
-					order = 7,
-					type = "toggle",
-					name = L['Loot Roll'],
-					desc = L['Enable\Disable the loot roll frame.'],
-					get = function(info) return E.db.core.lootRoll end,
-					set = function(info, value) E.db.core.lootRoll = value; StaticPopup_Show("CONFIG_RL") end
-				},
-				autoscale = {
-					order = 8,
-					name = L["Auto Scale"],
-					desc = L["Automatically scale the User Interface based on your screen resolution"],
-					type = "toggle",	
-					set = function(info, value) E.db.core[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end
-				},
-				uiscale = {
-					order = 9,
-					name = L["Scale"],
-					desc = L["Controls the scaling of the entire User Interface"],
-					disabled = function(info) return E.db["core"].autoscale end,
-					type = "range",
-					min = 0.64, max = 1, step = 0.01,
-					isPercent = true,
-					set = function(info, value) E.db.core[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end
-				},		
-				mapTransparency = {
-					order = 10,
-					name = L['Map Transparency'],
-					desc = L['Controls what the transparency of the worldmap will be set to when you are moving.'],
-					type = 'range',
-					isPercent = true,
-					min = 0, max = 1, step = 0.01,
-				},
-=======
 				},									
->>>>>>> origin/master:ElvUI/core/options.lua
 				panelWidth = {
 					order = 6,
 					type = 'range',
 					name = L['Panel Width'],
 					desc = L['PANEL_DESC'],
-<<<<<<< HEAD:core/options.lua
 					set = function(info, value) E.db.core.panelWidth = value; E:GetModule('Chat'):PositionChat(true); local bags = E:GetModule('Bags'); bags:Layout(); bags:Layout(true); E:GetModule('Skins'):SetEmbedRight(E.db.skins.embedRight) end,
-					min = 150, max = 700, step = 1,
-=======
-					set = function(info, value) E.db.core.panelWidth = value; E:GetModule('Chat'):PositionChat(true); local bags = E:GetModule('Bags'); bags:Layout(); bags:Layout(true); end,
 					min = 315, max = 700, step = 1,
->>>>>>> origin/master:ElvUI/core/options.lua
 				},
 				panelHeight = {
 					order = 7,
@@ -414,14 +341,12 @@ E.Options.args.core = {
 			guiInline = true,
 			order = 8,
 			args = {
-				autoinvite = {
+				autoAcceptInvite = {
 					order = 1,
-					type = "toggle",
-					name = L['AutoInvite'],
-					desc = L['Auto excepts invites from friends and guildmates'],
-					get = function(info) return E.db.core.autoinvite end,
-					set = function(info, value) E.db.core.autoinvite = value; StaticPopup_Show("CONFIG_RL") end
-				},	
+					name = L['Accept Invites'],
+					desc = L['Automatically accept invites from guild/friends.'],
+					type = 'toggle',
+ 				},
 				autoRepair = {
 					order = 2,
 					name = L['Auto Repair'],
