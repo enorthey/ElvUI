@@ -1,0 +1,200 @@
+local E, L, DF = unpack(select(2, ...)); --Engine
+local M = E:NewModule('Misc', 'AceEvent-3.0', 'AceTimer-3.0');
+
+E.Misc = M;
+local UIErrorsFrame = UIErrorsFrame;
+
+function M:ErrorFrameToggle(event)
+	if event == 'PLAYER_REGEN_DISABLED' then
+		UIErrorsFrame:UnregisterEvent('UI_ERROR_MESSAGE')
+	else
+		UIErrorsFrame:RegisterEvent('UI_ERROR_MESSAGE')
+	end
+end
+
+function M:COMBAT_LOG_EVENT_UNFILTERED(_, _, event, _, sourceGUID, _, _, _, _, destName, _, _, _, _, _, spellID, spellName)
+	if not (event == "SPELL_INTERRUPT" and sourceGUID == UnitGUID('player')) then return end
+	
+	if E.db.core.interruptAnnounce == "PARTY" then
+		if GetRealNumPartyMembers() > 0 then
+			SendChatMessage(INTERRUPTED.." "..destName.."'s \124cff71d5ff\124Hspell:"..spellID.."\124h["..spellName.."]\124h\124r!", "PARTY", nil, nil)
+		end
+	elseif E.db.core.interruptAnnounce == "RAID" then
+		if GetRealNumRaidMembers() > 0 then
+			SendChatMessage(INTERRUPTED.." "..destName.."'s \124cff71d5ff\124Hspell:"..spellID.."\124h["..spellName.."]\124h\124r!", "RAID", nil, nil)		
+		elseif GetRealNumPartyMembers() > 0 then
+			SendChatMessage(INTERRUPTED.." "..destName.."'s \124cff71d5ff\124Hspell:"..spellID.."\124h["..spellName.."]\124h\124r!", "PARTY", nil, nil)
+		end	
+	elseif E.db.core.interruptAnnounce == "SAY" then
+		if GetRealNumRaidMembers() > 0 then
+			SendChatMessage(INTERRUPTED.." "..destName.."'s \124cff71d5ff\124Hspell:"..spellID.."\124h["..spellName.."]\124h\124r!", "SAY", nil, nil)		
+		elseif GetRealNumPartyMembers() > 0 then
+			SendChatMessage(INTERRUPTED.." "..destName.."'s \124cff71d5ff\124Hspell:"..spellID.."\124h["..spellName.."]\124h\124r!", "SAY", nil, nil)
+		end		
+	end
+end
+
+function M:MERCHANT_SHOW()
+	if not IsShiftKeyDown() or not E.db.core.autoRepair == 'NONE' or CanMerchantRepair() then
+		local autoRepair = E.db.core.autoRepair
+		local cost, possible = GetRepairAllCost()
+		local withdrawLimit = GetGuildBankWithdrawMoney();
+		if autoRepair == 'GUILD' and (not CanGuildBankRepair() or cost > withdrawLimit) then
+			autoRepair = 'PLAYER'
+		end
+		if cost > 0 then
+			if possible then
+				RepairAllItems(autoRepair == 'GUILD')
+				local c, s, g = cost%100, math.floor((cost%10000)/100), math.floor(cost/10000)
+			
+				if autoRepair == 'GUILD' then
+					E:Print(L['Your items have been repaired using guild bank funds for: ']..GetCoinTextureString(cost, 12))
+				else
+					E:Print(L['Your items have been repaired for: ']..GetCoinTextureString(cost, 12))
+				end
+			else
+				E:Print(L["You don't have enough money to repair."])
+			end
+		end
+	
+		local savedMerchantItemButton_OnModifiedClick = MerchantItemButton_OnModifiedClick
+		function MerchantItemButton_OnModifiedClick(self, ...)
+			if ( IsAltKeyDown() ) then
+				local maxStack = select(8, GetItemInfo(GetMerchantItemLink(self:GetID())))
+				local name, texture, price, quantity, numAvailable, isUsable, extendedCost = GetMerchantItemInfo(self:GetID())
+				if ( maxStack and maxStack > 1 ) then
+					BuyMerchantItem(self:GetID(), floor(maxStack / quantity))
+				end
+			end
+			savedMerchantItemButton_OnModifiedClick(self, ...)
+		end
+	end
+	
+	if E.db.core.sellgrays then
+		local link, payed
+		local cost = 0
+		for bag = 0, 4 do
+			for slot = 1 ,GetContainerNumSlots(bag) do
+				link = GetContainerItemLink(bag, slot)
+				if link then
+					local payed = select(11, GetItemInfo(link)) * select(2, GetContainerItemInfo(bag, slot))
+					if select(3, GetItemInfo(link)) == 0 then
+						UseContainerItem(bag, slot)
+						PickupMerchantItem()
+						cost = cost + payed
+					end
+				end
+			end
+		end
+		if cost > 0 then 
+			E:Print(L['Vendored gray items for:']..GetCoinTextureString(cost, 12))
+		end
+	end
+end
+
+function M:DisbandRaidGroup()
+	if InCombatLockdown() then return end -- Prevent user error in combat
+
+	if UnitInRaid("player") then
+		for i = 1, GetNumRaidMembers() do
+			local name, _, _, _, _, _, _, online = GetRaidRosterInfo(i)
+			if online and name ~= E.myname then
+				UninviteUnit(name)
+			end
+		end
+	else
+		for i = MAX_PARTY_MEMBERS, 1, -1 do
+			if GetPartyMember(i) then
+				UninviteUnit(UnitName("party"..i))
+			end
+		end
+	end
+	LeaveParty()
+end
+
+function M:IsPlayerMoving()
+	local val = GetUnitSpeed('player')
+	return val ~= 0
+end
+
+function M:CheckMovement()
+	if not WorldMapFrame:IsShown() then return; end
+	if self:IsPlayerMoving() then
+		WorldMapFrame:SetAlpha(E.db.core.mapTransparency)
+	else
+		WorldMapFrame:SetAlpha(1)
+	end
+end
+
+function M:AutoInvite()
+	local tAutoAcceptInvite = CreateFrame("Frame")
+	tAutoAcceptInvite:RegisterEvent("PARTY_INVITE_REQUEST")
+	tAutoAcceptInvite:RegisterEvent("PARTY_MEMBERS_CHANGED")
+	
+	local hidestatic -- used to hide static popup when auto-accepting
+	
+	tAutoAcceptInvite:SetScript("OnEvent", function(self, event, ...)
+		arg1 = ...
+		local leader = arg1
+		local ingroup = false
+		
+		if event == "PARTY_INVITE_REQUEST" then
+			if MiniMapLFGFrame:IsShown() then return end -- Prevent losing que inside LFD if someone invites you to group
+			if GetNumPartyMembers() > 0 or GetNumRaidMembers() > 0 then return end
+			hidestatic = true
+		
+			-- Update Guild and Friendlist
+			if GetNumFriends() > 0 then ShowFriends() end
+			if IsInGuild() then GuildRoster() end
+			
+			for friendIndex = 1, GetNumFriends() do
+				local friendName = GetFriendInfo(friendIndex)
+				if friendName == leader then
+					AcceptGroup()
+					ingroup = true
+					break
+				end
+			end
+			
+			if not ingroup then
+				for guildIndex = 1, GetNumGuildMembers(true) do
+					local guildMemberName = GetGuildRosterInfo(guildIndex)
+					if guildMemberName == leader then
+						AcceptGroup()
+						break
+					end
+				end
+			end
+		elseif event == "PARTY_MEMBERS_CHANGED" and hidestatic == true then
+			StaticPopup_Hide("PARTY_INVITE")
+			hidestatic = false
+		end
+	end)
+end
+
+function M:PVPMessageEnhancement(_, msg)
+	RaidNotice_AddMessage(RaidBossEmoteFrame, msg, ChatTypeInfo["RAID_BOSS_EMOTE"]);
+end
+
+function M:Initialize()
+	self:LoadRaidMarker()
+	self:LoadExpRepBar()
+	self:LoadMirrorBars()
+	self:LoadLoot()
+	self:LoadLootRoll()
+	if E.db.core.autoinvite then self.AutoInvite() end
+	self:RegisterEvent('MERCHANT_SHOW')
+	self:RegisterEvent('PLAYER_REGEN_DISABLED', 'ErrorFrameToggle')
+	self:RegisterEvent('PLAYER_REGEN_ENABLED', 'ErrorFrameToggle')
+	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	self:RegisterEvent('CHAT_MSG_BG_SYSTEM_HORDE', 'PVPMessageEnhancement')
+	self:RegisterEvent('CHAT_MSG_BG_SYSTEM_ALLIANCE', 'PVPMessageEnhancement')
+	self:RegisterEvent('CHAT_MSG_BG_SYSTEM_NEUTRAL', 'PVPMessageEnhancement')
+	
+	self.MovingTimer = self:ScheduleRepeatingTimer("CheckMovement", 0.1)
+	
+	--Kill Frames
+	HelpOpenTicketButtonTutorial:Kill()	
+end
+
+E:RegisterModule(M:GetName())
