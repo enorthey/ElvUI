@@ -189,7 +189,8 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	move					= "當你中了$spell:%s時顯示特別警告",
 	run						= "為$spell:%s顯示特別警告",
 	cast					= "為$spell:%s施放時顯示特別警告",
-	stack					= "為>=%d層$spell:%s時顯示特別警告"
+	stack					= "為>=%d層$spell:%s時顯示特別警告",
+	switch					= "需對$spell:%s更換目標時顯示特別警告"
 }
 
 DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
@@ -202,14 +203,15 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 	move					= "%s - 快離開",
 	run						= "%s - 快跑開",
 	cast					= "%s - 停止施法",
-	stack					= "%s(%%d)"
+	stack					= "%s(%%d)",
+	switch					= "%s - 快更換目標!"
 }
 
 
 DBM_CORE_AUTO_ICONS_OPTION_TEXT			= "為$spell:%s的目標設置標記"
 DBM_CORE_AUTO_SOUND_OPTION_TEXT			= "當你中了$spell:%s時播放音效"
-DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT		= "為$spell:%s播放倒計時音效"
-DBM_CORE_AUTO_COUNTOUT_OPTION_TEXT		= "為$spell:%s的持續時間播放倒計時音效"
+DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT		= "為$spell:%s播放倒數計時音效"
+DBM_CORE_AUTO_COUNTOUT_OPTION_TEXT		= "為$spell:%s的持續時間播放倒數計時音效"
 DBM_CORE_AUTO_YELL_OPTION_TEXT			= "當你中了$spell:%s時大喊"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT		= "我中了%s!"
 

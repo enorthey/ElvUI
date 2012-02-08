@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
     
-    Decursive (v 2.7.0.4-6-gadc748d) add-on for World of Warcraft UI
+    Decursive (v 2.7.0.5) add-on for World of Warcraft UI
     Copyright (C) 2006-2007-2008-2009-2010-2011 John Wellesz (archarodim AT
     teaser.fr) ( http://www.2072productions.com/to/decursive.php )
 
@@ -455,4 +455,4 @@ L["UNSTABLERELEASE"] = "Unstable release"
 
 
 
-T._LoadedFiles["enUS.lua"] = "2.7.0.4-6-gadc748d";
+T._LoadedFiles["enUS.lua"] = "2.7.0.5";

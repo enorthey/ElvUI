@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Skarloc", "DBM-Party-BC", 11)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 315 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 386 $"):sub(12, -3))
 mod:SetCreatureID(17862)
 mod:SetModelID(17387)
 
@@ -11,7 +11,8 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
-	"SPELL_PERIODIC_DAMAGE"
+	"SPELL_PERIODIC_DAMAGE",
+	"SPELL_PERIODIC_MISSED"
 )
 
 local warnHeal                  = mod:NewSpellAnnounce(29427)
@@ -40,10 +41,11 @@ end
 
 do 
 	local lastConsecration = 0
-	function mod:SPELL_PERIODIC_DAMAGE(args)
-		if args:IsSpellID(38385) and args:IsPlayer() and time() - lastConsecration > 2 then
+	function mod:SPELL_PERIODIC_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId)
+		if spellId == 38385 and destGUID == UnitGUID("player") and time() - lastConsecration > 2 then
 			specWarnConsecration:Show()
 			lastConsecration = time()
 		end
 	end
+	mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 end

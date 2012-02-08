@@ -1,3 +1,4 @@
+-- $Id: burningcrusade.lua 3697 2012-01-31 15:17:37Z lag123 $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
@@ -1828,7 +1829,7 @@ local moduleName = "AtlasLootBurningCrusade"
 		};
 		info = {
 			name = BabbleBoss["The Maker"],
-			module = moduleName, instance = "HCHellfireRamparts",
+			module = moduleName, instance = "HCBloodFurnace",
 		};
 	};
 
@@ -1854,7 +1855,7 @@ local moduleName = "AtlasLootBurningCrusade"
 		};
 		info = {
 			name = BabbleBoss["Broggok"],
-			module = moduleName, instance = "HCHellfireRamparts",
+			module = moduleName, instance = "HCBloodFurnace",
 		};
 	};
 
@@ -1894,7 +1895,7 @@ local moduleName = "AtlasLootBurningCrusade"
 		};
 		info = {
 			name = BabbleBoss["Keli'dan the Breaker"],
-			module = moduleName, instance = "HCHellfireRamparts",
+			module = moduleName, instance = "HCBloodFurnace",
 		};
 	};
 
@@ -3012,7 +3013,7 @@ local moduleName = "AtlasLootBurningCrusade"
 		};
 		["Heroic"] = {
 			{
-				{ 1, 29258, "", "=q4=Boots of Ethereal Manipulation", "=ds=#s11#, #a1#"};
+				{ 1, 29258, "", "=q4=Boots of Ethereal Manipulation", "=ds=#s12#, #a1#"};
 				{ 2, 29262, "", "=q4=Boots of the Endless Hunt", "=ds=#s12#, #a3#", "", "4.00%"};
 				{ 3, 32072, "", "=q4=Gauntlets of Dissension", "=ds=#s9#, #a4#"};
 				{ 4, 29359, "", "=q4=Feral Staff of Lashing", "=ds=#w9#"};

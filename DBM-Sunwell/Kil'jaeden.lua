@@ -1,16 +1,17 @@
 local mod	= DBM:NewMod("Kil", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 356 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 379 $"):sub(12, -3))
 mod:SetCreatureID(25315)
 mod:SetModelID(23200)
 mod:SetZone()
 mod:SetUsedIcons(4, 5, 6, 7, 8)
 
-mod:RegisterCombat("combat")
+mod:RegisterCombat("yell", L.YellPull)
 
 mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
+	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
 	"SPELL_DAMAGE",
@@ -106,6 +107,14 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 
+function mod:SPELL_AURA_REMOVED(args)
+	if args:IsSpellID(45641) then
+		if self.Options.BloomIcon then
+			self:SetIcon(args.destName, 0)
+		end
+	end
+end
+
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(46605) then
 		warnBomb:Show()
@@ -159,21 +168,14 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(45680) and GetTime() - lastOrb > 10 then
+function mod:SPELL_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId)
+	if spellId == 45680 and GetTime() - lastOrb > 10 then
 		warnDarkOrb:Show()
 		specWarnDarkOrb:Show()
 		lastOrb = GetTime()
 	end
 end
-
-function mod:SPELL_MISSED(args)
-	if args:IsSpellID(45680) and GetTime() - lastOrb > 10 then
-		warnDarkOrb:Show()
-		specWarnDarkOrb:Show()
-		lastOrb = GetTime()
-	end
-end
+mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.OrbYell1 or msg:find(L.OrbYell1) or msg == L.OrbYell2 or msg:find(L.OrbYell2) or msg == L.OrbYell3 or msg:find(L.OrbYell3) or msg == L.OrbYell4 or msg:find(L.OrbYell4) then

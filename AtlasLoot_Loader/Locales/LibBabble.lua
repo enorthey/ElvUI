@@ -1,4 +1,5 @@
-﻿--[[
+﻿-- $Id: LibBabble.lua 3697 2012-01-31 15:17:37Z lag123 $
+--[[
 AtlasLoot_GetLocaleLibBabble(typ)
 Get english translations for non translated things. (Combines Locatet and English table)
 Only Useable with LibBabble

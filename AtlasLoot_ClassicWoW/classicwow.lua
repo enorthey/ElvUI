@@ -1,3 +1,4 @@
+-- $Id: classicwow.lua 3697 2012-01-31 15:17:37Z lag123 $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
@@ -309,7 +310,6 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 21, 20865, "", "=q2=Ivory Scarab", "=ds=#e15#", "", "0.93%"};
 				{ 22, 20860, "", "=q2=Silver Scarab", "=ds=#e15#", "", "1.82%"};
 				{ 23, 20858, "", "=q2=Stone Scarab", "=ds=#e15#", "", "0.86%"};
-				{ 25, 21761, "", "=q1=Scarab Coffer Key", "=ds=#e9#", "", "7.27%"};
 			};
 		};
 		info = {
@@ -4329,7 +4329,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 2, 10629, "", "=q3=Mistwalker Boots", "=ds=#s12#, #a1#", "", "0.01%"};
 				{ 3, 10632, "", "=q3=Slimescale Bracers", "=ds=#s8#, #a3#", "", "0.01%"};
 				{ 4, 10631, "", "=q3=Murkwater Gauntlets", "=ds=#s9#, #a3#", "", "0.01%"};
-				{ 5, 10633, "", "=q3=Silvershell Leggings", "=ds=#s11#, #a3#", "", "0.01%"};
+				{ 5, 10633, "", "=q3=Silvershell Leggings", "=ds=#s11#, #a4#", "", "0.01%"};
 				{ 6, 10634, "", "=q3=Mindseye Circle", "=ds=#s13#", "", "0.02%"};
 				{ 8, 15733, "", "=q3=Pattern: Green Dragonscale Leggings", "=ds=#p7# (270) =q1="..AL["Murk Worm"], "", "1.80%"};
 				{ 16, 10623, "", "=q3=Winter's Bite", "=ds=#h1#, #w1#", "", "0.01%"};

@@ -15,7 +15,8 @@ mod:RegisterEvents(
 	"SPELL_CAST_SUCCESS",
 	"SPELL_AURA_APPLIED",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
-	"SPELL_PERIODIC_DAMAGE"
+	"SPELL_PERIODIC_DAMAGE",
+	"SPELL_PERIODIC_MISSED"
 )
 
 local warnUnholyPower			= mod:NewSpellAnnounce(69629, 3)
@@ -56,12 +57,13 @@ end
 
 do 
 	local lasticyblast = 0
-	function mod:SPELL_PERIODIC_DAMAGE(args)
-		if args:IsSpellID(69238, 69628) and args:IsPlayer() and time() - lasticyblast > 3 then		-- Icy Blast, MOVE!
+	function mod:SPELL_PERIODIC_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId)
+		if (spellId == 69238 or spellId == 69628) and destGUID == UnitGUID("player") and time() - lasticyblast > 3 then		-- Icy Blast, MOVE!
 			specWarnIcyBlast:Show()
 			lasticyblast = time()
 		end
 	end
+	mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 end
 
 function mod:SPELL_AURA_APPLIED(args)

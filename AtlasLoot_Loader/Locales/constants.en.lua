@@ -1,4 +1,4 @@
--- $Id: constants.en.lua 3681 2011-12-14 09:24:58Z hegarol $
+-- $Id: constants.en.lua 3690 2012-01-04 19:48:32Z hegarol $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -831,6 +831,9 @@ if AL then
 	-- Eighteenth set
 	AL["Tomb of the Forgotten"] = true;
 
+	-- Nineteenth set
+	AL["War of the Ancients"] = true;
+
 	-- Battleground Brackets
 	AL["Old PvP Rewards"] = true;
 	AL["BG/Open PvP Rewards"] = true;
@@ -1061,7 +1064,7 @@ if AL then
 	AL["Firestone Vendor"] = true;
 	AL["Poseidus"] = true;
 	AL["Burgy Blackheart"] = true;
-	
+
 	-- Zones
 	AL["Trial of the Grand Crusader"] = true;
 	AL["Crusader's Square"] = true;

@@ -1,3 +1,4 @@
+-- $Id: EJIntegration.lua 3697 2012-01-31 15:17:37Z lag123 $
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 

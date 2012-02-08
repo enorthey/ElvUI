@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(325, "DBM-DragonSoul", nil, 187)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7246 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7283 $"):sub(12, -3))
 mod:SetCreatureID(55312)
 mod:SetModelID(39101)
 mod:SetZone()
@@ -79,7 +79,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:OnCombatEnd()
-	if self.Options.RangeFrame then
+	if self.Options.RangeFrame and not self:IsDifficulty("lfr25") then
 		DBM.RangeCheck:Hide()
 	end
 end
@@ -175,7 +175,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		if args:GetDestCreatureID() == 55312 then
 			timerAcidCD:Cancel()
 		end
-		if self.Options.RangeFrame then
+		if self.Options.RangeFrame and not self:IsDifficulty("lfr25") then
 			DBM.RangeCheck:Hide()
 		end
 	end

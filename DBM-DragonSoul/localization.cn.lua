@@ -1,5 +1,5 @@
 ﻿-- Simplified Chinese by Diablohu(diablohudream@gmail.com)
--- Last update: 1/17/2012
+-- Last update: 2/7/2012
 
 if GetLocale() ~= "zhCN"  then return end
 
@@ -19,8 +19,8 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	KohcromWarning	= "警报：克卓莫模拟技能",
-	KohcromCD		= "计时条：下一次克卓莫模拟技能",
+	KohcromWarning	= "警报：$journal:4262模拟技能",
+	KohcromCD		= "计时条：下一次$journal:4262模拟技能",
 	RangeFrame		= "距离监视器（5码）：应对成就需求"
 })
 
@@ -100,7 +100,9 @@ L:SetOptionLocalization({
 	AnnounceFrostTombIcons	= "向团队频道通报$spell:104451目标的团队标记（需要团队领袖权限）",
 	warnFrostTombCast		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.cast:format(104448, GetSpellInfo(104448)),
 	SetIconOnFrostTomb		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(104451),
-	SetIconOnFrostflake		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(109325)
+	SetIconOnFrostflake		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(109325),
+	SpecialCount			= "倒计时声音警报：$spell:105256或$spell:105465",
+	SetBubbles				= "在$spell:104451阶段自动关闭聊天气泡（战斗结束后自动恢复）"
 })
 
 L:SetMiscLocalization({
@@ -157,7 +159,7 @@ L:SetOptionLocalization({
 	TimerCombatStart	= "计时条：战斗即将开始",
 	TimerAdd			= "计时条：下一波暮光精英",
 	SpecWarnElites		= "特殊警报：新的暮光精英出现",
-	SetTextures			= "在第1阶段自动禁用弹道纹理（第2阶段自动恢复）"
+	SetTextures			= "在第1阶段自动禁用材质投射（第2阶段自动恢复）"
 })
 
 L:SetMiscLocalization({
@@ -200,16 +202,12 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(333)
 
 L:SetWarningLocalization({
-	SpecWarnTentacle	= "灼疮触须 - 转换目标",--Msg too long? maybe just "Blistering Tentacles!"
-	SpecWarnCongealing	= "凝固之血 - 转换目标"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SpecWarnTentacle	= "特殊警报：阿莱克斯塔萨没有激活的情况下灼疮触须出现",--http://ptr.wowhead.com/npc=56188
-	SpecWarnCongealing	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell:format(109089),
 	RangeFrame			= "距离监视器（根据状态动态变化）：应对$spell:108649（英雄难度）",
 	SetIconOnParasite	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(108649)
 })

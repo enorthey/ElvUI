@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Faction-3.0
-Revision: $Rev: 154 $
+Revision: $Rev: 156 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-faction-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Faction-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 154 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 156 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -443,7 +443,7 @@ elseif GAME_LOCALE == "esES" then
 	Gnomeregan = "Gnomeran",
 	["Gnomeregan Exiles"] = "Exiliados de Gnomeregan",
 	["Guardians of Hyjal"] = "Guardianes de Hyjal",
-	-- Guild = "",
+	Guild = "Hermandad", -- Needs review
 	["Hellscream's Reach"] = "Mando Grito Infernal",
 	Honored = "Honorable",
 	["Honor Hold"] = "Bastión del Honor",

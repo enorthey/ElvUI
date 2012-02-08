@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(332, "DBM-DragonSoul", nil, 187)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7233 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7293 $"):sub(12, -3))
 mod:SetCreatureID(56598)--56427 is Boss, but engage trigger needs the ship which is 56598
 mod:SetMainBossID(56427)
 mod:SetModelID(39399)
@@ -248,17 +248,13 @@ function mod:SPELL_SUMMON(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(108076, 109222, 109223, 109224) then
-		if args:IsPlayer() and GetTime() - lastFlames > 3  then
-			specWarnTwilightFlames:Show()
-			lastFlames = GetTime()
-		end
-	elseif args:IsSpellID(110095) then
-		if args:IsPlayer() and GetTime() - lastFlames > 3  then
-			specWarnDeckFire:Show()
-			lastFlames = GetTime()
-		end
+function mod:SPELL_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId)
+	if (spellId == 108076 or spellId == 109222 or spellId == 109223 or spellId == 109224) and destGUID == UnitGUID("player") and GetTime() - lastFlames > 3 then
+		specWarnTwilightFlames:Show()
+		lastFlames = GetTime()
+	elseif spellId == 110095 and destGUID == UnitGUID("player") and GetTime() - lastFlames > 3  then
+		specWarnDeckFire:Show()
+		lastFlames = GetTime()
 	end
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
@@ -271,9 +267,11 @@ function mod:RAID_BOSS_EMOTE(msg)
 	elseif msg == L.DeckFire or msg:find(L.DeckFire) then
 		specWarnDeckFireCast:Show()
 	elseif msg == L.GorionaRetreat or msg:find(L.GorionaRetreat) then
-		timerTwilightBreath:Cancel()
-		timerConsumingShroud:Cancel()
-		timerTwilightFlamesCD:Cancel()
+		self:Schedule(1.5, function()
+			timerTwilightBreath:Cancel()
+			timerConsumingShroud:Cancel()
+			timerTwilightFlamesCD:Cancel()
+		end)
 	end
 end
 

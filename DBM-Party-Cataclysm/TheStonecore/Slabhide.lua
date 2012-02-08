@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Slabhide", "DBM-Party-Cataclysm", 7)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7165 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7270 $"):sub(12, -3))
 mod:SetCreatureID(43214)
 mod:SetModelID(36476)
 mod:SetZone()
@@ -52,8 +52,8 @@ function mod:OnCombatStart(delay)
 	self:ScheduleMethod(12.5-delay, "airphase")
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(80800, 80801, 92657, 92658) and args:IsPlayer() and GetTime() - spamEruption > 3 then
+function mod:SPELL_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId)
+	if (spellId == 80800 or spellId == 80801 or spellId == 92657 or spellId == 92658) and destGUID == UnitGUID("player") and GetTime() - spamEruption > 3 then
 		specWarnEruption:Show()
 		spamEruption = GetTime()
 	end

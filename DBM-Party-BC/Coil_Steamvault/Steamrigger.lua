@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Steamrigger", "DBM-Party-BC", 6)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 337 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 389 $"):sub(12, -3))
 mod:SetCreatureID(17796)
 --mod:SetModelID(18638)--Does not work
 
@@ -12,9 +12,9 @@ mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL"
 )
 
-local WarnSummon    = mod:NewAnnounce("WarnSummon")
-local WarnNet        = mod:NewTargetAnnounce(35107)
-local timerNet      = mod:NewTargetTimer(6, 35107)
+local WarnSummon	= mod:NewAnnounce("WarnSummon")
+local WarnNet		= mod:NewTargetAnnounce(35107)
+local timerNet		= mod:NewTargetTimer(6, 35107)
 
 local enrageTimer	= mod:NewBerserkTimer(300)
 

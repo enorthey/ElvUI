@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Twins", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 363 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 386 $"):sub(12, -3))
 mod:SetCreatureID(25165, 25166)
 mod:SetModelID(23334)
 mod:SetZone()
@@ -14,6 +14,7 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_CAST_START",
 	"SPELL_DAMAGE",
+	"SPELL_MISSED",
 	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
@@ -82,9 +83,15 @@ end
 
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(45256) then
-		warnBlow:Show(args.destName)
+function mod:SPELL_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId)
+	if spellId == 45256 then
+		warnBlow:Show(destName)
+		timerBlowCD:Start()
+	end
+end
+
+function mod:SPELL_MISSED(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId)
+	if spellId == 45256 then
 		timerBlowCD:Start()
 	end
 end

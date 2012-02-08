@@ -11,7 +11,7 @@ mod:RegisterCombat("combat")
 mod:RegisterEvents(
 	"SPELL_CAST_SUCCESS",
 	"SPELL_PERIODIC_DAMAGE",
-	"SPELL_PERIODIC_MISS"
+	"SPELL_PERIODIC_MISSED"
 )
 
 local warnCleave				= mod:NewSpellAnnounce(104903, 2)
@@ -39,11 +39,11 @@ end
 
 do 
 	local antiSpam = 0
-	function mod:SPELL_PERIODIC_DAMAGE(args)
-		if args:IsSpellID(26540) and args:IsPlayer() and GetTime() - antiSpam > 3 then
+	function mod:SPELL_PERIODIC_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId)
+		if spellId == 26540 and destGUID == UnitGUID("player") and GetTime() - antiSpam > 3 then
 			specWarnStarfall:Show()
 			antiSpam = GetTime()
 		end
 	end
-	mod.SPELL_PERIODIC_MISS = mod.SPELL_PERIODIC_DAMAGE
+	mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 end

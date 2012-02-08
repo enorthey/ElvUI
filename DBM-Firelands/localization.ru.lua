@@ -35,7 +35,6 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	yellPhase2			= "Целую вечность я спокойно спал… Маленькие кусочки мяса… Вы СГОРИТЕ!"
 })
 
 ---------------
@@ -67,7 +66,6 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	YellPull			= "Теперь я служу новому господину, смертные!",
-	Initiate			= "Новообращенный друид-огнеястреб",
 	YellPhase2			= "Небо над вами принадлежит МНЕ!",
 	FullPower			= "spell:99925",--This is in the emote, shouldn't need localizing, just msg:find
 	LavaWorms			= "На поверхность вылезают огненные лавовые паразиты!",

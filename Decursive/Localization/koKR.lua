@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
     
-    Decursive (v 2.7.0.4-6-gadc748d) add-on for World of Warcraft UI
+    Decursive (v 2.7.0.5) add-on for World of Warcraft UI
     Copyright (C) 2006-2007-2008-2009-2010-2011 John Wellesz (archarodim AT
     teaser.fr) ( http://www.2072productions.com/to/decursive.php )
 
@@ -76,7 +76,7 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Decursive", "koKR");
 
 if not L then
-    T._LoadedFiles["koKR.lua"] = "2.7.0.4-6-gadc748d";
+    T._LoadedFiles["koKR.lua"] = "2.7.0.5";
     return;
 end;
 
@@ -451,4 +451,4 @@ L["UNSTABLERELEASE"] = "비안정화판 배포"
 
 
 
-T._LoadedFiles["koKR.lua"] = "2.7.0.4-6-gadc748d";
+T._LoadedFiles["koKR.lua"] = "2.7.0.5";

@@ -15,8 +15,8 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	KohcromWarning	= "크초르모가 동일하게 사용하는 주문 알림 보기 (영웅 난이도)",
-	KohcromCD		= "크초르모가 동일하게 사용하는 주문 바 표시 (영웅 난이도)",
+	KohcromWarning	= "$journal:4262가 사용하는 주문 알림 보기 (영웅 난이도)",
+	KohcromCD		= "$journal:4262가 사용할 주문 바 표시 (영웅 난이도)",
 	RangeFrame		= "거리 프레임 보기 (5m, 업적 용도)"
 })
 
@@ -35,7 +35,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	ShadowYell			= "$spell:104600 주문의 영향을 받은 경우 외치기 (영웅 난이도에서만)",
+	ShadowYell			= "$spell:104600 주문의 영향을 받은 경우 외치기 (영웅 난이도)",
 	CustomRangeFrame	= "교란의 그림자 주문에 대한 거리 프레임 설정 (영웅 난이도)",
 	Never				= "사용안함",
 	Normal				= "일반 거리 프레임",
@@ -61,7 +61,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	warnOozesHit		= "보스에게 흡수된 핏방울에 대한 알림 표시",
+	warnOozesHit		= "보스에게 흡수된 핏방울에 대한 알림 보기",
 	timerOozesActive	= "핏방울이 소환된 후 공격 가능하기까지 남은시간 바 표시",
 	RangeFrame			= "$spell:104898 주문이 활성화 된 경우 거리 프레임 보기 (4m)\n(일반 난이도 이상)"
 })
@@ -93,10 +93,12 @@ L:SetOptionLocalization({
 	WarnPillars				= "$journal:3919 또는 $journal:4069 남은 횟수 알림 보기",
 	TimerSpecial			= "다음 $spell:105256 또는 $spell:105465 까지 남은 시간 바 표시",
 	RangeFrame				= "$spell:105269 (3m), $journal:4327 (10m) 주문의 영향을 받은 경우 거리 프레임 보기",
-	AnnounceFrostTombIcons	= "$spell:104451 대상을 공격대 대화로 알리기\n(승급 권한 필요)",
+	AnnounceFrostTombIcons	= "$spell:104451 대상을 공격대 대화로 알리기 (승급 권한 필요)",
 	warnFrostTombCast		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.cast:format(104448, GetSpellInfo(104448)),
 	SetIconOnFrostTomb		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(104451),
-	SetIconOnFrostflake		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(109325)
+	SetIconOnFrostflake		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(109325),
+	SpecialCount			= "$spell:105256 또는 $spell:105465 주문의 초읽기 소리 듣기(5,4,3,2,1)",
+	SetBubbles				= "$spell:104451 시전이 가능할 때 대화 말풍선을 표시하지 않음\n(전투 종료 후 원래대로 복구됨)"
 })
 
 L:SetMiscLocalization({
@@ -160,7 +162,7 @@ L:SetMiscLocalization({
 	SapperEmote			= "비룡이 빠르게 날아와 황혼의 폭파병을 갑판에 떨어뜨립니다!",
 	Broadside			= "spell:110153",
 	DeckFire			= "spell:110095",
-	GorionaRetreat		= "고리오나가 고통에 울부짖으며, 소용돌이치는 구름 속으로 달아납니다."
+	GorionaRetreat		= "%s|1이;가; 고통에 울부짖으며, 소용돌이치는 구름 속으로 달아납니다."
 })
 
 -------------------------
@@ -196,16 +198,12 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(333)
 
 L:SetWarningLocalization({
-	SpecWarnTentacle	= "열기 촉수 - 대상 전환!",
-	SpecWarnCongealing	= "엉기는 피 - 대상 전환!"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SpecWarnTentacle	= "$journal:4103 특수 경고 보기 (알렉스트라자 강화 효과가 없을때)",
-	SpecWarnCongealing	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell:format(109089),
 	RangeFrame			= "$spell:108649 약화 효과 상태에 따른 거리 프레임 표시 (영웅 난이도)",
 	SetIconOnParasite	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(108649)
 })

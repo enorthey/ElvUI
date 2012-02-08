@@ -14,7 +14,6 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_INTERRUPT",
 	"SPELL_SUMMON",
-	"SWING_DAMAGE",
 	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_TARGET"
 )
@@ -236,12 +235,6 @@ function mod:SPELL_SUMMON(args)
 			timerSummonSpiritCD:Start()
 			lastSpirit = time()
 		end
-	end
-end
-
-function mod:SWING_DAMAGE(args)
-	if args:IsPlayer() and args:GetSrcCreatureID() == 38222 then
-		specWarnVengefulShade:Show()
 	end
 end
 

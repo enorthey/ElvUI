@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
     
-    Decursive (v 2.7.0.4-6-gadc748d) add-on for World of Warcraft UI
+    Decursive (v 2.7.0.5) add-on for World of Warcraft UI
     Copyright (C) 2006-2007-2008-2009-2010-2011 John Wellesz (archarodim AT teaser.fr) ( http://www.2072productions.com/to/decursive.php )
 
     Starting from 2009-10-31 and until said otherwise by its author, Decursive
@@ -613,9 +613,9 @@ do
                 else
                     -- try again in 2s (a delay exists when a unit appears, is seen and its MUF is created), if a unit leavea and another joina the group at the same time, the unit number won't change but their respective unitID will.
                     D:ScheduleDelayedCall("Dcr_Delayed_Place", self.Place, 2, self);
-                    --@alpha@
+                    --[===[@alpha@
                     D:Print("|cFFFF0000Place() failed: unitRef#", D.profile.DebuffsFrameGrowToTop and 1 or FarthestVerticalMUF, "refMUF:", self.ExistingPerUNIT[Unit_Array[D.profile.DebuffsFrameGrowToTop and 1 or FarthestVerticalMUF]], "|r");
-                    --@end-alpha@
+                    --@end-alpha@]===]
                 end
             end
         end
@@ -1791,6 +1791,6 @@ local MF_Textures = { -- unused
 
 -- }}}
 
-T._LoadedFiles["Dcr_DebuffsFrame.lua"] = "2.7.0.4-6-gadc748d";
+T._LoadedFiles["Dcr_DebuffsFrame.lua"] = "2.7.0.5";
 
 -- Heresy

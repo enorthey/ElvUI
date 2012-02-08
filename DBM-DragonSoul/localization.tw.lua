@@ -96,7 +96,9 @@ L:SetOptionLocalization({
 	AnnounceFrostTombIcons	= "為$spell:104451的目標發佈圖示至團隊頻道\n(需要團隊隊長)",
 	warnFrostTombCast		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.cast:format(104448, GetSpellInfo(104448)),
 	SetIconOnFrostTomb		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(104451),
-	SetIconOnFrostflake		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(109325)
+	SetIconOnFrostflake		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(109325),
+	SpecialCount			= "為$spell:105256或$spell:105465播放倒數計時音效",
+	SetBubbles				= "自動地為$spell:104451關閉對話氣泡功能\n(當戰鬥結束後還原功能)"
 })
 
 L:SetMiscLocalization({
@@ -196,16 +198,12 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(333)
 
 L:SetWarningLocalization({
-	SpecWarnTentacle	= "快攻擊極熾觸手!",
-	SpecWarnCongealing	= "快攻擊凝結之血!"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SpecWarnTentacle	= "為極熾觸手生長顯示特別警告(當雅立史卓莎不在場時)",
-	SpecWarnCongealing	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell:format(109089),
 	RangeFrame			= "根據玩家減益顯示動態的距離框以對應英雄模式的$spell:108649",
 	SetIconOnParasite	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(108649)
 })

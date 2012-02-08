@@ -1,4 +1,5 @@
-﻿local AtlasLoot = _G.AtlasLoot
+-- $Id: Options.lua 3697 2012-01-31 15:17:37Z lag123 $
+local AtlasLoot = _G.AtlasLoot
 --Invoke libraries
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 
@@ -104,6 +105,14 @@ do
 											AtlasLoot:SetupTooltip()
 											return value
 										end,
+									},
+									ShowBossTooltip = {
+										type = "toggle",
+										name = "Show Boss Tooltip", --AL["Show Boss Tooltip"],
+										desc = "Show wishlist items in bosses tooltip", --AL["Show wishlist items in bosses tooltip"],
+										order = 45,
+										get = getOpt,
+										set = setOpt,
 									},
 									ShowPriceAndDesc = {
 										type = "toggle",

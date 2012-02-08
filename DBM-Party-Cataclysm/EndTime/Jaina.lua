@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("EchoJaina", "DBM-Party-Cataclysm", 12)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7164 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7268 $"):sub(12, -3))
 mod:SetCreatureID(54445)
 mod:SetModelID(38802)
 mod:SetZone()
@@ -39,8 +39,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(101980) then
+function mod:SPELL_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlag, spellId)
+	if spellId == 101980 then
 		timerFlarecoreDetonate:Cancel()
 	end
 end

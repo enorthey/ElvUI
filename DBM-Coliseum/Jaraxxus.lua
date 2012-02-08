@@ -82,19 +82,16 @@ end
 do
 	local lastflame = 0
 	local lastinferno = 0
-	function mod:SPELL_DAMAGE(args)
-		if args:IsPlayer() and args:IsSpellID(66877, 67070, 67071, 67072) then		-- Legion Flame
-			if GetTime() - 3 > lastflame then
-				specWarnFlame:Show()
-				lastflame = GetTime()
-			end
-		elseif args:IsPlayer() and args:IsSpellID(66496, 68716, 68717, 68718) then	-- Fel Inferno
-			if GetTime() - 3 > lastinferno then
-				specWarnFelInferno:Show()
-				lastinferno = GetTime()
-			end
+	function mod:SPELL_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId)
+		if (spellId == 66877 or spellId == 67070 or spellId == 67071 or spellId == 67072) and destGUID == UnitGUID("player") and GetTime() - 3 > lastflame then		-- Legion Flame
+			specWarnFlame:Show()
+			lastflame = GetTime()
+		elseif (spellId == 66496 or spellId == 68716 or spellId == 68717 or spellId == 68718) and destGUID == UnitGUID("player") and GetTime() - 3 > lastinferno then	-- Fel Inferno
+			specWarnFelInferno:Show()
+			lastinferno = GetTime()
 		end
 	end
+	mod.SPELL_MISSED = mod.SPELL_DAMAGE
 end
 
 local setIncinerateTarget, clearIncinerateTarget
@@ -106,9 +103,9 @@ do
 		return math.max(1, math.floor(healed / maxAbsorb * 100))
 	end
 	
-	function mod:SPELL_HEAL(args)
-		if args.destGUID == incinerateTarget then
-			healed = healed + (args.absorbed or 0)
+	function mod:SPELL_HEAL(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId, spellName, spellSchool, amount, overheal, absorbed)
+		if destGUID == incinerateTarget then
+			healed = healed + (absorbed or 0)
 		end
 	end	
 	mod.SPELL_PERIODIC_HEAL = mod.SPELL_HEAL

@@ -18,7 +18,7 @@
 ## X-DBM-Mod-SubCategories-ruRU: Holidays,Darkmoon Faire
 ## X-DBM-Mod-SubCategories-koKR: 연간 이벤트,다크문 축제
 ## X-DBM-Mod-SubCategories-zhTW: 節慶,暗月馬戲團
-## X-DBM-Mod-SubCategories-zhCN: Holidays,Darkmoon Faire
+## X-DBM-Mod-SubCategories-zhCN: 节日,暗月马戏团
 ## X-DBM-Mod-SubCategories-esES: Fiestas,Feria de la Luna Negra
 ## X-DBM-Mod-SubCategories-esMX: Holidays,Darkmoon Faire
 ## X-DBM-Mod-SubCategories-ptBR: Holidays,Darkmoon Faire
@@ -32,7 +32,7 @@
 ## X-DBM-Mod-Name-ptBR: Eventos Mundiais
 ## X-DBM-Mod-Sort: 150
 ## X-DBM-Mod-LoadZoneID: 704,762,764,728,823
-## X-Curse-Packaged-Version: 4.10.8-224-g15fe202
+## X-Curse-Packaged-Version: 4.10.8-281-g5fbe63e
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline

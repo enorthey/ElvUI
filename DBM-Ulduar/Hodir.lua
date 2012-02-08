@@ -29,7 +29,7 @@ local timerFrozenBlows		= mod:NewBuffActiveTimer(20, 63512)
 local timerFlashFrCD		= mod:NewCDTimer(50, 61968)
 local timerAchieve			= mod:NewAchievementTimer(179, 3182, "TimerSpeedKill")
 
-local soundFlashFreeze			= mod:NewSound(61968)
+local soundFlashFreeze		= mod:NewSound(61968)
 
 mod:AddBoolOption("SetIconOnStormCloud")
 mod:AddBoolOption("YellOnStormCloud", true, "announce")
@@ -84,8 +84,8 @@ end
 
 do 
 	local lastbitingcold = 0
-	function mod:SPELL_DAMAGE(args)
-		if args:IsSpellID(62038, 62188) and args:IsPlayer() and time() - lastbitingcold > 4 then		-- Biting Cold
+	function mod:SPELL_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId)
+		if (spellId == 62038 or spellId == 62188) and destGUID == UnitGUID("player") and time() - lastbitingcold > 4 then
 			specWarnBitingCold:Show()
 			lastbitingcold = time()
 		end

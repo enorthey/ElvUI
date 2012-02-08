@@ -22,6 +22,7 @@
 --    * Arta
 --    * Omegal @ US-Whisperwind (continuing mod support for 3.2+)
 --    * Tennberg (a lot of fixes in the enGB/enUS localization)
+--    * nbluewiz (a lot of fixes in the koKR localization as well as boss mod work)
 --
 --
 -- The code of this addon is licensed under a Creative Commons Attribution-Noncommercial-Share Alike 3.0 License. (see license.txt)
@@ -41,7 +42,7 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 7252 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 7309 $"):sub(12, -3)),
 	DisplayVersion = "4.10.9 alpha", -- the string that is shown as version
 	ReleaseRevision = 7028 -- the revision of the latest stable version that is available
 }
@@ -135,6 +136,8 @@ DBM.DefaultOptions = {
 	AlwaysShowSpeedKillTimer = true,
 	DisableCinematics = false,
 --	HelpMessageShown = false,
+	MoviesSeen = {},
+	MovieFilters = {},
 }
 
 DBM.Bars = DBT:New()
@@ -168,8 +171,8 @@ local loadModOptions
 local checkWipe
 local fireEvent
 local _, class = UnitClass("player")
-local LastZoneText
-local LastZoneMapID
+local LastZoneText = ""
+local LastZoneMapID = -1
 local savedDifficulty
 local queuedBattlefield = {}
 
@@ -344,7 +347,7 @@ do
 	local function handleEvent(self, event, ...)
 		if not registeredEvents[event] or DBM.Options and not DBM.Options.Enabled then return end
 		for i, v in ipairs(registeredEvents[event]) do
-			if type(v[event]) == "function" and (not v.zones or checkEntry(v.zones, LastZoneText) or checkEntry(v.zones, LastZoneMapID)) and (not v.Options or v.Options.Enabled) then
+			if type(v[event]) == "function" and (not v.zones or v.zones[LastZoneText] or v.zones[LastZoneMapID]) and (not v.Options or v.Options.Enabled) then
 				v[event](v, ...)
 			end
 		end
@@ -381,124 +384,102 @@ do
 		return handleEvent(nil, "CHAT_MSG_RAID_BOSS_EMOTE_FILTERED", msg:gsub("\124c%x+(.-)\124r", "%1"), ...)
 	end
 	
-
+	
+	local noArgTableEvents = {
+		SWING_DAMAGE = true,
+		SWING_MISSED = true,
+		SPELL_DAMAGE = true,
+		SPELL_BUILDING_DAMAGE = true,
+		SPELL_MISSED = true,
+		RANGE_DAMAGE = true,
+		RANGE_MISSED = true,
+		SPELL_HEAL = true,
+		SPELL_ENERGIZE = true,
+		SPELL_PERIODIC_MISSED = true,
+		SPELL_PERIODIC_DAMAGE = true,
+		SPELL_PERIODIC_DRAIN = true,
+		SPELL_PERIODIC_LEECH = true,
+		SPELL_PERIODIC_ENERGIZE = true,
+		SPELL_DRAIN = true,
+		SPELL_LEECH = true
+	}
 	function DBM:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, ...)
 		if not registeredEvents[event] then return end
-		twipe(args)
-		args.timestamp = timestamp
-		args.event = event
-		args.sourceGUID = sourceGUID
-		args.sourceName = sourceName
-		args.sourceFlags = sourceFlags
-		args.sourceRaidFlags = sourceRaidFlags
-		args.destGUID = destGUID
-		args.destName = destName
-		args.destFlags = destFlags
-		args.destRaidFlags = destRaidFlags
-		-- taken from Blizzard_CombatLog.lua
-		if event == "SWING_DAMAGE" then
-			args.amount, args.overkill, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(1, ...)
-		elseif event == "SWING_MISSED" then
-			args.spellName = ACTION_SWING
-			args.missType = select(1, ...)
-		elseif event:sub(1, 5) == "RANGE" then
-			args.spellId, args.spellName, args.spellSchool = select(1, ...)
-			if event == "RANGE_DAMAGE" then
-				args.amount, args.overkill, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
-			elseif event == "RANGE_MISSED" then
-				args.missType = select(4, ...)
-			end
-		elseif event:sub(1, 5) == "SPELL" then
-			args.spellId, args.spellName, args.spellSchool = select(1, ...)
-			if event == "SPELL_DAMAGE" or event == "SPELL_BUILDING_DAMAGE" then -- SPELL_BUILDING_DAMAGE args guessed
-				args.amount, args.overkill, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
-			elseif event == "SPELL_MISSED" then
-				args.missType, args.amountMissed = select(4, ...)
-			elseif event == "SPELL_HEAL" then
-				args.amount, args.overheal, args.absorbed, args.critical = select(4, ...)
-				args.school = args.spellSchool
-			elseif event == "SPELL_ENERGIZE" then
-				args.valueType = 2
-				args.amount, args.powerType = select(4, ...)
-			elseif event:sub(1, 14) == "SPELL_PERIODIC" then
-				if event == "SPELL_PERIODIC_MISSED" then
+		-- process some high volume events without building the whole table which is somewhat faster
+		-- this prevents work-around with mods that used to have their own event handler to prevent this overhead
+		if noArgTableEvents[event] then
+			handleEvent(nil, event, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, ...)
+		else
+			twipe(args)
+			args.timestamp = timestamp
+			args.event = event
+			args.sourceGUID = sourceGUID
+			args.sourceName = sourceName
+			args.sourceFlags = sourceFlags
+			args.sourceRaidFlags = sourceRaidFlags
+			args.destGUID = destGUID
+			args.destName = destName
+			args.destFlags = destFlags
+			args.destRaidFlags = destRaidFlags
+			-- taken from Blizzard_CombatLog.lua
+			if event:sub(0, 6) == "SPELL_" then
+				args.spellId, args.spellName, args.spellSchool = select(1, ...)
+				if event == "SPELL_INTERRUPT" then
+					args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
+				elseif event == "SPELL_EXTRA_ATTACKS" then
+					args.amount = select(4, ...)
+				elseif event == "SPELL_DISPEL_FAILED" then
+					args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
+				elseif event == "SPELL_AURA_DISPELLED" then
+					args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
+					args.auraType = select(7, ...)
+				elseif event == "SPELL_AURA_STOLEN" then
+					args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
+					args.auraType = select(7, ...)
+				elseif event == "SPELL_AURA_APPLIED" or event == "SPELL_AURA_REMOVED" or event == "SPELL_AURA_REFRESH" then
+					args.auraType, args.remainingPoints = select(4, ...)
+					if not args.sourceName then
+						args.sourceName = args.destName
+						args.sourceGUID = args.destGUID
+						args.sourceFlags = args.destFlags
+					end
+				elseif event == "SPELL_AURA_APPLIED_DOSE" or event == "SPELL_AURA_REMOVED_DOSE" then
+					args.auraType, args.amount = select(4, ...)
+					if not args.sourceName then
+						args.sourceName = args.destName
+						args.sourceGUID = args.destGUID
+						args.sourceFlags = args.destFlags
+					end
+				elseif event == "SPELL_CAST_FAILED" then
 					args.missType = select(4, ...)
-				elseif event == "SPELL_PERIODIC_DAMAGE" then
-					args.amount, args.overkill, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
-				elseif event == "SPELL_PERIODIC_HEAL" then
-					args.amount, args.overheal, args.absorbed, args.critical = select(4, ...)
-					args.school = args.spellSchool
-				elseif event == "SPELL_PERIODIC_DRAIN" then
-					args.amount, args.powerType, args.extraAmount = select(4, ...)
-					args.valueType = 2
-				elseif event == "SPELL_PERIODIC_LEECH" then
-					args.amount, args.powerType, args.extraAmount = select(4, ...)
-					args.valueType = 2
-				elseif event == "SPELL_PERIODIC_ENERGIZE" then
-					args.amount, args.powerType = select(4, ...)
-					args.valueType = 2
 				end
-			elseif event == "SPELL_DRAIN" then
-				args.amount, args.powerType, args.extraAmount = select(4, ...)
-				args.valueType = 2
-			elseif event == "SPELL_LEECH" then
-				args.amount, args.powerType, args.extraAmount = select(4, ...)
-				args.valueType = 2
-			elseif event == "SPELL_INTERRUPT" then
-				args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
-			elseif event == "SPELL_EXTRA_ATTACKS" then
-				args.amount = select(4, ...)
-			elseif event == "SPELL_DISPEL_FAILED" then
-				args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
-			elseif event == "SPELL_AURA_DISPELLED" then
-				args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
-				args.auraType = select(7, ...)
-			elseif event == "SPELL_AURA_STOLEN" then
-				args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
-				args.auraType = select(7, ...)
-			elseif event == "SPELL_AURA_APPLIED" or event == "SPELL_AURA_REMOVED" or event == "SPELL_AURA_REFRESH" then
-				args.auraType, args.remainingPoints = select(4, ...)
-				if not args.sourceName then
-					args.sourceName = args.destName
-					args.sourceGUID = args.destGUID
-					args.sourceFlags = args.destFlags
-				end
-			elseif event == "SPELL_AURA_APPLIED_DOSE" or event == "SPELL_AURA_REMOVED_DOSE" then
-				args.auraType, args.amount = select(4, ...)
-				if not args.sourceName then
-					args.sourceName = args.destName
-					args.sourceGUID = args.destGUID
-					args.sourceFlags = args.destFlags
-				end
-			elseif event == "SPELL_CAST_FAILED" then
+			elseif event == "DAMAGE_SHIELD" then
+				args.spellId, args.spellName, args.spellSchool = select(1, ...)
+				args.amount, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
+			elseif event == "DAMAGE_SHIELD_MISSED" then
+				args.spellId, args.spellName, args.spellSchool = select(1, ...)
 				args.missType = select(4, ...)
+			elseif event == "ENCHANT_APPLIED" then
+				args.spellName = select(1,...)
+				args.itemId, args.itemName = select(2,...)
+			elseif event == "ENCHANT_REMOVED" then
+				args.spellName = select(1,...)
+				args.itemId, args.itemName = select(2,...)
+			elseif event == "UNIT_DIED" or event == "UNIT_DESTROYED" then
+				args.sourceName = args.destName
+				args.sourceGUID = args.destGUID
+				args.sourceFlags = args.destFlags
+			elseif event == "ENVIRONMENTAL_DAMAGE" then
+				args.environmentalType = select(1,...)
+				args.amount, args.overkill, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(2, ...)
+				args.spellName = _G["ACTION_"..event.."_"..args.environmentalType]
+				args.spellSchool = args.school
+			elseif event == "DAMAGE_SPLIT" then
+				args.spellId, args.spellName, args.spellSchool = select(1, ...)
+				args.amount, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
 			end
-		elseif event == "DAMAGE_SHIELD" then
-			args.spellId, args.spellName, args.spellSchool = select(1, ...)
-			args.amount, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
-		elseif event == "DAMAGE_SHIELD_MISSED" then
-			args.spellId, args.spellName, args.spellSchool = select(1, ...)
-			args.missType = select(4, ...)
-		elseif event == "ENCHANT_APPLIED" then
-			args.spellName = select(1,...)
-			args.itemId, args.itemName = select(2,...)
-		elseif event == "ENCHANT_REMOVED" then
-			args.spellName = select(1,...)
-			args.itemId, args.itemName = select(2,...)
-		elseif event == "UNIT_DIED" or event == "UNIT_DESTROYED" then
-			args.sourceName = args.destName
-			args.sourceGUID = args.destGUID
-			args.sourceFlags = args.destFlags
-		elseif event == "ENVIRONMENTAL_DAMAGE" then
-			args.environmentalType = select(1,...)
-			args.amount, args.overkill, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(2, ...)
-			args.spellName = _G["ACTION_"..event.."_"..args.environmentalType]
-			args.spellSchool = args.school
-		elseif event == "DAMAGE_SPLIT" then
-			args.spellId, args.spellName, args.spellSchool = select(1, ...)
-			args.amount, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
+			return handleEvent(nil, event, args)
 		end
-		return handleEvent(nil, event, args)
 	end
 	mainFrame:SetScript("OnEvent", handleEvent)
 end
@@ -672,7 +653,7 @@ do
 		
 		-- execute OnUpdate handlers of all modules
 		for i, v in pairs(updateFunctions) do
-			if i.Options.Enabled and (not i.zones or checkEntry(i.zones, LastZoneText) or checkEntry(i.zones, LastZoneMapID)) then
+			if i.Options.Enabled and (not i.zones or i.zones[LastZoneText] or i.zones[LastZoneMapID]) then
 				i.elapsed = (i.elapsed or 0) + elapsed
 				if i.elapsed >= (i.updateInterval or 0) then
 					v(i, i.elapsed)
@@ -1574,8 +1555,8 @@ do
 		if WorldMapFrame:IsVisible() and not IsInInstance() then --World map is open and we're not in an instance, (such as flying from zone to zone doing archaeology)
 			local C, Z = GetCurrentMapContinent(), GetCurrentMapZone()--Save current map settings.
 			SetMapToCurrentZone()--Force to right zone
-			LastZoneMapID = GetCurrentMapAreaID() --Set accurate zone area id into cache
-			LastZoneText = GetRealZoneText() --Do same with zone name.
+			LastZoneMapID = GetCurrentMapAreaID() or -1 --Set accurate zone area id into cache
+			LastZoneText = GetRealZoneText() or "" --Do same with zone name.
 			local C2, Z2 = GetCurrentMapContinent(), GetCurrentMapZone()--Get right info after we set map to right place.
 			if C2 ~= C or Z2 ~= Z then
 				SetMapZoom(C, Z)--Restore old map settings if they differed to what they were prior to forcing mapchange and user has map open.
@@ -1699,7 +1680,7 @@ do
 		delay = tonumber(delay or 0) or 0
 		mod = DBM:GetModByName(mod or "")
 		revision = tonumber(revision or 0) or 0
-		if mod and delay and (not mod.zones or #mod.zones == 0 or checkEntry(mod.zones, LastZoneText) or checkEntry(mod.zones, LastZoneMapID)) and (not mod.minSyncRevision or revision >= mod.minSyncRevision) then
+		if mod and delay and (not mod.zones or mod.zones[LastZoneText] or mod.zones[LastZoneMapID]) and (not mod.minSyncRevision or revision >= mod.minSyncRevision) then
 			DBM:StartCombat(mod, delay + lag, true)
 		end
 	end
@@ -2355,14 +2336,19 @@ function DBM:StartCombat(mod, delay, synced)
 			savedDifficulty = PLAYER_DIFFICULTY3.." - "
 		elseif mod:IsDifficulty("normal5") then
 			mod.stats.normalPulls = mod.stats.normalPulls + 1
-			savedDifficulty = PLAYER_DIFFICULTY1.." - "
+			--outdoor areas can return normal5 so we add extra instance check here
+			if IsInInstance() then
+				savedDifficulty = PLAYER_DIFFICULTY1.." - "
+			else
+				savedDifficulty = ""
+			end
 		elseif mod:IsDifficulty("heroic5") then
 			mod.stats.heroicPulls = mod.stats.heroicPulls + 1
 			savedDifficulty = PLAYER_DIFFICULTY2.." - "
 		elseif mod:IsDifficulty("normal10") then
 			mod.stats.normalPulls = mod.stats.normalPulls + 1
 			local _, _, _, _, maxPlayers = GetInstanceInfo()
-			--Because classic raids that don't have sizes all return 1.
+			--Because classic raids that don't have variable sizes all return 1.
 			if maxPlayers == 40 then
 				savedDifficulty = PLAYER_DIFFICULTY1.." (40) - "
 			elseif maxPlayers == 25 then
@@ -2381,7 +2367,7 @@ function DBM:StartCombat(mod, delay, synced)
 		elseif mod:IsDifficulty("heroic25") then
 			mod.stats.heroic25Pulls = mod.stats.heroic25Pulls + 1
 			savedDifficulty = PLAYER_DIFFICULTY2.." (25) - "
-		else--you were not in an instance when you started combat, this is an outdoor boss.
+		else--Unknown, just treat it as normal for stat purposes.
 			mod.stats.normalPulls = mod.stats.normalPulls + 1--Treat it as normal for kill stats.
 			savedDifficulty = ""--So lets just return no difficulty :)
 		end
@@ -3027,6 +3013,35 @@ function DBM:RegisterMapSize(zone, ...)
 end
 
 
+-------------------
+--  Movie Filter --
+-------------------
+MovieFrame:HookScript("OnEvent", function(self, event, id)
+	if event == "PLAY_MOVIE" and id then
+		if DBM.Options.MovieFilters[id] == "Block" or DBM.Options.MovieFilters[id] == "OnlyFirst" and DBM.Options.MoviesSeen[id] then
+			MovieFrame_OnMovieFinished(self)
+		end
+	end
+end)
+
+function DBM:MovieFilter(mod, ...)
+	local i = 1
+	while i <= select("#", ...) do
+		local id, name, default = select(i, ...)
+		if type(default) == "string" then
+			-- id, name, defaultSetting
+			i = i + 3
+		else
+			-- id, name
+			i = i + 2
+			default = nil
+		end
+		mod:AddBoolOption(tostring(id), default == "Block", "BlockMovies")
+		-- mod:AddButton
+	end
+end
+
+
 --------------------------
 --  Boss Mod Prototype  --
 --------------------------
@@ -3106,19 +3121,22 @@ bossModPrototype.AddMsg = DBM.AddMsg
 
 function bossModPrototype:SetZone(...)
 	if select("#", ...) == 0 then
-		if self.addon and self.addon.zone and #self.addon.zone > 0 and self.addon.zoneId and #self.addon.zoneId > 0 then
-			self.zones = {}
+		self.zones = {}
+		if self.addon and self.addon.zone then
 			for i, v in ipairs(self.addon.zone) do
-				self.zones[#self.zones + 1] = v
+				self.zones[v] = true
 			end
+		end
+		if self.addon and self.addon.zoneId then
 			for i, v in ipairs(self.addon.zoneId) do
-				self.zones[#self.zones + 1] = v
+				self.zones[v] = true
 			end
-		else
-			self.zones = self.addon and (self.addon.zone and #self.addon.zone > 0 and self.addon.zone or self.addon.zoneId and #self.addon.zoneId > 0 and self.addon.zoneId) or {}
 		end
 	elseif select(1, ...) ~= DBM_DISABLE_ZONE_DETECTION then
-		self.zones = {...}
+		self.zones = {}
+		for i = 1, select("#", ...) do
+			self.zones[select(i, ...)] = true
+		end
 	else -- disable zone detection
 		self.zones = nil
 	end
@@ -4039,6 +4057,10 @@ do
 		return newSpecialWarning(self, "stack", text, stacks, optionDefault, ...)
 	end
 
+	function bossModPrototype:NewSpecialWarningSwitch(text, optionDefault, ...)
+		return newSpecialWarning(self, "switch", text, nil, optionDefault, ...)
+	end
+
 	do
 		local anchorFrame
 		local function moveEnd()
@@ -4553,7 +4575,7 @@ function bossModPrototype:RegisterCombat(cType, ...)
 	end
 	self.combatInfo = info
 	if not self.zones then return end
-	for i, v in ipairs(self.zones) do
+	for v in pairs(self.zones) do
 		combatInfo[v] = combatInfo[v] or {}
 		table.insert(combatInfo[v], info)
 	end
@@ -4617,7 +4639,7 @@ function bossModPrototype:SetMainBossID(...)
 end
 
 function bossModPrototype:GetBossHPString(cId)
-        for i = 1, 4 do
+	for i = 1, 4 do
 		local guid = UnitGUID("boss"..i)
 		if guid and tonumber(guid:sub(7, 10), 16) == cId then
 			return math.floor(UnitHealth("boss"..i) / UnitHealthMax("boss"..i) * 100) .. "%"

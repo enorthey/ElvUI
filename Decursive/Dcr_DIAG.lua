@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
     
-    Decursive (v 2.7.0.4-6-gadc748d) add-on for World of Warcraft UI
+    Decursive (v 2.7.0.5) add-on for World of Warcraft UI
     Copyright (C) 2006-2007-2008-2009-2010-2011 John Wellesz (archarodim AT teaser.fr) ( http://www.2072productions.com/to/decursive.php )
 
     Starting from 2009-10-31 and until said otherwise by its author, Decursive
@@ -17,7 +17,7 @@
     Decursive is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY.
 
-    This file was last updated on 2011-12-15T00:22:50Z
+    This file was last updated on 2012-02-05T17:48:12Z
 --]]
 -------------------------------------------------------------------------------
 
@@ -161,6 +161,8 @@ local AddDebugText = T._AddDebugText;
 local IsReporting = false;
 
 T._NonDecursiveErrors = 0;
+T._ErrorLimitStripped = false;
+
 local type = _G.type;
 function T._onError(event, errorObject)
     local errorm = errorObject.message;
@@ -234,6 +236,10 @@ T._tocversion = tocversion;
 
 function T._DecursiveErrorHandler(err, ...)
 
+    if T._ErrorLimitStripped then
+        return;
+    end
+
     -- Blizzard bug HotFix
     ---[=[
     if ScriptErrorsFrameScrollFrameText then
@@ -269,6 +275,11 @@ function T._DecursiveErrorHandler(err, ...)
         mine = true;
     else
         T._NonDecursiveErrors = T._NonDecursiveErrors + 1;
+
+        if T._NonDecursiveErrors > 999 then
+            T._ErrorLimitStripped = true;
+            T._TooManyErrors();
+        end
     end
 
     if ProperErrorHandler and not mine then
@@ -572,4 +583,4 @@ do
 end
 
 
-T._LoadedFiles["Dcr_DIAG.lua"] = "2.7.0.4-6-gadc748d";
+T._LoadedFiles["Dcr_DIAG.lua"] = "2.7.0.5";

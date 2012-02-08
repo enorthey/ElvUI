@@ -3,8 +3,8 @@
 DBM_CORE_NEED_SUPPORT				= "안녕하세요. DBM Team입니다. 만약 프로그래밍 또는 언어에 대해 잘 아신다면, DBM Team에 도움을 주실 수 있습니다. 건의/수정 요청 사항이 있다면 루세린-데스윙(everfinale@gmail.com)으로 보내주시면 됩니다. DBM Team에 직접 참가하고 싶다면 www.deadlybossmods.com 을 방문하시거나 tandanu@deadlybossmods.com 또는 nitram@deadlybossmods.com 으로 메일을 보내주세요. 단, 영어로 보내셔야 합니다."
 DBM_HOW_TO_USE_MOD					= "DBM 사용을 환영합니다. 대화창에서 /dbm help를 입력하면 사용 가능한 명령어 목록을 볼 수 있습니다. 설정을 위해서는 /dbm을 입력후 표시되는 창에서 각 보스에 대한 세부 설정을 할 수 있습니다. DBM은 처음 설치시 캐릭터 특성에 맞는 적절한 경고를 선택하며, 옵션에서 추가 설정 또한 가능합니다."
 
-DBM_CORE_LOAD_MOD_ERROR				= "%s 보스 경보를 불러오는 중 오류 발생: %s"
-DBM_CORE_LOAD_MOD_SUCCESS			= "'%s' 보스 경보를 불러왔습니다 !"
+DBM_CORE_LOAD_MOD_ERROR				= "%s 경보를 불러오는 중 오류 발생: %s"
+DBM_CORE_LOAD_MOD_SUCCESS			= "'%s' 경보를 불러왔습니다 !"
 DBM_CORE_LOAD_GUI_ERROR				= "그래픽 설정 기능을 불러올 수 없습니다: %s"
 
 DBM_CORE_COMBAT_STARTED				= "%s 작동됨. 행운을 빕니다! :)";
@@ -156,7 +156,7 @@ DBM_CORE_AUTO_ANNOUNCE_TEXTS = {
 	adds		= "%s : %%d 남음",
 	cast 		= "주문시전 %s : %.1f 초",
 	soon 		= "곧 %s",
-	prewarn		= "곧 %s (%s 후)",
+	prewarn		= "%2$s 후 %1$s",
 	phase 		= "%s 단계",
 	prephase	= "곧 %s 단계",
 	count 		= "%s (%%d)",
@@ -174,7 +174,7 @@ DBM_CORE_AUTO_ANNOUNCE_OPTIONS = {
 	phase 		= "%s 단계 알림 보기",
 	prephase	= "%s 단계 사전 알림 보기",
 	count 		= "$spell:%s 알림 보기",
-	stack		= "$spell:%s 중첩 보기"
+	stack		= "$spell:%s 중첩 알림 보기"
 }
 
 -- Auto-generated Special Warning Localizations
@@ -186,9 +186,10 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	target 		= "$spell:%s 주문의 영향을 누군가 받은 경우 특수 경고 보기",
 	close 		= "$spell:%s 대상이 근처에 있을 경우 특수 경고 보기",
 	move 		= "$spell:%s 주문의 영향을 받은 경우 특수 경고 보기(이동)",
-	run 		= "$spell:%s 특수 경고 보기(빠른이동)",
+	run 		= "$spell:%s 특수 경고 보기(빠른 이동)",
 	cast 		= "$spell:%s 시전을 시작할 경우 특수 경고 보기",
-	stack 		= "%d 중첩 이상시 $spell:%s 특수 경고 보기"
+	stack 		= "$spell:%2$d 주문이 %1$d 중첩 이상시 특수 경고 보기",
+	switch		= "$spell:%s 특수 경고 보기(대상 전환)"
 }
 
 DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
@@ -201,15 +202,16 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 	move 		= "%s - 이동하세요!",
 	run 		= "%s - 뛰세요!",
 	cast 		= "%s - 시전 중지",
-	stack 		= "%s (%%d)"
+	stack 		= "%s (%%d)",
+	switch		= "%s - 대상 전환!"
 }
 
 
 DBM_CORE_AUTO_ICONS_OPTION_TEXT			= "$spell:%s 대상에게 전술 목표 아이콘 설정"
-DBM_CORE_AUTO_SOUND_OPTION_TEXT			= "$spell:%s 주문의 영향을 받은 경우 특수 경고음 듣기"
-DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT		= "$spell:%s 시전 전에 초읽기 소리 듣기(5,4,3,2,1)"
-DBM_CORE_AUTO_COUNTOUT_OPTION_TEXT		= "$spell:%s 주문의 활성화 시간 소리 듣기(1,2,3,...)"
-DBM_CORE_AUTO_YELL_OPTION_TEXT			= "$spell:%s 주문의 영향을 받은 경우 외치기"
+DBM_CORE_AUTO_SOUND_OPTION_TEXT			= "$spell:%s 주문의 영향을 받은 경우 별도 경고음 듣기"
+DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT		= "$spell:%s 주문의 초읽기 소리 듣기(5,4,3,2,1)"
+DBM_CORE_AUTO_COUNTOUT_OPTION_TEXT		= "$spell:%s 주문의 진행 시간 소리 듣기(1,2,3,...)"
+DBM_CORE_AUTO_YELL_OPTION_TEXT			= "$spell:%s 주문의 영향을 받은 경우 대화로 알리기"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT		= "나에게 %s!"
 
 

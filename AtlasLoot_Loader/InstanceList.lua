@@ -1,4 +1,5 @@
-﻿--[[
+﻿-- $Id: InstanceList.lua 3697 2012-01-31 15:17:37Z lag123 $
+--[[
 Atlasloot Enhanced
 Author Hegarol
 Loot browser associating loot with instance bosses

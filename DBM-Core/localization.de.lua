@@ -189,7 +189,8 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	move 		= "Zeige Spezialwarnung, wenn du von $spell:%s betroffen bist",
 	run 		= "Zeige Spezialwarnung zum Weglaufen vor $spell:%s",
 	cast 		= "Zeige Spezialwarnung zum Zauberstopp bei $spell:%s",
-	stack 		= "Zeige Spezialwarnung für >=%d Stapel von $spell:%s"
+	stack 		= "Zeige Spezialwarnung für >=%d Stapel von $spell:%s",
+	switch 		= "Zeige Spezialwarnung für Zielwechsel auf $spell:%s"
 }
 
 DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
@@ -202,7 +203,8 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 	move = "%s - geh weg",
 	run = "%s - lauf weg",
 	cast = "%s - stoppe Zauber",
-	stack = "%s (%%d)"
+	stack = "%s (%%d)",
+	switch = "%s - Ziel wechseln"
 }
 
 

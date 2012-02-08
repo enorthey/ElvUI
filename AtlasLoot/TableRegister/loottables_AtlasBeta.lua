@@ -1,4 +1,5 @@
-﻿--[[
+﻿-- $Id: loottables_AtlasBeta.lua 3697 2012-01-31 15:17:37Z lag123 $
+--[[
 loottables.en.lua
 This file assigns a title to every loot table.  The primary use of this table
 is in the search function, as when iterating through the loot tables there is no

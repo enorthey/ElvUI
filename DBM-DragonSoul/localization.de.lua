@@ -15,8 +15,8 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	KohcromWarning	= "Zeige Warnungen, wenn Kohcrom Fähigkeiten nachahmt",
-	KohcromCD		= "Zeige Zeiten bis Kohcrom Fähigkeiten nachahmt",
+	KohcromWarning	= "Zeige Warnungen, wenn $journal:4262 Fähigkeiten nachahmt",
+	KohcromCD		= "Zeige Zeiten bis $journal:4262 Fähigkeiten nachahmt",
 	RangeFrame		= "Zeige Abstandsfenster (5m) für Erfolg \"Rück' mir nicht auf die Pelle\""
 })
 
@@ -92,11 +92,13 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnPillars				= "Verkünde die Anzahl der verbleibenden $journal:3919 bzw. $journal:4069e",
 	TimerSpecial			= "Zeige Zeit bis erste Spezialfähigkeit gewirkt wird",
-	RangeFrame				= "Zeige Abstandsfenster: (3m) für $spell:105269, (10m) für $journal:4327",
+	RangeFrame				= "Zeige Abstandsfenster für $spell:105269 (3m) bzw. $journal:4327 (10m)",
 	AnnounceFrostTombIcons	= "Verkünde Zeichen für Ziele von $spell:104451 im Schlachtzugchat (nur als Leiter)",
 	warnFrostTombCast		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.cast:format(104448, GetSpellInfo(104448)),
 	SetIconOnFrostTomb		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(104451),
-	SetIconOnFrostflake		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(109325)
+	SetIconOnFrostflake		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(109325),
+	SpecialCount			= "Spiele Countdown-Sound für $spell:105256 bzw. $spell:105465",
+	SetBubbles				= "Automatische Deaktivierung der 'Sprechblasen' bevor $spell:104451 gewirkt wird\n(wird nach dem Kampfende auf die vorherige Einstellung zurückgesetzt)"
 })
 
 L:SetMiscLocalization({
@@ -196,16 +198,12 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(333)
 
 L:SetWarningLocalization({
-	SpecWarnTentacle	= "Blasige Tentakel fokussieren!",
-	SpecWarnCongealing	= "Gerinnendes Blut beseitigen!"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SpecWarnTentacle	= "Zeige Spezialwarnung, wenn Blasige Tentakel erscheinen (und Alexstrasza nicht aktiv ist)",
-	SpecWarnCongealing	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell:format(109089),
 	RangeFrame			= "Zeige dynamisches Abstandsfenster (10m) basierend auf Spieler-Debuffs für\n$spell:108649 auf heroischem Schwierigkeitsgrad",
 	SetIconOnParasite	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(108649)
 })

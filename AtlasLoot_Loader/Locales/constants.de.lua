@@ -1,4 +1,4 @@
-﻿-- $Id: constants.de.lua 3668 2011-12-03 15:33:57Z dynaletik $
+﻿-- $Id: constants.de.lua 3692 2012-01-06 08:28:53Z Dynaletik $
 --[[
 constants.de.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -249,6 +249,10 @@ if AL then
 	AL["ilvl 378"] = "Gegenstandsstufe 378";
 	AL["ilvl 397"] = "Gegenstandsstufe 397";
 	AL["ilvl 410"] = "Gegenstandsstufe 410";
+	-- AL["Gladiator"] = true;
+	AL["Vengeful"] = "Rachsüchtig";
+	AL["Merciless"] = "Erbarmungslos";
+	-- AL["Brutal"] = true;
 
 	-- #######################################
 	-- UI things END
@@ -768,7 +772,7 @@ if AL then
 	AL["Papa Hummel's Old-fashioned Pet Biscuit"] = "Papa Hummels altmodischer Tierkuchen";
 
 	-- Sixth set
-	AL["Hunt for Illidan"] = "Die Jagd nach Illidan";
+	AL["Hunt for Illidan"] = "Jagd nach Illidan";
 	AL["The Footsteps of Illidan"] = "Die Fußspuren von Illidan";
 	AL["Disco Inferno!"] = "Disko-Inferno";
 	AL["Ethereal Plunderer"] = "Astraler Brandschatzer";
@@ -826,6 +830,9 @@ if AL then
 
 	-- Eighteenth set
 	AL["Tomb of the Forgotten"] = "Gruft der Vergessenen";
+
+	-- Nineteenth set
+	AL["War of the Ancients"] = "Zeitwandler: Der Krieg der Ahnen";
 
 	-- Battleground Brackets
 	AL["Old PvP Rewards"] = "Alte PvP Belohnungen";

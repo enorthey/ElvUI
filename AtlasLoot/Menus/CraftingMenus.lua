@@ -1,3 +1,4 @@
+-- $Id: CraftingMenus.lua 3697 2012-01-31 15:17:37Z lag123 $
 -- Invoke libraries
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")

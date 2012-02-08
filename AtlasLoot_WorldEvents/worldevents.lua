@@ -1,3 +1,4 @@
+-- $Id: worldevents.lua 3697 2012-01-31 15:17:37Z lag123 $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
@@ -374,28 +375,33 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 30, 17307, "", "=q1=Purple Ribboned Wrapping Paper", "=ds=#e6#"};
 			};
 			{
-				{ 1, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AL["Gaily Wrapped Present"], ""};
-				{ 2, 21301, "", "=q1=Green Helper Box", "=ds=#e13#"};
-				{ 3, 21308, "", "=q1=Jingling Bell", "=ds=#e13#"};
-				{ 4, 21305, "", "=q1=Red Helper Box", "=ds=#e13#"};
-				{ 5, 21309, "", "=q1=Snowman Kit", "=ds=#e13#"};
-				{ 7, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AL["Winter Veil Gift"], ""};
-				{ 8, 70923, "", "=q2=Gaudy Winter Veil Sweater", "#ACHIEVEMENTID:6061#"};
-				{ 9, 46709, "", "=q3=MiniZep Controller", "#ACHIEVEMENTID:6060#"};
-				{ 10, 46725, "", "=q3=Red Rider Air Rifle", "#ACHIEVEMENTID:6059#"};
-				{ 11, 37710, "", "=q3=Crashin' Thrashin' Racer Controller", "#ACHIEVEMENTID:1706#"};
-				{ 12, 34425, "", "=q3=Clockwork Rocket Bot", "#ACHIEVEMENTID:1705#"};
-				{ 16, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AL["Ticking Present"], ""};
-				{ 17, 21325, "", "=q2=Mechanical Greench", "=ds=#e22#"};
-				{ 18, 21213, "", "=q2=Preserved Holly", "=ds=#m20#"};
-				{ 19, 17706, "", "=q2=Plans: Edge of Winter", "=ds=#p2# (190)"};
-				{ 20, 17725, "", "=q2=Formula: Enchant Weapon - Winter's Might", "=ds=#p4# (190)"};
-				{ 21, 17720, "", "=q2=Schematic: Snowmaster 9000", "=ds=#p5# (190)"};
-				{ 22, 17722, "", "=q2=Pattern: Gloves of the Greatfather", "=ds=#p7# (190)"};
-				{ 23, 17709, "", "=q1=Recipe: Elixir of Frost Power", "=ds=#p1# (190)"};
-				{ 24, 17724, "", "=q1=Pattern: Green Holiday Shirt", "=ds=#p8# (190)"};
-				{ 26, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AL["Stolen Present"], "#QUESTID:7043#"};
-				{ 27, 73797, "", "=q3=Lump of Coal", "=ds=#e13#"};
+				{ 1, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AL["Stolen Present"], "#QUESTID:7043#"};
+				{ 2, 66450, "", "=q4=Miniature Winter Veil Tree", "=ds=#h1#, #w4#"};
+				{ 3, 34425, "", "=q3=Clockwork Rocket Bot", "#ACHIEVEMENTID:1705#"};
+				{ 4, 73797, "", "=q3=Lump of Coal", "=ds=#e13#"};
+				{ 5, 46709, "", "=q3=MiniZep Controller", ""};
+				{ 6, 46725, "", "=q2=Red Rider Air Rifle", ""};
+				{ 7, 37710, "", "=q3=Crashin' Thrashin' Racer Controller", ""};
+				{ 9, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AL["Winter Veil Gift"], ""};
+				{ 10, 70923, "", "=q2=Gaudy Winter Veil Sweater", "#ACHIEVEMENTID:6061#"};
+				{ 11, 46709, "", "=q3=MiniZep Controller", "#ACHIEVEMENTID:6060#"};
+				{ 12, 46725, "", "=q2=Red Rider Air Rifle", "#ACHIEVEMENTID:6059#"};
+				{ 13, 37710, "", "=q3=Crashin' Thrashin' Racer Controller", "#ACHIEVEMENTID:1706#"};
+				{ 14, 34425, "", "=q3=Clockwork Rocket Bot", "#ACHIEVEMENTID:1705#"};
+				{ 16, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AL["Gaily Wrapped Present"], ""};
+				{ 17, 21301, "", "=q1=Green Helper Box", "=ds=#e13#"};
+				{ 18, 21308, "", "=q1=Jingling Bell", "=ds=#e13#"};
+				{ 19, 21305, "", "=q1=Red Helper Box", "=ds=#e13#"};
+				{ 20, 21309, "", "=q1=Snowman Kit", "=ds=#e13#"};
+				{ 22, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AL["Ticking Present"], ""};
+				{ 23, 21325, "", "=q2=Mechanical Greench", "=ds=#e22#"};
+				{ 24, 21213, "", "=q2=Preserved Holly", "=ds=#m20#"};
+				{ 25, 17706, "", "=q2=Plans: Edge of Winter", "=ds=#p2# (190)"};
+				{ 26, 17725, "", "=q2=Formula: Enchant Weapon - Winter's Might", "=ds=#p4# (190)"};
+				{ 27, 17720, "", "=q2=Schematic: Snowmaster 9000", "=ds=#p5# (190)"};
+				{ 28, 17722, "", "=q2=Pattern: Gloves of the Greatfather", "=ds=#p7# (190)"};
+				{ 29, 17709, "", "=q1=Recipe: Elixir of Frost Power", "=ds=#p1# (190)"};
+				{ 30, 17724, "", "=q1=Pattern: Green Holiday Shirt", "=ds=#p8# (190)"};
 			};
 			{
 				{ 1, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AL["Festive Gift"], ""};

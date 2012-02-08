@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Shazzrah", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 311 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 389 $"):sub(12, -3))
 mod:SetCreatureID(12264)
 mod:SetModelID(13032)
 mod:RegisterCombat("combat")
@@ -12,10 +12,10 @@ mod:RegisterEvents(
 	"SPELL_CAST_SUCCESS"
 )
 
-local warnCurse		= mod:NewSpellAnnounce(19713)
-local warnGrounding	= mod:NewSpellAnnounce(19714, 2, nil, false)
-local warnCntrSpell	= mod:NewSpellAnnounce(19715)
-local warnBlink		= mod:NewSpellAnnounce(21655)
+local warnCurse			= mod:NewSpellAnnounce(19713)
+local warnGrounding		= mod:NewSpellAnnounce(19714, 2, nil, false)
+local warnCntrSpell		= mod:NewSpellAnnounce(19715)
+local warnBlink			= mod:NewSpellAnnounce(21655)
 
 local timerCurseCD		= mod:NewNextTimer(20, 19713)
 local timerGrounding	= mod:NewBuffActiveTimer(30, 19714, nil, false)

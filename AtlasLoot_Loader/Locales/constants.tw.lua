@@ -1,4 +1,4 @@
-﻿-- $Id: constants.tw.lua 3673 2011-12-04 17:03:02Z arith $
+﻿-- $Id: constants.tw.lua 3693 2012-01-12 15:11:40Z ananhaid $
 --[[
 constants.tw.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -249,6 +249,10 @@ if AL then
 	AL["ilvl 378"] = "等級 378";
 	AL["ilvl 397"] = "等級 397";
 	AL["ilvl 410"] = "等級 410";
+	AL["Gladiator"] = "鬥士";
+	AL["Vengeful"] = "復仇";
+	AL["Merciless"] = "殘忍";
+	AL["Brutal"] = "野蠻";
 
 	-- #######################################
 	-- UI things END
@@ -738,73 +742,73 @@ if AL then
 	AL["UDE Items"] = "兌換商品";
 
 	-- First set
-	AL["Heroes of Azeroth"] = "艾澤拉斯的英雄"; -- confirmed
+	AL["Heroes of Azeroth"] = "艾澤拉斯的英雄";
 	AL["Landro Longshot"] = "藍卓·長射"; -- confirmed
 	AL["Thunderhead Hippogryph"] = "雷首角鷹獸"; -- confirmed
 	AL["Saltwater Snapjaw"] = "海水鉗嘴龜"; -- confirmed
 
 	-- Second set
-	AL["Through The Dark Portal"] = "通過黑暗之門"; -- confirmed
+	AL["Through The Dark Portal"] = "通過黑暗之門";
 	AL["King Mukla"] = "穆克拉"; -- confirmed
 	AL["Rest and Relaxation"] = "休息與放鬆"; -- confirmed
 	AL["Fortune Telling"] = "算命";
 
 	-- Third set
-	AL["Fires of Outland"] = "外域之火"; -- confirmed
+	AL["Fires of Outland"] = "外域之火";
 	AL["Spectral Tiger"] = "鬼靈之虎"; -- confirmed
 	AL["Gone Fishin'"] = "去釣魚"; -- confirmed
 	AL["Goblin Gumbo"] = "哥布林燴肉"; -- confirmed
 
 	-- Fourth set
-	AL["March of the Legion"] = "軍團行軍"; -- confirmed
+	AL["March of the Legion"] = "燃燒軍團的進軍";
 	AL["Kiting"] = "風箏";
 	AL["Robotic Homing Chicken"] = "寵物機械小雞";
 	AL["Paper Airplane"] = "紙飛機";
 
 	-- Fifth set
-	AL["Servants of the Betrayer"] = "背叛者之奴"; -- confirmed
+	AL["Servants of the Betrayer"] = "背叛者之奴";
 	AL["X-51 Nether-Rocket"] = "X51型虛空火箭";
 	AL["Personal Weather Machine"] = "個人氣象儀";
 	AL["Papa Hummel's Old-fashioned Pet Biscuit"] = "休莫爾老爹的老派寵物軟餅";
 
 	-- Sixth set
-	AL["Hunt for Illidan"] = "獵殺者伊利丹"; -- confirmed
+	AL["Hunt for Illidan"] = "獵殺伊利丹";
 	AL["The Footsteps of Illidan"] = "伊利丹的腳步";
 	--AL["Disco Inferno!"] = "Disco Inferno!";
 	AL["Ethereal Plunderer"] = "伊斯利掠奪者";
 
 	-- Seventh set
-	AL["Drums of War"] = "戰爭之鼓"; -- confirmed
+	AL["Drums of War"] = "戰爭之鼓";
 	--AL["The Red Bearon"] = true;
 	--AL["Owned!"] = true;
 	--AL["Slashdance"] = true;
 
 	-- Eighth set
-	AL["Blood of Gladiators"] = "鬥士之血"; -- confirmed
+	AL["Blood of Gladiators"] = "鬥士之血";
 	AL["Sandbox Tiger"] = "沙池虎"; -- confirmed
 	--AL["Center of Attention"] = true;
 	AL["Foam Sword Rack"] = "泡沫之劍架"; -- confirmed
 
 	-- Ninth set
-	AL["Fields of Honor"] = "榮譽原野"; -- confirmed
+	AL["Fields of Honor"] = "榮譽原野";
 	AL["Path of Cenarius"] = "塞納留斯之徑"; -- confirmed
 	AL["Pinata"] = "巨魔糖果玩偶"; -- confirmed
 	AL["El Pollo Grande"] = "艾伯格蘭德";
 
 	-- Tenth set
-	AL["Scourgewar"] = "天譴戰爭"; -- confirmed
+	AL["Scourgewar"] = "天譴戰爭";
 	AL["Tiny"] = "迷你坐騎"; -- confirmed
 	AL["Tuskarr Kite"] = "巨牙海民風箏"; -- confirmed
 	AL["Spectral Kitten"] = "鬼靈貓";
 
 	-- Eleventh set
-	AL["Wrathgate"] = "憤怒之門"; -- confirmed
+	AL["Wrathgate"] = "憤怒之門";
 	AL["Statue Generator"] = "速成雕像"; -- confirmed
 	AL["Landro's Gift"] = "藍卓的禮物盒"; -- confirmed
 	AL["Blazing Hippogryph"] = "熾熱的角鷹獸"; -- confirmed
 
 	-- Twelvth set
-	AL["Icecrown"] = "寒冰皇冠"; -- confirmed
+	AL["Icecrown"] = "寒冰皇冠";
 	AL["Wooly White Rhino"] = "蓬毛犀牛坐騎"; -- confirmed
 	AL["Ethereal Portal"] = "傳送門之石"; -- confirmed
 	AL["Paint Bomb"] = "漆彈"; -- confirmed
@@ -819,13 +823,16 @@ if AL then
 	AL["War of the Elements"] = "元素之戰";
 
 	-- Fifteenth set
-	AL["Twilight of the Dragons"] = "暮光之龍";
+	AL["Twilight of the Dragons"] = "龍之暮光";
 
 	-- Seventeenth set
 	AL["Crown of Heaven"] = "天堂之冠";
 
 	-- Eighteenth set
-	AL["Tomb of the Forgotten"] = "Tomb of the Forgotten";
+	AL["Tomb of the Forgotten"] = "遺忘之墓";
+
+	-- Nineteenth set
+	AL["War of the Ancients"] = "時間行者：先祖之戰";
 
 	-- Battleground Brackets
 	AL["Old PvP Rewards"] = "舊 PvP 獎勵";

@@ -11,6 +11,7 @@ mod:RegisterCombat("combat")
 mod:RegisterEvents(
 	"SPELL_CAST_SUCCESS",
 	"SPELL_DAMAGE",
+	"SPELL_MISSED",
 	"SPELL_AURA_APPLIED",
 	"UNIT_DIED"
 )
@@ -86,7 +87,10 @@ local specWarnIceBlock		= mod:NewSpecialWarningDispel(65802, isDispeller)
 
 local soundBladestorm		= mod:NewSound(65947, nil, mod:IsMelee())
 
+local antiSpam = 0
+
 function mod:OnCombatStart(delay)
+	antiSpam = 0
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
@@ -138,11 +142,13 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsPlayer() and args:IsSpellID(65817, 68142, 68143, 68144) then
+function mod:SPELL_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId)
+	if (spellId == 65817 or spellId == 68142 or spellId == 68143 or spellId == 68144) and destGUID == UnitGUID("player") and GetTime() - antiSpam >= 3 then
 		specWarnHellfire:Show()
+		antiSpam = GetTime()
 	end
 end
+mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)

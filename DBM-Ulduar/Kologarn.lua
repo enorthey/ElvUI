@@ -13,6 +13,7 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REMOVED",
 	"SPELL_DAMAGE",
+	"SPELL_MISSED",
 	"RAID_BOSS_WHISPER",
 	"UNIT_DIED"
 )
@@ -38,12 +39,18 @@ local timerRespawnLeftArm		= mod:NewTimer(48, "timerLeftArm")
 local timerRespawnRightArm		= mod:NewTimer(48, "timerRightArm")
 local timerTimeForDisarmed		= mod:NewTimer(10, "achievementDisarmed")	-- 10 HC / 12 nonHC
 
-local soundEyebeam			= mod:NewSound(63346)
+local soundEyebeam				= mod:NewSound(63346)
 
 mod:AddBoolOption("HealthFrame", true)
 mod:AddBoolOption("SetIconOnGripTarget", true)
 mod:AddBoolOption("SetIconOnEyebeamTarget", true)
 mod:AddBoolOption("YellOnBeam", true, "announce")
+
+local antiSpam = 0
+
+function mod:OnCombatStart(delay)
+	antiSpam = 0
+end
 
 function mod:UNIT_DIED(args)
 	if self:GetCIDFromGUID(args.destGUID) == 32934 then 		-- right arm
@@ -64,13 +71,15 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(63783, 63982) and args:IsPlayer() then	-- Shockwave
+function mod:SPELL_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId)
+	if (spellId == 63783 or spellId == 63982) and timerNextShockwave:GetTime() == 0 then
 		timerNextShockwave:Start()
-	elseif args:IsSpellID(63346, 63976) and args:IsPlayer() then
+	elseif (spellId == 63346 or spellId == 63976) and destGUID == UnitGUID("player") and GetTime() - antiSpam > 2 then
 		specWarnEyebeam:Show()
+		antiSpam = GetTime()
 	end
 end
+mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
 function mod:RAID_BOSS_WHISPER(msg)
 	if msg:find(L.FocusedEyebeam) then

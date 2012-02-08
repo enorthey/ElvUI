@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Aran", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 311 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 384 $"):sub(12, -3))
 mod:SetCreatureID(16524)
 mod:SetModelID(16621)
 mod:RegisterCombat("combat")
@@ -12,7 +12,8 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
 	"SPELL_SUMMON",
-	"SPELL_PERIODIC_DAMAGE"
+	"SPELL_PERIODIC_DAMAGE",
+	"SPELL_PERIODIC_MISSED"
 )
 
 local warningFlameCast		= mod:NewCastAnnounce(30004, 4)
@@ -146,10 +147,11 @@ end
 
 do 
 	local lastBlizzard = 0
-	function mod:SPELL_PERIODIC_DAMAGE(args)
-		if args:IsSpellID(29951) and args:IsPlayer() and GetTime() - lastBlizzard > 2 then
+	function mod:SPELL_PERIODIC_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId)
+		if spellId == 29951 and destGUID == UnitGUID("player") and GetTime() - lastBlizzard > 2 then
 			specWarnBlizzard:Show()
 			lastBlizzard = GetTime()
 		end
 	end
+	mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 end

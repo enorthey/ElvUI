@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
     
-    Decursive (v 2.7.0.4-6-gadc748d) add-on for World of Warcraft UI
+    Decursive (v 2.7.0.5) add-on for World of Warcraft UI
     Copyright (C) 2006-2007-2008-2009-2010-2011 John Wellesz (archarodim AT teaser.fr) ( http://www.2072productions.com/to/decursive.php )
 
     Starting from 2009-10-31 and until said otherwise by its author, Decursive
@@ -1674,7 +1674,7 @@ local function GetStaticOptions ()
                                     "\n\n|cFFDDDD00 %s|r:\n   %s"..
                                     "\n\n|cFFDDDD00 %s|r:\n   %s"
                                 ):format(
-                                    "2.7.0.4-6-gadc748d", "John Wellesz", ("2012-01-15T18:56:52Z"):sub(1,10),
+                                    "2.7.0.5", "John Wellesz", ("2012-02-05T17:48:12Z"):sub(1,10),
                                     L["ABOUT_NOTES"],
                                     L["ABOUT_LICENSE"],         GetAddOnMetadata("Decursive", "X-License"),
                                     L["ABOUT_SHAREDLIBS"],      GetAddOnMetadata("Decursive", "X-Embeds"),
@@ -2953,7 +2953,7 @@ function D:ShowDebugReport()
     D:Debug(GetLocale());
 
     if not DebugHeader then
-        DebugHeader = ("%s\n2.7.0.4-6-gadc748d  %s(%s)  CT: %0.4f D: %s %s %s BDTHFAd: %s nDrE: %d Embeded: %s (%s, %s, %s, %s)"):format((self.L) and self.L["DEBUG_REPORT_HEADER"] or "X|cFF11FF33Please report the content of this window to Archarodim@teaser.fr|r\n|cFF009999(Use CTRL+A to select all and then CTRL+C to put the text in your clip-board)|r\n", -- "%s\n
+        DebugHeader = ("%s\n2.7.0.5  %s(%s)  CT: %0.4f D: %s %s %s BDTHFAd: %s nDrE: %d Embeded: %s (%s, %s, %s, %s)"):format((self.L) and self.L["DEBUG_REPORT_HEADER"] or "X|cFF11FF33Please report the content of this window to Archarodim@teaser.fr|r\n|cFF009999(Use CTRL+A to select all and then CTRL+C to put the text in your clip-board)|r\n", -- "%s\n
         DC.MyClass, tostring(UnitLevel("player") or "??"), D:NiceTime(), date(), GetLocale(), -- %s(%s)  CT: %0.4f D: %s %s
         BugGrabber and "BG" .. (T.BugGrabber and "e" or "") or "NBG", -- %s
         tostring(T._BDT_HotFix1_applyed), -- BDTHFAd: %s
@@ -2969,6 +2969,6 @@ function D:ShowDebugReport()
     _G.DecursiveDebuggingFrame:Show();
 end
 
-T._LoadedFiles["Dcr_opt.lua"] = "2.7.0.4-6-gadc748d";
+T._LoadedFiles["Dcr_opt.lua"] = "2.7.0.5";
 
 -- Closer

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("LurkerBelow", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 334 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 386 $"):sub(12, -3))
 mod:SetCreatureID(21217)
 mod:SetModelID(20216)
 mod:SetZone()
@@ -36,8 +36,8 @@ function mod:CheckDive()
 	self:ScheduleMethod(0.5, "CheckDive")
 	for i = 1, GetNumRaidMembers() do
 		if UnitName("raid"..i.."target") == L.name then
-			foundIt = true;
-			break;
+			foundIt = true
+			break
 		end
 	end
 	if not foundIt then
@@ -59,21 +59,14 @@ function mod:OnCombatStart(delay)
 	self:ScheduleMethod(90, "CheckDive")
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(37363) and GetTime() - whirlSpam >= 10 then
+function mod:SPELL_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId)
+	if spellId == 37363 and GetTime() - whirlSpam >= 10 then
 		warnWhirl:Show()
 		timerWhirlCD:Start()
 		whirlSpam = GetTime()
 	end
 end
-
-function mod:SPELL_MISSED(args)
-	if args:IsSpellID(37363) and GetTime() - whirlSpam >= 10 then
-		warnWhirl:Show()
-		timerWhirlCD:Start()
-		whirlSpam = GetTime()
-	end
-end
+mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
 function mod:RAID_BOSS_EMOTE(msg)
 	if msg == L.Spout or msg:find(L.Spout) then

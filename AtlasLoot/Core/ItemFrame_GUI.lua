@@ -1,3 +1,4 @@
+-- $Id: ItemFrame_GUI.lua 3697 2012-01-31 15:17:37Z lag123 $
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");

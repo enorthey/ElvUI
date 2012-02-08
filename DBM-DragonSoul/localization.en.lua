@@ -14,8 +14,8 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	KohcromWarning	= "Show warnings for Kohcrom mimicking abilities.",
-	KohcromCD		= "Show timers for Kohcrom's next ability mimick.",
+	KohcromWarning	= "Show warnings for $journal:4262 mimicking abilities.",
+	KohcromCD		= "Show timers for $journal:4262's next ability mimick.",
 	RangeFrame		= "Show range frame (5) for achievement."
 })
 
@@ -95,7 +95,9 @@ L:SetOptionLocalization({
 	AnnounceFrostTombIcons	= "Announce icons for $spell:104451 targets to raid chat\n(requires raid leader)",
 	warnFrostTombCast		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.cast:format(104448, GetSpellInfo(104448)),
 	SetIconOnFrostTomb		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(104451),
-	SetIconOnFrostflake		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(109325)
+	SetIconOnFrostflake		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(109325),
+	SpecialCount			= "Play countdown sound for $spell:105256 or $spell:105465",
+	SetBubbles				= "Automatically disable chat bubbles when $spell:104451 available\n(restores them when combat ends)"
 })
 
 L:SetMiscLocalization({
@@ -195,16 +197,12 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(333)
 
 L:SetWarningLocalization({
-	SpecWarnTentacle	= "Blistering Tentacles - Switch",--Msg too long? maybe just "Blistering Tentacles!"
-	SpecWarnCongealing	= "Congealing Blood - Switch"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SpecWarnTentacle	= "Show special warning when Blistering Tentacles spawn (and Alexstrasza is not active)",--http://ptr.wowhead.com/npc=56188
-	SpecWarnCongealing	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell:format(109089),
 	RangeFrame			= "Show dynamic range frame based on player debuff status for\n$spell:108649 on Heroic difficulty",
 	SetIconOnParasite	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(108649)
 })

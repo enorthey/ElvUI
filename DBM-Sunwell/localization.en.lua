@@ -81,20 +81,17 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnPhase		= "%s Phase",
-	WarnPhaseSoon	= "%s Phase in 10 sec",
-	WarnBreath		= "Deep Breath (%d)"
+	WarnPhaseSoon	= "%s Phase in 10 sec"
 }
 
 L:SetTimerLocalization{
-	TimerPhase		= "Next %s Phase",
-}	TimerBreath		= "Deep Breath Cooldown"
+	TimerPhase		= "Next %s Phase"
+}
 
 L:SetOptionLocalization{
 	WarnPhase		= "Show warning for next phase",
 	WarnPhaseSoon	= "Show pre-warning for next phase",
-	WarnBreath		= "Show warning for Deep Breath",
 	TimerPhase		= "Show time for next phase",
-	TimerBreath		= "Show timer for Deep Breath cooldown",
 	VaporIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45392),
 	EncapsIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45665),
 	YellOnEncaps	= "Yell on $spell:45665"
@@ -211,6 +208,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
+	YellPull		= "The expendable have perished. So be it! Now I shall succeed where Sargeras could not! I will bleed this wretched world and secure my place as the true master of the Burning Legion! The end has come! Let the unravelling of this world commence!",
 	YellBloom		= "Fire Bloom on me!",
 	BloomWhisper	= "Fire Bloom on you!",
 	OrbYell1		= "I will channel my powers into the orbs! Be ready!",

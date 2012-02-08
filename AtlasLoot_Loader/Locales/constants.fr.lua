@@ -1,6 +1,6 @@
-﻿-- $Id: constants.fr.lua 3669 2011-12-03 18:15:56Z trasher $
+﻿-- $Id: constants.fr.lua 3685 2011-12-14 22:05:21Z trasher $
 --[[
-constants.fr.lua --- Traduction frFR par Trasher (Tchoupie / Nerz'hul-EU). Merci à KKram pour les premières traductions & Pettigrow pour ses quelques traductions.
+constants.fr.lua --- Traduction frFR par TrAsHeR (Tchoupie @ Nerz'hul-EU). Merci à KKram pour les premières traductions & Pettigrow pour ses quelques traductions.
 This file defines an AceLocale table for all the various text strings needed
 by AtlasLoot.  In this implementation, if a translation is missing, it will fall
 back to the English translation.
@@ -249,6 +249,10 @@ if AL then
 	--AL["ilvl 378"] = true;
 	--AL["ilvl 397"] = true;
 	--AL["ilvl 410"] = true;
+	AL["Gladiator"] = "Gladiateur";
+	AL["Vengeful"] = "Vengeur";
+	AL["Merciless"] = "Impitoyable";
+	AL["Brutal"] = "Brutale";
 
 	-- #######################################
 	-- UI things END
@@ -1125,6 +1129,7 @@ if AL then
 	AL["Bag of Heart Candies"] = "Sachet de bonbons en forme de cœur";
 	AL["Hidden Stash"] = "Fortune cachée";
 	AL["The Cache of Madness"] = "L'antre de la Folie";
+	AL["Stolen Present"] = "Cadeau volé";
 
 	-- Error Messages and warnings
 	AL["AtlasLoot Error!"] = "Erreur AtlasLoot !";

@@ -1,3 +1,4 @@
+-- $Id: AtlasIntegration.lua 3697 2012-01-31 15:17:37Z lag123 $
 --[[
 self file contains all the Atlas specific functions
 ]]

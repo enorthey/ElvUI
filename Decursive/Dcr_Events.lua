@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
     
-    Decursive (v 2.7.0.4-6-gadc748d) add-on for World of Warcraft UI
+    Decursive (v 2.7.0.5) add-on for World of Warcraft UI
     Copyright (C) 2006-2007-2008-2009-2010-2011 John Wellesz (archarodim AT teaser.fr) ( http://www.2072productions.com/to/decursive.php )
 
     Starting from 2009-10-31 and until said otherwise by its author, Decursive
@@ -56,9 +56,9 @@ local DS = DC.DS;
 
 D.DebuffUpdateRequest = 0;
 
---@alpha@  
+--[===[@alpha@  
 D.DetectHistory = {};
---@end-alpha@
+--@end-alpha@]===]
 
 local pairs     = _G.pairs;
 local next      = _G.next;
@@ -727,9 +727,9 @@ do -- Combat log event handling {{{1
                 D:Println(L["FAILEDCAST"], spellNAME, (select(2, GetSpellInfo(spellID))), D:MakePlayerName(destName), auraTYPE_failTYPE);
                 PlaySoundFile(DC.FailedSound, "Master");
                 self.Status.ClickedMF = false;
-                --@alpha@
+                --[===[@alpha@
                 D:AddDebugText("sanitycheck ", event, spellNAME);
-                --@end-alpha@
+                --@end-alpha@]===]
             end
             --  }}}
             --[===[@debug@
@@ -751,9 +751,9 @@ end --}}}
 
 do -- Communication event handling and broadcasting {{{1
     local alpha = false;
-    --@alpha@
+    --[===[@alpha@
     alpha = true;
-    --@end-alpha@
+    --@end-alpha@]===]
 
     local function GetDistributionChanel()
         local inInstance, InstanceType = IsInInstance();
@@ -811,9 +811,9 @@ do -- Communication event handling and broadcasting {{{1
     function D:OnCommReceived(message, distribution, from)
 
 
-        --@alpha@
+        --[===[@alpha@
         D:Debug("OnCommReceived:", message, distribution, from);
-        --@end-alpha@
+        --@end-alpha@]===]
 
         local gettime = GetTime();
 
@@ -830,9 +830,9 @@ do -- Communication event handling and broadcasting {{{1
             versionIsAlpha      = tonumber(versionIsAlpha);
             versionEnabled      = tonumber(versionEnabled);
 
-            --@alpha@
+            --[===[@alpha@
             if self.debug then D:Debug("Version info received from, ", from, "by", distribution, "version:", versionName, "date:", versionTimeStamp, "islpha:", versionIsAlpha, "enabled:", versionEnabled); end
-            --@end-alpha@
+            --@end-alpha@]===]
 
             if versionName then
                 if not D.versions then
@@ -904,9 +904,9 @@ do -- Communication event handling and broadcasting {{{1
             end
             LastVersionAnnouceByDist[distribution]  = gettime;
 
-            --@alpha@
+            --[===[@alpha@
             if self.debug then D:Debug("Version info sent to, ", from, "by", distribution, ("Version: %s,%u,%d,%d"):format(D.version, D.VersionTimeStamp, alpha and 1 or 0, D:IsEnabled() and 1 or 0 )); end
-            --@end-alpha@
+            --@end-alpha@]===]
 
         end
     end
@@ -1036,7 +1036,7 @@ do
     local GetUnspentTalentPoints = _G.GetUnspentTalentPoints;
     local UnitLevel = _G.UnitLevel;
 
-    --@alpha@
+    --[===[@alpha@
     local GetTalentInfo = _G.GetTalentInfo;
     -- Sanity check, to make sure GetTalentInfo() and GetNumTalentPoints() agree
     local function CheckTalentsAvaibility_thebadway() -- {{{
@@ -1052,7 +1052,7 @@ do
 
         return false;
     end --}}}
-    --@end-alpha@
+    --@end-alpha@]===]
 
     local function CheckTalentsAvaibility() -- {{{
 
@@ -1066,30 +1066,30 @@ do
 
         if totalTalentPoints ~= 0 then
             -- Talents are available
-            --@alpha@
+            --[===[@alpha@
             if totalTalentPoints ~= unspentTalentPoints and not CheckTalentsAvaibility_thebadway() then
                 -- no talent detected by GetTalentInfo() --> sanity check failed
                 D:AddDebugText("CheckTalentsAvaibility(): Sanity check failed: GetNumTalentPoints() said 'yes' but GetNumTalentPoints() said 'no', totalTalentPoints=", totalTalentPoints, "unspentTalentPoints=", unspentTalentPoints);
             end
-            --@end-alpha@
+            --@end-alpha@]===]
 
             return true;
         else
             -- Talents are not available
-            --@alpha@
+            --[===[@alpha@
             if CheckTalentsAvaibility_thebadway() then
                 -- talents detected by GetTalentInfo() --> sanity check failed
                 D:AddDebugText("CheckTalentsAvaibility(): Sanity check failed: GetNumTalentPoints() said 'no' but GetNumTalentPoints() said 'yes', totalTalentPoints=", totalTalentPoints, "unspentTalentPoints=", unspentTalentPoints);
             end
-            --@end-alpha@
+            --@end-alpha@]===]
 
             return false;
         end
     end -- }}}
 
-    --@alpha@
+    --[===[@alpha@
     local player_is_almost_alive = false; -- I'm trying to figure out why sometimes talents are not detected while PLAYER_ALIVE event fired
-    --@end-alpha@
+    --@end-alpha@]===]
     local function PollTalentsAvaibility() -- {{{
         D:Debug("Polling talents...");
         if CheckTalentsAvaibility() then
@@ -1122,6 +1122,6 @@ do
     end
 end
 
-T._LoadedFiles["Dcr_Events.lua"] = "2.7.0.4-6-gadc748d";
+T._LoadedFiles["Dcr_Events.lua"] = "2.7.0.5";
 
 -- The Great Below

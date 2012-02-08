@@ -1,4 +1,5 @@
-﻿local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
+﻿-- $Id: LootButtons.lua 3697 2012-01-31 15:17:37Z lag123 $
+local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot")
 local GREY = "|cff999999"
 local RED = "|cffff0000"
