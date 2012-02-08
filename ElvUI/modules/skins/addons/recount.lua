@@ -81,6 +81,27 @@ local function LoadSkin()
 		return frame
 	end
 
+	Recount.HideScrollbarElements_ = Recount.HideScrollbarElements
+	Recount.ShowScrollbarElements_ = Recount.ShowScrollbarElements
+	
+	function Recount.ShowScrollbarElements(self, name)
+		local scrollbar=getglobal(name.."ScrollBar")
+		scrollbar:Show()
+		Recount.ShowScrollbarElements_(self, name)
+	end
+ 
+	function Recount.HideScrollbarElements(self, name)
+		local scrollbar=getglobal(name.."ScrollBar")
+		scrollbar:Hide()
+		Recount.HideScrollbarElements_(self, name)
+	end	
+	
+	if Recount.db.profile.MainWindow.ShowScrollbar then
+		Recount:ShowScrollbarElements("Recount_MainWindow_ScrollBar")
+	else
+		Recount:HideScrollbarElements("Recount_MainWindow_ScrollBar")
+	end	
+	
 	if Recount.MainWindow then SkinFrame(Recount.MainWindow) end
 	if Recount.ConfigWindow then SkinFrame2(Recount.ConfigWindow) end
 	if Recount.GraphWindow then SkinFrame2(Recount.GraphWindow) end
@@ -113,7 +134,6 @@ local function LoadSkin()
 	for i = 1, getn(MWbuttons) do
 		local button = MWbuttons[i]
 		if button then
-			--button:SetTemplate("Default")
 			button:SetNormalTexture("")
 			button:SetPushedTexture("")	
 			button:SetHighlightTexture("")
@@ -135,9 +155,9 @@ local function LoadSkin()
 	Recount.MainWindow.ConfigButton.text:SetText(E.ValColor.."C")
 	Recount.MainWindow.ReportButton.text:SetText(E.ValColor.."S")	
 	
-		Recount.db.profile.Locked = true
-		Recount.db.profile.Font = "ElvUI Font"
-		Recount.db.profile.BarTexture = "Ruben"	
+	Recount.db.profile.Locked = true
+	Recount.db.profile.Font = "ElvUI Font"
+	Recount.db.profile.BarTexture = "Ruben"	
 end
 
 S:RegisterSkin('Recount', LoadSkin)

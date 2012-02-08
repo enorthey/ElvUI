@@ -480,7 +480,7 @@ function NP:OnHide(frame)
 	frame.hp.gcolor = nil
 	frame.hp.bcolor = nil
 	frame.shadow:SetAlpha(0)
-	self:SetVirtualBackdrop(frame.hp, unpack(E["media"].backdropcolor))
+	self:SetVirtualBackdrop(frame.hp, unpack(E["media"].backdropcolor))	
 	if frame.icons then
 		for _,icon in ipairs(frame.icons) do
 			icon:Hide()
@@ -506,7 +506,7 @@ function NP:SkinPlate(frame)
 		frame.shadow:Point("TOPRIGHT", frame.hp, 5, 5)
 		frame.shadow:Point("BOTTOMRIGHT", frame.hp, 5, -5)	
 		frame.shadow:SetBackdropBorderColor(1, 1, 1, 0.75)
-		frame.shadow:SetAlpha(0)
+		frame.shadow:SetAlpha(0)		
 		self:CreateVirtualFrame(frame.hp)
 		
 		frame.hp.hpbg = frame.hp:CreateTexture(nil, 'BORDER')

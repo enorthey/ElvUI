@@ -679,10 +679,7 @@ L["You must purchase a bank slot first!"] = "You must purchase a bank slot first
 L["Your items have been repaired for: "] = "Your items have been repaired for: "
 L["Your items have been repaired using guild bank funds for: "] = "Your items have been repaired using guild bank funds for: "
 L["Your version of ElvUI is out of date. You can download the latest version from www.curse.com"] = "Your version of ElvUI is out of date. You can download the latest version from www.curse.com"
-<<<<<<< HEAD:locales/english.lua
-=======
-L['Accept Invites'] = true;
-L['Automatically accept invites from guild/friends.'] = true;
+
 
 L['Lower Panel'] = true;
 L['Enable The Panel Accross The Bottom of the UI.'] = true;
@@ -706,4 +703,3 @@ L['Size'] = true;
 L['Controls the size of the auras.'] = true;
 L['Per Row'] = true;
 L['Controls the number of auras per row.'] = true;	
->>>>>>> origin/master:ElvUI/locales/english.lua
