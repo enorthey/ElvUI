@@ -1,0 +1,7 @@
+------------------------------------------------------------------------
+r344 | mikk | 2011-11-05 13:11:42 +0000 (Sat, 05 Nov 2011) | 1 line
+Changed paths:
+   M /trunk/Modules/Select.lua
+
+More accurate timings on when new mail will arrive when someone else is doing CheckInbox() calls.
+------------------------------------------------------------------------

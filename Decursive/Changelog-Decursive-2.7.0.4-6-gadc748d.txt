@@ -1,0 +1,7 @@
+Archarodim:
+	- Now using my real name as the author name, I'm sick of this pseudonym
+	- - Added a note telling users that "the WoW Client must not be running while they install add-ons" when Decursive's self-diagnostic detect a corrupt installation... *sigh*
+	- - Added character level to debug report
+	- - removed a sanity check about talent detection that is working as intended
+	- Added version check to the XML localization loader to diagnose this weird issue when ptBR.lua is not loaded for some users.
+	- - Don't include commented unlocalized phrases in frFR and ptBR (will reduce archive size)
