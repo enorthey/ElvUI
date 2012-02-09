@@ -224,13 +224,16 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerDrakes			= "%s",--spellname from mod
+	DrakesLeft			= "Twilight Assaulter remaining: %d",
+	TimerDrakes			= "%s"--spellname from mod
 })
 
 L:SetOptionLocalization({
+	DrakesLeft			= "Announce how many Twilight Assaulters remain",
 	TimerDrakes			= "Show timer for when Twilight Assaulters $spell:109904"
 })
 
 L:SetMiscLocalization({
+	EoEEvent			= "It is no use, the power of the Dragon Soul is too great",--Partial
 	UltraxionTrash		= "It is good to see you again, Alexstrasza. I have been busy in my absence."
 })

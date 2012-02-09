@@ -607,7 +607,7 @@ function B:InitBags()
 	f.vendorButton.backdropTexture.SetVertexColor = E.noop
 	f.vendorButton.ttText = L['Vendor Grays']
 	f.vendorButton.ttText2 = L['Hold Shift:']
-	f.vendorButton.ttText2desc = L['Delete Grays']	
+	f.vendorButton.ttText2desc = L['Delete Grays']		
 	f.vendorButton:SetScript("OnEnter", Tooltip_Show)
 	f.vendorButton:SetScript("OnLeave", Tooltip_Hide)
 	f.vendorButton:SetScript('OnClick', function() B:VendorGrayCheck() end)
@@ -832,7 +832,6 @@ function B:VendorGrays(delete)
 			local l = GetContainerItemLink(b, s)
 			if l then
 				local p = select(11, GetItemInfo(l))*select(2, GetContainerItemInfo(b, s))
-				
 				if delete then
 					if string.find(l,"ff9d9d9d") then
 						PickupContainerItem(b, s)
@@ -868,7 +867,7 @@ function B:VendorGrayCheck()
 	if IsShiftKeyDown() then
 		StaticPopup_Show('DELETE_GRAYS')
 	else
-		self:VendorGrays()
+		self:VendorGrays()		
 	end
 end
 

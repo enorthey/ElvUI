@@ -46,7 +46,7 @@ DF["core"] = {
 	['loot'] = true,
 	['lootRoll'] = true,
 	['sellgrays'] = true,
-	['autoAcceptInvite'] = false,
+	['autoAcceptInvite'] = true,
 	['mapTransparency'] = 0.5,
 };
 
@@ -267,7 +267,7 @@ DF['unitframe'] = {
 	['offSpec'] = 'Primary',
 	['disableBlizzard'] = true, --Require ReloadUI
 	['OORAlpha'] = 0.35,
-	['debuffHighlighting'] = true,
+	['debuffHighlighting'] = false,
 	["smartRaidFilter"] = true,
 
 	['colors'] = {

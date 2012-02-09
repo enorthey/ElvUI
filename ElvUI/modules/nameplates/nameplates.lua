@@ -479,13 +479,8 @@ function NP:OnHide(frame)
 	frame.hp.rcolor = nil
 	frame.hp.gcolor = nil
 	frame.hp.bcolor = nil
-<<<<<<< HEAD:modules/nameplates/nameplates.lua
 	frame.hp.shadow:SetAlpha(0)
-	self:SetVirtualBackdrop(frame.hp, unpack(E["media"].backdropcolor))
-=======
-	frame.shadow:SetAlpha(0)
 	self:SetVirtualBackdrop(frame.hp, unpack(E["media"].backdropcolor))	
->>>>>>> origin/master:ElvUI/modules/nameplates/nameplates.lua
 	if frame.icons then
 		for _,icon in ipairs(frame.icons) do
 			icon:Hide()
@@ -504,7 +499,6 @@ function NP:SkinPlate(frame)
 		frame.hp = CreateFrame("Statusbar", nil, frame)
 		frame.hp:SetFrameLevel(oldhp:GetFrameLevel())
 		frame.hp:SetFrameStrata(oldhp:GetFrameStrata())
-<<<<<<< HEAD:modules/nameplates/nameplates.lua
 		frame.hp:CreateShadow('Default')
 		frame.hp.shadow:ClearAllPoints()
 		frame.hp.shadow:Point("TOPLEFT", frame.hp, -5, 5)
@@ -512,17 +506,7 @@ function NP:SkinPlate(frame)
 		frame.hp.shadow:Point("TOPRIGHT", frame.hp, 5, 5)
 		frame.hp.shadow:Point("BOTTOMRIGHT", frame.hp, 5, -5)	
 		frame.hp.shadow:SetBackdropBorderColor(1, 1, 1, 0.75)
-		frame.hp.shadow:SetAlpha(0)
-=======
-		frame:CreateShadow('Default')
-		frame.shadow:ClearAllPoints()
-		frame.shadow:Point("TOPLEFT", frame.hp, -5, 5)
-		frame.shadow:Point("BOTTOMLEFT", frame.hp, -5, -5)
-		frame.shadow:Point("TOPRIGHT", frame.hp, 5, 5)
-		frame.shadow:Point("BOTTOMRIGHT", frame.hp, 5, -5)	
-		frame.shadow:SetBackdropBorderColor(1, 1, 1, 0.75)
-		frame.shadow:SetAlpha(0)		
->>>>>>> origin/master:ElvUI/modules/nameplates/nameplates.lua
+		frame.hp.shadow:SetAlpha(0)	
 		self:CreateVirtualFrame(frame.hp)
 		
 		frame.hp.hpbg = frame.hp:CreateTexture(nil, 'BORDER')
