@@ -23,16 +23,9 @@ local function SkinFrame(frame)
 	frame.Title:SetPoint("TOPLEFT",frame,"TOPLEFT",7,-11)
 	frame.Title:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
 	frame.Title:SetTextColor(unpack(E["media"].rgbvaluecolor))
-	
-	frame.CloseButton:SetPoint("TOPRIGHT",frame,"TOPRIGHT",-1,-7)
-	frame.CloseButton:SetNormalTexture("")
-	frame.CloseButton:SetPushedTexture("")
-	frame.CloseButton:SetHighlightTexture("")
-	frame.CloseButton.t = frame.CloseButton:CreateFontString(nil, "OVERLAY")
-	frame.CloseButton.t:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
-	frame.CloseButton.t:SetPoint("CENTER", 0, 1)
-	frame.CloseButton.t:SetText("X")
-	
+
+	frame.CloseButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -1, -7)
+	S:HandleCloseButton(frame.CloseButton)		
 	S:HandleScrollBar(Recount_MainWindow_ScrollBarScrollBar)
 	frame:SetBackdrop(nil)
 end
@@ -57,7 +50,7 @@ local function SkinFrame2(frame)
 	frame.bgTitle:SetScale(1)
 	frame.bgTitle.SetScale = E.noop
 	
-	frame.CloseButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -1, -9)
+	frame.CloseButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -1, -7)
 	S:HandleCloseButton(frame.CloseButton)
 	S:HandleScrollBar(Recount_MainWindow_ScrollBarScrollBar)
 	frame:SetBackdrop(nil)
@@ -134,7 +127,7 @@ local function LoadSkin()
 	for i = 1, getn(MWbuttons) do
 		local button = MWbuttons[i]
 		if button then
-			if i > 2 then
+			if i > 0 then
 				button:GetNormalTexture():SetDesaturated(true)
 				button:GetHighlightTexture():SetDesaturated(true)
 				button:Size(16)
@@ -156,8 +149,8 @@ local function LoadSkin()
 	end
 
 	-- set our custom text inside main window buttons
-	Recount.MainWindow.RightButton.text:SetText(E.ValColor..">")
-	Recount.MainWindow.LeftButton.text:SetText(E.ValColor.."<")
+	--Recount.MainWindow.RightButton.text:SetText(E.ValColor..">")
+	--Recount.MainWindow.LeftButton.text:SetText(E.ValColor.."<")
 	
 	Recount.db.profile.Locked = true
 	Recount.db.profile.Font = "ElvUI Font"
