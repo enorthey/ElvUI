@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(311, "DBM-DragonSoul", nil, 187)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7283 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7335 $"):sub(12, -3))
 mod:SetCreatureID(55265)
 mod:SetModelID(39094)
 mod:SetZone()
@@ -51,11 +51,13 @@ local spamBlood = 0
 local stompCount = 1
 local crystalCount = 1--3 crystals between each vortex cast by Morchok, we ignore his twins.
 local kohcromSkip = 2--1 is crystal, 2 is stomp.
+local antiSpam = 0
 
 function mod:OnCombatStart(delay)
 	spamBlood = 0
 	stompCount = 1
 	crystalCount = 1
+	antiSpam = 0
 	if self:IsDifficulty("heroic10", "heroic25") then
 		kohcromSkip = 2
 		berserkTimer:Start(-delay)
@@ -78,14 +80,17 @@ function mod:SPELL_AURA_APPLIED(args)
 		if (args.amount or 1) > 3 then
 			specwarnCrushArmor:Show(args.amount or 1)
 		end
-	elseif args:IsSpellID(103846) then
+	elseif args:IsSpellID(103846) and GetTime() - antiSpam > 3 then
+		-- sometimes Morchok and Kohcrom distance farther then 200 yards. so using Morchok's cid can be bad idea on Kohcrom side.
+		antiSpam = GetTime()
 		warnFurious:Show()
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(103851) and args:GetSrcCreatureID() == 55265 then--Filter twin here, they vortex together but we don't want to trigger everything twice needlessly.
+	if args:IsSpellID(103851) and GetTime() - antiSpam > 3 then--Filter twin here, they vortex together but we don't want to trigger everything twice needlessly.
+		antiSpam = GetTime()
 		stompCount = 0
 		crystalCount = 0
 		timerStomp:Start(19)
@@ -177,7 +182,8 @@ function mod:SPELL_SUMMON(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(103821, 110045, 110046, 110047) and args:GetSrcCreatureID() == 55265 then
+	if args:IsSpellID(103821, 110045, 110046, 110047) and GetTime() - antiSpam > 3 then
+		antiSpam = GetTIme()
 		crystalCount = 0
 		timerStomp:Cancel()
 		timerCrystal:Cancel()

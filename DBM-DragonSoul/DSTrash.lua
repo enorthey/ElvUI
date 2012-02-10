@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("DSTrash", "DBM-DragonSoul")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7315 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7334 $"):sub(12, -3))
 mod:SetModelID(39378)
+mod:SetZone()
 
 mod:RegisterEvents(
 	"SPELL_CAST_START",
@@ -81,11 +82,15 @@ mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
-	if cid == 55636 then--Drakes
+	-- i doubt that we have still missing cids? needs review. Should be all.
+	-- http://www.wowhead.com/search?q=twilight+assaulter
+	if cid == 56249 or cid == 56250 or cid == 56251 or cid == 56252 or cid == 57281 or cid == 57795 then
 		drakesCount = drakesCount - 1
-		warnDrakesLeft:Show(drakesCount)
+		if drakesCount >= 0 then
+			warnDrakesLeft:Show(drakesCount)
+		end
 		if drakesCount == 0 then
-			timerDrakes:Cancel()
+			self:SendSync("SkyrimEnded")
 		end
 	end
 end
@@ -96,6 +101,9 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.UltraxionTrash or msg:find(L.UltraxionTrash) then
 		drakesCount = 15--Reset drakes here still in case no one running current dbm is targeting thrall
 		timerDrakes:Start(253, GetSpellInfo(109904))--^^
+	-- timer still remains even combat starts. so, cancels manually. (Probably for someone who wasn't present for first drake dying.
+	elseif msg == L.UltraxionTrashEnded or msg:find(L.UltraxionTrashEnded) then
+		self:SendSync("SkyrimEnded")
 	end
 end
 
@@ -109,7 +117,9 @@ end
 --	"<133.3> [UNIT_SPELLCAST_SUCCEEDED] Thrall:Possible Target<nil>:target:Ward of Earth::0:108161", -- [875]
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 	if spellName == GetSpellInfo(108161) then--Thrall starting drake event, comes much later then yell but is only event that triggers after a wipe to this trash.
-		self:SendSync("Skyrim")--Send sync because Elementium bolts do not have a bossN arg, which means event only fires if it's current target/focus.
+		self:SendSync("Skyrim")
+	elseif spellName == GetSpellInfo(109904) then
+		self:SendSync("SkyrimEnded")
 	end
 end
 
@@ -117,7 +127,9 @@ function mod:OnSync(msg)
 	if msg == "Skyrim" then
 		drakesCount = 15--Reset drakes here too soo they stay accurate after wipes.
 		timerDrakes:Start(231, GetSpellInfo(109904))
-	elseif msg == "EoEPortal" then
+	elseif msg == "SkyrimEnded" then
+		timerDrakes:Cancel()
+	elseif msg == "EoEPortal" and timerEoE:GetTime() == 0 then--Why this starts more then once is beyond me, hopefully this fixes it.
 		timerEoE:Start()
 	end
 end
