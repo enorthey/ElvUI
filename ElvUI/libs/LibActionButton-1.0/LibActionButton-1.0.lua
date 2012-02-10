@@ -502,7 +502,7 @@ function Generic:OnUpdate()
 	elseif GetModifiedClick("PICKUPACTION") == 'CTRL' then
 		isDragKeyDown = IsControlKeyDown()
 	elseif GetModifiedClick("PICKUPACTION") == 'SHIFT' then
-		isDragKeyDown = IsShiftKeyDown()
+		isDragKeyDown = IsShiftKeyDown()		
 	end
 	
 	if isDragKeyDown and (self.clickState == 'AnyDown' or self.clickState == nil) then
@@ -521,10 +521,9 @@ function Generic:OnEnter()
 	if KeyBound then
 		KeyBound:Set(self)
 	end
-	
 	if self.config.clickOnDown then
 		self:SetScript('OnUpdate', Generic.OnUpdate)
-	end
+	end	
 end
 
 function Generic:OnLeave()
@@ -777,7 +776,7 @@ function OnUpdate(_, elapsed)
 					button.flash:Show()
 				end
 			end
-			
+
 			-- Range
 			if rangeTimer <= 0 then
 				local inRange = button:IsInRange()

@@ -682,9 +682,7 @@ L["Your version of ElvUI is out of date. You can download the latest version fro
 L['Delete Grays'] = true;
 L['Deleted %d gray items. Total Worth: %s'] = true;
 L['%s frame(s) has a conflicting anchor point, please change either the buff or debuff anchor point so they are not attached to each other. Forcing the debuffs to be attached to the main unitframe until fixed.'] = true;
-<<<<<<< HEAD:locales/english.lua
 L["Are you sure you want to delete all your gray items?"] = true;
-=======
 
 L['Lower Panel'] = true;
 L['Enable The Panel Accross The Bottom of the UI.'] = true;
@@ -708,4 +706,3 @@ L['Size'] = true;
 L['Controls the size of the auras.'] = true;
 L['Per Row'] = true;
 L['Controls the number of auras per row.'] = true;	
->>>>>>> origin/master:ElvUI/locales/english.lua

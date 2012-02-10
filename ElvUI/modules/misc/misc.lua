@@ -175,7 +175,10 @@ function M:AutoInvite(event, leaderName)
 	end
 end
 
-<<<<<<< HEAD:modules/misc/misc.lua
+function M:PVPMessageEnhancement(_, msg)
+	RaidNotice_AddMessage(RaidBossEmoteFrame, msg, ChatTypeInfo["RAID_BOSS_EMOTE"]);
+end
+
 function M:ForceCVars()
 	if not GetCVarBool('lockActionBars') and E.db.actionbar.enable then
 		SetCVar('lockActionBars', 1)
@@ -189,10 +192,6 @@ end
 function M:Kill()
 	--Kill Frames
 	HelpOpenTicketButtonTutorial:Kill()
-=======
-function M:PVPMessageEnhancement(_, msg)
-	RaidNotice_AddMessage(RaidBossEmoteFrame, msg, ChatTypeInfo["RAID_BOSS_EMOTE"]);
->>>>>>> origin/master:ElvUI/modules/misc/misc.lua
 end
 
 function M:Initialize()
@@ -214,13 +213,8 @@ function M:Initialize()
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 	
 	self.MovingTimer = self:ScheduleRepeatingTimer("CheckMovement", 0.1)
-<<<<<<< HEAD:modules/misc/misc.lua
-	self:Kill()
-=======
 	
-	--Kill Frames
-	HelpOpenTicketButtonTutorial:Kill()	
->>>>>>> origin/master:ElvUI/modules/misc/misc.lua
+	self:Kill()
 end
 
 E:RegisterModule(M:GetName())
