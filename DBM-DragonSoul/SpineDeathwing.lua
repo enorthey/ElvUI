@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(318, "DBM-DragonSoul", nil, 187)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7306 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7359 $"):sub(12, -3))
 mod:SetCreatureID(53879)
 mod:SetModelID(35268)
 mod:SetZone()
@@ -117,7 +117,7 @@ do
 	local plasmaTargets = {}
 	local healed = {}
 	
-	function mod:SPELL_HEAL(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId, spellName, spellSchool, amount, overheal, absorbed)
+	function mod:SPELL_HEAL(_, _, _, _, destGUID, _, _, _, _, _, _, _, _, absorbed)
 		if plasmaTargets[destGUID] then
 			healed[destGUID] = healed[destGUID] + (absorbed or 0)
 		end
@@ -224,8 +224,7 @@ end
 --Damage event that indicates an ooze is taking damage
 --we check its GUID to see if it's a resurrected ooze and if so remove it from table.
 --oozes do not fires SPELL_DAMAGE event from source. so track SPELL_DAMAGE event only from dest.
-function mod:SPELL_DAMAGE(sourceGUID, _, _, _, destGUID, _, _, _, spellId)
-	if spellId == 105219 or spellId == 109371 or spellId == 109372 or spellId == 109373 then return end
+function mod:SPELL_DAMAGE(sourceGUID, _, _, _, destGUID)
 	checkOozeResurrect(destGUID)
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
@@ -244,7 +243,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		residueCount = residueCount - 1
 --		print ("ooze_absorbed", residueCount)
 		warnAbsorbedBlood:Cancel()--Just a little anti spam
-		warnAbsorbedBlood:Schedule(1.25, args.destName, args.amount or 1)
+		warnAbsorbedBlood:Schedule(1.25, args.destName, 1)
 	elseif args:IsSpellID(105490, 109457, 109458, 109459) then
 		gripTargets[#gripTargets + 1] = args.destName
 		timerGripCD:Cancel(args.sourceGUID)
@@ -275,7 +274,7 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 		if args.amount == 9 then
 			warnAbsorbedBlood:Show(args.destName, 9)
 		else
-			warnAbsorbedBlood:Schedule(2, args.destName, args.amount)
+			warnAbsorbedBlood:Schedule(1.25, args.destName, args.amount)
 		end
 	end
 end

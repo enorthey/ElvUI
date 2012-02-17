@@ -1154,7 +1154,7 @@ DF['unitframe'] = {
 				['health'] = {
 					["text_format"] = "deficit",
 					["position"] = "BOTTOM",
-					['orientation'] = 'VERTICAL',
+					['orientation'] = 'HORIZONTAL',
 				},
 				['name'] = {
 					["position"] = "TOP",
@@ -1184,13 +1184,13 @@ DF['unitframe'] = {
 			['raid625'] = {
 				['healPrediction'] = true,
 				['health'] = {
-					['orientation'] = 'VERTICAL',
+					['orientation'] = 'HORIZONTAL',
 				},
 			},
 			['raid2640'] = {
 				['healPrediction'] = true,
 				['health'] = {
-					['orientation'] = 'VERTICAL',
+					['orientation'] = 'HORIZONTAL',
 				},				
 			},				
 			["positions"] = {

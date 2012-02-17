@@ -43,15 +43,18 @@ local function SkinFrame2(frame)
 	frame.bgTitle = CreateFrame('Frame', nil, frame)
 	frame.bgTitle:SetTemplate('Default', true)
 	frame.bgTitle:Point("TOPRIGHT", frame, "TOPRIGHT", 0, -10)
-	frame.bgTitle:Point("TOPLEFT", frame, "TOPLEFT", 0, -9)
-	frame.bgTitle:Point("BOTTOM", frame, "TOP", 0, -29)
-	frame.bgTitle.backdropTexture:SetVertexColor(unpack(E['media'].bordercolor))
+	frame.bgTitle:Point("TOPLEFT", frame, "TOPLEFT", 0, -6)
+	frame.bgTitle:Point("BOTTOM", frame, "TOP", 0, -28)
 	frame.bgTitle:SetFrameLevel(frame:GetFrameLevel())
 	frame.bgTitle:SetScale(1)
 	frame.bgTitle.SetScale = E.noop
 	
+	frame.Title:SetPoint("TOPLEFT",frame,"TOPLEFT",7,-11)
+	frame.Title:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
+	frame.Title:SetTextColor(unpack(E["media"].rgbvaluecolor))
+
 	frame.CloseButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -1, -7)
-	S:HandleCloseButton(frame.CloseButton)
+	S:HandleCloseButton(frame.CloseButton)		
 	S:HandleScrollBar(Recount_MainWindow_ScrollBarScrollBar)
 	frame:SetBackdrop(nil)
 end
