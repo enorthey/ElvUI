@@ -283,12 +283,12 @@ function UF:Update_ArenaFrames(frame, db)
 			castbar.ButtonIcon.bg:Hide()
 			castbar.Icon = nil
 		end
-		
+
 		if db.castbar.spark then
 			castbar.Spark:Show()
 		else
 			castbar.Spark:Hide()
-		end		
+		end	
 		
 		castbar:ClearAllPoints()
 		castbar:Point("TOPLEFT", frame, "BOTTOMLEFT", BORDER, -(BORDER*2+BORDER))

@@ -80,11 +80,11 @@ local function LoadSkin()
 	GuildBankPopupNameLeft:Kill()
 	GuildBankPopupNameRight:Kill()
 	GuildBankPopupNameMiddle:Kill()
-		
+	
 	GuildItemSearchBox:StripTextures()
 	GuildItemSearchBox:CreateBackdrop("Overlay")
 	GuildItemSearchBox.backdrop:Point("TOPLEFT", 10, -1)
-	GuildItemSearchBox.backdrop:Point("BOTTOMRIGHT", 4, 1)	
+	GuildItemSearchBox.backdrop:Point("BOTTOMRIGHT", 4, 1)		
 	
 	for i=1, 16 do
 		local button = _G["GuildBankPopupButton"..i]

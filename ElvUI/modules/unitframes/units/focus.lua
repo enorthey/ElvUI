@@ -277,7 +277,7 @@ function UF:Update_FocusFrame(frame, db)
 			castbar.ButtonIcon.bg:Hide()
 			castbar.Icon = nil
 		end
-		
+
 		if db.castbar.spark then
 			castbar.Spark:Show()
 		else

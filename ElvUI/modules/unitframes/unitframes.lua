@@ -87,8 +87,17 @@ function UF:GetAuraOffset(p1, p2)
 	return E:Scale(x), E:Scale(y)
 end
 
-function UF:GetAuraAnchorFrame(frame, attachTo, otherAuraAnchor)
-	if attachTo == otherAuraAnchor or attachTo == 'FRAME' then
+local opposites = {
+	['DEBUFFS'] = 'BUFFS',
+	['BUFFS'] = 'DEBUFFS'
+}
+
+function UF:GetAuraAnchorFrame(frame, attachTo, isConflict)
+	if isConflict then
+		E:Print(string.format(L['%s frame(s) has a conflicting anchor point, please change either the buff or debuff anchor point so they are not attached to each other. Forcing the debuffs to be attached to the main unitframe until fixed.'], E:StringTitle(frame:GetName())))
+	end
+	
+	if isConflict or attachTo == 'FRAME' then
 		return frame
 	elseif attachTo == 'BUFFS' then
 		return frame.Buffs
@@ -272,7 +281,6 @@ function UF:CreateAndUpdateHeaderGroup(group, groupFilter, template)
 			self[group].groupName = group
 		end
 		
-<<<<<<< HEAD:modules/unitframes/unitframes.lua
 		self[group].Update = function()
 			UF["Update_"..E:StringTitle(group).."Header"](self, self[group], db)
 			
@@ -291,22 +299,6 @@ function UF:CreateAndUpdateHeaderGroup(group, groupFilter, template)
 		end	
 
 		self[group].Update()
-=======
-		UF["Update_"..E:StringTitle(group).."Header"](self, self[group], db)
-		
-		for i=1, self[group]:GetNumChildren() do
-			local child = select(i, self[group]:GetChildren())
-			UF["Update_"..E:StringTitle(group).."Frames"](self, child, self.db['layouts'][self.ActiveLayout][group])
-			
-			if _G[child:GetName()..'Pet'] then
-				UF["Update_"..E:StringTitle(group).."Frames"](self, _G[child:GetName()..'Pet'], self.db['layouts'][self.ActiveLayout][group])
-			end
-			
-			if _G[child:GetName()..'Target'] then
-				UF["Update_"..E:StringTitle(group).."Frames"](self, _G[child:GetName()..'Target'], self.db['layouts'][self.ActiveLayout][group])
-			end
-		end
->>>>>>> origin/master:ElvUI/modules/unitframes/unitframes.lua
 	elseif self[group] then
 		self[group]:SetAttribute("showParty", false)
 		self[group]:SetAttribute("showRaid", false)

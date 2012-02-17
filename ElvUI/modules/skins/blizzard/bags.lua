@@ -173,11 +173,11 @@ local function LoadSkin()
 	BagItemSearchBox:Point('TOPRIGHT', ContainerFrame1, 'TOPRIGHT', -16, -28)
 	BagItemSearchBox.SetPoint = E.noop
 	BagItemSearchBox:Width(166)
-	
+
 	BankItemSearchBox:StripTextures()
 	BankItemSearchBox:CreateBackdrop("Overlay")
 	BankItemSearchBox.backdrop:Point("TOPLEFT", 10, -1)
-	BankItemSearchBox.backdrop:Point("BOTTOMRIGHT", 4, 1)		
+	BankItemSearchBox.backdrop:Point("BOTTOMRIGHT", 4, 1)
 	
 	local bags = CreateFrame("Frame")
 	bags:RegisterEvent("BAG_UPDATE")

@@ -448,14 +448,9 @@ DF['unitframe'] = {
 					['color'] = DF.core.castbarcolor,
 					['interruptcolor'] = { r = 0.78, g = 0.25, b = 0.25 },
 					['xOffset'] = 0,
-<<<<<<< HEAD:config/defaults.lua
-					['yOffset'] = 0,
-					['format'] = 'REMAINING',
-					['spark'] = true,
-=======
 					['yOffset'] = 170,
 					['format'] = 'CURRENTMAX',
->>>>>>> origin/master:ElvUI/config/defaults.lua
+					['spark'] = true,
 				},	
 				['combobar'] = {
 					['enable'] = true,
@@ -576,12 +571,8 @@ DF['unitframe'] = {
 					['interruptcolor'] = { r = 0.78, g = 0.25, b = 0.25 },
 					['xOffset'] = 0,
 					['yOffset'] = 0,
-<<<<<<< HEAD:config/defaults.lua
-					['format'] = 'REMAINING',
-					['spark'] = true,
-=======
 					['format'] = 'CURRENTMAX',
->>>>>>> origin/master:ElvUI/config/defaults.lua
+					['spark'] = true,
 				},					
 			},	
 			['focustarget'] = {
@@ -1249,7 +1240,7 @@ DF["actionbar"] = {
 			["DRUID"] = "[bonusbar:1,nostealth] 7; [bonusbar:1,stealth] 8; [bonusbar:2] 8; [bonusbar:3] 9; [bonusbar:4] 10;",
 			["WARRIOR"] = "[bonusbar:1] 7; [bonusbar:2] 8; [bonusbar:3] 9;",
 			["PRIEST"] = "[bonusbar:1] 7;",
-			["ROGUE"] = "[bonusbar:1] 7; [form:3] 7;",	
+			["ROGUE"] = "[bonusbar:1] 7; [form:3] 7;",
 		},
 		['visibility'] = "",
 	},

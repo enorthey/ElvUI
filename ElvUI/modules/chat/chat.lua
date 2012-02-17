@@ -349,7 +349,7 @@ local sizes = {
 local locale = GetLocale()
 function CH:CHAT_MSG_CHANNEL(...)
 	local isSpam = nil
-	if locale == 'enUS' or locale == 'enGB' then
+ 	if locale == 'enUS' or locale == 'enGB' then
 		isSpam = CH.SpamFilter(self, ...)
 	end
 	
@@ -362,7 +362,7 @@ end
 
 function CH:CHAT_MSG_YELL(...)
 	local isSpam = nil
-	if locale == 'enUS' or locale == 'enGB' then
+ 	if locale == 'enUS' or locale == 'enGB' then
 		isSpam = CH.SpamFilter(self, ...)
 	end
 	
@@ -375,7 +375,7 @@ end
 
 function CH:CHAT_MSG_SAY(...)
 	local isSpam = nil
-	if locale == 'enUS' or locale == 'enGB' then
+ 	if locale == 'enUS' or locale == 'enGB' then
 		isSpam = CH.SpamFilter(self, ...)
 	end
 	
