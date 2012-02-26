@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(317, "DBM-DragonSoul", nil, 187)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7347 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7397 $"):sub(12, -3))
 mod:SetCreatureID(55689)
 mod:SetModelID(39318)
 mod:SetZone()
@@ -263,6 +263,7 @@ function mod:SPELL_CAST_START(args)
 		pillarsRemaining = 4
 		timerAssaultCD:Cancel()
 		timerIceLanceCD:Cancel()
+		timerShatteringCD:Cancel()
 		warnTempest:Show()
 		specWarnTempest:Show()
 		if self.Options.SetBubbles and not GetCVarBool("chatBubbles") and CVAR then--Only turn them back on if they are off now, but were on when we pulled
@@ -280,6 +281,7 @@ function mod:SPELL_CAST_START(args)
 		end
 		timerAssaultCD:Cancel()
 		timerIceLanceCD:Cancel()
+		timerShatteringCD:Cancel()
 		warnLightningStorm:Show()
 		specWarnLightingStorm:Show()
 		if self.Options.SetBubbles and not GetCVarBool("chatBubbles") and CVAR then--Only turn them back on if they are off now, but were on when we pulled

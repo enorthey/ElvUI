@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(332, "DBM-DragonSoul", nil, 187)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7365 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7401 $"):sub(12, -3))
 mod:SetCreatureID(56598)--56427 is Boss, but engage trigger needs the ship which is 56598
 mod:SetMainBossID(56427)
 mod:SetModelID(39399)
@@ -49,7 +49,7 @@ local specWarnSunderOther			= mod:NewSpecialWarningTarget(108043, mod:IsTank())
 
 local timerCombatStart				= mod:NewTimer(20.5, "TimerCombatStart", 2457)
 local timerAdd						= mod:NewTimer(61, "TimerAdd", 107752)
-local timerHarpoonCD				= mod:NewNextTimer(6.5, 108038, nil, mod:IsDps())
+local timerHarpoonCD				= mod:NewCDTimer(6.5, 108038, nil, mod:IsDps())--If you fail to kill drake until next drake spawning, timer do not match. So better to use cd timer for now.
 local timerHarpoonActive			= mod:NewBuffActiveTimer(20, 108038, nil, mod:IsDps())--Seems to always hold at least 20 seconds, beyond that, RNG, but you always get at least 20 seconds before they "snap" free.
 local timerReloadingCast			= mod:NewCastTimer(10, 108039, nil, mod:IsDps())
 local timerTwilightOnslaught		= mod:NewCastTimer(7, 107588)
@@ -75,7 +75,7 @@ local phase2Started = false
 local lastFlames = 0
 local addsCount = 0
 local drakesCount = 6
-local ignoredHarpoons = 0
+local lastHarpoons = 0
 local twilightOnslaughtCount = 0
 local CVAR = false
 
@@ -118,17 +118,8 @@ function mod:AddsRepeat() -- it seems to be adds summon only 3 times. needs more
 		specWarnElites:Show()
 		timerAdd:Start()
 		self:ScheduleMethod(61, "AddsRepeat")
-		--Confirmed behavior for harpoons, only problem is, sometimes the add timer itself is off. :\ For example in this log it's 22.9, 60.8, 62.6
-		--We can't safetly use 60603 to fix it either cause we can't tell the trades apart in DBM. I only know mine are right because I personally targeted the drake that drops first add all 3 times.
---		"<1.0> [INSTANCE_ENCOUNTER_ENGAGE_UNIT] Fake Args:#1#1#The Skyfire#0xF130DD1600021854#elite#4000000#nil#nil#nil#nil#normal#0#nil#nil#nil#nil#normal#0#nil#nil#nil#nil#normal#0#Real Args:", -- [24]
---		"<23.9> [UNIT_SPELLCAST_SUCCEEDED] Twilight Assault Drake [[target:Eject Passenger 1::0:60603]]", -- [142]
---		"<43.8> [CLEU] SPELL_AURA_APPLIED#false#0xF150DD6900021857#Skyfire Harpoon Gun#2584#0#0xF150DE1700021DDF#Twilight Assault Drake#133704#0#108038#Harpoon#1#BUFF", -- [1309]
---		"<84.7> [UNIT_SPELLCAST_SUCCEEDED] Twilight Assault Drake [[target:Eject Passenger 1::0:60603]]", -- [3524]
---		"<91.8> [CLEU] SPELL_AURA_APPLIED#false#0xF150DD6900021857#Skyfire Harpoon Gun#2584#0#0xF150DE1700022081#Twilight Assault Drake#2632#0#108038#Harpoon#1#BUFF", -- [3857]
---		"<147.3> [UNIT_SPELLCAST_SUCCEEDED] Twilight Assault Drake [[target:Eject Passenger 1::0:60603]]", -- [7445]
---		"<154.2> [CLEU] SPELL_AURA_APPLIED#false#0xF150DD6900021857#Skyfire Harpoon Gun#2584#0#0xF150DE17000222C0#Twilight Assault Drake#2632#0#108038#Harpoon#1#BUFF", -- [7868]
 		if addsCount == 1 then
-			timerHarpoonCD:Start(20)--20 seconds after first elites (Confirmed)
+			timerHarpoonCD:Start(18)--20 seconds after first elites (Confirmed). If harpoon bug not happening, it comes 18 sec after first elites.
 		else--6-7 seconds after sets 2 and 3.
 			timerHarpoonCD:Start()--6-7 second variation.
 		end
@@ -140,7 +131,7 @@ function mod:OnCombatStart(delay)
 	lastFlames = 0
 	addsCount = 0
 	drakesCount = 6
-	ignoredHarpoons = 0
+	lastHarpoons = 0
 	twilightOnslaughtCount = 0
 	CVAR = false
 	timerCombatStart:Start(-delay)
@@ -210,21 +201,42 @@ function mod:SPELL_AURA_APPLIED(args)
 				specWarnSunder:Show(args.amount)
 			end
 		else
-			if (args.amount or 1) >= 2 and not UnitDebuff("player", GetSpellInfo(108043)) then--Other tank has 2 or more sunders and you have none.
+			if (args.amount or 1) >= 2 and not UnitDebuff("player", GetSpellInfo(108043)) and not UnitIsDeadOrGhost("player") then--Other tank has 2 or more sunders and you have none.
 				specWarnSunderOther:Show(args.destName)--So nudge you to taunt it off other tank already.
 			end
 		end
 	elseif args:IsSpellID(108038) then
-		if ignoredHarpoons < 3 then--First two harpoons of fight are bugged, they fire early, apply to drake, even though they missed, then refire. we simply ignore first 2 bad casts to avoid spam and confusion.
-			ignoredHarpoons = ignoredHarpoons + 1
-		else--We are passed the 2 useless ones, do everything as normal now.
+		-- Sometimes first harpoon bug is not happens. So always igonre 2 harpoons can be broken on first harpooning.
+		-- <not bugged>
+		-- 2/24 20:38:43.901  Sky Captain Swayze yells: All ahead full. Everything depends on our speed! We can't let the Destroyer get away. -- combat start message.
+		-- 2/24 20:39:21.864  SPELL_CAST_START,0xF150DD69000007FC,"Skyfire Harpoon Gun",0xa18,0x0,0x0000000000000000,nil,0x80000000,0x80000000,108038,"Harpoon",0x1
+		-- 2/24 20:39:21.864  SPELL_CAST_START,0xF150DD69000007FC,"Skyfire Harpoon Gun",0xa18,0x0,0x0000000000000000,nil,0x80000000,0x80000000,108038,"Harpoon",0x1
+		-- 2/24 20:39:23.779  SPELL_AURA_APPLIED,0xF150DD69000007FC,"Skyfire Harpoon Gun",0xa18,0x0,0xF150DE17000071E9,"Twilight Assault Drake",0xa48,0x0,108038,"Harpoon",0x1,BUFF -- 40 sec (first harpooning. not bugged)
+		-- 2/24 20:39:23.779  SPELL_AURA_APPLIED,0xF150DD69000007FC,"Skyfire Harpoon Gun",0xa18,0x0,0xF150DE17000071E9,"Twilight Assault Drake",0xa48,0x0,108038,"Harpoon",0x1,BUFF
+		-- <bugged>
+		-- 2/24 20:50:11.266  Sky Captain Swayze yells: All ahead full. Everything depends on our speed! We can't let the Destroyer get away. -- combat start message.
+		-- 2/24 20:50:51.379  SPELL_CAST_START,0xF150DD69000008E1,"Skyfire Harpoon Gun",0xa18,0x0,0x0000000000000000,nil,0x80000000,0x80000000,108038,"Harpoon",0x1
+		-- 2/24 20:50:51.379  SPELL_CAST_START,0xF150DD69000008E1,"Skyfire Harpoon Gun",0xa18,0x0,0x0000000000000000,nil,0x80000000,0x80000000,108038,"Harpoon",0x1
+		-- 2/24 20:50:51.780  SPELL_CAST_START,0xF150DD69000007FC,"Skyfire Harpoon Gun",0xa18,0x0,0x0000000000000000,nil,0x80000000,0x80000000,108038,"Harpoon",0x1
+		-- 2/24 20:50:51.780  SPELL_CAST_START,0xF150DD69000007FC,"Skyfire Harpoon Gun",0xa18,0x0,0x0000000000000000,nil,0x80000000,0x80000000,108038,"Harpoon",0x1
+		-- 2/24 20:50:52.191  SPELL_AURA_REMOVED,0xF150DD69000007FC,"Skyfire Harpoon Gun",0xa18,0x0,0xF150DE17000081F7,"Twilight Assault Drake",0xa48,0x0,108038,"Harpoon",0x1,BUFF
+		-- 2/24 20:50:52.191  SPELL_AURA_REMOVED,0xF150DD69000007FC,"Skyfire Harpoon Gun",0xa18,0x0,0xF150DE17000081F7,"Twilight Assault Drake",0xa48,0x0,108038,"Harpoon",0x1,BUFF
+		-- 2/24 20:50:52.191  SPELL_CAST_START,0xF150DD69000008E1,"Skyfire Harpoon Gun",0xa18,0x0,0x0000000000000000,nil,0x80000000,0x80000000,108038,"Harpoon",0x1
+		-- 2/24 20:50:52.191  SPELL_CAST_START,0xF150DD69000008E1,"Skyfire Harpoon Gun",0xa18,0x0,0x0000000000000000,nil,0x80000000,0x80000000,108038,"Harpoon",0x1
+		-- 2/24 20:50:53.530  SPELL_AURA_APPLIED,0xF150DD69000007FC,"Skyfire Harpoon Gun",0xa18,0x0,0xF150DE17000081F7,"Twilight Assault Drake",0xa48,0x0,108038,"Harpoon",0x1,BUFF
+		-- 2/24 20:50:53.530  SPELL_AURA_APPLIED,0xF150DD69000007FC,"Skyfire Harpoon Gun",0xa18,0x0,0xF150DE17000081F7,"Twilight Assault Drake",0xa48,0x0,108038,"Harpoon",0x1,BUFF
+		-- 2/24 20:50:54.134  SPELL_AURA_APPLIED,0xF150DD69000008E1,"Skyfire Harpoon Gun",0xa18,0x0,0xF150DD0B000081F5,"Twilight Assault Drake",0xa48,0x0,108038,"Harpoon",0x1,BUFF -- 42.8 sec (first harpooning)
+		-- 2/24 20:50:54.134  SPELL_AURA_APPLIED,0xF150DD69000008E1,"Skyfire Harpoon Gun",0xa18,0x0,0xF150DD0B000081F5,"Twilight Assault Drake",0xa48,0x0,108038,"Harpoon",0x1,BUFF
+		if GetTime() - lastHarpoons > 5 then -- Use time check for harpooning warning. It can be avoid bad casts also.
 			warnHarpoon:Show(args.destName)
 			specWarnHarpoon:Show(args.destName)
-			if self:IsDifficulty("heroic10", "heroic25") then
-				timerHarpoonActive:Start(nil, args.destGUID)
-			elseif self:IsDifficulty("normal10", "normal25") then
-				timerHarpoonActive:Start(25, args.destGUID)
-			end
+			lastHarpoons = GetTime()
+		end
+		-- Timer not use time check. 2 harpoons cast same time even not bugged.
+		if self:IsDifficulty("heroic10", "heroic25") then
+			timerHarpoonActive:Start(nil, args.destGUID)
+		elseif self:IsDifficulty("normal10", "normal25") then
+			timerHarpoonActive:Start(25, args.destGUID)
 		end
 	elseif args:IsSpellID(108040) and not phase2Started then--Goriona is being shot by the ships Artillery Barrage (phase 2 trigger)
 		self:Schedule(10, Phase2Delay)--It seems you can still get phase 1 crap until blackhorn's yell 10 seconds after this trigger, so we delay canceling timers.
@@ -289,8 +301,8 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
-	if spellName == GetSpellInfo(107594) then--Blade Rush, cast start is not detectable, only cast finish, can't use target scanning, or pre warn (ie when the lines go out), only able to detect when they actually finish rush
+function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
+	if spellId == 107594 then--Blade Rush, cast start is not detectable, only cast finish, can't use target scanning, or pre warn (ie when the lines go out), only able to detect when they actually finish rush
 		self:SendSync("BladeRush", UnitGUID(uId))
 	end
 end

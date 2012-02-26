@@ -42,7 +42,7 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 7365 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 7403 $"):sub(12, -3)),
 	DisplayVersion = "4.10.11 alpha", -- the string that is shown as version
 	ReleaseRevision = 7325 -- the revision of the latest stable version that is available
 }
@@ -173,7 +173,7 @@ local fireEvent
 local _, class = UnitClass("player")
 local LastZoneText = ""
 local LastZoneMapID = -1
-local savedDifficulty
+local savedDifficulty = ""
 local queuedBattlefield = {}
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -2372,15 +2372,7 @@ function DBM:StartCombat(mod, delay, synced)
 			mod.stats.normalPulls = mod.stats.normalPulls + 1
 			local _, _, _, _, maxPlayers = GetInstanceInfo()
 			--Because classic raids that don't have variable sizes all return 1.
-			if maxPlayers == 40 then
-				savedDifficulty = PLAYER_DIFFICULTY1.." (40) - "
-			elseif maxPlayers == 25 then
-				savedDifficulty = PLAYER_DIFFICULTY1.." (25) - "
-			elseif maxPlayers == 20 then
-				savedDifficulty = PLAYER_DIFFICULTY1.." (20) - "
-			else
-				savedDifficulty = PLAYER_DIFFICULTY1.." (10) - "
-			end
+			savedDifficulty = PLAYER_DIFFICULTY1.." ("..maxPlayers..") - "
 		elseif mod:IsDifficulty("heroic10") then
 			mod.stats.heroicPulls = mod.stats.heroicPulls + 1
 			savedDifficulty = PLAYER_DIFFICULTY2.." (10) - "
@@ -2477,6 +2469,26 @@ function DBM:EndCombat(mod, wipe)
 		if mod.combatInfo.killMobs then
 			for i, v in pairs(mod.combatInfo.killMobs) do
 				mod.combatInfo.killMobs[i] = true
+			end
+		end
+		if not savedDifficulty then -- prevent error when timer recovery function worked and etc (StartCombat not called)
+			local _, instanceType, difficulty, _, maxPlayers = GetInstanceInfo()
+			if difficulty > 2 then--Just neatly combines both heroic raids into 1
+				savedDifficulty = PLAYER_DIFFICULTY2.." ("..maxPlayers..") - "
+			elseif difficulty < 3 and instanceType == "raid" and not IsPartyLFG() then--Combine non heroic raids into 1
+				savedDifficulty = PLAYER_DIFFICULTY1.." ("..maxPlayers..") - "
+			elseif IsPartyLFG() and IsInLFGDungeon() and instanceType == "raid" then
+				savedDifficulty = PLAYER_DIFFICULTY3.." - "
+			elseif difficulty == 1 and instanceType == "party" then
+				if IsInInstance() then
+					savedDifficulty = PLAYER_DIFFICULTY1.." - "
+				else
+					savedDifficulty = ""
+				end
+			elseif difficulty == 2 and instanceType == "party" then
+				savedDifficulty = PLAYER_DIFFICULTY2.." - "
+			else
+				savedDifficulty = ""
 			end
 		end
 		if wipe then
@@ -3197,7 +3209,7 @@ function bossModPrototype:RegisterEventsInCombat(...)
 	end
 end
 
-function bossModPrototype:RegisterEventsShortTerm(...)
+function bossModPrototype:RegisterShortTermEvents(...)
 	if not self.shortTermRegisterEvents then
 		self.shortTermRegisterEvents = {...}
 	else

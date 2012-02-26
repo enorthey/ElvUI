@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(193, "DBM-Firelands", nil, 78)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7261 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7400 $"):sub(12, -3))
 mod:SetCreatureID(52558)--or does 53772 die instead?didn't actually varify this fires right unit_died event yet so we'll see tonight
 mod:SetModelID(38414)
 mod:SetZone()
@@ -53,7 +53,7 @@ local prewarnedPhase2 = false
 
 function mod:OnCombatStart(delay)
 	timerFragmentCD:Start(-delay)
-	timerHeatedVolcano:Start(-delay)
+	timerHeatedVolcano:Start(30-delay)
 	timerFlameStomp:Start(16-delay)--Actually found an old log, maybe this is right.
 	StompCountown:Start(16-delay)--^^
 	if self:IsDifficulty("heroic10", "heroic25") then
