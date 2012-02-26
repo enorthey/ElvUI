@@ -15,17 +15,17 @@ end
 function M:COMBAT_LOG_EVENT_UNFILTERED(_, _, event, _, sourceGUID, _, _, _, _, destName, _, _, _, _, _, spellID, spellName)
 	if not (event == "SPELL_INTERRUPT" and sourceGUID == UnitGUID('player')) then return end
 	
-	if E.db.core.interruptAnnounce == "PARTY" then
+	if E.db.general.interruptAnnounce == "PARTY" then
 		if GetRealNumPartyMembers() > 0 then
 			SendChatMessage(INTERRUPTED.." "..destName.."'s \124cff71d5ff\124Hspell:"..spellID.."\124h["..spellName.."]\124h\124r!", "PARTY", nil, nil)
 		end
-	elseif E.db.core.interruptAnnounce == "RAID" then
+	elseif E.db.general.interruptAnnounce == "RAID" then
 		if GetRealNumRaidMembers() > 0 then
 			SendChatMessage(INTERRUPTED.." "..destName.."'s \124cff71d5ff\124Hspell:"..spellID.."\124h["..spellName.."]\124h\124r!", "RAID", nil, nil)		
 		elseif GetRealNumPartyMembers() > 0 then
 			SendChatMessage(INTERRUPTED.." "..destName.."'s \124cff71d5ff\124Hspell:"..spellID.."\124h["..spellName.."]\124h\124r!", "PARTY", nil, nil)
 		end	
-	elseif E.db.core.interruptAnnounce == "SAY" then
+	elseif E.db.general.interruptAnnounce == "SAY" then
 		if GetRealNumRaidMembers() > 0 then
 			SendChatMessage(INTERRUPTED.." "..destName.."'s \124cff71d5ff\124Hspell:"..spellID.."\124h["..spellName.."]\124h\124r!", "SAY", nil, nil)		
 		elseif GetRealNumPartyMembers() > 0 then
@@ -35,6 +35,7 @@ function M:COMBAT_LOG_EVENT_UNFILTERED(_, _, event, _, sourceGUID, _, _, _, _, d
 end
 
 function M:MERCHANT_SHOW()
+<<<<<<< HEAD:ElvUI/modules/misc/misc.lua
 	if not IsShiftKeyDown() or not E.db.core.autoRepair == 'NONE' or CanMerchantRepair() then
 		local autoRepair = E.db.core.autoRepair
 		local cost, possible = GetRepairAllCost()
@@ -46,6 +47,21 @@ function M:MERCHANT_SHOW()
 			if possible then
 				RepairAllItems(autoRepair == 'GUILD')
 				local c, s, g = cost%100, math.floor((cost%10000)/100), math.floor(cost/10000)
+=======
+	local autoRepair = E.db.general.autoRepair
+	if IsShiftKeyDown() or autoRepair == 'NONE' or not CanMerchantRepair() then return end
+	
+	local cost, possible = GetRepairAllCost()
+	local withdrawLimit = GetGuildBankWithdrawMoney();
+	if autoRepair == 'GUILD' and (not CanGuildBankRepair() or cost > withdrawLimit) then
+		autoRepair = 'PLAYER'
+	end
+		
+	if cost > 0 then
+		if possible then
+			RepairAllItems(autoRepair == 'GUILD')
+			local c, s, g = cost%100, math.floor((cost%10000)/100), math.floor(cost/10000)
+>>>>>>> Source/master:modules/misc/misc.lua
 			
 				if autoRepair == 'GUILD' then
 					E:Print(L['Your items have been repaired using guild bank funds for: ']..GetCoinTextureString(cost, 12))
@@ -120,7 +136,7 @@ end
 function M:CheckMovement()
 	if not WorldMapFrame:IsShown() then return; end
 	if self:IsPlayerMoving() then
-		WorldMapFrame:SetAlpha(E.db.core.mapTransparency)
+		WorldMapFrame:SetAlpha(E.db.general.mapTransparency)
 	else
 		WorldMapFrame:SetAlpha(1)
 	end
@@ -128,7 +144,7 @@ end
 
 local hideStatic = false;
 function M:AutoInvite(event, leaderName)
-	if not E.db.core.autoAcceptInvite then return; end
+	if not E.db.general.autoAcceptInvite then return; end
 	
 	if event == "PARTY_INVITE_REQUEST" then
 		if MiniMapLFGFrame:IsShown() then return end -- Prevent losing que inside LFD if someone invites you to group

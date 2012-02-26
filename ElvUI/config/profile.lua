@@ -1,8 +1,7 @@
 ﻿local E, L, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, ProfileDB, GlobalDB
 
 --Core
-P["core"] = {
-	["uiscale"] = 0.71,
+P['general'] = {
 	["autoscale"] = true,
 	["stickyFrames"] = true,
 	['loginmessage'] = true,
@@ -12,6 +11,7 @@ P["core"] = {
 	-- fonts
 	["fontsize"] = 12,
 	["font"] = "ElvUI Font",
+<<<<<<< HEAD:ElvUI/config/profile.lua
 	["dmgfont"] = "ElvUI Combat",
 	["dtfont"] = "Pixelfont 2",
 	['dtfontsize'] = 10,
@@ -20,6 +20,8 @@ P["core"] = {
 	-- textures
 	["normTex"] = "Ruben",
 	["glossTex"] = "Ruben",
+=======
+>>>>>>> Source/master:config/profile.lua
 	
 	--colors
 	["bordercolor"] = { r = .31,g = .31,b = .31 },
@@ -39,17 +41,21 @@ P["core"] = {
 	['lowerPanel'] = true,
 	
 	--misc
+<<<<<<< HEAD:ElvUI/config/profile.lua
 	['bags'] = true,
 	['loot'] = true,
 	['lootRoll'] = true,
 	['sellgrays'] = true,
 	['autoAcceptInvite'] = true,
+=======
+>>>>>>> Source/master:config/profile.lua
 	['mapTransparency'] = 0.5,
+	['minimapSize'] = 175,
+	['raidReminder'] = true,
 };
 
 --NamePlate
 P["nameplate"] = {
-	["enable"] = true,
 	["markBGHealers"] = true,
 	["width"] = 113,
 	["height"] = 8,
@@ -74,31 +80,42 @@ P["nameplate"] = {
 
 --Auras
 P['auras'] = {
+<<<<<<< HEAD:ElvUI/config/profile.lua
 	['enable'] = true,
 	['size'] = 38,	
+=======
+>>>>>>> Source/master:config/profile.lua
 	['perRow'] = 12,
 }
 
 --Chat
 P['chat'] = {
-	['enable'] = true,
-	['url'] = true;
-	['shortChannels'] = true;
+	['url'] = true,
+	['shortChannels'] = true,
+	['hyperlinkHover'] = true,
+	['throttleInterval'] = 45,
+	['scrollDownInterval'] = 15,
+	['minWhisperLevel'] = 4,
+	['font'] = 'ElvUI Font',
+	['fontoutline'] = 'NONE',
 }
 
 --ClassTimers
 P['classtimer'] = {
+<<<<<<< HEAD:ElvUI/config/profile.lua
 	['enable'] = false,
+=======
+>>>>>>> Source/master:config/profile.lua
 	['player'] = {
 		['enable'] = true,
 		['anchor'] = 'PLAYERDEBUFFS',
-		["buffcolor"] = P.core.bordercolor,
+		["buffcolor"] = P.general.bordercolor,
 		["debuffcolor"] = {r = 0.78, g = 0.25, b = 0.25},		
 	},
 	['target'] = {
 		['enable'] = true,
 		['anchor'] = 'TARGETDEBUFFS',
-		["buffcolor"] = P.core.bordercolor,
+		["buffcolor"] = P.general.bordercolor,
 		["debuffcolor"] = {r = 0.78, g = 0.25, b = 0.25},			
 	},	
 	['trinket'] = {
@@ -110,6 +127,7 @@ P['classtimer'] = {
 
 --Skins
 P['skins'] = {
+<<<<<<< HEAD:ElvUI/config/profile.lua
 	['embedRight'] = 'Recount',
 	['bigwigs'] = {
 		['enable'] = true,
@@ -187,11 +205,15 @@ P['skins'] = {
 		["voidstorage"] = true,
 		["transmogrify"] = true,
 	},
+=======
+	['embedRight'] = '',
+>>>>>>> Source/master:config/profile.lua
 }
 
 --Datatexts
 P['datatexts'] = {
 	['panels'] = {
+<<<<<<< HEAD:ElvUI/config/profile.lua
 		['spec1'] = {
 			['LeftChatDataPanel'] = {
 				['left'] = 'Gold',
@@ -233,18 +255,38 @@ P['datatexts'] = {
 			},
 			['LowerLDPPanel'] = 'Avoidance',
 			['LowerRDPPanel'] = 'Hit Rating',				
+=======
+		['LeftChatDataPanel'] = {
+			['left'] = 'Armor',
+			['middle'] = 'Durability',
+			['right'] = 'Avoidance',
 		},
+		['RightChatDataPanel'] = {
+			['left'] = 'System',
+			['middle'] = 'Time',	
+			['right'] = 'Gold',
+>>>>>>> Source/master:config/profile.lua
+		},
+		['LeftMiniPanel'] = 'Guild',
+		['RightMiniPanel'] = 'Friends',
 	},
 	['localtime'] = true,
 	['time24'] = false,
+<<<<<<< HEAD:ElvUI/config/profile.lua
 	['specswap'] = true,
 	['lowerpanels'] = true,
+=======
+>>>>>>> Source/master:config/profile.lua
 }
 
 --Tooltip
 P['tooltip'] = {
+<<<<<<< HEAD:ElvUI/config/profile.lua
 	['enable'] = true,
 	['anchor'] = 'ANCHOR',
+=======
+	['anchor'] = 'SMART',
+>>>>>>> Source/master:config/profile.lua
 	['ufhide'] = false,
 	['whostarget'] = true,
 	['combathide'] = false,
@@ -252,17 +294,11 @@ P['tooltip'] = {
 
 --UnitFrame
 P['unitframe'] = {
-	['enable'] = true,
 	['smoothbars'] = true,
 	['statusbar'] = 'Ruben',
 	['font'] = 'ElvUI Font',
 	['fontsize'] = 12,
 	['fontoutline'] = 'OUTLINE',
-	['aurafilters'] = {},
-	['buffwatch'] = {},
-	['mainSpec'] = 'Primary',
-	['offSpec'] = 'Primary',
-	['disableBlizzard'] = true, --Require ReloadUI
 	['OORAlpha'] = 0.35,
 	['debuffHighlighting'] = false,
 	["smartRaidFilter"] = true,
@@ -274,8 +310,13 @@ P['unitframe'] = {
 		['customhealthbackdrop'] = true,
 		['classbackdrop'] = false,
 	
+<<<<<<< HEAD:ElvUI/config/profile.lua
 		['health'] = P.core.bordercolor,
 		['health_backdrop'] = { r = .1,g = .1,b = .1 },
+=======
+		['health'] = P.general.bordercolor,
+		['health_backdrop'] = { r = .8,g = .01,b = .01 },
+>>>>>>> Source/master:config/profile.lua
 		['tapped'] = { r = 0.55, g = 0.57, b = 0.61},
 		['disconnected'] = { r = 0.84, g = 0.75, b = 0.65},
 		['power'] = {
@@ -292,11 +333,33 @@ P['unitframe'] = {
 		},
 	},
 
-	['layouts'] = {
-		['Primary'] = {
-			['player'] = {
+	['units'] = {
+		['player'] = {
+			['enable'] = true,
+			['width'] = 260,
+			['height'] = 53,
+			['lowmana'] = 30,
+			['combatfade'] = false,
+			['healPrediction'] = true,
+			['health'] = {
+				['text'] = true,
+				['text_format'] = 'current-percent',
+				['position'] = 'LEFT',
+			},
+			['power'] = {
+				['enable'] = true,
+				['text'] = true,
+				['text_format'] = 'current',	
+				['width'] = 'fill',
+				['height'] = 10,
+				['offset'] = 0,
+				['position'] = 'RIGHT',
+				['hideonnpc'] = false,
+			},
+			['altpower'] = {
 				['enable'] = true,
 				['width'] = 260,
+<<<<<<< HEAD:ElvUI/config/profile.lua
 				['height'] = 65,
 				['lowmana'] = 30,
 				['combatfade'] = false,
@@ -454,9 +517,65 @@ P['unitframe'] = {
 					['fill'] = 'spaced',
 					['height'] = 9,
 				},				
+=======
+				['height'] = 18,
 			},
-			['targettarget'] = {
+			['name'] = {
+				['enable'] = false,
+				['position'] = 'CENTER',
+			},
+			['portrait'] = {
+				['enable'] = false,
+				['width'] = 45,
+				['overlay'] = false,
+				['camDistanceScale'] = 1,
+			},
+			['buffs'] = {
+				['enable'] = false,
+				['perrow'] = 7,
+				['numrows'] = 1,
+				['growth-x'] = 'RIGHT',
+				['growth-y'] = 'UP',
+				['initialAnchor'] = 'BOTTOMLEFT',
+				['attachTo'] = 'DEBUFFS',
+				['anchorPoint'] = 'TOPLEFT',
+				['fontsize'] = 10,
+				['showPlayerOnly'] = true,
+				['useFilter'] = 'TurtleBuffs',
+				['durationLimit'] = 900,
+			},
+			['debuffs'] = {
 				['enable'] = true,
+				['perrow'] = 7,
+				['numrows'] = 1,
+				['growth-x'] = 'LEFT',
+				['growth-y'] = 'UP',
+				['initialAnchor'] = 'BOTTOMRIGHT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'TOPRIGHT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = 'DebuffBlacklist',	
+				['durationLimit'] = 0,
+			},
+			['castbar'] = {
+				['enable'] = true,
+				['width'] = 260,
+				['height'] = 18,
+				['icon'] = true,
+				['latency'] = true,
+				['color'] = P.general.bordercolor,
+				['interruptcolor'] = { r = 0.78, g = 0.25, b = 0.25 },
+				['xOffset'] = 0,
+				['yOffset'] = 0,
+				['format'] = 'REMAINING',
+				["ticks"] = true,
+				['spark'] = true,
+>>>>>>> Source/master:config/profile.lua
+			},
+			['classbar'] = {
+				['enable'] = true,
+<<<<<<< HEAD:ElvUI/config/profile.lua
 				['width'] = 130,
 				['height'] = 35,
 				['health'] = {
@@ -506,9 +625,25 @@ P['unitframe'] = {
 					['useFilter'] = 'DebuffBlacklist',	
 					['durationLimit'] = 0,
 				},			
+=======
+				['fill'] = 'spaced',
+				['height'] = 9,
 			},
-			['focus'] = {
+		},	
+		['target'] = {
+			['enable'] = true,
+			['width'] = 260,
+			['height'] = 53,
+			['healPrediction'] = true,
+			['health'] = {
+				['text'] = true,
+				['text_format'] = 'current-percent',
+				['position'] = 'RIGHT',
+>>>>>>> Source/master:config/profile.lua
+			},
+			['power'] = {
 				['enable'] = true,
+<<<<<<< HEAD:ElvUI/config/profile.lua
 				['width'] = 200,
 				['height'] = 40,
 				['healPrediction'] = true,
@@ -571,61 +706,316 @@ P['unitframe'] = {
 					['format'] = 'CURRENTMAX',
 					['spark'] = true,
 				},					
-			},	
-			['focustarget'] = {
-				['enable'] = false,
-				['width'] = 190,
-				['height'] = 25,
-				['health'] = {
-					['text'] = false,
-					['text_format'] = 'current-percent',
-					['position'] = 'RIGHT',
-				},
-				['power'] = {
-					['enable'] = false,
-					['text'] = false,
-					['text_format'] = 'current',	
-					['width'] = 'fill',
-					['height'] = 7,
-					['offset'] = 0,
-					['position'] = 'LEFT',
-					['hideonnpc'] = true,					
-				},
-				['name'] = {
-					['enable'] = true,
-					['position'] = 'CENTER',
-				},
-				['buffs'] = {
-					['enable'] = false,
-					['perrow'] = 7,
-					['numrows'] = 1,
-					['growth-x'] = 'RIGHT',
-					['growth-y'] = 'UP',
-					['initialAnchor'] = 'BOTTOMLEFT',
-					['attachTo'] = 'FRAME',
-					['anchorPoint'] = 'BOTTOMLEFT',					
-					['fontsize'] = 10,
-					['showPlayerOnly'] = false,
-					['useFilter'] = '',		
-					['durationLimit'] = 0,
-				},
-				['debuffs'] = {
-					['enable'] = false,
-					['perrow'] = 5,
-					['numrows'] = 1,
-					['growth-x'] = 'LEFT',
-					['growth-y'] = 'DOWN',
-					['initialAnchor'] = 'TOPRIGHT',
-					['attachTo'] = 'FRAME',
-					['anchorPoint'] = 'BOTTOMRIGHT',					
-					['fontsize'] = 10,
-					['showPlayerOnly'] = false,
-					['useFilter'] = 'DebuffBlacklist',	
-					['durationLimit'] = 0,
-				},			
-			},				
-			['pet'] = {
+=======
+				['text'] = true,
+				['text_format'] = 'current',	
+				['width'] = 'fill',
+				['height'] = 10,
+				['offset'] = 0,
+				['position'] = 'LEFT',
+				['hideonnpc'] = true,					
+			},
+			['name'] = {
 				['enable'] = true,
+				['position'] = 'CENTER',
+			},
+			['portrait'] = {
+				['enable'] = false,
+				['width'] = 45,
+				['overlay'] = false,
+				['camDistanceScale'] = 1,
+			},
+			['buffs'] = {
+				['enable'] = true,
+				['perrow'] = 7,
+				['numrows'] = 1,
+				['growth-x'] = 'LEFT',
+				['growth-y'] = 'UP',
+				['initialAnchor'] = 'BOTTOMRIGHT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'TOPRIGHT',						
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = '',		
+				['durationLimit'] = 0,
+			},
+			['debuffs'] = {
+				['enable'] = true,
+				['perrow'] = 7,
+				['numrows'] = 1,
+				['growth-x'] = 'LEFT',
+				['growth-y'] = 'UP',
+				['initialAnchor'] = 'BOTTOMRIGHT',
+				['attachTo'] = 'BUFFS',
+				['anchorPoint'] = 'TOPRIGHT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = true,
+				['useFilter'] = 'CCDebuffs',	
+				['durationLimit'] = 0,
+			},
+			['castbar'] = {
+				['enable'] = true,
+				['width'] = 260,
+				['height'] = 18,
+				['icon'] = true,
+				['color'] = P.general.bordercolor,
+				['interruptcolor'] = { r = 0.78, g = 0.25, b = 0.25 },
+				['xOffset'] = 0,
+				['yOffset'] = 0,
+				['format'] = 'REMAINING',
+				['spark'] = true,
+>>>>>>> Source/master:config/profile.lua
+			},	
+			['combobar'] = {
+				['enable'] = true,
+				['fill'] = 'spaced',
+				['height'] = 9,
+			},				
+		},
+		['targettarget'] = {
+			['enable'] = true,
+			['width'] = 130,
+			['height'] = 35,
+			['health'] = {
+				['text'] = false,
+				['text_format'] = 'current-percent',
+				['position'] = 'RIGHT',
+			},
+			['power'] = {
+				['enable'] = true,
+				['text'] = false,
+				['text_format'] = 'current',	
+				['width'] = 'fill',
+				['height'] = 7,
+				['offset'] = 0,
+				['position'] = 'LEFT',
+				['hideonnpc'] = true,					
+			},
+			['name'] = {
+				['enable'] = true,
+				['position'] = 'CENTER',
+			},
+			['buffs'] = {
+				['enable'] = false,
+				['perrow'] = 7,
+				['numrows'] = 1,
+				['growth-x'] = 'RIGHT',
+				['growth-y'] = 'UP',
+				['initialAnchor'] = 'BOTTOMLEFT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'BOTTOMLEFT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = '',		
+				['durationLimit'] = 0,
+			},
+			['debuffs'] = {
+				['enable'] = true,
+				['perrow'] = 5,
+				['numrows'] = 1,
+				['growth-x'] = 'LEFT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'TOPRIGHT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'BOTTOMRIGHT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = 'DebuffBlacklist',	
+				['durationLimit'] = 0,
+			},			
+		},
+		['focus'] = {
+			['enable'] = true,
+			['width'] = 190,
+			['height'] = 35,
+			['healPrediction'] = true,
+			['health'] = {
+				['text'] = false,
+				['text_format'] = 'current-percent',
+				['position'] = 'RIGHT',
+			},
+			['power'] = {
+				['enable'] = true,
+				['text'] = false,
+				['text_format'] = 'current',	
+				['width'] = 'fill',
+				['height'] = 7,
+				['offset'] = 0,
+				['position'] = 'LEFT',
+				['hideonnpc'] = true,					
+			},
+			['name'] = {
+				['enable'] = true,
+				['position'] = 'CENTER',
+			},
+			['buffs'] = {
+				['enable'] = false,
+				['perrow'] = 7,
+				['numrows'] = 1,
+				['growth-x'] = 'RIGHT',
+				['growth-y'] = 'UP',
+				['initialAnchor'] = 'BOTTOMLEFT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'BOTTOMLEFT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = '',		
+				['durationLimit'] = 0,
+			},
+			['debuffs'] = {
+				['enable'] = true,
+				['perrow'] = 5,
+				['numrows'] = 1,
+				['growth-x'] = 'LEFT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'TOPRIGHT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'BOTTOMRIGHT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = 'DebuffBlacklist',	
+				['durationLimit'] = 0,
+			},	
+			['castbar'] = {
+				['enable'] = true,
+				['width'] = 190,
+				['height'] = 18,
+				['icon'] = true,
+				['color'] = P.general.bordercolor,
+				['interruptcolor'] = { r = 0.78, g = 0.25, b = 0.25 },
+				['xOffset'] = 0,
+				['yOffset'] = 0,
+				['format'] = 'REMAINING',
+				['spark'] = true,
+			},					
+		},	
+		['focustarget'] = {
+			['enable'] = false,
+			['width'] = 190,
+			['height'] = 25,
+			['health'] = {
+				['text'] = false,
+				['text_format'] = 'current-percent',
+				['position'] = 'RIGHT',
+			},
+			['power'] = {
+				['enable'] = false,
+				['text'] = false,
+				['text_format'] = 'current',	
+				['width'] = 'fill',
+				['height'] = 7,
+				['offset'] = 0,
+				['position'] = 'LEFT',
+				['hideonnpc'] = true,					
+			},
+			['name'] = {
+				['enable'] = true,
+				['position'] = 'CENTER',
+			},
+			['buffs'] = {
+				['enable'] = false,
+				['perrow'] = 7,
+				['numrows'] = 1,
+				['growth-x'] = 'RIGHT',
+				['growth-y'] = 'UP',
+				['initialAnchor'] = 'BOTTOMLEFT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'BOTTOMLEFT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = '',		
+				['durationLimit'] = 0,
+			},
+			['debuffs'] = {
+				['enable'] = false,
+				['perrow'] = 5,
+				['numrows'] = 1,
+				['growth-x'] = 'LEFT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'TOPRIGHT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'BOTTOMRIGHT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = 'DebuffBlacklist',	
+				['durationLimit'] = 0,
+			},			
+		},				
+		['pet'] = {
+			['enable'] = true,
+			['width'] = 130,
+			['height'] = 35,
+			['healPrediction'] = true,
+			['health'] = {
+				['text'] = false,
+				['text_format'] = 'current-percent',
+				['position'] = 'RIGHT',
+			},
+			['power'] = {
+				['enable'] = true,
+				['text'] = false,
+				['text_format'] = 'current',	
+				['width'] = 'fill',
+				['height'] = 7,
+				['offset'] = 0,
+				['position'] = 'LEFT',
+				['hideonnpc'] = true,					
+			},
+			['name'] = {
+				['enable'] = true,
+				['position'] = 'CENTER',
+			},
+			['buffs'] = {
+				['enable'] = false,
+				['perrow'] = 7,
+				['numrows'] = 1,
+				['growth-x'] = 'RIGHT',
+				['growth-y'] = 'UP',
+				['initialAnchor'] = 'BOTTOMLEFT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'BOTTOMLEFT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = '',		
+				['durationLimit'] = 0,
+			},
+			['debuffs'] = {
+				['enable'] = false,
+				['perrow'] = 5,
+				['numrows'] = 1,
+				['growth-x'] = 'LEFT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'TOPRIGHT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'BOTTOMRIGHT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = 'DebuffBlacklist',	
+				['durationLimit'] = 0,
+			},			
+		},
+		['pettarget'] = {
+			['enable'] = false,
+			['width'] = 130,
+			['height'] = 25,
+			['health'] = {
+				['text'] = false,
+				['text_format'] = 'current-percent',
+				['position'] = 'RIGHT',
+			},
+			['power'] = {
+				['enable'] = false,
+				['text'] = false,
+				['text_format'] = 'current',	
+				['width'] = 'fill',
+				['height'] = 7,
+				['offset'] = 0,
+				['position'] = 'LEFT',
+				['hideonnpc'] = true,					
+			},
+			['name'] = {
+				['enable'] = true,
+<<<<<<< HEAD:ElvUI/config/profile.lua
 				['width'] = 130,
 				['height'] = 35,
 				['healPrediction'] = true,
@@ -676,63 +1066,101 @@ P['unitframe'] = {
 					['useFilter'] = 'DebuffBlacklist',	
 					['durationLimit'] = 0,
 				},			
+=======
+				['position'] = 'CENTER',
 			},
-			['pettarget'] = {
+			['buffs'] = {
 				['enable'] = false,
-				['width'] = 130,
-				['height'] = 25,
-				['health'] = {
-					['text'] = false,
-					['text_format'] = 'current-percent',
-					['position'] = 'RIGHT',
-				},
-				['power'] = {
-					['enable'] = false,
-					['text'] = false,
-					['text_format'] = 'current',	
-					['width'] = 'fill',
-					['height'] = 7,
-					['offset'] = 0,
-					['position'] = 'LEFT',
-					['hideonnpc'] = true,					
-				},
-				['name'] = {
-					['enable'] = true,
-					['position'] = 'CENTER',
-				},
-				['buffs'] = {
-					['enable'] = false,
-					['perrow'] = 7,
-					['numrows'] = 1,
-					['growth-x'] = 'RIGHT',
-					['growth-y'] = 'UP',
-					['initialAnchor'] = 'BOTTOMLEFT',
-					['attachTo'] = 'FRAME',
-					['anchorPoint'] = 'BOTTOMLEFT',					
-					['fontsize'] = 10,
-					['showPlayerOnly'] = false,
-					['useFilter'] = '',		
-					['durationLimit'] = 0,
-				},
-				['debuffs'] = {
-					['enable'] = false,
-					['perrow'] = 5,
-					['numrows'] = 1,
-					['growth-x'] = 'LEFT',
-					['growth-y'] = 'DOWN',
-					['initialAnchor'] = 'TOPRIGHT',
-					['attachTo'] = 'FRAME',
-					['anchorPoint'] = 'BOTTOMRIGHT',					
-					['fontsize'] = 10,
-					['showPlayerOnly'] = false,
-					['useFilter'] = 'DebuffBlacklist',	
-					['durationLimit'] = 0,
-				},			
-			},	
-			['boss'] = {
+				['perrow'] = 7,
+				['numrows'] = 1,
+				['growth-x'] = 'RIGHT',
+				['growth-y'] = 'UP',
+				['initialAnchor'] = 'BOTTOMLEFT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'BOTTOMLEFT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = '',		
+				['durationLimit'] = 0,
+>>>>>>> Source/master:config/profile.lua
+			},
+			['debuffs'] = {
+				['enable'] = false,
+				['perrow'] = 5,
+				['numrows'] = 1,
+				['growth-x'] = 'LEFT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'TOPRIGHT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'BOTTOMRIGHT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = 'DebuffBlacklist',	
+				['durationLimit'] = 0,
+			},			
+		},	
+		['boss'] = {
+			['enable'] = true,
+			['growthDirection'] = 'UP',
+			['width'] = 215,
+			['height'] = 45,
+			['health'] = {
+				['text'] = true,
+				['text_format'] = 'current-percent',
+				['position'] = 'RIGHT',
+			},
+			['power'] = {
 				['enable'] = true,
-				['growthDirection'] = 'UP',
+				['text'] = true,
+				['text_format'] = 'current',	
+				['width'] = 'fill',
+				['height'] = 7,
+				['offset'] = 0,
+				['position'] = 'LEFT',
+				['hideonnpc'] = false,					
+			},
+			['portrait'] = {
+				['enable'] = false,
+				['width'] = 35,
+				['overlay'] = false,
+				['camDistanceScale'] = 1,
+			},				
+			['name'] = {
+				['enable'] = true,
+				['position'] = 'CENTER',
+			},
+			['buffs'] = {
+				['enable'] = true,
+				['perrow'] = 3,
+				['numrows'] = 1,
+				['growth-x'] = 'LEFT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'RIGHT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'LEFT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = '',		
+				['durationLimit'] = 0,
+			},
+			['debuffs'] = {
+				['enable'] = true,
+				['perrow'] = 3,
+				['numrows'] = 1,
+				['growth-x'] = 'RIGHT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'LEFT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'RIGHT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = true,
+				['useFilter'] = '',	
+				['durationLimit'] = 0,
+			},	
+			['castbar'] = {
+				['enable'] = true,
 				['width'] = 215,
+<<<<<<< HEAD:ElvUI/config/profile.lua
 				['height'] = 45,
 				['health'] = {
 					['text'] = true,
@@ -861,9 +1289,44 @@ P['unitframe'] = {
 					['format'] = 'REMAINING',
 					['spark'] = true,
 				},					
+=======
+				['height'] = 18,
+				['icon'] = true,
+				['color'] = P.general.bordercolor,
+				['interruptcolor'] = { r = 0.78, g = 0.25, b = 0.25 },
+				['format'] = 'REMAINING',
+				['spark'] = true,
+			},					
+		},	
+		['arena'] = {
+			['enable'] = true,
+			['growthDirection'] = 'UP',
+			['pvpTrinket'] = true,
+			['width'] = 240,
+			['height'] = 45,
+			['health'] = {
+				['text'] = true,
+				['text_format'] = 'current-percent',
+				['position'] = 'RIGHT',
 			},
-			['party'] = {
+			['power'] = {
 				['enable'] = true,
+				['text'] = true,
+				['text_format'] = 'current',	
+				['width'] = 'fill',
+				['height'] = 7,
+				['offset'] = 0,
+				['position'] = 'LEFT',
+				['hideonnpc'] = false,					
+			},			
+			['name'] = {
+				['enable'] = true,
+				['position'] = 'CENTER',
+>>>>>>> Source/master:config/profile.lua
+			},
+			['buffs'] = {
+				['enable'] = true,
+<<<<<<< HEAD:ElvUI/config/profile.lua
 				['visibility'] = "[@raid6,exists] hide;show",
 				['point'] = 'LEFT', --Requires ReloadUI()
 				['maxColumns'] = 1,
@@ -956,9 +1419,37 @@ P['unitframe'] = {
 					['xOffset'] = -1,
 					['yOffset'] = 0,
 				},		
+=======
+				['perrow'] = 3,
+				['numrows'] = 1,
+				['growth-x'] = 'LEFT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'RIGHT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'LEFT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = 'TurtleBuffs',		
+				['durationLimit'] = 0,
+>>>>>>> Source/master:config/profile.lua
 			},
-			['raid625'] = {
+			['debuffs'] = {
 				['enable'] = true,
+				['perrow'] = 3,
+				['numrows'] = 1,
+				['growth-x'] = 'RIGHT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'LEFT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'RIGHT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = 'CCDebuffs',	
+				['durationLimit'] = 0,
+			},	
+			['castbar'] = {
+				['enable'] = true,
+<<<<<<< HEAD:ElvUI/config/profile.lua
 				['visibility'] = '[@raid6,noexists][@raid26,exists] hide;show',
 				['point'] = 'LEFT',
 				['maxColumns'] = 5,
@@ -1038,9 +1529,45 @@ P['unitframe'] = {
 					['enable'] = true,
 					['position'] = 'BOTTOMLEFT',
 				},						
+=======
+				['width'] = 240,
+				['height'] = 18,
+				['icon'] = true,
+				['color'] = P.general.bordercolor,
+				['interruptcolor'] = { r = 0.78, g = 0.25, b = 0.25 },
+				['format'] = 'REMAINING',
+				['spark'] = true,
+>>>>>>> Source/master:config/profile.lua
 			},					
-			['raid2640'] = {
+		},
+		['party'] = {
+			['enable'] = true,
+			['visibility'] = "[@raid6,exists] hide;show",
+			['point'] = 'TOP', --Requires ReloadUI()
+			['maxColumns'] = 1,
+			['unitsPerColumn'] = 5,
+			['columnSpacing'] = 3,
+			['xOffset'] = 0,
+			['yOffset'] = -3,
+			['groupBy'] = 'GROUP',
+			["showParty"] = true,
+			["showRaid"] = true,
+			["showSolo"] = false,
+			["showPlayer"] = true,
+			['healPrediction'] = false,
+			['columnAnchorPoint'] = "TOP",
+			['width'] = 180,
+			['height'] = 43,
+			['health'] = {
+				['text'] = true,
+				['text_format'] = 'current-percent',
+				['position'] = 'RIGHT',
+				['orientation'] = 'HORIZONTAL',
+				['frequentUpdates'] = false,
+			},
+			['power'] = {
 				['enable'] = true,
+<<<<<<< HEAD:ElvUI/config/profile.lua
 				['visibility'] = '[@raid26,noexists] hide;show',
 				['point'] = 'LEFT',
 				['maxColumns'] = 8,
@@ -1113,12 +1640,51 @@ P['unitframe'] = {
 				},			
 			},	
 			['tank'] = {
+=======
+				['text'] = false,
+				['text_format'] = 'current',	
+				['width'] = 'fill',
+				['height'] = 7,
+				['offset'] = 0,
+				['position'] = 'BOTTOMRIGHT',
+				['hideonnpc'] = false,					
+			},			
+			['name'] = {
 				['enable'] = true,
-				['width'] = 120,
-				['height'] = 28,
+				['position'] = 'LEFT',
+			},
+			['buffs'] = {
+				['enable'] = false,
+				['perrow'] = 3,
+				['numrows'] = 1,
+				['growth-x'] = 'LEFT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'RIGHT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'LEFT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = '',		
+				['durationLimit'] = 0,
+			},
+			['debuffs'] = {
+>>>>>>> Source/master:config/profile.lua
+				['enable'] = true,
+				['perrow'] = 3,
+				['numrows'] = 1,
+				['growth-x'] = 'RIGHT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'LEFT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'RIGHT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = '',	
+				['durationLimit'] = 0,
 			},	
-			['assist'] = {
+			['buffIndicator'] = {
 				['enable'] = true,
+<<<<<<< HEAD:ElvUI/config/profile.lua
 				['width'] = 120,
 				['height'] = 28,
 			},	
@@ -1206,13 +1772,214 @@ P['unitframe'] = {
 				["ElvUF_Pet"] = "BOTTOMLEFTUIParent464151",
 			},				
 		},	
+=======
+				['size'] = 6,
+				['fontsize'] = 8,
+				['colorIcons'] = true,
+			},
+			['roleIcon'] = {
+				['enable'] = true,
+				['position'] = 'CENTER',
+			},			
+			['petsGroup'] = {
+				['enable'] = false,
+				['width'] = 100,
+				['height'] = 22,
+				['initialAnchor'] = 'TOPRIGHT',
+				['anchorPoint'] = 'TOPLEFT',
+				['xOffset'] = -1,
+				['yOffset'] = 0,
+			},
+			['targetsGroup'] = {
+				['enable'] = false,
+				['width'] = 100,
+				['height'] = 22,
+				['initialAnchor'] = 'TOPRIGHT',
+				['anchorPoint'] = 'TOPLEFT',
+				['xOffset'] = -1,
+				['yOffset'] = 0,
+			},				
+		},
+		['raid625'] = {
+			['enable'] = true,
+			['visibility'] = '[@raid6,noexists][@raid26,exists] hide;show',
+			['point'] = 'LEFT',
+			['maxColumns'] = 5,
+			['unitsPerColumn'] = 5,
+			['columnSpacing'] = 3,
+			['xOffset'] = 3,
+			['yOffset'] = -3,
+			['groupBy'] = 'GROUP',
+			["showParty"] = true,
+			["showRaid"] = true,
+			["showSolo"] = false,
+			["showPlayer"] = true,
+			['healPrediction'] = false,
+			['columnAnchorPoint'] = "TOP",
+			['width'] = 80,
+			['height'] = 44,
+			['health'] = {
+				['text'] = true,
+				['text_format'] = 'deficit',
+				['position'] = 'BOTTOM',
+				['orientation'] = 'HORIZONTAL',
+				['frequentUpdates'] = false,
+			},
+			['power'] = {
+				['enable'] = true,
+				['text'] = false,
+				['text_format'] = 'current',	
+				['width'] = 'fill',
+				['height'] = 7,
+				['offset'] = 0,
+				['position'] = 'BOTTOMRIGHT',
+				['hideonnpc'] = false,					
+			},			
+			['name'] = {
+				['enable'] = true,
+				['position'] = 'TOP',
+			},
+			['buffs'] = {
+				['enable'] = false,
+				['perrow'] = 3,
+				['numrows'] = 1,
+				['growth-x'] = 'LEFT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'RIGHT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'LEFT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = '',		
+				['durationLimit'] = 0,
+			},
+			['debuffs'] = {
+				['enable'] = false,
+				['perrow'] = 3,
+				['numrows'] = 1,
+				['growth-x'] = 'RIGHT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'LEFT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'RIGHT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = '',	
+				['durationLimit'] = 0,
+			},	
+			['buffIndicator'] = {
+				['enable'] = true,
+				['size'] = 6,
+				['fontsize'] = 8,
+				['colorIcons'] = true,
+			},
+			['rdebuffs'] = {
+				['enable'] = true,
+				['fontsize'] = 10,
+				['size'] = 26,
+			},
+			['roleIcon'] = {
+				['enable'] = false,
+				['position'] = 'BOTTOM',
+			},					
+		},					
+		['raid2640'] = {
+			['enable'] = true,
+			['visibility'] = '[@raid26,noexists] hide;show',
+			['point'] = 'LEFT',
+			['maxColumns'] = 8,
+			['unitsPerColumn'] = 5,
+			['columnSpacing'] = 3,
+			['xOffset'] = 3,
+			['yOffset'] = -3,
+			['groupBy'] = 'GROUP',
+			["showParty"] = true,
+			["showRaid"] = true,
+			["showSolo"] = false,
+			["showPlayer"] = true,
+			['healPrediction'] = false,
+			['columnAnchorPoint'] = "TOP",
+			['width'] = 80,
+			['height'] = 36,
+			['health'] = {
+				['text'] = true,
+				['text_format'] = 'deficit',
+				['position'] = 'BOTTOM',
+				['orientation'] = 'HORIZONTAL',
+				['frequentUpdates'] = false,
+			},
+			['power'] = {
+				['enable'] = false,
+				['text'] = false,
+				['text_format'] = 'current',	
+				['width'] = 'fill',
+				['height'] = 7,
+				['offset'] = 0,
+				['position'] = 'BOTTOMRIGHT',
+				['hideonnpc'] = false,					
+			},			
+			['name'] = {
+				['enable'] = true,
+				['position'] = 'TOP',
+			},
+			['buffs'] = {
+				['enable'] = false,
+				['perrow'] = 3,
+				['numrows'] = 1,
+				['growth-x'] = 'LEFT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'RIGHT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'LEFT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = '',		
+				['durationLimit'] = 0,
+			},
+			['debuffs'] = {
+				['enable'] = false,
+				['perrow'] = 3,
+				['numrows'] = 1,
+				['growth-x'] = 'RIGHT',
+				['growth-y'] = 'DOWN',
+				['initialAnchor'] = 'LEFT',
+				['attachTo'] = 'FRAME',
+				['anchorPoint'] = 'RIGHT',					
+				['fontsize'] = 10,
+				['showPlayerOnly'] = false,
+				['useFilter'] = '',	
+				['durationLimit'] = 0,
+			},	
+			['buffIndicator'] = {
+				['enable'] = true,
+				['size'] = 6,
+				['fontsize'] = 8,
+				['colorIcons'] = true,
+			},			
+		},	
+		['tank'] = {
+			['enable'] = true,
+			['width'] = 120,
+			['height'] = 28,
+		},	
+		['assist'] = {
+			['enable'] = true,
+			['width'] = 120,
+			['height'] = 28,
+		},					
+>>>>>>> Source/master:config/profile.lua
 	},
 };
 
+
 --Actionbar
 P["actionbar"] = {
+<<<<<<< HEAD:ElvUI/config/profile.lua
 	["enable"] = true,
 	["macrotext"] = true,
+=======
+	["macrotext"] = false,
+>>>>>>> Source/master:config/profile.lua
 	["hotkeytext"] = true,
 	['fontsize'] = 11,
 	["enablecd"] = true,
