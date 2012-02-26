@@ -38,9 +38,14 @@ local classification = {
 
 function TT:SetStatusBarAnchor(pos)
 	GameTooltipStatusBar:ClearAllPoints()
-
-	GameTooltipStatusBar:Point("BOTTOMLEFT", GameTooltipStatusBar:GetParent(), "TOPLEFT", 2, 5)
-	GameTooltipStatusBar:Point("BOTTOMRIGHT", GameTooltipStatusBar:GetParent(), "TOPRIGHT", -2, 5)			
+	
+	if pos == 'BOTTOM' then
+		GameTooltipStatusBar:Point("TOPLEFT", GameTooltipStatusBar:GetParent(), "BOTTOMLEFT", 2, -5)
+		GameTooltipStatusBar:Point("TOPRIGHT", GameTooltipStatusBar:GetParent(), "BOTTOMRIGHT", -2, -5)			
+	else	
+		GameTooltipStatusBar:Point("BOTTOMLEFT", GameTooltipStatusBar:GetParent(), "TOPLEFT", 2, 5)
+		GameTooltipStatusBar:Point("BOTTOMRIGHT", GameTooltipStatusBar:GetParent(), "TOPRIGHT", -2, 5)			
+	end
 	
 	if not GameTooltipStatusBar.text then return end
 	GameTooltipStatusBar.text:ClearAllPoints()
