@@ -112,18 +112,12 @@ function S:SetEmbedRight(addon)
 		Recount_MainWindow:ClearAllPoints()
 		Recount_MainWindow:SetPoint("BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 0, 4)
 
-<<<<<<< HEAD:ElvUI/modules/skins/embedright.lua
-		if E.db.core.panelBackdrop == 'SHOWBOTH' or E.db.core.panelBackdrop == 'SHOWRIGHT' then
-			Recount_MainWindow:SetWidth(E.db.core.panelWidth - 10)
-			Recount_MainWindow:SetHeight(E.db.core.panelHeight - 30)
-=======
 		if E.db.general.panelBackdrop == 'SHOWBOTH' or E.db.general.panelBackdrop == 'SHOWRIGHT' then
 			Recount_MainWindow:SetWidth(E.db.general.panelWidth - 10)
-			Recount_MainWindow:SetHeight(E.db.general.panelHeight - 26)
->>>>>>> Source/master:modules/skins/embedright.lua
+			Recount_MainWindow:SetHeight(E.db.general.panelHeight - 30)
 		else
 			Recount_MainWindow:SetWidth(E.db.general.panelWidth)
-			Recount_MainWindow:SetHeight(E.db.general.panelHeight - 20)		
+			Recount_MainWindow:SetHeight(E.db.general.panelHeight - 30)		
 		end		
 		Recount_MainWindow:SetParent(RightChatPanel)	
 		self.lastAddon = addon

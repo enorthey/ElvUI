@@ -58,7 +58,7 @@ function AB:PositionAndSizeBar2()
 		lastButton = bar.buttons[i-1];
 		lastColumnButton = bar.buttons[i-buttonsPerRow];
 		button:SetParent(bar);
-		button:Size(size);		
+		button:Size(size);
 		button:ClearAllPoints();
 		
 		button:SetAttribute("showgrid", 1);

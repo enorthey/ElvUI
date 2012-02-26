@@ -45,11 +45,10 @@ function CH:StyleChat(frame)
 	_G[tab:GetName()..'Glow']:SetTexture('Interface\\ChatFrame\\ChatFrameTab-NewMessage')
 	
 	tab.text = _G[name.."TabText"]
-	tab.text:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
+	tab.text:FontTemplate()
 	tab.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	tab.text.OldSetTextColor = tab.text.SetTextColor 
 	tab.text.SetTextColor = E.noop
-	tab.text:SetPoint('LEFT', 5, -4)
 	
 	frame:SetClampRectInsets(0,0,0,0)
 	frame:SetClampedToScreen(false)
@@ -327,7 +326,7 @@ function CH:AddMessage(text, ...)
 			text = text:gsub("^%["..RAID_WARNING.."%]", '['..L['RW']..']')	
 		end
 		
-		text = text:gsub('|Hplayer:Kazgre:', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Kazgre:')
+		text = text:gsub('|Hplayer:Elv:', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Elv:')
 	end
 	
 	self.OldAddMessage(self, text, ...)
@@ -496,7 +495,7 @@ end
 local locale = GetLocale()
 function CH:CHAT_MSG_CHANNEL(...)
 	local isSpam = nil
- 	if locale == 'enUS' or locale == 'enGB' then
+	if locale == 'enUS' or locale == 'enGB' then
 		isSpam = CH.SpamFilter(self, ...)
 	end
 	
@@ -530,7 +529,7 @@ end
 
 function CH:CHAT_MSG_YELL(...)
 	local isSpam = nil
- 	if locale == 'enUS' or locale == 'enGB' then
+	if locale == 'enUS' or locale == 'enGB' then
 		isSpam = CH.SpamFilter(self, ...)
 	end
 	
@@ -565,7 +564,7 @@ end
 
 function CH:CHAT_MSG_SAY(...)
 	local isSpam = nil
- 	if locale == 'enUS' or locale == 'enGB' then
+	if locale == 'enUS' or locale == 'enGB' then
 		isSpam = CH.SpamFilter(self, ...)
 	end
 	

@@ -8,7 +8,6 @@ else
 end
 
 if not L then return; end
-
 L["24-Hour Time"] = "24-Hour Time"
 L["Accept Invites"] = "Accept Invites"
 L["Achievement Frame"] = "Achievement Frame"
@@ -33,7 +32,7 @@ L["Announce when you interrupt a spell to the specified chat channel."] = "Annou
 L["An X offset (in pixels) to be used when anchoring new frames."] = "An X offset (in pixels) to be used when anchoring new frames."
 L["An Y offset (in pixels) to be used when anchoring new frames."] = "An Y offset (in pixels) to be used when anchoring new frames."
 L["Any Unit"] = "Any Unit"
-L["AP"] = "Attack Power"
+L["AP"] = "AP"
 L["Archaeology Frame"] = "Archaeology Frame"
 L["Arena Frames"] = "Arena Frames"
 L["Are you sure you want to delete all your gray items?"] = "Are you sure you want to delete all your gray items?"
@@ -333,7 +332,7 @@ L["LFR Frame"] = "LFR Frame"
 L["Local Time"] = "Local Time"
 L["Lock"] = "Lock"
 L["Login Message"] = "Login Message"
-L['LOGIN_MSG'] = 'Welcome to %sElvUI:|r Potente Style %sVersion:|r %s \nType %s/ec|r to access the in-game configuration menu';
+L["LOGIN_MSG"] = "Welcome to %sElvUI|r version %s%s|r, type /ec to access the in-game configuration menu. If you are in need of technical support you can visit us at www.tukui.org. You can report bugs, add suggestions here: http://wow.curseforge.com/addons/elvui/tickets."
 L["Loot"] = "Loot"
 L["Loot Roll"] = "Loot Roll"
 L["low"] = "low"
@@ -519,7 +518,7 @@ L["Smooth Bars"] = "Smooth Bars"
 L["Socket Frame"] = "Socket Frame"
 L["Sort Bags"] = "Sort Bags"
 L["Sort Special"] = "Sort Special"
-L["SP"] = "Spell Power"
+L["SP"] = "SP"
 L["Spaced"] = "Spaced"
 L["Spacing"] = "Spacing"
 L["Spam Interval"] = "Spam Interval"
@@ -711,14 +710,6 @@ L["Your current resolution is %s, this is considered a %s resolution."] = "Your 
 L["Your items have been repaired for: "] = "Your items have been repaired for: "
 L["Your items have been repaired using guild bank funds for: "] = "Your items have been repaired using guild bank funds for: "
 L["Your version of ElvUI is out of date. You can download the latest version from www.curse.com"] = "Your version of ElvUI is out of date. You can download the latest version from www.curse.com"
-<<<<<<< HEAD:ElvUI/locales/english.lua
-L['Delete Grays'] = true;
-L['Deleted %d gray items. Total Worth: %s'] = true;
-L['%s frame(s) has a conflicting anchor point, please change either the buff or debuff anchor point so they are not attached to each other. Forcing the debuffs to be attached to the main unitframe until fixed.'] = true;
-L["Are you sure you want to delete all your gray items?"] = true;
-L['No gray items to delete.'] = true;
-L['Spark'] = true;
-L['Display a spark texture at the end of the castbar statusbar to help show the differance between castbar and backdrop.'] = true;
 
 L['Lower Panel'] = true;
 L['Enable The Panel Accross The Bottom of the UI.'] = true;
@@ -742,7 +733,4 @@ L['Size'] = true;
 L['Controls the size of the auras.'] = true;
 L['Per Row'] = true;
 L['Controls the number of auras per row.'] = true;	
-=======
 
-
->>>>>>> Source/master:locales/english.lua

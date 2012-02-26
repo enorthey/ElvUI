@@ -3,7 +3,6 @@ local S = E:GetModule('Skins')
 
 local function SkinFrame(frame)
 	frame.bgMain = CreateFrame("Frame", nil, frame)
-	--frame.bgMain:SetTemplate("Default")
 	frame.bgMain:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT")
 	frame.bgMain:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT")
 	frame.bgMain:SetPoint("TOP", frame, "TOP", 0, -30)
@@ -21,11 +20,13 @@ local function SkinFrame(frame)
 	frame.bgTitle.SetScale = E.noop
 	
 	frame.Title:SetPoint("TOPLEFT",frame,"TOPLEFT",7,-11)
-	frame.Title:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
+	frame.Title:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline)
 	frame.Title:SetTextColor(unpack(E["media"].rgbvaluecolor))
-
+	
 	frame.CloseButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -1, -7)
-	S:HandleCloseButton(frame.CloseButton)		
+	if frame ~= Recount_MainWindow then
+		S:HandleCloseButton(frame.CloseButton)
+	end
 	S:HandleScrollBar(Recount_MainWindow_ScrollBarScrollBar)
 	frame:SetBackdrop(nil)
 end
@@ -49,19 +50,14 @@ local function SkinFrame2(frame)
 	frame.bgTitle:SetScale(1)
 	frame.bgTitle.SetScale = E.noop
 	
-<<<<<<< HEAD:ElvUI/modules/skins/addons/recount.lua
 	frame.Title:SetPoint("TOPLEFT",frame,"TOPLEFT",7,-11)
-	frame.Title:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
+	frame.Title:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline)
 	frame.Title:SetTextColor(unpack(E["media"].rgbvaluecolor))
-
+	
 	frame.CloseButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -1, -7)
-	S:HandleCloseButton(frame.CloseButton)		
-=======
-	frame.CloseButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -1, -9)
 	if frame ~= Recount_MainWindow then
 		S:HandleCloseButton(frame.CloseButton)
 	end
->>>>>>> Source/master:modules/skins/addons/recount.lua
 	S:HandleScrollBar(Recount_MainWindow_ScrollBarScrollBar)
 	frame:SetBackdrop(nil)
 end
@@ -83,7 +79,7 @@ local function LoadSkin()
 		SkinFrame2(frame)
 		return frame
 	end
-
+	
 	Recount.HideScrollbarElements_ = Recount.HideScrollbarElements
 	Recount.ShowScrollbarElements_ = Recount.ShowScrollbarElements
 	
@@ -92,7 +88,7 @@ local function LoadSkin()
 		scrollbar:Show()
 		Recount.ShowScrollbarElements_(self, name)
 	end
- 
+
 	function Recount.HideScrollbarElements(self, name)
 		local scrollbar=getglobal(name.."ScrollBar")
 		scrollbar:Hide()
@@ -103,7 +99,30 @@ local function LoadSkin()
 		Recount:ShowScrollbarElements("Recount_MainWindow_ScrollBar")
 	else
 		Recount:HideScrollbarElements("Recount_MainWindow_ScrollBar")
-	end	
+	end 
+	
+	-- skin the buttons o main window
+	local MWbuttons = {
+		Recount.MainWindow.CloseButton,
+		Recount.MainWindow.RightButton,
+		Recount.MainWindow.LeftButton,
+		Recount.MainWindow.ResetButton,
+		Recount.MainWindow.FileButton,
+		Recount.MainWindow.ConfigButton,
+		Recount.MainWindow.ReportButton,
+	}
+
+	for i = 1, getn(MWbuttons) do
+		local button = MWbuttons[i]
+		if button then
+			button:GetNormalTexture():SetDesaturated(true)
+			button:GetHighlightTexture():SetDesaturated(true)
+		end
+	end
+
+	Recount.db.profile.Locked = true
+	Recount.db.profile.Font = "ElvUI Font"
+	Recount.db.profile.BarTexture = "Ruben"		
 	
 	if Recount.MainWindow then SkinFrame(Recount.MainWindow) end
 	if Recount.ConfigWindow then SkinFrame2(Recount.ConfigWindow) end
@@ -119,79 +138,6 @@ local function LoadSkin()
 	if _G["Recount_Realtime_Latency_LAG"] then SkinFrame2(_G["Recount_Realtime_Latency_LAG"].Window) end
 	if _G["Recount_Realtime_Downstream Traffic_DOWN_TRAFFIC"] then SkinFrame2(_G["Recount_Realtime_Downstream Traffic_DOWN_TRAFFIC"].Window) end
 	if _G["Recount_Realtime_Upstream Traffic_UP_TRAFFIC"] then SkinFrame2(_G["Recount_Realtime_Upstream Traffic_UP_TRAFFIC"].Window) end
-
-	-- skin dropdown
-	Recount.MainWindow.FileButton:HookScript("OnClick", function(self) if LibDropdownFrame0 then LibDropdownFrame0:SetTemplate() end end)
-	
-<<<<<<< HEAD:ElvUI/modules/skins/addons/recount.lua
-	-- skin the buttons o main window (Credit Tukz)
-	local PB = Recount.MainWindow.CloseButton
-=======
-	-- skin the buttons o main window
->>>>>>> Source/master:modules/skins/addons/recount.lua
-	local MWbuttons = {
-		Recount.MainWindow.CloseButton,
-		Recount.MainWindow.RightButton,
-		Recount.MainWindow.LeftButton,
-		Recount.MainWindow.ResetButton,
-		Recount.MainWindow.FileButton,
-		Recount.MainWindow.ConfigButton,
-		Recount.MainWindow.ReportButton,
-	}
-
-	for i = 1, getn(MWbuttons) do
-		local button = MWbuttons[i]
-		if button then
-<<<<<<< HEAD:ElvUI/modules/skins/addons/recount.lua
-			if i > 0 then
-				button:GetNormalTexture():SetDesaturated(true)
-				button:GetHighlightTexture():SetDesaturated(true)
-				button:Size(16)
-			else
-				button:SetNormalTexture("")
-				button:SetPushedTexture("")	
-				button:SetHighlightTexture("")
-				button:SetSize(16, 16)
-				button.text = button:CreateFontString(nil, 'OVERLAY')
-				button.text:FontTemplate()
-				button.text:SetPoint('CENTER')
-				button:ClearAllPoints()
-				button:SetPoint("RIGHT", PB, "LEFT", -2, 0)
-			end
-			if button:IsShown() then				
-				PB = button
-			end
-		end
-	end
-
-	-- set our custom text inside main window buttons
-	--Recount.MainWindow.RightButton.text:SetText(E.ValColor..">")
-	--Recount.MainWindow.LeftButton.text:SetText(E.ValColor.."<")
-	
-	Recount.db.profile.Locked = true
-	Recount.db.profile.Font = "ElvUI Font"
-	Recount.db.profile.BarTexture = "Ruben"	
-=======
-			button:GetNormalTexture():SetDesaturated(true)
-			button:GetHighlightTexture():SetDesaturated(true)
-		end
-	end
-
-	if Recount.MainWindow then SkinFrame(Recount.MainWindow) end
-	if Recount.ConfigWindow then SkinFrame(Recount.ConfigWindow) end
-	if Recount.GraphWindow then SkinFrame(Recount.GraphWindow) end
-	if Recount.DetailWindow then SkinFrame(Recount.DetailWindow) end
-	if Recount.ResetFrame then SkinFrame(Recount.ResetFrame) end
-	if _G["Recount_Realtime_!RAID_DAMAGE"] then SkinFrame(_G["Recount_Realtime_!RAID_DAMAGE"].Window) end
-	if _G["Recount_Realtime_!RAID_HEALING"] then SkinFrame(_G["Recount_Realtime_!RAID_HEALING"].Window) end
-	if _G["Recount_Realtime_!RAID_HEALINGTAKEN"] then SkinFrame(_G["Recount_Realtime_!RAID_HEALINGTAKEN"].Window) end
-	if _G["Recount_Realtime_!RAID_DAMAGETAKEN"] then SkinFrame(_G["Recount_Realtime_!RAID_DAMAGETAKEN"].Window) end
-	if _G["Recount_Realtime_Bandwidth Available_AVAILABLE_BANDWIDTH"] then SkinFrame(_G["Recount_Realtime_Bandwidth Available_AVAILABLE_BANDWIDTH"].Window) end
-	if _G["Recount_Realtime_FPS_FPS"] then SkinFrame(_G["Recount_Realtime_FPS_FPS"].Window) end
-	if _G["Recount_Realtime_Latency_LAG"] then SkinFrame(_G["Recount_Realtime_Latency_LAG"].Window) end
-	if _G["Recount_Realtime_Downstream Traffic_DOWN_TRAFFIC"] then SkinFrame(_G["Recount_Realtime_Downstream Traffic_DOWN_TRAFFIC"].Window) end
-	if _G["Recount_Realtime_Upstream Traffic_UP_TRAFFIC"] then SkinFrame(_G["Recount_Realtime_Upstream Traffic_UP_TRAFFIC"].Window) end
->>>>>>> Source/master:modules/skins/addons/recount.lua
 end
 
 S:RegisterSkin('Recount', LoadSkin)

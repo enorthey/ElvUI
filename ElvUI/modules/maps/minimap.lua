@@ -211,7 +211,7 @@ function M:LoadMinimap()
 	HideUIPanel(SpellBookFrame)	
 	
 	Minimap.location = Minimap:CreateFontString(nil, 'OVERLAY')
-	Minimap.location:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
+	Minimap.location:FontTemplate(nil, nil, 'OUTLINE')
 	Minimap.location:Point('TOP', Minimap, 'TOP', 0, -2)
 	Minimap.location:SetJustifyH("CENTER")
 	Minimap.location:SetJustifyV("MIDDLE")			
@@ -310,7 +310,7 @@ function M:LoadMinimap()
 	FarmModeMap:SetScript('OnShow', function() 	
 		if not E:HasMoverBeenMoved('AurasMover') then
 			AurasMover:ClearAllPoints()
-			AurasMover:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -5, -5)
+			AurasMover:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -3, -3)
 		end
 		MinimapCluster:ClearAllPoints()
 		MinimapCluster:SetAllPoints(FarmModeMap)
@@ -329,11 +329,12 @@ function M:LoadMinimap()
 		FarmModeMap:Hide()
 	end)
 	
+	
 	if IsAddOnLoaded('Routes') then
 		LibStub("AceAddon-3.0"):GetAddon('Routes'):ReparentMinimap(FarmModeMap)
 	end
 
 	if IsAddOnLoaded('GatherMate2') then
 		LibStub('AceAddon-3.0'):GetAddon('GatherMate2'):GetModule('Display'):ReparentMinimapPins(FarmModeMap)
-	end	
+	end
 end

@@ -156,7 +156,7 @@ end
 function AB:CreateBar4()
 	bar:CreateBackdrop('Default');
 	bar.backdrop:SetAllPoints();
-	bar:Point('BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -4, (E.db.core.panelHeight + 8));
+	bar:Point('BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -4, (E.db.general.panelHeight + 8));
 	bar.buttons = {}
 	bar.bindButtons = 'MULTIACTIONBAR4BUTTON'
 	

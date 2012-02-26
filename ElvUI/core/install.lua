@@ -16,7 +16,7 @@ local function SetupChat()
 		FCF_UnDockFrame(ChatFrame3)
 		FCF_SetLocked(ChatFrame3, 1)
 		ChatFrame3:Show()
-	end			
+	end				
 			
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format("ChatFrame%s", i)]
@@ -80,6 +80,7 @@ local function SetupChat()
 	ChatFrame_AddMessageGroup(ChatFrame1, "BN_CONVERSATION")
 	ChatFrame_AddMessageGroup(ChatFrame1, "BN_INLINE_TOAST_ALERT")
 	
+
 	if not E.db.skins.embedRight == nil then
 		ChatFrame_RemoveAllMessageGroups(ChatFrame3)	
 		ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_FACTION_CHANGE")
@@ -181,44 +182,10 @@ local function SetupCVars()
 	InstallStepComplete:Show()					
 end	
 
-<<<<<<< HEAD:ElvUI/core/install.lua
-local function SetupLayout(isPrimary, layout)
-	if isPrimary then
-		if layout == 'tank' then
-			--datatexts
-			E.db.datatexts.panels.spec1.LowerCDPPanel.left = 'Armor';
-			E.db.datatexts.panels.spec1.LowerLDPPanel = 'Avoidance';
-			
-			--unitframes
-			E.db.unitframe.mainSpec = 'Primary';
-		elseif layout == 'healer' then
-			--datatexts
-			E.db.datatexts.panels.spec1.LowerCDPPanel.left = 'Spell/Heal Power';
-			E.db.datatexts.panels.spec1.LowerLDPPanel = 'Crit Chance';
-			
-			--unitframes
-			E.db.unitframe.mainSpec = 'Secondary';		
-		elseif layout == 'dpsCaster' then
-			--datatexts
-			E.db.datatexts.panels.spec1.LowerCDPPanel.left = 'Spell/Heal Power';
-			E.db.datatexts.panels.spec1.LowerLDPPanel = 'Crit Chance';
-			
-			--unitframes
-			E.db.unitframe.mainSpec = 'Primary';			
-		else
-			--datatexts
-			E.db.datatexts.panels.spec1.LowerCDPPanel.left = 'Attack Power';
-			E.db.datatexts.panels.spec1.LowerLDPPanel = 'Crit Chance';
-			
-			--unitframes
-			E.db.unitframe.mainSpec = 'Primary';			
-		end
-=======
 function E:SetupResolution()
 	if E.lowversion then
 		E.db.general.panelWidth = 400
 		E.db.general.panelHeight = 180
->>>>>>> Source/master:core/install.lua
 		
 		E:CopyTable(E.db.actionbar, P.actionbar)
 		
@@ -270,36 +237,6 @@ function E:SetupResolution()
 		
 		E.db.lowresolutionset = true;
 	else
-<<<<<<< HEAD:ElvUI/core/install.lua
-		if layout == 'tank' then
-			--datatexts
-			E.db.datatexts.panels.spec2.LowerCDPPanel.left = 'Armor';
-			E.db.datatexts.panels.spec2.LowerLDPPanel = 'Avoidance';
-			
-			--unitframes
-			E.db.unitframe.offSpec = 'Primary';
-		elseif layout == 'healer' then
-			--datatexts
-			E.db.datatexts.panels.spec2.LowerCDPPanel.left = 'Spell/Heal Power';
-			E.db.datatexts.panels.spec2.LowerLDPPanel = 'Crit Chance';
-			
-			--unitframes
-			E.db.unitframe.offSpec = 'Secondary';		
-		elseif layout == 'dpsCaster' then
-			--datatexts
-			E.db.datatexts.panels.spec2.LowerCDPPanel.left = 'Spell/Heal Power';
-			E.db.datatexts.panels.spec2.LowerLDPPanel = 'Crit Chance';
-			
-			--unitframes
-			E.db.unitframe.offSpec = 'Primary';			
-		else
-			--datatexts
-			E.db.datatexts.panels.spec2.LowerCDPPanel.left = 'Attack Power';
-			E.db.datatexts.panels.spec2.LowerLDPPanel = 'Crit Chance';
-			
-			--unitframes
-			E.db.unitframe.offSpec = 'Primary';			
-=======
 		E.db.general.panelWidth = P.general.panelWidth
 		E.db.general.panelHeight = P.general.panelHeight
 		
@@ -392,7 +329,6 @@ function E:SetupLayout(layout)
 				["ElvUF_Pet"] = "BOTTOMLEFTUIParent464151",
 				['ElvUF_Focus'] = "BOTTOMUIParent280332",
 			}
->>>>>>> Source/master:core/install.lua
 		end
 	elseif E.db.lowresolutionset then
 		E.db.unitframe.units["positions"] = {
@@ -434,14 +370,14 @@ function E:SetupLayout(layout)
 	--Datatexts
 	E:CopyTable(E.db.datatexts.panels, P.datatexts.panels)
 	if layout == 'tank' then
-		E.db.datatexts.panels.LeftChatDataPanel.left = 'Armor';
-		E.db.datatexts.panels.LeftChatDataPanel.right = 'Avoidance';
+		E.db.datatexts.panels.LowerCDPPanel.left = 'Armor';
+		E.db.datatexts.panels.LowerLDPPanel = 'Avoidance';
 	elseif layout == 'healer' or layout == 'dpsCaster' then
-		E.db.datatexts.panels.LeftChatDataPanel.left = 'Spell/Heal Power';
-		E.db.datatexts.panels.LeftChatDataPanel.right = 'Haste';
+		E.db.datatexts.panels.LowerCDPPanel.left = 'Spell/Heal Power';
+		E.db.datatexts.panels.LowerLDPPanel = 'Crit Chance';
 	else
-		E.db.datatexts.panels.LeftChatDataPanel.left = 'Attack Power';
-		E.db.datatexts.panels.LeftChatDataPanel.right = 'Crit Chance';
+		E.db.datatexts.panels.LowerCDPPanel.left = 'Attack Power';
+		E.db.datatexts.panels.LowerLDPPanel = 'Crit Chance';
 	end
 	
 	E.db.layoutSet = layout

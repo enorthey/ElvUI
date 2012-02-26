@@ -292,7 +292,7 @@ function UF:Update_PetFrame(frame, db)
 	
 	if not frame.mover then
 		frame:ClearAllPoints()
-		frame:Point('BOTTOM', ElvUF_TargetTarget, 'TOP', 0, 7) --Set to default position
+		frame:Point('BOTTOMLEFT', E.UIParent, 'BOTTOM', -441, 145) --Set to default position
 	end
 	
 	frame:UpdateAllElements()

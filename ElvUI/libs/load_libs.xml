@@ -18,4 +18,5 @@
 	<Include file='oUF_Plugins\oUF_Plugins.xml'/>
 	<Script file="LibActionButton-1.0\LibActionButton-1.0.lua"/>
 	<Script file="LibDataBroker\LibDataBroker-1.1.lua"/>
+	<Script file="LibDualSpec-1.0\LibDualSpec-1.0.lua"/>
 </Ui>

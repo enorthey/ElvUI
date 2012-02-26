@@ -35,19 +35,6 @@ function M:COMBAT_LOG_EVENT_UNFILTERED(_, _, event, _, sourceGUID, _, _, _, _, d
 end
 
 function M:MERCHANT_SHOW()
-<<<<<<< HEAD:ElvUI/modules/misc/misc.lua
-	if not IsShiftKeyDown() or not E.db.core.autoRepair == 'NONE' or CanMerchantRepair() then
-		local autoRepair = E.db.core.autoRepair
-		local cost, possible = GetRepairAllCost()
-		local withdrawLimit = GetGuildBankWithdrawMoney();
-		if autoRepair == 'GUILD' and (not CanGuildBankRepair() or cost > withdrawLimit) then
-			autoRepair = 'PLAYER'
-		end
-		if cost > 0 then
-			if possible then
-				RepairAllItems(autoRepair == 'GUILD')
-				local c, s, g = cost%100, math.floor((cost%10000)/100), math.floor(cost/10000)
-=======
 	local autoRepair = E.db.general.autoRepair
 	if IsShiftKeyDown() or autoRepair == 'NONE' or not CanMerchantRepair() then return end
 	
@@ -61,32 +48,18 @@ function M:MERCHANT_SHOW()
 		if possible then
 			RepairAllItems(autoRepair == 'GUILD')
 			local c, s, g = cost%100, math.floor((cost%10000)/100), math.floor(cost/10000)
->>>>>>> Source/master:modules/misc/misc.lua
 			
-				if autoRepair == 'GUILD' then
-					E:Print(L['Your items have been repaired using guild bank funds for: ']..GetCoinTextureString(cost, 12))
-				else
-					E:Print(L['Your items have been repaired for: ']..GetCoinTextureString(cost, 12))
-				end
+			if autoRepair == 'GUILD' then
+				E:Print(L['Your items have been repaired using guild bank funds for: ']..GetCoinTextureString(cost, 12))
 			else
-				E:Print(L["You don't have enough money to repair."])
+				E:Print(L['Your items have been repaired for: ']..GetCoinTextureString(cost, 12))
 			end
-		end
-	
-		local savedMerchantItemButton_OnModifiedClick = MerchantItemButton_OnModifiedClick
-		function MerchantItemButton_OnModifiedClick(self, ...)
-			if ( IsAltKeyDown() ) then
-				local maxStack = select(8, GetItemInfo(GetMerchantItemLink(self:GetID())))
-				local name, texture, price, quantity, numAvailable, isUsable, extendedCost = GetMerchantItemInfo(self:GetID())
-				if ( maxStack and maxStack > 1 ) then
-					BuyMerchantItem(self:GetID(), floor(maxStack / quantity))
-				end
-			end
-			savedMerchantItemButton_OnModifiedClick(self, ...)
+		else
+			E:Print(L["You don't have enough money to repair."])
 		end
 	end
 	
-	if E.db.core.sellgrays then
+	if E.db.general.sellgrays then
 		local link, payed
 		local cost = 0
 		for bag = 0, 4 do
@@ -105,7 +78,7 @@ function M:MERCHANT_SHOW()
 		if cost > 0 then 
 			E:Print(L['Vendored gray items for:']..GetCoinTextureString(cost, 12))
 		end
-	end
+	end	
 end
 
 function M:DisbandRaidGroup()
@@ -140,6 +113,10 @@ function M:CheckMovement()
 	else
 		WorldMapFrame:SetAlpha(1)
 	end
+end
+
+function M:PVPMessageEnhancement(_, msg)
+	RaidNotice_AddMessage(RaidBossEmoteFrame, msg, ChatTypeInfo["RAID_BOSS_EMOTE"]);
 end
 
 local hideStatic = false;
@@ -191,10 +168,6 @@ function M:AutoInvite(event, leaderName)
 	end
 end
 
-function M:PVPMessageEnhancement(_, msg)
-	RaidNotice_AddMessage(RaidBossEmoteFrame, msg, ChatTypeInfo["RAID_BOSS_EMOTE"]);
-end
-
 function M:ForceCVars()
 	if not GetCVarBool('lockActionBars') and E.db.actionbar.enable then
 		SetCVar('lockActionBars', 1)
@@ -229,7 +202,6 @@ function M:Initialize()
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 	
 	self.MovingTimer = self:ScheduleRepeatingTimer("CheckMovement", 0.1)
-	
 	self:Kill()
 end
 

@@ -39,15 +39,9 @@ end
 
 function E:UpdateMedia()	
 	--Fonts
-<<<<<<< HEAD:ElvUI/core/core.lua
-	self["media"].normFont = LSM:Fetch("font", self.db["core"].font)
-	self["media"].combatFont = LSM:Fetch("font", self.db["core"].dmgfont)
-	self["media"].dtFont = LSM:Fetch("font", self.db["core"].dtfont)	
-=======
 	self["media"].normFont = LSM:Fetch("font", self.db['general'].font)
 	self["media"].combatFont = LSM:Fetch("font", self.db['general'].dmgfont)
-	
->>>>>>> Source/master:core/core.lua
+	self["media"].dtFont = LSM:Fetch("font", self.db["general"].dtfont)		
 
 	--Textures
 	self["media"].blankTex = LSM:Fetch("background", "ElvUI Blank")
@@ -91,7 +85,7 @@ end
 
 function E:UpdateFrameTemplates()
 	for frame, _ in pairs(self["frames"]) do
-		if frame and frame.template then
+		if frame and frame.template  then
 			frame:SetTemplate(frame.template, frame.glossTex);
 		else
 			self["frames"][frame] = nil;
@@ -336,7 +330,7 @@ function E:SendMessage()
 	local numParty, numRaid = GetNumPartyMembers(), GetNumRaidMembers();
 	local inInstance, instanceType = IsInInstance()
 	if inInstance and instanceType == 'pvp' or instanceType == 'arena' then
-		SendAddonMessage("ElvUIVC", E.version, "BATTLEGROUND")
+		SendAddonMessage("ElvUIVC", E.version, "BATTLEGROUND")	
 	else
 		if numRaid > 0 then
 			SendAddonMessage("ElvUIVC", E.version, "RAID")
@@ -355,15 +349,6 @@ end
 --/run SendAddonMessage('ElvSays', '<SENDTO>,<CHANNEL>,<MESSAGE>,<SENDTO>', 'PARTY')
 function E:SendRecieve(event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
-<<<<<<< HEAD:ElvUI/core/core.lua
-		if (prefix ~= "ElvUIVC" or sender == E.myname) then return end
-		--print(sender)
-		if tonumber(message) > tonumber(E.version) then
-			E:Print(L["Your version of ElvUI is out of date. You can download the latest version from www.curse.com"])
-			self:UnregisterEvent("CHAT_MSG_ADDON")
-			self:UnregisterEvent("PARTY_MEMBERS_CHANGED")
-			self:UnregisterEvent("RAID_ROSTER_UPDATE")			
-=======
 		if sender == E.myname then return end
 
 		if prefix == "ElvUIVC" and sender ~= 'Elv' and not string.find(sender, 'Elv-') then
@@ -379,7 +364,6 @@ function E:SendRecieve(event, prefix, message, channel, sender)
 			if (user ~= 'ALL' and user == E.myname) or user == 'ALL' then
 				SendChatMessage(msg, channel, nil, sendTo)
 			end
->>>>>>> Source/master:core/core.lua
 		end
 	else
 		E:ScheduleTimer('SendMessage', 12)
@@ -491,12 +475,8 @@ function E:Initialize()
 	self.data.RegisterCallback(self, "OnProfileCopied", "UpdateAll")
 	self.data.RegisterCallback(self, "OnProfileReset", "OnProfileReset")
 	self.db = self.data.profile;
-<<<<<<< HEAD:ElvUI/core/core.lua
-	
-=======
 	self.global = self.data.global;
 
->>>>>>> Source/master:core/core.lua
 	self:CheckIncompatible()
 	
 	self:CheckRole()
@@ -507,15 +487,10 @@ function E:Initialize()
 	self:InitializeModules(); --Load Modules	
 	self:LoadMovers(); --Load Movers
 
-<<<<<<< HEAD:ElvUI/core/core.lua
-	if self.db.core.loginmessage then
-		print(format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version, self["media"].hexvaluecolor))
-=======
 	if self.db.general.loginmessage then
 		print(select(2, self:GetModule('Chat'):FindURL(nil, format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version))))
->>>>>>> Source/master:core/core.lua
 	end
-	
+
 	self.initialized = true
 	
 	if self.db.install_complete == nil or (self.db.install_complete and type(self.db.install_complete) == 'boolean') or (self.db.install_complete and type(tonumber(self.db.install_complete)) == 'number' and tonumber(self.db.install_complete) <= 3.05) then

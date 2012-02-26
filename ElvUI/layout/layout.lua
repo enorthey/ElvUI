@@ -11,9 +11,9 @@ E.Layout = LO;
 function LO:Initialize()
 	self:CreateChatPanels()
 	self:CreateMinimapPanels()
-	if E.db.core.lowerPanel then self:CreateLowerPanel() end
-	if E.db.core.upperPanel then self:CreateUpperPanel() end
-	if E.db.datatexts.lowerpanels then self.CreateLowerDPPanel() end
+	if E.db.general.lowerPanel then self:CreateLowerPanel() end
+	if E.db.general.upperPanel then self:CreateUpperPanel() end
+	if E.db.datatexts.lowerpanels then self.CreateLowerDPPanel() end	
 end
 
 local function ChatPanelLeft_OnFade(self)
@@ -36,7 +36,6 @@ local function ChatButton_OnLeave(self, ...)
 	if E.db[self.parent:GetName()..'Faded'] then
 		UIFrameFadeOut(self.parent, 0.2, self.parent:GetAlpha(), 0)
 		UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-		panel = self.parent
 		self.parent.fadeInfo.finishedFunc = self.parent.fadeFunc
 	end
 end
@@ -120,7 +119,7 @@ end
 function LO:CreateChatPanels()
 	--Left Chat
 	local lchat = CreateFrame('Frame', 'LeftChatPanel', E.UIParent)
-	if not E.db.core.lowerPanel then 
+	if not E.db.general.lowerPanel then 
 		lchat:SetFrameStrata('BACKGROUND') 
 	end
 	lchat:Width(420)
@@ -160,14 +159,14 @@ function LO:CreateChatPanels()
 	lchattb:SetScript('OnLeave', ChatButton_OnLeave)
 	lchattb:SetScript('OnClick', ChatButton_OnClick)
 	lchattb.text = lchattb:CreateFontString(nil, 'OVERLAY')
-	lchattb.text:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
+	lchattb.text:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline)
 	lchattb.text:SetPoint('CENTER', 2, 0)
 	lchattb.text:SetJustifyH('CENTER')
 	lchattb.text:SetText('<')
 	
 	--Right Chat
 	local rchat = CreateFrame('Frame', 'RightChatPanel', E.UIParent)
-	if not E.db.core.lowerPanel then
+	if not E.db.general.lowerPanel then
 		rchat:SetFrameStrata('BACKGROUND')
 	end
 	rchat:Width(420)
@@ -207,7 +206,7 @@ function LO:CreateChatPanels()
 	rchattb:SetScript('OnLeave', ChatButton_OnLeave)
 	rchattb:SetScript('OnClick', ChatButton_OnClick)
 	rchattb.text = rchattb:CreateFontString(nil, 'OVERLAY')
-	rchattb.text:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
+	rchattb.text:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline)
 	rchattb.text:SetPoint('CENTER', 2, 0)
 	rchattb.text:SetJustifyH('CENTER')
 	rchattb.text:SetText('>')
@@ -229,13 +228,13 @@ end
 function LO:CreateMinimapPanels()
 	local lminipanel = CreateFrame('Frame', 'LeftMiniPanel', Minimap)
 	lminipanel:Point('TOPLEFT', Minimap, 'BOTTOMLEFT', -2, -3)
-	lminipanel:Point('BOTTOMRIGHT', Minimap, 'BOTTOM', -1, -(4 + PANEL_HEIGHT))
+	lminipanel:Point('BOTTOMRIGHT', Minimap, 'BOTTOM', -1, -(3 + PANEL_HEIGHT))
 	lminipanel:SetTemplate('Default', true)
 	E:GetModule('DataTexts'):RegisterPanel(lminipanel, 1, 'ANCHOR_BOTTOMLEFT', lminipanel:GetWidth() * 2, -4)
 	
 	local rminipanel = CreateFrame('Frame', 'RightMiniPanel', Minimap)
 	rminipanel:Point('TOPRIGHT', Minimap, 'BOTTOMRIGHT', 2, -3)
-	rminipanel:Point('BOTTOMLEFT', Minimap, 'BOTTOM', 0, -(4 + PANEL_HEIGHT))
+	rminipanel:Point('BOTTOMLEFT', Minimap, 'BOTTOM', 0, -(3 + PANEL_HEIGHT))
 	rminipanel:SetTemplate('Default', true)
 	E:GetModule('DataTexts'):RegisterPanel(rminipanel, 1, 'ANCHOR_BOTTOM', 0, -4)
 	
@@ -245,7 +244,7 @@ function LO:CreateMinimapPanels()
 	configtoggle:Width(E.RBRWidth)
 	configtoggle:SetTemplate('Default', true)
 	configtoggle.text = configtoggle:CreateFontString(nil, 'OVERLAY')
-	configtoggle.text:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
+	configtoggle.text:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline)
 	configtoggle.text:SetText('C')
 	configtoggle.text:SetPoint('CENTER', 2, 1)
 	configtoggle.text:SetJustifyH('CENTER')

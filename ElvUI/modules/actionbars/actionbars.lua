@@ -93,7 +93,7 @@ function AB:UpdateButtonSettings()
 			self["handledbuttons"][button] = nil
 		end
 	end
-	
+
 	for i=1, 5 do
 		self['PositionAndSizeBar'..i](self)
 	end	
@@ -141,7 +141,7 @@ function AB:GetPage(bar, defaultPage, condition)
 	return condition
 end
 
-function AB:StyleButton(button, noBackdrop)
+function AB:StyleButton(button, noBackdrop)	
 	local name = button:GetName();
 	local icon = _G[name.."Icon"];
 	local count = _G[name.."Count"];
@@ -158,17 +158,17 @@ function AB:StyleButton(button, noBackdrop)
 	if normal then normal:SetTexture(nil); normal:Hide(); normal:SetAlpha(0); end	
 	if normal2 then normal2:SetTexture(nil); normal2:Hide(); normal2:SetAlpha(0); end	
 	if border then border:Kill(); end
-	
+			
 	if not button.noBackdrop then
 		button.noBackdrop = noBackdrop;
 	end
 	
 	if count then
 		count:ClearAllPoints();
-		count:SetPoint("BOTTOMRIGHT", 1, 3);
-		count:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline);
+		count:SetPoint("BOTTOMRIGHT", 0, 2);
+		count:FontTemplate(nil, 11, "OUTLINE");
 	end
-	
+
 	if not button.noBackdrop and not button.backdrop then
 		button:CreateBackdrop('Default', true)
 		button.backdrop:SetAllPoints()
@@ -184,15 +184,9 @@ function AB:StyleButton(button, noBackdrop)
 	if shine then
 		shine:SetAllPoints()
 	end
-
-	if macroName then
-		macroName:ClearAllPoints();
-		macroName:SetPoint("BOTTOMLEFT",1,1);
-		macroName:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline)
-	end
 	
 	if self.db.hotkeytext then
-		hotkey:FontTemplate(E["media"].dtFont, E.db.core.dtfontsize,  E.db.core.dtfontoutline);
+		hotkey:FontTemplate(nil, E.db.actionbar.fontsize, "OUTLINE");
 	end
 	
 	--Extra Action Button
@@ -436,7 +430,6 @@ function AB:CreateMover(bar, text, name, padding)
 	mover:SetSize(bar:GetSize())
 	mover:SetFrameStrata('HIGH')
 	mover:SetTemplate('Default', true)	
-	
 	mover.name = name
 	tinsert(E['snapBars'], mover)
 	

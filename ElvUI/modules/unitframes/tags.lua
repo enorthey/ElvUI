@@ -105,12 +105,12 @@ local utf8sub = function(string, i, dots)
 end
 
 ElvUF.Tags.Events['Elv:getnamecolor'] = 'UNIT_POWER'
- ElvUF.Tags.Methods['Elv:getnamecolor'] = function(unit)
- 	if not unit then return end
+ElvUF.Tags.Methods['Elv:getnamecolor'] = function(unit)
+	if not unit then return end
 	
 	if E.db['unitframe']['colors'].healthclass then
-		return string.format('|cff%02x%02x%02x', 225, 225, 225)	
- 	else
+		return string.format('|cff%02x%02x%02x', 214, 191, 166)	
+	else
 		local reaction = UnitReaction(unit, 'player')
 		if (UnitIsPlayer(unit)) then
 			return _TAGS['raidcolor'](unit)
@@ -120,8 +120,8 @@ ElvUF.Tags.Events['Elv:getnamecolor'] = 'UNIT_POWER'
 		else
 			return string.format('|cff%02x%02x%02x', 214, 191, 166)	
 		end
- 	end
- end
+	end
+end
 
 ElvUF.Tags.Events['Elv:nameshort'] = 'UNIT_NAME_UPDATE'
 ElvUF.Tags.Methods['Elv:nameshort'] = function(unit)

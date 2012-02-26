@@ -55,24 +55,20 @@ E.Options.args.general = {
 			name = L["General"],
 			guiInline = true,
 			args = {
-				autoscale = {
+				interruptAnnounce = {
 					order = 1,
-					name = L["Auto Scale"],
-					desc = L["Automatically scale the User Interface based on your screen resolution"],
-					type = "toggle",	
-					set = function(info, value) E.db.core[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end
+					name = L['Announce Interrupts'],
+					desc = L['Announce when you interrupt a spell to the specified chat channel.'],
+					type = 'select',
+					values = {
+						['NONE'] = NONE,
+						['SAY'] = SAY,
+						['PARTY'] = PARTY,
+						['RAID'] = RAID,
+					},
 				},
-				uiscale = {
+				autoRepair = {
 					order = 2,
-<<<<<<< HEAD:ElvUI/core/options.lua
-					name = L["Scale"],
-					desc = L["Controls the scaling of the entire User Interface"],
-					disabled = function(info) return E.db["core"].autoscale end,
-					type = "range",
-					min = 0.64, max = 1, step = 0.01,
-					isPercent = true,
-					set = function(info, value) E.db.core[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end
-=======
 					name = L['Auto Repair'],
 					desc = L['Automatically repair using the following method when visiting a merchant.'],
 					type = 'select',
@@ -92,18 +88,16 @@ E.Options.args.general = {
 						['TOP_SCREEN'] = L['Top Screen'],
 						['MINIMAP_BOTTOM'] = L["Below Minimap"],
 					},
->>>>>>> Source/master:core/options.lua
 				},				
+				autoAcceptInvite = {
+					order = 4,
+					name = L['Accept Invites'],
+					desc = L['Automatically accept invites from guild/friends.'],
+					type = 'toggle',
+				},
 				bags = {
-					order = 3,
+					order = 5,
 					type = "toggle",
-<<<<<<< HEAD:ElvUI/core/options.lua
-					name = L['Toggle Bags'],
-					desc = L['Enable\Disable the all-in-one bag.'],
-					get = function(info) return E.db.core.bags end,
-					set = function(info, value) E.db.core.bags = value; StaticPopup_Show("CONFIG_RL") end
-				},	
-=======
 					name = L['Bags'],
 					desc = L['Enable/Disable the all-in-one bag.'],
 					get = function(info) return E.global.general.bags end,
@@ -117,25 +111,10 @@ E.Options.args.general = {
 					get = function(info) return E.global.general.loot end,
 					set = function(info, value) E.global.general.loot = value; StaticPopup_Show("GLOBAL_RL") end
 				},
->>>>>>> Source/master:core/options.lua
 				lootRoll = {
-					order = 4,
+					order = 7,
 					type = "toggle",
 					name = L['Loot Roll'],
-<<<<<<< HEAD:ElvUI/core/options.lua
-					desc = L['Enable\Disable the loot roll frame.'],
-					get = function(info) return E.db.core.lootRoll end,
-					set = function(info, value) E.db.core.lootRoll = value; StaticPopup_Show("CONFIG_RL") end
-				},	
-				loot = {
-					order = 5,
-					type = "toggle",
-					name = L['Loot'],
-					desc = L['Enable\Disable the loot frame.'],
-					get = function(info) return E.db.core.loot end,
-					set = function(info, value) E.db.core.loot = value; StaticPopup_Show("CONFIG_RL") end
-				},									
-=======
 					desc = L['Enable/Disable the loot roll frame.'],
 					get = function(info) return E.global.general.lootRoll end,
 					set = function(info, value) E.global.general.lootRoll = value; StaticPopup_Show("GLOBAL_RL") end
@@ -176,52 +155,42 @@ E.Options.args.general = {
 						E:GetModule('Maps'):Minimap_UpdateSettings()
 					end,
 				},
->>>>>>> Source/master:core/options.lua
-				panelWidth = {
-					order = 6,
-					type = 'range',
-					name = L['Panel Width'],
-					desc = L['PANEL_DESC'],
-<<<<<<< HEAD:ElvUI/core/options.lua
-					set = function(info, value) E.db.core.panelWidth = value; E:GetModule('Chat'):PositionChat(true); local bags = E:GetModule('Bags'); bags:Layout(); bags:Layout(true); E:GetModule('Skins'):SetEmbedRight(E.db.skins.embedRight) end,
-					min = 315, max = 700, step = 1,
-=======
-					set = function(info, value) E.db.general.panelWidth = value; E:GetModule('Chat'):PositionChat(true); local bags = E:GetModule('Bags'); bags:Layout(); bags:Layout(true); E:GetModule('Skins'):SetEmbedRight(E.db.skins.embedRight) end,
-					min = 150, max = 700, step = 1,
->>>>>>> Source/master:core/options.lua
-				},
-				panelHeight = {
-					order = 7,
-					type = 'range',
-					name = L['Panel Height'],
-					desc = L['PANEL_DESC'],
-					set = function(info, value) E.db.general.panelHeight = value; E:GetModule('Chat'):PositionChat(true); E:GetModule('Skins'):SetEmbedRight(E.db.skins.embedRight) end,
-					min = 150, max = 600, step = 1,
-				},	
 				lowerPanel = {
-					order = 8,
+					order = 100,
 					type = 'toggle',
 					name = L['Lower Panel'],
 					desc = L['Enable The Panel Accross The Bottom of the UI.'],
 					set = function(info, value) E.db.core.lowerPanel = value; StaticPopup_Show("CONFIG_RL") end,
 				},
 				upperPanel = {
-					order = 9,
+					order = 101,
 					type = 'toggle',
 					name = L['Upper Panel'],
 					desc = L['Enable The Panel Accross The Top of UI.'],
 					set = function(info, value) E.db.core.upperPanel = value; StaticPopup_Show("CONFIG_RL") end,
+				},				
+				panelWidth = {
+					order = 102,
+					type = 'range',
+					name = L['Panel Width'],
+					desc = L['PANEL_DESC'],
+					set = function(info, value) E.db.general.panelWidth = value; E:GetModule('Chat'):PositionChat(true); local bags = E:GetModule('Bags'); bags:Layout(); bags:Layout(true); E:GetModule('Skins'):SetEmbedRight(E.db.skins.embedRight) end,
+					min = 150, max = 700, step = 1,
+				},
+				panelHeight = {
+					order = 103,
+					type = 'range',
+					name = L['Panel Height'],
+					desc = L['PANEL_DESC'],
+					set = function(info, value) E.db.general.panelHeight = value; E:GetModule('Chat'):PositionChat(true); E:GetModule('Skins'):SetEmbedRight(E.db.skins.embedRight) end,
+					min = 150, max = 600, step = 1,
 				},
 				panelBackdrop = {
-					order = 101,
+					order = 104,
 					type = 'select',
 					name = L['Panel Backdrop'],
 					desc = L['Toggle showing of the left and right chat panels.'],
-<<<<<<< HEAD:ElvUI/core/options.lua
-					set = function(info, value) E.db.core.panelBackdrop = value; E:GetModule('Layout'):ToggleChatPanels() end,
-=======
 					set = function(info, value) E.db.general.panelBackdrop = value; E:GetModule('Layout'):ToggleChatPanels(); E:GetModule('Skins'):SetEmbedRight(E.db.skins.embedRight) end,
->>>>>>> Source/master:core/options.lua
 					values = {
 						['HIDEBOTH'] = L['Hide Both'],
 						['SHOWBOTH'] = L['Show Both'],
@@ -230,7 +199,7 @@ E.Options.args.general = {
 					},
 				},
 				panelBackdropNameLeft = {
-					order = 102,
+					order = 105,
 					type = 'input',
 					width = 'full',
 					name = L['Panel Texture (Left)'],
@@ -241,7 +210,7 @@ E.Options.args.general = {
 					end,
 				},
 				panelBackdropNameRight = {
-					order = 103,
+					order = 106,
 					type = 'input',
 					width = 'full',
 					name = L['Panel Texture (Right)'],
@@ -286,9 +255,9 @@ E.Options.args.general = {
 							order = 3,
 							name = L["CombatText Font"],
 							desc = L["The font that combat text will use. |cffFF0000WARNING: This requires a game restart or re-log for this change to take effect.|r"],
-<<<<<<< HEAD:ElvUI/core/options.lua
-							values = AceGUIWidgetLSMlists.font,		
-							set = function(info, value) E.db.core[ info[#info] ] = value; E:UpdateMedia(); E:UpdateFontTemplates(); end,
+							values = AceGUIWidgetLSMlists.font,
+							get = function(info) return E.global.general[ info[#info] ] end,							
+							set = function(info, value) E.global.general[ info[#info] ] = value; E:UpdateMedia(); E:UpdateFontTemplates(); StaticPopup_Show("GLOBAL_RL"); end,
 						},	
 						dtfont = {
 							type = "select", dialogControl = 'LSM30_Font',
@@ -305,12 +274,7 @@ E.Options.args.general = {
 							type = "range",
 							min = 6, max = 22, step = 1,
 							set = function(info, value) E.db.core[ info[#info] ] = value; E:UpdateMedia(); E:UpdateFontTemplates(); end,
-=======
-							values = AceGUIWidgetLSMlists.font,
-							get = function(info) return E.global.general[ info[#info] ] end,							
-							set = function(info, value) E.global.general[ info[#info] ] = value; E:UpdateMedia(); E:UpdateFontTemplates(); StaticPopup_Show("GLOBAL_RL"); end,
->>>>>>> Source/master:core/options.lua
-						},							
+						},								
 					},
 				},	
 				textures = {
@@ -432,71 +396,7 @@ E.Options.args.general = {
 					},
 				},
 			},
-		},
-		miscGroup = {
-			name = L['Misc'],
-			type = 'group',
-			guiInline = true,
-			order = 8,
-			args = {
-				autoAcceptInvite = {
-					order = 1,
-					name = L['Accept Invites'],
-					desc = L['Automatically accept invites from guild/friends.'],
-					type = 'toggle',
- 				},
-				autoRepair = {
-					order = 2,
-					name = L['Auto Repair'],
-					desc = L['Automatically repair using the following method when visiting a merchant.'],
-					type = 'select',
-					values = {
-						['NONE'] = NONE,
-						['GUILD'] = GUILD,
-						['PLAYER'] = PLAYER,
-					},				
-				},	
-				interruptAnnounce = {
-					order = 3,
-					name = L['Announce Interrupts'],
-					desc = L['Announce when you interrupt a spell to the specified chat channel.'],
-					type = 'select',
-					values = {
-						['NONE'] = NONE,
-						['SAY'] = SAY,
-						['PARTY'] = PARTY,
-						['RAID'] = RAID,
-					},
-				},	
-				sellgrays = {
-					order = 4,
-					name = L['Vendor Grays'],
-					desc = L['Automatically vendor gray quailty items when visiting a merchant'],
-					type = 'toggle',
-					get = function(info) return E.db.core.sellgrays end,
-					set = function(info, value) E.db.core.sellgrays = value; StaticPopup_Show("CONFIG_RL") end
-				},		
-				expRepPos = {
-					order = 5,
-					type = 'select',
-					name = L['Exp/Rep Position'],
-					desc = L['Change the position of the experience/reputation bar.'],
-					set = function(info, value) E.db.core.expRepPos = value; E:GetModule('Misc'):UpdateExpRepBarAnchor() end,
-					values = {
-						['TOP_SCREEN'] = L['Top Screen'],
-						['MINIMAP_BOTTOM'] = L["Below Minimap"],
-					},
-				},
-				mapTransparency = {
-					order = 6,
-					name = L['Map Transparency'],
-					desc = L['Controls what the transparency of the worldmap will be set to when you are moving.'],
-					type = 'range',
-					isPercent = true,
-					min = 0, max = 1, step = 0.01,
-				},				
-			},
-		},			
+		},	
 	},
 }
 
@@ -549,7 +449,7 @@ E.Options.args.credits = {
 		text = {
 			order = 1,
 			type = "description",
-			name = L['ELVUI_CREDITS']..'\n\n'..L['Coding:']..'\nTukz\nHaste\nNightcracker\nOmega1970\nHydrazine\n\n'..L['Testing:']..'\nTukui Community\nAffinity\nModarch\nBladesdruid\nTirain\nPhima\n\n'..L['Donations:']..DONATOR_STRING,
+			name = L['ELVUI_CREDITS']..'\n\n'..L['Coding:']..'\nTukz\nHaste\nNightcracker\nOmega1970\nHydrazine\n\n'..L['Testing:']..'\nTukui Community\nAffinity\nModarch\nBladesdruid\nTirain\nPhima\nVeiled (www.howtopriest.com)\n\n'..L['Donations:']..DONATOR_STRING,
 		},
 	},
 }

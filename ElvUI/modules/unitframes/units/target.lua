@@ -363,12 +363,12 @@ function UF:Update_TargetFrame(frame, db)
 			castbar.ButtonIcon.bg:Hide()
 			castbar.Icon = nil
 		end
-
+		
 		if db.castbar.spark then
 			castbar.Spark:Show()
 		else
 			castbar.Spark:Hide()
-		end	
+		end		
 		
 		castbar:ClearAllPoints()
 		castbar:Point("TOPLEFT", frame, "BOTTOMLEFT", (BORDER + db.castbar.xOffset), (-(BORDER*2+BORDER) + db.castbar.yOffset))
@@ -479,7 +479,7 @@ function UF:Update_TargetFrame(frame, db)
 	
 	if not frame.mover then
 		frame:ClearAllPoints()
-		frame:Point('BOTTOMRIGHT', E.UIParent, 'BOTTOM', 417, 75) --Set to default position
+		frame:Point('BOTTOMRIGHT', E.UIParent, 'BOTTOM', 441, 220) --Set to default position
 	end
 	
 	frame:UpdateAllElements()
