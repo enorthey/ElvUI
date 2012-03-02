@@ -281,7 +281,7 @@ function E:SetupLayout(layout)
 		E.db.unitframe.units.party.height = 52;
 		E.db.unitframe.units.party.health.text_format = 'deficit';
 		E.db.unitframe.units.party.health.position = 'BOTTOM';
-		E.db.unitframe.units.party.health.orientation = 'VERTICAL';
+		E.db.unitframe.units.party.health.orientation = 'HORIZONTAL';
 		E.db.unitframe.units.party.name.position = 'TOP';
 		E.db.unitframe.units.party.debuffs.anchorPoint = 'BOTTOMLEFT';
 		E.db.unitframe.units.party.debuffs.initialAnchor = 'TOPLEFT';
@@ -300,10 +300,10 @@ function E:SetupLayout(layout)
 		E.db.unitframe.units.party.targetsGroup.yOffset = 1;
 
 		E.db.unitframe.units.raid625.healPrediction = true;
-		E.db.unitframe.units.raid625.health.orientation = 'VERTICAL';
+		E.db.unitframe.units.raid625.health.orientation = 'HORIZONTAL';
 
 		E.db.unitframe.units.raid2640.healPrediction = true;
-		E.db.unitframe.units.raid2640.health.orientation = 'VERTICAL';		
+		E.db.unitframe.units.raid2640.health.orientation = 'HORIZONTAL';		
 		
 		if E.db.lowresolutionset then
 			E.db.unitframe.units["positions"] = {
@@ -321,22 +321,22 @@ function E:SetupLayout(layout)
 			E.db.unitframe.units["positions"] = {
 				["ElvUF_Player"] = "BOTTOMLEFTUIParent464242",
 				["ElvUF_Target"] = "BOTTOMRIGHTUIParent-464242",
-				["ElvUF_Raid2640"] = "BOTTOMUIParent050",
-				["ElvUF_Raid625"] = "BOTTOMUIParent050",
+				["ElvUF_Raid2640"] = "BOTTOMUIParent0140",
+				["ElvUF_Raid625"] = "BOTTOMUIParent0140",
 				["ElvUF_TargetTarget"] = "BOTTOMRIGHTUIParent-464151",
 				["ElvUF_Focus"] = "RIGHTUIParent-475-143",
-				["ElvUF_Party"] = "BOTTOMUIParent074",
+				["ElvUF_Party"] = "BOTTOMUIParent0157",
 				["ElvUF_Pet"] = "BOTTOMLEFTUIParent464151",
 				['ElvUF_Focus'] = "BOTTOMUIParent280332",
 			}
 		end
 	elseif E.db.lowresolutionset then
 		E.db.unitframe.units["positions"] = {
-			["ElvUF_TargetTarget"] = "BOTTOMUIParent10680",
-			["ElvUF_Player"] = "BOTTOMUIParent-106135",
-			["ElvUF_Target"] = "BOTTOMUIParent106135",
+ 			["ElvUF_TargetTarget"] = "BOTTOMUIParent10680",
+ 			["ElvUF_Player"] = "BOTTOMUIParent-106135",
+ 			["ElvUF_Target"] = "BOTTOMUIParent106135",
 			["ElvUF_Pet"] = "BOTTOMUIParent-10680",
-			['ElvUF_Focus'] = "BOTTOMUIParent310332",
+ 			['ElvUF_Focus'] = "BOTTOMUIParent310332"
 		}		
 	else
 		E.db.unitframe.units["positions"] = nil;

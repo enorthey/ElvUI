@@ -321,7 +321,7 @@ function E:CreateMoverPopup()
 		self:GetParent():Hide()
 		ACD['Open'](ACD, 'ElvUI') 
 	end)
-	
+
 	local align = CreateFrame('EditBox', 'AlignBox', f, 'InputBoxTemplate')
 	align:Width(24)
 	align:Height(17)
@@ -355,8 +355,8 @@ function E:CreateMoverPopup()
 	
 	align.text = align:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
 	align.text:SetPoint('RIGHT', align, 'LEFT', -4, 0)
-	align.text:SetText(L['Grid Size:'])
-
+	align.text:SetText(L['Grid Size:'])	
+	
 	--position buttons
 	snapping:SetPoint("BOTTOMLEFT", 14, 10)
 	lock:SetPoint("BOTTOMRIGHT", -14, 14)
@@ -591,7 +591,7 @@ function E:Initialize()
 	self:LoadMovers(); --Load Movers
 
 	if self.db.general.loginmessage then
-		print(select(2, self:GetModule('Chat'):FindURL(nil, format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version))))
+		print(format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version, self["media"].hexvaluecolor))
 	end
 
 	self.initialized = true

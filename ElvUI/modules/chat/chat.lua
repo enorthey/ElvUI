@@ -43,6 +43,7 @@ function CH:StyleChat(frame)
 	local name = frame:GetName()
 	local tab = _G[name..'Tab']
 	local editbox = _G[name..'EditBox']
+
 	
 	for _, texName in pairs(tabTexs) do
 		_G[tab:GetName()..texName..'Left']:Kill()
@@ -52,13 +53,13 @@ function CH:StyleChat(frame)
 
 	tab:SetAlpha(1)
 	tab.SetAlpha = UIFrameFadeRemoveFrame	
-
 	
 	tab.text = _G[name.."TabText"]
-	tab.text:FontTemplate()
+	tab.text:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline)
 	tab.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	tab.text.OldSetTextColor = tab.text.SetTextColor 
 	tab.text.SetTextColor = E.noop
+	tab.text:SetPoint('LEFT', 5, -4)
 	
 	frame:SetClampRectInsets(0,0,0,0)
 	frame:SetClampedToScreen(false)
@@ -252,7 +253,7 @@ function CH:PositionChat(override)
 				CH:SetupChatTabs(tab, true)
 			else
 				CH:SetupChatTabs(tab, false)
-			end
+			end			
 		elseif not isDocked and chat:IsShown() then
 			tab:SetParent(E.UIParent)
 			chat:SetParent(E.UIParent)
@@ -272,7 +273,7 @@ function CH:PositionChat(override)
 				CH:SetupChatTabs(tab, true)
 			else
 				CH:SetupChatTabs(tab, false)
-			end			
+			end				
 		end		
 	end
 	
@@ -368,7 +369,7 @@ function CH:AddMessage(text, ...)
 			text = text:gsub("^%["..RAID_WARNING.."%]", '['..L['RW']..']')	
 		end
 		
-		text = text:gsub('|Hplayer:Elv:', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Elv:')
+		text = text:gsub('|Hplayer:Kazgre:', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Kazgre:')
 	end
 	
 	self.OldAddMessage(self, text, ...)

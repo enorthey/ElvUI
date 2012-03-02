@@ -332,7 +332,7 @@ L["LFR Frame"] = "LFR Frame"
 L["Local Time"] = "Local Time"
 L["Lock"] = "Lock"
 L["Login Message"] = "Login Message"
-L["LOGIN_MSG"] = "Welcome to %sElvUI|r version %s%s|r, type /ec to access the in-game configuration menu. If you are in need of technical support you can visit us at www.tukui.org. You can report bugs, add suggestions here: http://wow.curseforge.com/addons/elvui/tickets."
+L['LOGIN_MSG'] = 'Welcome to %sElvUI:|r Potente Style %sVersion:|r %s \nType %s/ec|r to access the in-game configuration menu';
 L["Loot"] = "Loot"
 L["Loot Roll"] = "Loot Roll"
 L["low"] = "low"
@@ -710,8 +710,6 @@ L["Your current resolution is %s, this is considered a %s resolution."] = "Your 
 L["Your items have been repaired for: "] = "Your items have been repaired for: "
 L["Your items have been repaired using guild bank funds for: "] = "Your items have been repaired using guild bank funds for: "
 L["Your version of ElvUI is out of date. You can download the latest version from www.curse.com"] = "Your version of ElvUI is out of date. You can download the latest version from www.curse.com"
-<<<<<<< HEAD:locales/english.lua
-=======
 
 L['Lower Panel'] = true;
 L['Enable The Panel Accross The Bottom of the UI.'] = true;
@@ -736,4 +734,3 @@ L['Controls the size of the auras.'] = true;
 L['Per Row'] = true;
 L['Controls the number of auras per row.'] = true;	
 
->>>>>>> origin/master:ElvUI/locales/english.lua

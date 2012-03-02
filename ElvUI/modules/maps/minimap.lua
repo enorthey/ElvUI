@@ -320,7 +320,7 @@ function M:LoadMinimap()
 
 		if IsAddOnLoaded('GatherMate2') then
 			LibStub('AceAddon-3.0'):GetAddon('GatherMate2'):GetModule('Display'):ReparentMinimapPins(FarmModeMap)
-		end		
+		end			
 	end)
 	
 	FarmModeMap:SetScript('OnHide', function() 
@@ -335,7 +335,7 @@ function M:LoadMinimap()
 
 		if IsAddOnLoaded('GatherMate2') then
 			LibStub('AceAddon-3.0'):GetAddon('GatherMate2'):GetModule('Display'):ReparentMinimapPins(Minimap)
-		end	
+		end		
 	end)
 
 	
