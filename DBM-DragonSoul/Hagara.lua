@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(317, "DBM-DragonSoul", nil, 187)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7397 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7420 $"):sub(12, -3))
 mod:SetCreatureID(55689)
 mod:SetModelID(39318)
 mod:SetZone()
@@ -40,7 +40,7 @@ local specWarnFrostflake	= mod:NewSpecialWarningYou(109325)
 local yellFrostflake		= mod:NewYell(109325)
 
 local timerAssault			= mod:NewBuffActiveTimer(5, 107851, nil, mod:IsTank() or mod:IsHealer())
-local timerAssaultCD		= mod:NewCDCountTimer(15.5, 107851, nil, mod:IsTank() or mod:IsHealer())
+local timerAssaultCD		= mod:NewCDCountTimer(15, 107851, nil, mod:IsTank() or mod:IsHealer())
 local timerShatteringCD		= mod:NewCDTimer(10.5, 105289)--every 10.5-15 seconds
 local timerIceLance			= mod:NewBuffActiveTimer(15, 105269)
 local timerIceLanceCD		= mod:NewNextTimer(30, 105269)
@@ -55,7 +55,7 @@ local timerFeedback			= mod:NewBuffActiveTimer(15, 108934)
 
 local berserkTimer			= mod:NewBerserkTimer(480)
 
-local SpecialCountdown		= mod:NewCountdown(62, 105256, true, L.SpecialCount)
+local countdownSpecial		= mod:NewCountdown(62, 105256, true, L.SpecialCount)
 
 mod:AddBoolOption("RangeFrame")--Ice lance spreading in ice phases, and lighting linking in lighting phases (with reverse intent, staying within 10 yards, not out of 10 yards)
 mod:AddBoolOption("SetIconOnFrostflake", false)--You can use an icon if you want, but this is cast on a new target every 5 seconds, often times on 25 man 2-3 have it at same time while finding a good place to drop it.
@@ -94,7 +94,7 @@ function mod:OnCombatStart(delay)
 	timerAssaultCD:Start(4-delay, 1)
 	timerIceLanceCD:Start(10-delay)
 	timerSpecialCD:Start(30-delay)
-	SpecialCountdown:Start(30-delay)
+	countdownSpecial:Start(30-delay)
 	berserkTimer:Start(-delay)
 	if self.Options.RangeFrame and not self:IsDifficulty("lfr25") then
 		DBM.RangeCheck:Show(3)
@@ -102,7 +102,6 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:OnCombatEnd()
-	firstPhase = true
 	if self.Options.SetBubbles and not GetCVarBool("chatBubbles") and CVAR then--Only turn them back on if they are off now, but were on when we pulled
 		SetCVar("chatBubbles", 1)
 		CVAR = false
@@ -206,6 +205,10 @@ function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(104451) and self.Options.SetIconOnFrostTomb then
 		self:SetIcon(args.destName, 0)
 	elseif args:IsSpellID(105256, 109552, 109553, 109554) then--Tempest
+		if self.Options.SetBubbles and GetCVarBool("chatBubbles") then
+			SetCVar("chatBubbles", 0)
+			CVAR = true
+		end
 		timerFrostFlakeCD:Cancel()
 		timerIceLanceCD:Start(12)
 		timerFeedback:Start()
@@ -217,15 +220,15 @@ function mod:SPELL_AURA_REMOVED(args)
 		assaultCount = 0
 		timerAssaultCD:Start(nil, 1)
 		timerLightningStormCD:Start()
-		SpecialCountdown:Start(62)
-		if self.Options.SetBubbles and GetCVarBool("chatBubbles") then
-			CVAR = true
-			SetCVar("chatBubbles", 0)
-		end
+		countdownSpecial:Start(62)
 		if self.Options.RangeFrame and not self:IsDifficulty("lfr25") then
 			DBM.RangeCheck:Show(3)
 		end
 	elseif args:IsSpellID(105409, 109560, 109561, 109562) then--Water Shield
+		if self.Options.SetBubbles and GetCVarBool("chatBubbles") then
+			SetCVar("chatBubbles", 0)
+			CVAR = true
+		end
 		timerStormPillarCD:Cancel()
 		timerIceLanceCD:Start(12)
 		timerFeedback:Start()
@@ -237,11 +240,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		assaultCount = 0
 		timerAssaultCD:Start(nil, 1)
 		timerTempestCD:Start()
-		SpecialCountdown:Start(62)
-		if self.Options.SetBubbles and GetCVarBool("chatBubbles") then
-			CVAR = true
-			SetCVar("chatBubbles", 0)
-		end
+		countdownSpecial:Start(62)
 		if self.Options.RangeFrame and not self:IsDifficulty("lfr25") then
 			DBM.RangeCheck:Show(3)
 		end
@@ -260,20 +259,24 @@ function mod:SPELL_CAST_START(args)
 		specWarnFrostTombCast:Show()
 		timerFrostTomb:Start()
 	elseif args:IsSpellID(105256, 109552, 109553, 109554) then--Tempest
+		if self.Options.SetBubbles and not GetCVarBool("chatBubbles") and CVAR then--Only turn them back on if they are off now, but were on when we pulled
+			SetCVar("chatBubbles", 1)
+			CVAR = false
+		end
 		pillarsRemaining = 4
 		timerAssaultCD:Cancel()
 		timerIceLanceCD:Cancel()
 		timerShatteringCD:Cancel()
 		warnTempest:Show()
 		specWarnTempest:Show()
-		if self.Options.SetBubbles and not GetCVarBool("chatBubbles") and CVAR then--Only turn them back on if they are off now, but were on when we pulled
-			SetCVar("chatBubbles", 1)
-			CVAR = false
-		end
 		if self.Options.RangeFrame and not self:IsDifficulty("lfr25") then
 			DBM.RangeCheck:Hide()
 		end
 	elseif args:IsSpellID(105409, 109560, 109561, 109562) then--Water Shield
+		if self.Options.SetBubbles and not GetCVarBool("chatBubbles") and CVAR then--Only turn them back on if they are off now, but were on when we pulled
+			SetCVar("chatBubbles", 1)
+			CVAR = false
+		end
 		if self:IsDifficulty("heroic10") then
 			pillarsRemaining = 8
 		else
@@ -284,10 +287,6 @@ function mod:SPELL_CAST_START(args)
 		timerShatteringCD:Cancel()
 		warnLightningStorm:Show()
 		specWarnLightingStorm:Show()
-		if self.Options.SetBubbles and not GetCVarBool("chatBubbles") and CVAR then--Only turn them back on if they are off now, but were on when we pulled
-			SetCVar("chatBubbles", 1)
-			CVAR = false
-		end
 		if self.Options.RangeFrame and not self:IsDifficulty("lfr25") then
 			DBM.RangeCheck:Show(10)
 		end

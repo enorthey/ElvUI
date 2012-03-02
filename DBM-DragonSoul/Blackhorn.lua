@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(332, "DBM-DragonSoul", nil, 187)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7401 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7420 $"):sub(12, -3))
 mod:SetCreatureID(56598)--56427 is Boss, but engage trigger needs the ship which is 56598
 mod:SetMainBossID(56427)
 mod:SetModelID(39399)
@@ -58,7 +58,7 @@ local timerSapperCD					= mod:NewNextTimer(40, "ej4200", nil, nil, nil, 107752)
 local timerDegenerationCD			= mod:NewCDTimer(8.5, 109208, nil, mod:IsTank())--8.5-9.5 variation.
 local timerBladeRushCD				= mod:NewCDTimer(15.5, 107595)
 local timerBroadsideCD				= mod:NewNextTimer(90, 110153)
-local timerRoarCD					= mod:NewCDTimer(19, 109228)--19~24 variables
+local timerRoarCD					= mod:NewCDTimer(18.5, 109228)--18.5~24 variables
 local timerTwilightFlamesCD			= mod:NewNextTimer(8, 108051)
 local timerShockwaveCD				= mod:NewCDTimer(23, 108046)
 local timerDevastateCD				= mod:NewCDTimer(8.5, 108042, nil, mod:IsTank())
@@ -66,7 +66,7 @@ local timerSunder					= mod:NewTargetTimer(30, 108043, nil, mod:IsTank() or mod:
 local timerConsumingShroud			= mod:NewCDTimer(30, 110598)
 local timerTwilightBreath			= mod:NewCDTimer(20.5, 110213, nil, mod:IsTank() or mod:IsHealer())
 
-local twilightOnslaughtCountdown	= mod:NewCountdown(35, 107588)
+local countdownTwilightOnslaught	= mod:NewCountdown(35, 107588)
 local berserkTimer					= mod:NewBerserkTimer(240)
 
 mod:AddBoolOption("SetTextures", false)--Disable projected textures in phase 1, because no harmful spells use them in phase 1, but friendly spells make the blade rush lines harder to see.
@@ -81,10 +81,6 @@ local CVAR = false
 
 local function Phase2Delay()
 	mod:UnscheduleMethod("AddsRepeat")
-	timerAdd:Cancel()
-	timerTwilightOnslaughtCD:Cancel()
-	twilightOnslaughtCountdown:Cancel()
-	timerBroadsideCD:Cancel()
 	timerSapperCD:Cancel()
 	timerRoarCD:Start(10)
 	timerTwilightFlamesCD:Start(12)
@@ -138,7 +134,7 @@ function mod:OnCombatStart(delay)
 	timerAdd:Start(22.8-delay)
 	self:ScheduleMethod(22.8-delay, "AddsRepeat")
 	timerTwilightOnslaughtCD:Start(48-delay, 1)
-	twilightOnslaughtCountdown:Start(48-delay)
+	countdownTwilightOnslaught:Start(48-delay)
 	if self:IsDifficulty("heroic10", "heroic25") then
 		timerBroadsideCD:Start(57-delay)
 	end
@@ -169,7 +165,7 @@ function mod:SPELL_CAST_START(args)
 		specWarnTwilightOnslaught:Show()
 		timerTwilightOnslaught:Start()
 		timerTwilightOnslaughtCD:Start(nil, twilightOnslaughtCount + 1)
-		twilightOnslaughtCountdown:Start()
+		countdownTwilightOnslaught:Start()
 	elseif args:IsSpellID(108046) then
 		self:ScheduleMethod(0.2, "ShockwaveTarget")
 		timerShockwaveCD:Start()
@@ -239,7 +235,10 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerHarpoonActive:Start(25, args.destGUID)
 		end
 	elseif args:IsSpellID(108040) and not phase2Started then--Goriona is being shot by the ships Artillery Barrage (phase 2 trigger)
-		self:Schedule(10, Phase2Delay)--It seems you can still get phase 1 crap until blackhorn's yell 10 seconds after this trigger, so we delay canceling timers.
+		timerTwilightOnslaughtCD:Cancel()
+		countdownTwilightOnslaught:Cancel()
+		timerBroadsideCD:Cancel()
+		self:Schedule(10, Phase2Delay)--seems to only sapper comes even phase2 started. so delays only sapper stuff.
 		phase2Started = true
 		warnPhase2:Show()--We still warn phase 2 here though to get into position, especially since he can land on deck up to 5 seconds before his yell.
 		timerCombatStart:Start(5)--5-8 seems variation, we use shortest.
@@ -297,6 +296,7 @@ function mod:UNIT_DIED(args)
 	elseif cid == 56855 or cid == 56587 then--Drakes
 		drakesCount = drakesCount - 1
 		warnDrakesLeft:Show(drakesCount)
+		timerReloadingCast:Cancel(args.sourceGUID)
 		timerHarpoonActive:Cancel(args.sourceGUID)
 	end
 end

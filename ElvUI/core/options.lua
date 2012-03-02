@@ -160,14 +160,14 @@ E.Options.args.general = {
 					type = 'toggle',
 					name = L['Lower Panel'],
 					desc = L['Enable The Panel Accross The Bottom of the UI.'],
-					set = function(info, value) E.db.core.lowerPanel = value; StaticPopup_Show("CONFIG_RL") end,
+					set = function(info, value) E.db.general.lowerPanel = value; StaticPopup_Show("CONFIG_RL") end,
 				},
 				upperPanel = {
 					order = 101,
 					type = 'toggle',
 					name = L['Upper Panel'],
 					desc = L['Enable The Panel Accross The Top of UI.'],
-					set = function(info, value) E.db.core.upperPanel = value; StaticPopup_Show("CONFIG_RL") end,
+					set = function(info, value) E.db.general.upperPanel = value; StaticPopup_Show("CONFIG_RL") end,
 				},				
 				panelWidth = {
 					order = 102,

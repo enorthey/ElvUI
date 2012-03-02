@@ -164,7 +164,7 @@ P['unitframe'] = {
 		['classbackdrop'] = false,
 	
 		['health'] = P.general.bordercolor,
-		['health_backdrop'] = { r = .1,g = .01,b = .01 },
+		['health_backdrop'] = { r = .1,g = .1,b = .1 },
 		['tapped'] = { r = 0.55, g = 0.57, b = 0.61},
 		['disconnected'] = { r = 0.84, g = 0.75, b = 0.65},
 		['power'] = {
@@ -757,7 +757,7 @@ P['unitframe'] = {
 			['maxColumns'] = 1,
 			['unitsPerColumn'] = 5,
 			['columnSpacing'] = 3,
-			['xOffset'] = 1,
+			['xOffset'] = 3,
 			['yOffset'] = -3,
 			['groupBy'] = 'GROUP',
 			["showParty"] = true,
@@ -767,7 +767,7 @@ P['unitframe'] = {
 			['healPrediction'] = true,
 			['columnAnchorPoint'] = "BOTTOM",
 			['width'] = 80,
-			['height'] = 43,
+			['height'] = 44,
 			['health'] = {
 				['text'] = true,
 				['text_format'] = 'deficit',
