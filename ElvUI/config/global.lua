@@ -28,7 +28,7 @@ G['chat'] = {
 }
 
 G['skins'] = {
-	['embedRight'] = '',
+	['embedRight'] = 'Recount',
 	['bigwigs'] = {
 		['enable'] = true,
 		['spacing'] = 7,

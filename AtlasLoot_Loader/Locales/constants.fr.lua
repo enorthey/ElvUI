@@ -1,4 +1,4 @@
-﻿-- $Id: constants.fr.lua 3685 2011-12-14 22:05:21Z trasher $
+﻿-- $Id: constants.fr.lua 3709 2012-03-04 12:02:43Z trasher $
 --[[
 constants.fr.lua --- Traduction frFR par TrAsHeR (Tchoupie @ Nerz'hul-EU). Merci à KKram pour les premières traductions & Pettigrow pour ses quelques traductions.
 This file defines an AceLocale table for all the various text strings needed
@@ -44,6 +44,7 @@ if AL then
 	AL["Select Stats list"] = "Sélectionnez la liste de statistiques";
 	AL["You cant set more then %d item stats."] = "Vous ne pouvez pas définir plus de %d statistiques différentes.";
 	--AL["Slot"] = true;
+	AL["AtlasLoot has detected some corrupted items on your Wishlist. You can now run an automatic check to fix it. Please be aware that this could take a few moments."] = "AtlasLoot a détecté certains objets corrompus dans votre liste de souhaits. Vous pouvez lancer une vérification automatique pour tenter de réparer. Cela pourrait prendre un petit moment.";
 
 	-- Stats short
 	--AL["iLvl"] = true;	-- Item lvl

@@ -1,4 +1,4 @@
--- $Id: worldevents.lua 3697 2012-01-31 15:17:37Z lag123 $
+-- $Id: worldevents.lua 3707 2012-03-03 15:31:59Z hegarol $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
@@ -531,7 +531,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["Valentineday"] = {
 		["Normal"] = {
 			{
-				{ 1, 72146, "", "=q4=Swift Lovebird", "=ds=#e26#", "#VALENTINEDAY:270#" },
+				{ 1, 72146, "", "=q4=Swift Lovebird", "=ds=#e26#", "#VALENTINEDAY:270#"};
 				{ 2, 34480, "", "=q3=Romantic Picnic Basket", "=ds=#m20#", "#VALENTINEDAY:10#"};
 				{ 3, 21815, "", "=q1=Love Token", "=ds=#m20#", "1 #valentineday2#"};
 				{ 4, 50163, "", "=q1=Lovely Rose", "=ds=#m20#", "#VALENTINEDAY:5#"};
@@ -720,7 +720,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["Noblegarden"] = {
 		["Normal"] = {
 			{
-				{ 2, 72145, "", "=q4=Swift Springstrider", "=ds=#e26#", "#NOBLEGARDEN:270#"},
+				{ 2, 72145, "", "=q4=Swift Springstrider", "=ds=#e26#", "#NOBLEGARDEN:500#"},
 				{ 3, 44793, "", "=q3=Tome of Polymorph: Rabbit", "=ds=#e10#", "#NOBLEGARDEN:100#"};
 				{ 4, 44794, "", "=q3=Spring Rabbit's Foot", "=ds=#e13#", "#NOBLEGARDEN:100#"};
 				{ 5, 45073, "", "=q1=Spring Flowers", "=ds=#h1#", "#NOBLEGARDEN:50#"};

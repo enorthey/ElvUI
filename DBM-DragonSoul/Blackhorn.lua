@@ -1,10 +1,11 @@
 local mod	= DBM:NewMod(332, "DBM-DragonSoul", nil, 187)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7420 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7431 $"):sub(12, -3))
 mod:SetCreatureID(56598)--56427 is Boss, but engage trigger needs the ship which is 56598
 mod:SetMainBossID(56427)
 mod:SetModelID(39399)
+mod:SetModelSound("sound\\CREATURE\\WarmasterBlackhorn\\VO_DS_BLACKHORN_INTRO_01.OGG", "sound\\CREATURE\\WarmasterBlackhorn\\VO_DS_BLACKHORN_SLAY_01.OGG")
 mod:SetZone()
 mod:SetUsedIcons()
 
@@ -37,6 +38,7 @@ local warnConsumingShroud			= mod:NewTargetAnnounce(110598)
 
 local specWarnHarpoon				= mod:NewSpecialWarningTarget(108038, false)
 local specWarnTwilightOnslaught		= mod:NewSpecialWarningSpell(107588, nil, nil, nil, true)
+local specWarnSapper				= mod:NewSpecialWarningSpell("ej4200", false)
 local specWarnDeckFireCast			= mod:NewSpecialWarningSpell(110095, false, nil, nil, true)
 local specWarnDeckFire				= mod:NewSpecialWarningMove(110095)
 local specWarnElites				= mod:NewSpecialWarning("SpecWarnElites", mod:IsTank())
@@ -273,6 +275,7 @@ mod.SPELL_MISSED = mod.SPELL_DAMAGE
 function mod:RAID_BOSS_EMOTE(msg)
 	if msg == L.SapperEmote or msg:find(L.SapperEmote) then
 		timerSapperCD:Start()
+		specWarnSapper:Show()
 	elseif msg == L.Broadside or msg:find(L.Broadside) then
 		timerBroadsideCD:Start()
 	elseif msg == L.DeckFire or msg:find(L.DeckFire) then

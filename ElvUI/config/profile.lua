@@ -108,7 +108,7 @@ P['classtimer'] = {
 
 --Skins
 P['skins'] = {
-	['embedRight'] = 'Recount',
+	['embedRight'] = '',
 }
 
 --Datatexts
@@ -452,7 +452,7 @@ P['unitframe'] = {
 			['castbar'] = {
 				['enable'] = true,
 				['width'] = 190,
-				['height'] = 18,
+				['height'] = 25,
 				['icon'] = true,
 				['color'] = P.general.castbarcolor,
 				['interruptcolor'] = { r = 0.78, g = 0.25, b = 0.25 },

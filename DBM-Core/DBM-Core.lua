@@ -42,7 +42,7 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 7422 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 7431 $"):sub(12, -3)),
 	DisplayVersion = "4.10.11 alpha", -- the string that is shown as version
 	ReleaseRevision = 7325 -- the revision of the latest stable version that is available
 }
@@ -2773,21 +2773,16 @@ end
 
 local soundFiles = {
 	"Sound\\Creature\\RHYOLITH\\VO_FL_RHYOLITH_KILL_02.wav",
-	"Sound\\Creature\\RHYOLITH\\VO_FL_RHYOLITH_CHUNK_01.wav",
 	"Sound\\Creature\\RHYOLITH\\VO_QUEST_42_RHYOLITH_TAUNT_01.wav",
-	"Sound\\Creature\\RHYOLITH\\VO_FL_RHYOLITH_DEATH.wav",
-	"Sound\\Creature\\RHYOLITH\\VO_FL_RHYOLITH_CHUNK_04.wav",
 	"Sound\\Creature\\RHYOLITH\\VO_FL_RHYOLITH_AGGRO.wav",
 	"Sound\\Creature\\XT002Deconstructor\\UR_XT002_Special01.wav",
 	"Sound\\Creature\\Thorim\\UR_Thorim_Start02.wav",
 	"Sound\\Creature\\YoggSaron\\UR_YoggSaron_Slay01.wav",
 	"Sound\\Creature\\YoggSaron\\UR_YoggSaron_Tentacle01.wav",
-	"Sound\\Creature\\YoggSaron\\AK_YoggSaron_Whisper02.wav",
-	"Sound\\Creature\\YoggSaron\\AK_YoggSaron_Whisper03.wav",
-	"Sound\\Creature\\YoggSaron\\AK_YoggSaron_Whisper04.wav",
 	"Sound\\Creature\\YoggSaron\\UR_YoggSaron_Death01.wav",
 	"Sound\\Creature\\Kologarn\\UR_Kologarn_Slay02.wav",
 	"Sound\\Creature\\FlameLeviathan\\UR_Leviathan_HardmodeOn.wav",
+	"Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_Aggro01.wav",
 	"Sound\\Creature\\Sindragosa\\IC_Sindragosa_Arcane01.wav",
 	"Sound\\Creature\\LordMarrowgar\\IC_Marrowgar_WW01.wav",
 	"Sound\\Creature\\Chogall\\VO_BT_Chogall_BotEvent28.wav",
@@ -2803,8 +2798,8 @@ local soundFiles = {
 
 function DBM:AprilFools()
 	DBM:Unschedule(DBM.AprilFools)
-	DBM:Schedule(900 + math.random(0, 600) , DBM.AprilFools)
 	if IsInInstance() then return end--Don't play joke if you're raiding.
+	DBM:Schedule(900 + math.random(0, 600) , DBM.AprilFools)
 	local x = math.random(1, #soundFiles)
 	if DBM.Options.UseMasterVolume then
 		PlaySoundFile(soundFiles[x], "Master")

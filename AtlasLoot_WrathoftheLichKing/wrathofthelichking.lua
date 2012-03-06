@@ -1,4 +1,4 @@
--- $Id: wrathofthelichking.lua 3697 2012-01-31 15:17:37Z lag123 $
+-- $Id: wrathofthelichking.lua 3701 2012-02-12 17:07:43Z celellach $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
@@ -132,7 +132,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 2, 35577, "", "=q3=Holistic Patchwork Breeches", "=ds=#s11#, #a2#", "", "28%"};
 				{ 3, 35578, "", "=q3=Overlaid Chain Spaulders", "=ds=#s3#, #a3#", "", "26%"};
 				{ 4, 35576, "", "=q3=Ingvar's Monolithic Cleaver", "=ds=#h2#, #w1#", "", "27%"};
-				{ 5, 33330, "", "=q1=Ingvar's Head", "=ds=#m3#"};
+				{ 6, 33330, "", "=q1=Ingvar's Head", "=ds=#m3#"};
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
 				{ 17, 37194, "", "=q4=Sharp-Barbed Leather Belt", "=ds=#s10#, #a2#", "", "20%"};
 				{ 18, 37193, "", "=q4=Staggering Legplates", "=ds=#s11#, #a4#", "", "18%"};
@@ -284,6 +284,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 2, 35657, "", "=q3=Exquisite Spider-Silk Footwraps", "=ds=#s12#, #a1#", "", "30%"};
 				{ 3, 35656, "", "=q3=Aura Focused Gauntlets", "=ds=#s9#, #a4#", "", "32%"};
 				{ 4, 35655, "", "=q3=Cobweb Machete", "=ds=#h1#, #w4#", "", "30%"};
+				{ 6, 74616, "", "=q1=The Gatewatcher's Talisman", "=ds=#m3#", "", "100%"};
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
 				{ 17, 37218, "", "=q3=Stone-Worn Footwraps", "=ds=#s12#, #a1#", "", "21%"};
 				{ 18, 37219, "", "=q3=Custodian's Chestpiece", "=ds=#s5#, #a2#", "", "21%"};
@@ -530,6 +531,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 2, 35635, "", "=q3=Stable Master's Breeches", "=ds=#s11#, #a1#", "", "28%"};
 				{ 3, 35634, "", "=q3=Scabrous-Hide Helm", "=ds=#s1#, #a2#", "", "28%"};
 				{ 4, 35633, "", "=q3=Staff of the Great Reptile", "=ds=#w9#", "", "31%"};
+				{ 6, 35633, "", "=q1=King Dred's Tooth", "=ds=#m3#", "", "100%"};
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
 				{ 17, 37725, "", "=q3=Savage Wound Wrap", "=ds=#s8#, #a1#", "", "21%"};
 				{ 18, 37724, "", "=q3=Handler's Arm Strap", "=ds=#s8#, #a2#", "", "21%"};
@@ -779,6 +781,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 2, 35591, "", "=q3=Shoulderguards of the Ice Troll", "=ds=#s3#, #a2#", "", "25%"};
 				{ 3, 35592, "", "=q3=Hauberk of Totemic Mastery", "=ds=#s5#, #a3#", "", "26%"};
 				{ 4, 35590, "", "=q3=Drakkari Hunting Bow", "=ds=#w2#", "", "26%"};
+				{ 6, 43158, "", "=q1=Drakkari Colossus Fragment", "=ds=#m3#", "", "100%"};
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
 				{ 17, 37637, "", "=q3=Living Mojo Belt", "=ds=#s10#, #a1#", "", "20%"};
 				{ 18, 37636, "", "=q3=Helm of Cheated Fate", "=ds=#s1#, #a2#", "", "21%"};
@@ -881,6 +884,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 2, 38614, "", "=q3=Embrace of Sorrow", "=ds=#s4#", "", "28%"};
 				{ 3, 38613, "", "=q3=Chain of Fiery Orbs", "=ds=#s2#", "", "29%"};
 				{ 4, 38611, "", "=q3=Ringlet of Repose", "=ds=#s13#", "", "29%"};
+				{ 6, 74830, "", "=q1=Crystal Tear of Grief", "=ds=#m3#", "", "100%"};
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
 				{ 17, 38616, "", "=q3=Maiden's Girdle", "=ds=#s10#, #a2#", "", "21%"};
 				{ 18, 38615, "", "=q3=Lightning-Charged Gloves", "=ds=#s9#, #a3#", "", "21%"};
@@ -4452,10 +4456,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 16, 46038, "", "=q4=Dark Matter", "=ds=#s14#"};
 				{ 17, 46051, "", "=q4=Meteorite Crystal", "=ds=#s14#", "", "40%"};
 				{ 19, 46052, "", "=q4=Reply-Code Alpha", "=ds=#m2#", "", "100%"};
-				{ 21, 46320, "", "=q4=Drape of the Skyherald", "=q1=#m4#: =ds=#s4#"};
-				{ 22, 46321, "", "=q4=Sunglimmer Drape", "=q1=#m4#: =ds=#s4#"};
-				{ 23, 46322, "", "=q4=Brann's Sealing Ring", "=q1=#m4#: =ds=#s13#"};
-				{ 24, 46323, "", "=q4=Starshine Signet", "=q1=#m4#: =ds=#s13#"};
+				{ 20, 46320, "", "=q4=Drape of the Skyherald", "=q1=#m4#: =ds=#s4#"};
+				{ 21, 46321, "", "=q4=Sunglimmer Drape", "=q1=#m4#: =ds=#s4#"};
+				{ 22, 46322, "", "=q4=Brann's Sealing Ring", "=q1=#m4#: =ds=#s13#"};
+				{ 23, 46323, "", "=q4=Starshine Signet", "=q1=#m4#: =ds=#s13#"};
 			};
 		};
 		["25Man"] = {

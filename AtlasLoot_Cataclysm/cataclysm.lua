@@ -1,4 +1,4 @@
--- $Id: cataclysm.lua 3698 2012-02-01 18:14:25Z trasher $
+-- $Id: cataclysm.lua 3707 2012-03-03 15:31:59Z hegarol $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
@@ -3218,8 +3218,9 @@ local moduleName = "AtlasLootCataclysm"
 				{ 7, 78887, "", "=q4=Girdle of Soulful Mending", "=ds=#s10#, #a4#" },
 				{ 8, 78888, "", "=q4=Waistguard of Bleeding Bone", "=ds=#s10#, #a4#" },
 				{ 9, 78889, "", "=q4=Waistplate of the Desecrated Future", "=ds=#s10#, #a4#" },
-				{ 17, 77192, "", "=q4=Ruinblaster Shotgun", "=ds=#w5#" },
-				{ 19, 77938, "", "=q4=Dragonfire Orb", "=ds=#s15#" },
+				{ 17, 78878, "", "=q4=Spine of the Thousand Cuts", "=ds=#h3#, #w10#" },
+				{ 18, 77192, "", "=q4=Ruinblaster Shotgun", "=ds=#w5#" },
+				{ 20, 77938, "", "=q4=Dragonfire Orb", "=ds=#s15#" },
 			};
 		};
 		info = {
@@ -7624,7 +7625,8 @@ local moduleName = "AtlasLootCataclysm"
 				{ 19, 43599, "", "=q3=Big Blizzard Bear", "#ACHIEVEMENTID:415#"};
 				{ 21, 0, "INV_Box_01", "=q6="..AL["Blizzard Store"], ""};
 				{ 22, 54811, "", "=q4=Celestial Steed", "=ds=#e12#"};
-				{ 23, 69846, "", "=q4=Winged Guardian", "=ds=#e12#"};
+				{ 23, 78924, "", "=q4=Heart of the Aspects", "=ds=#e12#"};
+				{ 24, 69846, "", "=q4=Winged Guardian", "=ds=#e12#"};
 			};
 		};
 		info = {
@@ -7673,7 +7675,7 @@ local moduleName = "AtlasLootCataclysm"
 				{ 17, 50250, "", "=q4=Big Love Rocket", "#ACHIEVEMENTID:4627#"};
 				{ 18, 72146, "", "=q4=Swift Lovebird", "=ds=#e26#", "#VALENTINEDAY:270#" },
 				{ 20, 0, "INV_Box_01", "=q6="..AL["Noblegarden"], ""};
-				{ 21, 72145, "", "=q4=Swift Springstrider", "=ds=#e26#", "#NOBLEGARDEN:270#"},
+				{ 21, 72145, "", "=q4=Swift Springstrider", "=ds=#e26#", "#NOBLEGARDEN:500#"},
 			};
 		};
 		info = {

@@ -5,6 +5,12 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 -Hegarol
 
 Patch Notes
+v6.05.04 (Mar 05, 2012)
+Added an About page.
+Added an Auto-Fix for corrupted Wishlists.
+Fixed a bug with 10/25 Man Buttons.
+Some minor fixes and additions.
+
 v6.05.03 (Feb 04, 2012)
 New feature: Wishlist items are shown in boss tooltip (Beta).
 Added new TCG loot from War of the Ancients (not yet released).

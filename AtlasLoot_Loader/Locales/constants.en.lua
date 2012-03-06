@@ -1,4 +1,4 @@
--- $Id: constants.en.lua 3690 2012-01-04 19:48:32Z hegarol $
+-- $Id: constants.en.lua 3705 2012-03-02 22:25:53Z lag123 $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -44,6 +44,7 @@ if AL then
 	AL["Select Stats list"] = true;
 	AL["You cant set more then %d item stats."] = true;
 	AL["Slot"] = true;
+	AL["AtlasLoot has detected some corrupted items on your Wishlist. You can now run an automatic check to fix it. Please be aware that this could take a few moments."] = true;
 
 	-- Stats short
 	AL["iLvl"] = true;	-- Item lvl

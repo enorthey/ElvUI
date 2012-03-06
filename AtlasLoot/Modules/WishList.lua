@@ -1,4 +1,4 @@
--- $Id: WishList.lua 3697 2012-01-31 15:17:37Z lag123 $
+-- $Id: WishList.lua 3705 2012-03-02 22:25:53Z lag123 $
 --[[
 Atlasloot Enhanced
 Author Hegarol
@@ -844,6 +844,79 @@ function AtlasLoot:Wishlist_GetItemListFromBoss(bossName)
 		
 	end
 end
+
+-- Fix a wishlist with wrong/corrupt entrys
+function AtlasLoot:Wishlist_FixWishlist(wishlist)
+	if type(wishlist) == "string" then
+		wishlist = self:GetWishlistIDByName(wishlist)
+	elseif type(wishlist) == "number" then
+		wishlist = wishlist
+	else
+		return nil
+	end
+	
+	local errors = {}
+	local dataID
+	wishlist = WishList.ownWishLists[wishlist][1]
+	if not wishlist then return end
+	
+	-- Nach defekten items in wishliste suchen
+	for k,v in ipairs(wishlist) do
+		if v[2] and v[6] then
+			dataID = AtlasLoot:FormatDataID(v[6])
+			if not dataID then
+				errors[ v[2] ] = k
+			end
+		else
+			errors[ v[2] ] = k
+		end
+	end
+	
+	-- AtlasLoot daten nach items durchsuchen
+	for dataID, data in pairs(AtlasLoot_Data) do		
+		for _,tableType in ipairs(AtlasLoot.lootTableTypes) do			
+			if data[tableType] then
+				for _,itemTable in ipairs(data[tableType]) do
+					for itemNum,item in ipairs(itemTable) do
+						if item[2] then
+							if errors[ item[2] ] then
+								errors[ item[2] ] = dataID.."#"..tableType
+							end
+						end
+					end
+				end
+			end			
+		end		
+	end
+	
+	-- Wishliste aktuallisieren
+	for k,v in ipairs(wishlist) do
+		if v[2] and v[6] then
+			if errors[ v[2] ] and type(errors[ v[2] ]) == "string" then
+				wishlist[k][6] = errors[ v[2] ]
+			end
+		end
+	end	
+	
+	-- Defekten items löschen
+	for k,v in pairs(errors) do
+		if v and type(v) == "number" then
+			local tmpNum
+			for i,j in ipairs(wishlist) do
+				if j[2] == k then
+					tmpNum = i
+					break
+				end
+			end
+			if tmpNum then
+				table.remove(wishlist, tmpNum)
+				tmpNum = nil
+			end
+		end
+	end
+
+end
+
 --- Searchs a wishlist
 -- @param name the wishlist name you want to search
 function WishList:SearchWishlist(name)
@@ -865,6 +938,8 @@ function WishList:OpenWishlist(nameOrId)
 	WishList:ShowWishlist(nameOrId)
 	
 end
+
+AtlasLoot.OpenWishlist = WishList.OpenWishlist
 -- ###################################
 -- Add/delete Item
 -- ###################################

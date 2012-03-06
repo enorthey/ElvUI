@@ -2,7 +2,7 @@
 ## Title: AtlasLoot
 ## Notes: Shows the possible loot from the bosses
 ## Author: Hegarol
-## Version: v6.05.03
+## Version: v6.05.04
 ## X-eMail: manager@atlasloot.net
 ## X-Credits: Daviesh, Lag, Cellelach, Asurn, Pernicus and many others
 ## X-Category: Map
@@ -29,7 +29,7 @@
 ## Dependencies: AtlasLoot_Loader
 ## LoadOnDemand: 1
 ## OptionalDeps: Ace3, LibBabble-Boss-3.0, LibBabble-Faction-3.0, LibBabble-Inventory-3.0, LibBabble-ItemSet-3.0, LibBabble-Zone-3.0, LibDBIcon-1.0, LibDataBroker-1.1
-## X-Curse-Packaged-Version: v6.05.03
+## X-Curse-Packaged-Version: v6.05.04
 ## X-Curse-Project-Name: AtlasLoot Enhanced
 ## X-Curse-Project-ID: atlasloot-enhanced
 ## X-Curse-Repository-ID: wow/atlasloot-enhanced/mainline

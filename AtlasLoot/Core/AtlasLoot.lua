@@ -1,4 +1,4 @@
--- $Id: AtlasLoot.lua 3697 2012-01-31 15:17:37Z lag123 $
+-- $Id: AtlasLoot.lua 3707 2012-03-03 15:31:59Z hegarol $
 --[[
 Atlasloot Enhanced
 Author Hegarol
@@ -14,7 +14,7 @@ local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 --Establish version number and compatible version of Atlas
 local VERSION_MAJOR = "6";
 local VERSION_MINOR = "05";
-local VERSION_BOSSES = "03";
+local VERSION_BOSSES = "04";
 ATLASLOOT_VERSION = "|cffFF8400AtlasLoot Enhanced v"..VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES.."|r";
 ATLASLOOT_VERSION_NUM = VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES
 
@@ -245,11 +245,11 @@ function AtlasLoot:OnLoaderLoad()
 		--AtlasLoot:LoadModule("all")
 	--end
 	collectgarbage("collect")
-    --if LibStub:GetLibrary("LibAboutPanel", true) then
-        --LibStub("LibAboutPanel").new(AL["AtlasLoot"], "AtlasLoot");
-   -- end    
-   loaded = true
-   if AtlasLootDB then
+    if LibStub:GetLibrary("LibAboutPanel", true) then
+    	LibStub("LibAboutPanel").new(AL["AtlasLoot"], "AtlasLoot");
+	end    
+   	loaded = true
+   	if AtlasLootDB then
 		AtlasLootDB.showWarning = true
 	end
 end

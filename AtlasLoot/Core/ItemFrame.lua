@@ -1,4 +1,4 @@
--- $Id: ItemFrame.lua 3697 2012-01-31 15:17:37Z lag123 $
+-- $Id: ItemFrame.lua 3706 2012-03-02 22:49:20Z lag123 $
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 
 -- Player faction
@@ -180,7 +180,7 @@ function AtlasLoot:Toggle10Man25Man()
 		AtlasLoot.db.profile.ShowLootTablePrice = not AtlasLoot.db.profile.ShowLootTablePrice
 		AtlasLoot:ShowLootPage(dataID)
 	else
-		if AtlasLoot.db.profile.LootTableType == "Normal" then
+		if AtlasLoot.db.profile.LootTableType == "Normal" or AtlasLoot.db.profile.LootTableType == "RaidFinder" then
 			AtlasLoot:SetLootTableType("25Man", dataID)
 		elseif AtlasLoot.db.profile.LootTableType == "Heroic" then
 			AtlasLoot:SetLootTableType("25ManHeroic", dataID)
