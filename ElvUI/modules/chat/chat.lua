@@ -101,11 +101,10 @@ function CH:StyleChat(frame)
 			 end
 			 ChatFrame_SendTell((unitname or L['Invalid Target']), ChatFrame1)
 		  end
-		  
 		  if text:sub(1, 4) == "/gr " then
 			self:SetText(CH:GetGroupDistribution() .. text:sub(5));
 			ChatEdit_ParseText(self, 0)		  
-		  end
+		  end		  
 	   end
 	end)
 	
@@ -206,7 +205,7 @@ end
 
 function CH:PositionChat(override)
 	if (InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override) then return end
-	
+
 	RightChatPanel:Size(E.db.general.panelWidth, E.db.general.panelHeight)
 	LeftChatPanel:Size(E.db.general.panelWidth, E.db.general.panelHeight)	
 	
@@ -223,7 +222,7 @@ function CH:PositionChat(override)
 			break
 		end
 	end	
-
+	
 	if chatFound then
 		self.RightChatWindowID = id
 	else
@@ -497,11 +496,7 @@ function CH:SetupChat(event, ...)
 	if self.db.hyperlinkHover then
 		self:EnableHyperlink()
 	end
-	
-	if self.db.throttleInterval ~= 0 then
-		self:EnableChatThrottle()
-	end
-	
+
 	GeneralDockManager:SetParent(LeftChatPanel)
 	self:ScheduleRepeatingTimer('PositionChat', 1)
 	self:PositionChat(true)
@@ -623,7 +618,6 @@ function CH:CHAT_MSG_SAY(...)
 		return CH.FindURL(self, ...)
 	end
 end
-
 
 function CH:Initialize()
 	self.db = E.db.chat

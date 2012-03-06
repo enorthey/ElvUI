@@ -149,7 +149,7 @@ function UF:Update_PlayerFrame(frame, db)
 			threat:Point("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT", 5, -5)
 		end				
 	end
-	
+
 	--Rest Icon
 	do
 		local rIcon = frame.Resting

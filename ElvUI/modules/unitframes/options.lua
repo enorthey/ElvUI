@@ -708,7 +708,7 @@ E.Options.args.unitframe.args.player = {
 			name = L['Rest Icon'],
 			desc = L['Display the rested icon on the unitframe.'],
 			type = 'toggle',
-		},
+		},		
 		health = {
 			order = 100,
 			type = 'group',

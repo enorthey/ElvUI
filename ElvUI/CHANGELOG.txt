@@ -1,50 +1,20 @@
-[b]New Additions:[/b]
-*Add support to switch ElvUI profiles with dual spec. This can be turned on in /ec -> Profiles. (LibDualSpec-1.0)
-*Add a white glow to nameplates when you target someone.
-*Add support to the Routes and Gathermate2 addons for the /farmmode minimap.
-*Holding down shift while clicking on the vendor gray items button on the bags frame will now prompt you to delete all your gray items.
-*Add a small spam filter for enUS, enGB clients. At the moment it only blocks some Chinese letters from being displayed.
-*Add a castbar spark option to all castbars on the unitframes.
-*Skin and position the guild challenge alert frame to the achievements anchor.
-*Add a resolution step to the installation process.
-*Add option for the Party, Raid 6-25, Raid 26-40 groups to enable/disable frequent updates for the health bar. This should only be turned on if you're healing. 
-*Add chat option for hyperlink hover.
-*Add chat option to throttle messages in chat. So you don't see the same message in chat for 'X' amount of seconds.
-*Add chat option to automatically scroll to the bottom of the frame after 'X' amount of seconds.
-*Add chat option to block incoming whisper messages from players level 'X' and below.
-*Add chat option to allow changing of the font used.
-*Add chat option to allow changing of the font outline.
-*Add option under general settings to allow resizing of the Minimap.
-*Add option under general settings to enable/disable the Raid Reminder bar.
-*Add a target glow feature to all party/raid frames. The frame should now glow to the unit's class, or reaction while the unit is being targetted.
+[b]Additions[/b]
+*Add Profile Binds option to the general section of the config. This is a global setting for all ElvUI profiles. Is is disabled by default. When enabled it snapshots your keybinds to your ElvUI profile. That way when you change talent specializations and you have the Dual Profile feature enabled your keybinds change with your spec.
+*Add option under the player unitframe section to Enable/Disable the Rested Icon.
+*Add slash command "/egrid" it's arguements can be 4-256. If no arguements then the grid will be hidden.
+*Add slash command "/gr" to automatically change the channel you're talking in to the highest channel available.
 
-[b]General Changes:[/b]
-*Changing Profiles in ElvUI should no longer require a reload.
-*The profiles section of unitframes has been removed. The unitframe options have technically been reset, however if you load in with older data the UI will attempt to convert the database. If all is well you shouldn't notice any change.
-*Replaced the Primary/Secondary layout portions of the Installation process with just a single layout section, this is due to being able to swap ElvUI profiles with your current spec.
-*Any option that requires a reloadui is now a global option for all of your characters, in addition any option that may of required a reloadui has been reset to its default setting.
-*Removed Spec 1 / Spec 2 sections of the datatext menu, there is now only one section to set your datatexts.
-*Change recount icon skins again, this time de-saturate them to match the skin.
-*Throttle the number of times a user can send the version of ElvUI he's using to a maximum of one time per 12 seconds to cut back on lag when first joining BG/Raid groups.
-*The UIScale option inside ElvUI has been removed. Use the blizzard option if you wish to scale the UI. 
-*Changing the UIScale should now prompt you to reloadui.
-*Changing the UIScale while autoscale is still enabled will prompt you to disable the autoscale option.
-*Profession bags should now appear to be different colors depending on the type of bag.
-*Frequent updates are no longer being used for on the power bar for the Party, Raid 6-25, Raid 26-40 groups. This should greatly increase performance inside a raid setting.
-*Prevent the Resurrection Icon from ever displaying on a unit with health, this is a workaround for the Blizzard bug that has been reported several times but has failed to become fixed.
+[b]Changes[/b]
+*Removed the WhisperLevel option I added previously because it was a pain to debug myself. And it was flawed.
+*Routes and GatherMate2 addons will now use both minimaps instead of just the farmmode map.
+*Chat frames without backdrops should now properly hide their chat tabs unless mouseovered.
+*Remove the minimum requirement of .64 to the UIScale. It still however cannot go over 1.
+*The slash command "/farmmode" now accepts arguements to set the size of the FarmMode map.
+*Right clicking the right chat toggle button should now toggle whatever addon is embedded to that window. In addition add a tooltip to each of the chat toggle buttons to explain what they do.
 
-[b]Fixes:[/b]
-*Fix action buttons being used while repositioning buttons.
-*Fix major memory issue with raidframes. (They were being updated a lot more frequently than intended.)
-*Add sanity check to unitframes. Users were able to attach buffs frame to debuffs frame and vice versa at the same time, causing the UI not to load properly on the next load. Adding a warning to the chat frame when a user attempts to do this, and forcing the anchor to the actual unitframe when it occurs to prevent users from making this mistake.
-*Fix skada lua error when repeatedly setting embed right to skada.
-*Reverting font outline to how it was in previous versions.
-*Fix default bank search function not working with skin.
-*Fix achievement points not displaying on achievement window due to skin.
-*Character frame should no longer be skinned when the misc skin box is checked and the character frame skin is disabled.
-*Fix issue with unitframe combat fade not working as intended.
-*Fix "Loop in Gettable" lua error for the power bar when blizzards function returns a nil value.
-*Fix an issue with the auras mover, after moving the frame once the next time you go to move it the auras would become "unattached" from the mover.
-*Fix the threat glow positioning for druids on the player frame. It wasn't adjusting size when the classbars were appearing.
-*Fix rare case where experience bar wasn't displaying accurate information when loading into the game and the bar was hidden.
-*Prevent a lua error from occuring with the tooltip, when you mouseover an unknown unit.
+[b]Fixes[/b]
+*Fix the BNConversation prefix in chat.
+*The glow feature when targeting other raid/party members wasn't updating when someone joined the party. This sometimes produced unintended results.
+*Fix pvp text on the player frame not working after joining a group.
+*Users were unable to change the left and right panel sizes while chat was disabled.
+*EmbedRight wasn't working as intended.

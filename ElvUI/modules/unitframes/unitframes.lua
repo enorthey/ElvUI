@@ -4,6 +4,7 @@ local LSM = LibStub("LibSharedMedia-3.0");
 
 local _, ns = ...
 local ElvUF = ns.oUF
+
 local AceTimer = LibStub:GetLibrary("AceTimer-3.0")
 assert(ElvUF, "ElvUI was unable to locate oUF.")
 
@@ -109,7 +110,7 @@ end
 
 function UF:GarbageCollect()
 	collectgarbage('collect')
-	
+
 	--This is a hackish way to disable all created timers except the UpdatePvPText one..
 	local timersList = AceTimer.selfs[self]
 	if timersList then
@@ -118,7 +119,7 @@ function UF:GarbageCollect()
 				AceTimer.CancelTimer(self, handle, true)
 			end
 		end
-	end
+	end	
 end
 
 function UF:UpdateGroupChildren(header, db)

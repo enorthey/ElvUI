@@ -10,6 +10,7 @@ G['general'] = {
 	["normTex"] = "Ruben",
 	["glossTex"] = "Ruben",	
 	["dmgfont"] = "ElvUI Combat",
+	['dtlowerpanel'] = true,		
 }
 
 G['classtimer'] = {
@@ -29,7 +30,7 @@ G['chat'] = {
 }
 
 G['skins'] = {
-	['embedRight'] = 'Recount',
+	['embedRight'] = '',
 	['bigwigs'] = {
 		['enable'] = true,
 		['spacing'] = 7,

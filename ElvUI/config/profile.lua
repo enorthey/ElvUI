@@ -33,8 +33,7 @@ P['general'] = {
 	['panelBackdropNameRight'] = '',
 	['panelBackdrop'] = 'SHOWBOTH',
 	['expRepPos'] = 'MINIMAP_BOTTOM',
-	['upperPanel'] = true,
-	['lowerPanel'] = true,
+	['UpperLowerPanels'] = 'SHOWBOTH',
 	
 	--misc
 	['sellgrays'] = true,	
@@ -71,7 +70,6 @@ P["nameplate"] = {
 P['auras'] = {
 	['perRow'] = 12,
 	['size'] = 38,	
-	['perRow'] = 12,	
 }
 
 --Chat
@@ -81,10 +79,6 @@ P['chat'] = {
 	['hyperlinkHover'] = true,
 	['throttleInterval'] = 45,
 	['scrollDownInterval'] = 15,
-<<<<<<< HEAD:ElvUI/config/profile.lua
-	['minWhisperLevel'] = 4,
-=======
->>>>>>> Source/master:config/profile.lua
 	['font'] = 'ElvUI Font',
 	['fontoutline'] = 'NONE',
 }
@@ -112,7 +106,7 @@ P['classtimer'] = {
 
 --Skins
 P['skins'] = {
-	['embedRight'] = '',
+	['embedRight'] = 'Recount',
 }
 
 --Datatexts
@@ -140,7 +134,6 @@ P['datatexts'] = {
 	},
 	['localtime'] = true,
 	['time24'] = false,
-	['lowerpanels'] = true,	
 }
 
 --Tooltip

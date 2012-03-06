@@ -708,14 +708,18 @@ L["Your current resolution is %s, this is considered a %s resolution."] = "Your 
 L["Your items have been repaired for: "] = "Your items have been repaired for: "
 L["Your items have been repaired using guild bank funds for: "] = "Your items have been repaired using guild bank funds for: "
 L["Your version of ElvUI is out of date. You can download the latest version from www.curse.com"] = "Your version of ElvUI is out of date. You can download the latest version from www.curse.com"
-<<<<<<< HEAD:ElvUI/locales/english.lua
+L["BN:"] = true;
+L['Profile Binds'] = true;
+L['Save your keybinds with your ElvUI profile. That way if you have the dual spec feature enabled in ElvUI you can swap keybinds with your specs.'] = true;
+L['Rest Icon'] = true;
+L['Display the rested icon on the unitframe.'] = true;
+L['Left Click:'] = true;
+L['Right Click:'] = true;
+L['Toggle Chat Frame'] = true;
+L['Toggle Embedded Addon'] = true;
 
-L['Lower Panel'] = true;
-L['Enable The Panel Accross The Bottom of the UI.'] = true;
-L['Upper Panel'] = true;
-L['Enable The Panel Accross The Top of UI.'] = true;
-L['Announce Interrupts'] = true;
-L['Announce when you interrupt a spell to the specified chat channel.'] = true;
+L['Upper/Lower Panel'] = true;
+L['Enable The Upper/Lower Panel Accross the UI.'] = true;
 L["spincam"] = "SpinCam";
 L['Spin Camera While AFK'] = true;
 L['Auto Custom Lag Tolerance'] = true;
@@ -732,15 +736,9 @@ L['Size'] = true;
 L['Controls the size of the auras.'] = true;
 L['Per Row'] = true;
 L['Controls the number of auras per row.'] = true;	
+L['Top Only'] = true;	
+L['Bottom Only'] = true;	
+L['Lower Datatexts'] = true;
+L['Enable The data texts below actiobars'] = true;
+L["Panels"] = true;
 
-=======
-L["BN:"] = true;
-L['Profile Binds'] = true;
-L['Save your keybinds with your ElvUI profile. That way if you have the dual spec feature enabled in ElvUI you can swap keybinds with your specs.'] = true;
-L['Rest Icon'] = true;
-L['Display the rested icon on the unitframe.'] = true;
-L['Left Click:'] = true;
-L['Right Click:'] = true;
-L['Toggle Chat Frame'] = true;
-L['Toggle Embedded Addon'] = true;
->>>>>>> Source/master:locales/english.lua

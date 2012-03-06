@@ -11,9 +11,8 @@ E.Layout = LO;
 function LO:Initialize()
 	self:CreateChatPanels()
 	self:CreateMinimapPanels()
-	if E.db.general.lowerPanel then self:CreateLowerPanel() end
-	if E.db.general.upperPanel then self:CreateUpperPanel() end
-	if E.db.datatexts.lowerpanels then self.CreateLowerDPPanel() end	
+	self:CreateUpperLowerPanels()
+	if E.global.general.dtlowerpanel then self.CreateLowerDPPanel() end	
 end
 
 local function ChatPanelLeft_OnFade(self)
@@ -30,7 +29,7 @@ local function ChatButton_OnEnter(self, ...)
 		UIFrameFadeIn(self.parent, 0.2, self.parent:GetAlpha(), 1)
 		UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 	end
-
+	
 	if self == LeftChatToggleButton then
 		GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
 		GameTooltip:ClearLines()
@@ -42,7 +41,7 @@ local function ChatButton_OnEnter(self, ...)
 		GameTooltip:AddDoubleLine(L['Right Click:'], L['Toggle Embedded Addon'], 1, 1, 1)
 	end
 
-	GameTooltip:Show()
+	GameTooltip:Show()	
 end
 
 local function ChatButton_OnLeave(self, ...)
@@ -144,16 +143,10 @@ end
 function LO:CreateChatPanels()
 	--Left Chat
 	local lchat = CreateFrame('Frame', 'LeftChatPanel', E.UIParent)
-<<<<<<< HEAD:ElvUI/layout/layout.lua
-	if not E.db.general.lowerPanel then 
+	if not E.db.general.UpperLowerPanels then 
 		lchat:SetFrameStrata('BACKGROUND') 
 	end
-	lchat:Width(420)
-	lchat:Height(180)
-=======
-	lchat:SetFrameStrata('BACKGROUND')
-	lchat:Size(E.db.general.panelWidth, E.db.general.panelHeight)		
->>>>>>> Source/master:layout/layout.lua
+	lchat:Size(E.db.general.panelWidth, E.db.general.panelHeight)	
 	lchat:Point('BOTTOMLEFT', E.UIParent, 4, 4)
 	lchat:CreateBackdrop('Transparent')
 	lchat.backdrop:SetAllPoints()
@@ -196,16 +189,10 @@ function LO:CreateChatPanels()
 	
 	--Right Chat
 	local rchat = CreateFrame('Frame', 'RightChatPanel', E.UIParent)
-<<<<<<< HEAD:ElvUI/layout/layout.lua
-	if not E.db.general.lowerPanel then
+	if not E.db.general.UpperLowerPanels then
 		rchat:SetFrameStrata('BACKGROUND')
 	end
-	rchat:Width(420)
-	rchat:Height(180)
-=======
-	rchat:SetFrameStrata('BACKGROUND')
 	rchat:Size(E.db.general.panelWidth, E.db.general.panelHeight)
->>>>>>> Source/master:layout/layout.lua
 	rchat:Point('BOTTOMRIGHT', E.UIParent, -4, 4)
 	rchat:CreateBackdrop('Transparent')
 	rchat.backdrop:SetAllPoints()
@@ -287,7 +274,23 @@ function LO:CreateMinimapPanels()
 	configtoggle:SetScript('OnClick', function() E:ToggleConfig() end)
 end
 
-function LO:CreateLowerPanel()
+function LO:ToggleUpperLowerPanels()
+	if E.db.general.UpperLowerPanels == 'SHOWBOTH' then
+		LowerPanel:Show()
+		UpperPanel:Show()	
+	elseif E.db.general.UpperLowerPanels == 'HIDEBOTH' then
+		LowerPanel:Hide()
+		UpperPanel:Hide()		
+	elseif E.db.general.UpperLowerPanels == 'TOP' then
+		LowerPanel:Hide()
+		UpperPanel:Show()		
+	else
+		LowerPanel:Show()
+		UpperPanel:Hide()		
+	end
+end
+
+function LO:CreateUpperLowerPanels()
 	local lpanel = CreateFrame('Frame', 'LowerPanel', E.UIParent)
 	lpanel:SetFrameStrata('BACKGROUND')
 	lpanel:Width(E.UIParent:GetWidth() + (E.mult * 2))
@@ -295,16 +298,16 @@ function LO:CreateLowerPanel()
 	lpanel:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", -E.mult, -E.mult)
 	lpanel:Point("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", E.mult, -E.mult)
 	lpanel:SetTemplate('Default')	
-end
-
-function LO:CreateUpperPanel()
+	
 	local upanel = CreateFrame('Frame', 'UpperPanel', E.UIParent)
 	upanel:SetFrameStrata('BACKGROUND')
 	upanel:Width(E.UIParent:GetWidth() + (E.mult * 2))
 	upanel:Height(UPPER_PANEL_HEIGHT)
 	upanel:Point("TOPLEFT", E.UIParent, "TOPLEFT", -E.mult, E.mult)
 	upanel:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", E.mult, E.mult)
-	upanel:SetTemplate('Default')	
+	upanel:SetTemplate('Default')		
+	
+	self:ToggleUpperLowerPanels()
 end
 
 function LO:CreateLowerDPPanel()

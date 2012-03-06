@@ -155,34 +155,24 @@ E.Options.args.general = {
 						E:GetModule('Maps'):Minimap_UpdateSettings()
 					end,
 				},
-<<<<<<< HEAD:ElvUI/core/options.lua
-				lowerPanel = {
-=======
 				profileBinds = {
-					order = 12,
+					order = 102,
 					name = L['Profile Binds'],
 					desc = L['Save your keybinds with your ElvUI profile. That way if you have the dual spec feature enabled in ElvUI you can swap keybinds with your specs.'],
 					type = 'toggle',
 					get = function(info) return E.global.general.profileBinds end,		
 					set = function(info, value) E.global.general.profileBinds = value; StaticPopup_Show("GLOBAL_RL") end
-				},
+				},							
+			},
+		},
+		panels = {
+			order = 2,
+			type = "group",
+			name = L["Panels"],
+			guiInline = true,
+			args = {		
 				panelWidth = {
->>>>>>> Source/master:core/options.lua
 					order = 100,
-					type = 'toggle',
-					name = L['Lower Panel'],
-					desc = L['Enable The Panel Accross The Bottom of the UI.'],
-					set = function(info, value) E.db.general.lowerPanel = value; StaticPopup_Show("CONFIG_RL") end,
-				},
-				upperPanel = {
-					order = 101,
-					type = 'toggle',
-					name = L['Upper Panel'],
-					desc = L['Enable The Panel Accross The Top of UI.'],
-					set = function(info, value) E.db.general.upperPanel = value; StaticPopup_Show("CONFIG_RL") end,
-				},				
-				panelWidth = {
-					order = 102,
 					type = 'range',
 					name = L['Panel Width'],
 					desc = L['PANEL_DESC'],
@@ -190,7 +180,7 @@ E.Options.args.general = {
 					min = 150, max = 700, step = 1,
 				},
 				panelHeight = {
-					order = 103,
+					order = 101,
 					type = 'range',
 					name = L['Panel Height'],
 					desc = L['PANEL_DESC'],
@@ -198,7 +188,7 @@ E.Options.args.general = {
 					min = 150, max = 600, step = 1,
 				},
 				panelBackdrop = {
-					order = 104,
+					order = 102,
 					type = 'select',
 					name = L['Panel Backdrop'],
 					desc = L['Toggle showing of the left and right chat panels.'],
@@ -210,6 +200,27 @@ E.Options.args.general = {
 						['RIGHT'] = L['Right Only'],
 					},
 				},
+				UpperLowerPanels = {
+					order = 103,
+					type = 'select',
+					name = L['Upper/Lower Panel'],
+					desc = L['Enable The Upper/Lower Panel Accross the UI.'],
+					set = function(info, value) E.db.general.UpperLowerPanels = value; E:GetModule('Layout'):ToggleUpperLowerPanels() end,
+					values = {
+						['HIDEBOTH'] = L['Hide Both'],
+						['SHOWBOTH'] = L['Show Both'],					
+						['BOTTOM'] = L['Bottom Only'],
+						['TOP'] = L['Top Only'],
+					},						
+				},
+				dtlowerpanel = {
+					order = 104,
+					type = 'toggle',
+					name = L['Lower Datatexts'],
+					desc = L['Enable The data texts below actiobars'],
+					get = function(info) return E.global.general.dtlowerpanel end,
+					set = function(info, value) E.global.general.dtlowerpanel = value; StaticPopup_Show("GLOBAL_RL") end
+				},					
 				panelBackdropNameLeft = {
 					order = 105,
 					type = 'input',
@@ -233,7 +244,7 @@ E.Options.args.general = {
 					end,
 				},				
 			},
-		},
+		},		
 		media = {
 			order = 3,
 			type = "group",
@@ -277,7 +288,7 @@ E.Options.args.general = {
 							name = L["DataText Font"],
 							desc = L["The font that datatext will use."],
 							values = AceGUIWidgetLSMlists.font,		
-							set = function(info, value) E.db.core[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end,
+							set = function(info, value) E.db.general[ info[#info] ] = value; E:UpdateMedia(); E:UpdateFontTemplates(); StaticPopup_Show("GLOBAL_RL"); end,
 						},	
 						dtfontsize = {
 							order = 5,
@@ -285,7 +296,21 @@ E.Options.args.general = {
 							desc = L["Sets The Font size of Datatexts"],
 							type = "range",
 							min = 6, max = 22, step = 1,
-							set = function(info, value) E.db.core[ info[#info] ] = value; E:UpdateMedia(); E:UpdateFontTemplates(); end,
+							set = function(info, value) E.db.general[ info[#info] ] = value; E:UpdateMedia(); E:UpdateFontTemplates(); StaticPopup_Show("GLOBAL_RL"); end,
+						},		
+						dtfontoutline = {
+							order = 7,
+							name = L["Font Outline"],
+							desc = L["Set the font outline."],
+							type = "select",
+							values = {
+								['NONE'] = L['None'],
+								['OUTLINE'] = 'OUTLINE',
+								['MONOCHROME'] = 'MONOCHROME',
+								['THICKOUTLINE'] = 'THICKOUTLINE',
+								['OUTLINE, MONOCHROME'] = 'OUTLINE, MONOCHROME',
+							},
+							set = function(info, value) E.db.general[ info[#info] ] = value; E:UpdateMedia(); E:UpdateFontTemplates(); StaticPopup_Show("GLOBAL_RL"); end,
 						},								
 					},
 				},	

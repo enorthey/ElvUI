@@ -23,7 +23,8 @@ E.Options.args.auras = {
 					name = L["Enable"],
 					desc = L["Enable Auras near minimap"],
 					type = "toggle",
-					set = function(info, value) E.db.auras.enable = value; StaticPopup_Show("CONFIG_RL") end
+					get = function(info) return E.global.auras.enable end,					
+					set = function(info, value) E.global.auras.enable = value; StaticPopup_Show("GLOBAL_RL") end
 				},
 				size = {
 					order = 2,
@@ -31,7 +32,7 @@ E.Options.args.auras = {
 					desc = L["Controls the size of the auras."],
 					type = "range",
 					min = 30, max = 45, step = 1,
-					set = function(info, value) E.db.auras.size = value; StaticPopup_Show("CONFIG_RL") end
+					set = function(info, value) E.db.auras.size = value; StaticPopup_Show("GLOBAL_RL") end
 				},	
 				perRow = {
 					order = 3,
@@ -39,7 +40,7 @@ E.Options.args.auras = {
 					desc = L["Controls the number of auras per row."],
 					type = "range",
 					min = 10, max = 20, step = 1,
-					set = function(info, value) E.db.auras.perRow = value; StaticPopup_Show("CONFIG_RL") end
+					set = function(info, value) E.db.auras.perRow = value; StaticPopup_Show("GLOBAL_RL") end
 				},	
 			},
 		},					

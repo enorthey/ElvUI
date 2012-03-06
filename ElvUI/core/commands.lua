@@ -82,7 +82,7 @@ end
 function E:LoadCommands()
 	self:RegisterChatCommand("ec", "ToggleConfig")
 	self:RegisterChatCommand("elvui", "ToggleConfig")
-	
+
 	self:RegisterChatCommand('egrid', 'Grid')
 	self:RegisterChatCommand("moveui", "MoveUI")
 	self:RegisterChatCommand("resetui", "ResetUI")

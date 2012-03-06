@@ -220,7 +220,7 @@ function E:Grid_Hide()
 end
 
 function E:Grid_Create() 
-	grid = CreateFrame('Frame', 'EGrid', UIParent) 
+	grid = CreateFrame('Frame', 'EGrid', UIParent)  
 	grid.boxSize = E.db.gridSize
 	grid:SetAllPoints(E.UIParent) 
 	grid:Show()
@@ -482,7 +482,7 @@ function E:SaveKeybinds()
 	if not E.db.keybinds then
 		E.db.keybinds = {};
 	else
-		table.wipe(E.db.keybinds)
+		table.wipe(E.db.keybinds)		
 	end
 
 	for i = 1, GetNumBindings() do
@@ -501,7 +501,7 @@ function E:LoadKeybinds()
 		E:SaveKeybinds()
 		return
 	end
-	
+
 	localBindsSet = true;
 	
 	for i = 1, GetNumBindings() do
@@ -514,11 +514,11 @@ function E:LoadKeybinds()
 		if BindingTwo then
 			SetBinding(BindingTwo)
 		end
-	end
+	end	
 	
 	for action, actionBind in pairs(E.db.keybinds) do
 		local BindingOne, BindingTwo = actionBind[1], actionBind[2]
-		
+
 		if BindingOne then
 			SetBinding(BindingOne, action)
 		end
@@ -527,7 +527,7 @@ function E:LoadKeybinds()
 			SetBinding(BindingTwo, action)
 		end
 	end
-
+	
 	SaveBindings(GetCurrentBindingSet());
 	localBindsSet = false;
 end
@@ -559,6 +559,7 @@ function E:UpdateAll()
 	
 	self:GetModule('Skins'):SetEmbedRight(E.db.skins.embedRight)
 	self:GetModule('Layout'):ToggleChatPanels()
+	self:GetModule('Layout'):ToggleUpperLowerPanels()
 	
 	local CT = self:GetModule('ClassTimers')
 	CT.db = self.db.classtimer
