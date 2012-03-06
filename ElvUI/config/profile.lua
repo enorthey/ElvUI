@@ -1,6 +1,7 @@
 ﻿local E, L, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, ProfileDB, GlobalDB
 
 P.gridSize = 64
+P.farmSize = 340
 
 --Core
 P['general'] = {
@@ -80,7 +81,10 @@ P['chat'] = {
 	['hyperlinkHover'] = true,
 	['throttleInterval'] = 45,
 	['scrollDownInterval'] = 15,
+<<<<<<< HEAD:ElvUI/config/profile.lua
 	['minWhisperLevel'] = 4,
+=======
+>>>>>>> Source/master:config/profile.lua
 	['font'] = 'ElvUI Font',
 	['fontoutline'] = 'NONE',
 }
@@ -191,6 +195,7 @@ P['unitframe'] = {
 			['lowmana'] = 30,
 			['combatfade'] = false,
 			['healPrediction'] = true,
+			['restIcon'] = true,
 			['health'] = {
 				['text'] = true,
 				['text_format'] = 'current-percent',

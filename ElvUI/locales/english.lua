@@ -353,7 +353,6 @@ L["Media"] = "Media"
 L["Merchant Frame"] = "Merchant Frame"
 L["middle"] = "Middle"
 L["Minimap Size"] = "Minimap Size"
-L["Minimum level of the sender to able to whisper you."] = "Minimum level of the sender to able to whisper you."
 L["Minutes"] = "Minutes"
 L["Misc Frames"] = "Misc Frames"
 L["Mitigation By Level: "] = "Mitigation By Level: "
@@ -673,7 +672,6 @@ L["When true, the group header is shown when the player is in a raid."] = "When 
 L["When true, the header includes the player when not in a raid."] = "When true, the header includes the player when not in a raid."
 L["When true, the header is shown when the player is not in any group."] = "When true, the header is shown when the player is not in any group."
 L["When you mana falls below this point, text will flash on the player frame."] = "When you mana falls below this point, text will flash on the player frame."
-L["Whisper Level"] = "Whisper Level"
 L["whispers"] = "whispers"
 L["Whitelist"] = "Whitelist"
 L["Who's targetting who?"] = "Who's targetting who?"
@@ -710,6 +708,7 @@ L["Your current resolution is %s, this is considered a %s resolution."] = "Your 
 L["Your items have been repaired for: "] = "Your items have been repaired for: "
 L["Your items have been repaired using guild bank funds for: "] = "Your items have been repaired using guild bank funds for: "
 L["Your version of ElvUI is out of date. You can download the latest version from www.curse.com"] = "Your version of ElvUI is out of date. You can download the latest version from www.curse.com"
+<<<<<<< HEAD:ElvUI/locales/english.lua
 
 L['Lower Panel'] = true;
 L['Enable The Panel Accross The Bottom of the UI.'] = true;
@@ -734,3 +733,14 @@ L['Controls the size of the auras.'] = true;
 L['Per Row'] = true;
 L['Controls the number of auras per row.'] = true;	
 
+=======
+L["BN:"] = true;
+L['Profile Binds'] = true;
+L['Save your keybinds with your ElvUI profile. That way if you have the dual spec feature enabled in ElvUI you can swap keybinds with your specs.'] = true;
+L['Rest Icon'] = true;
+L['Display the rested icon on the unitframe.'] = true;
+L['Left Click:'] = true;
+L['Right Click:'] = true;
+L['Toggle Chat Frame'] = true;
+L['Toggle Embedded Addon'] = true;
+>>>>>>> Source/master:locales/english.lua
