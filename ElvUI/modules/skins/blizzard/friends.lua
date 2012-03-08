@@ -33,7 +33,7 @@ local function LoadSkin()
 	S:HandleScrollBar(ChannelRosterScrollFrameScrollBar, 5)
 	local StripAllTextures = {
 		"ScrollOfResurrectionSelectionFrame",
-		"ScrollOfResurrectionSelectionFrameList",
+		"ScrollOfResurrectionSelectionFrameList",	
 		"FriendsListFrame",
 		"FriendsTabHeader",
 		"FriendsFrameFriendsScrollFrame",
@@ -104,7 +104,7 @@ local function LoadSkin()
 		"AddFriendEntryFrameCancelButton",
 		"AddFriendInfoFrameContinueButton",
 		"ScrollOfResurrectionSelectionFrameAcceptButton",
-		"ScrollOfResurrectionSelectionFrameCancelButton",
+		"ScrollOfResurrectionSelectionFrameCancelButton",		
 	}			
 
 	for _, button in pairs(buttons) do

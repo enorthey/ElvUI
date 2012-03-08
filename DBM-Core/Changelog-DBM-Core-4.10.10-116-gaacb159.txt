@@ -1,4 +1,16 @@
 subversion:
+	- Omega via svn r7441: Fixed bug in getbosstarget, that sanity check you added to filter unknown, is also filtering ALL non player controlled units(ie, pets, mobs, bosses). Find another way to fix that bug. meteors on ragnaros target pets more often then they target players. Other mods depend on getbosstarget to return a non player as well, iron council, conclave, etc.
+	use my updated conclave mod to test. you can facepull anshal while solo and use the print message to see how getbosstarget responds to his soothing breeze cast. Its perfect, will get a couple player scans then a boss scan and print it out for you to diagnose.
+	- Omega via svn r7440: Update staghelm scanner to also use getbosstarget instead of custom boss1 coding, since i now know boss1 is not reliable method thanks to blizz breaking the game.
+	Also of note, this won't actually fix leap targets, or meteor targets or trap targets, cause something still wrong with getboss target, it's actually been broken since 6873, doing more testing i realize now, why i haven't seen a meteor target in weeks even though that never relied on boss1 existing. somehow it was broken and hasn't worked since, i just didn't pay enought attention in firelands to notice it,and nothing important in DS uses getbosstarget. If someone could, find out why this doesn't work. cause i've logged ragnaros, and actually SEEN h im look at meteor target, why isn't getbosstarget returning anything valid? it must be returning unknown/nil every time, all 12 scans. I suspect it has to do with "realm" not being a valid arg when not in LFR?
+	- Omega via svn r7439: It appears using BossN unitID is no longer 100% reliable. i finally figured out why it's been so problematic isnce 4.3.2. API change, if blizzards boss health frame is disabled, so are boss unit IDs, wtf? So if i prefer my own SMALL boss health frame, i get screwed cause i won't use your giant clunky one? thanks :( All mods will now have to use syncing to work around this issue for users who turn off blizzards boss health frame. sigh.
+	- thiagovfar via svn r7438: ptBR update
+	- nbluewiz via svn r7437: # Core : Fix countdown/out sound issue since 4.3.3. (delaying, skipping... )
+	- Omega via svn r7436: remove unneeded stuff, some comment cleanup/updates.
+	- nbluewiz via svn r7435: # Ragnaros, Shannox : Attempt to fix trap bug.
+	- ebmor via svn r7434: deDE update (DragonSoul)
+	- Snamor via svn r7433: esES update
+	- ultrashining via svn r7432: zhTW update
 	- nbluewiz via svn r7431: # Blackhorn : Added optional special warning for Sapper. # koKR update
 	- Omega via svn r7430: That commit actually didn't fix the issues, it just made more. it broke the function completely for normal. HoT warnings are supposed to work on normal even if it's set to reset in 2s.
 	Ultraxion:

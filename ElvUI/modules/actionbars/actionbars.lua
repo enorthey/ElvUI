@@ -158,15 +158,15 @@ function AB:StyleButton(button, noBackdrop)
 	if normal then normal:SetTexture(nil); normal:Hide(); normal:SetAlpha(0); end	
 	if normal2 then normal2:SetTexture(nil); normal2:Hide(); normal2:SetAlpha(0); end	
 	if border then border:Kill(); end
-			
+	
 	if not button.noBackdrop then
 		button.noBackdrop = noBackdrop;
 	end
 	
 	if count then
 		count:ClearAllPoints();
-		count:SetPoint("BOTTOMRIGHT", 0, 2);
-		count:FontTemplate(nil, 11, "OUTLINE");
+		count:SetPoint("BOTTOMRIGHT", 1, 3);
+		count:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline);
 	end
 
 	if not button.noBackdrop and not button.backdrop then
@@ -186,7 +186,7 @@ function AB:StyleButton(button, noBackdrop)
 	end
 	
 	if self.db.hotkeytext then
-		hotkey:FontTemplate(nil, E.db.actionbar.fontsize, "OUTLINE");
+		hotkey:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline);
 	end
 	
 	--Extra Action Button

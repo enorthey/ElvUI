@@ -166,7 +166,7 @@ E.Options.args.general = {
 			},
 		},
 		panels = {
-			order = 2,
+			order = 3,
 			type = "group",
 			name = L["Panels"],
 			guiInline = true,
@@ -246,7 +246,7 @@ E.Options.args.general = {
 			},
 		},		
 		media = {
-			order = 3,
+			order = 4,
 			type = "group",
 			name = L["Media"],
 			guiInline = true,
