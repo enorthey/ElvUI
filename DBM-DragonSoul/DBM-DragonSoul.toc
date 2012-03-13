@@ -26,7 +26,7 @@
 ## X-DBM-Mod-Name-ptBR: Alma Dragônica
 ## X-DBM-Mod-Sort: 100
 ## X-DBM-Mod-LoadZoneID: 824
-## X-Curse-Packaged-Version: 4.10.10-116-gaacb159
+## X-Curse-Packaged-Version: 4.10.10-127-g35e3410
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline

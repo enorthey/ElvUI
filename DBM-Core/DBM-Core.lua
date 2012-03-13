@@ -42,7 +42,7 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 7441 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 7452 $"):sub(12, -3)),
 	DisplayVersion = "4.10.11 alpha", -- the string that is shown as version
 	ReleaseRevision = 7325 -- the revision of the latest stable version that is available
 }
@@ -3330,12 +3330,7 @@ function bossModPrototype:GetBossTarget(cid)
 	if name and realm then
 		name = name.."-"..realm
 	end
-	--This apsolutely breaks on non human controled units (pets, bosses, mobs etc.) Find another way to filter unknown. Meteors, soothing breeze, etc, do target non players.
---	if DBM:GetRaidUnitId(name) ~= "none" then
-		return name, uid	
---	else
---		return nil, nil
---	end
+	return name, uid	
 end
 
 function bossModPrototype:GetThreatTarget(cid)
@@ -3395,7 +3390,23 @@ function bossModPrototype:SetUsedIcons(...)
 end
 
 function bossModPrototype:LatencyCheck()
-	return select(4, GetNetStats()) < DBM.Options.LatencyThreshold--Uses new world ping in 4.0.6
+	return select(4, GetNetStats()) < DBM.Options.LatencyThreshold
+end
+
+-- An anti spam function to throttle spammy events (e.g. SPELL_AURA_APPLIED on all group members)
+-- @param time the time to wait between two events (optional, default 2.5 seconds)
+-- @param id the id to distinguish different events (optional, only necessary if your mod keeps track of two different spam events at the same time)
+function bossModPrototype:AntiSpam(time, id)
+	if GetTime() - (id and (self["lastAntiSpam" .. tostring(id)] or 0) or self.lastAntiSpam or 0) > (time or 2.5) then
+		if id then
+			self["lastAntiSpam" .. tostring(id)] = GetTime()
+		else
+			self.lastAntiSpam = GetTime()
+		end
+		return true
+	else
+		return false
+	end
 end
 
 local function getTalentpointsSpent(spellID)

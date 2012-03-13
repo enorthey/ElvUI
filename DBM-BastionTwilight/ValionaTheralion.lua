@@ -2,7 +2,7 @@
 local mod	= DBM:NewMod("ValionaTheralion", "DBM-BastionTwilight")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7441 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7444 $"):sub(12, -3))
 mod:SetCreatureID(45992, 45993)
 mod:SetModelID(34812)
 mod:SetZone()
@@ -89,8 +89,7 @@ local engulfingMagicTargets = {}
 local engulfingMagicIcon = 7
 local dazzlingCast = 0
 local breathCast = 0
-local lastFab = 0
-local spamZone = 0
+local lastFab = 0--Leave this custom one, we use reset gettime on it in extra places and that cannot be done with prototype
 local markWarned = false
 local blackoutActive = false
 local ValionaLanded = false
@@ -222,7 +221,6 @@ function mod:OnCombatStart(delay)
 	dazzlingCast = 0
 	breathCast = 0
 	lastFab = 0
-	spamZone = 0
 	markWarned = false
 	blackoutActive = false
 	ValionaLanded = true
@@ -286,9 +284,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		self:Unschedule(AMSTimerDelay)
 		self:Schedule(20, AMSTimerDelay)--Cause when a DK AMSes it we don't get another timer.
 	elseif args:IsSpellID(92887) and args:IsPlayer() then
-		if (args.amount or 1) >= 20 and GetTime() - spamZone > 5 then
+		if (args.amount or 1) >= 20 and self:AntiSpam(5) then
 			specWarnTwilightZone:Show(args.amount)
-			spamZone = GetTime()
 		end
 	end
 end
@@ -376,11 +373,9 @@ function mod:UNIT_AURA(uId)
 	end
 end
 
---Good worked for 10 man-heroic
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
-	if not (uId == "boss1" or uId == "boss2") then return end
-	if spellId == 86497 and not ValionaLanded then--Anti spam because UNIT events fire for ALL valid UNITIDs, ie Boss1, target, focus, mouseover. It's possible to get as much as 4 events.
-		self:ScheduleMethod(0.1, "FabFlamesTarget")--Might need a timing tweak but should work.
+	if spellId == 86497 and not ValionaLanded and self:AntiSpam() then
+		self:ScheduleMethod(0.1, "FabFlamesTarget")
 		timerNextFabFlames:Start()
 		lastFab = GetTime()
 	end
