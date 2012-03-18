@@ -147,22 +147,16 @@ E.Options.args.general = {
 						E:GetModule('Minimap'):UpdateSettings()
 					end,
 				},
-<<<<<<< HEAD:core/options.lua
 				--[[profileBinds = {
-					order = 12,
-=======
-				profileBinds = {
-					order = 102,
->>>>>>> origin/master:ElvUI/core/options.lua
+					order = 101,
 					name = L['Profile Binds'],
 					desc = L['Save your keybinds with your ElvUI profile. That way if you have the dual spec feature enabled in ElvUI you can swap keybinds with your specs.'],
 					type = 'toggle',
 					get = function(info) return E.global.general.profileBinds end,		
 					set = function(info, value) E.global.general.profileBinds = value; StaticPopup_Show("GLOBAL_RL") end
-<<<<<<< HEAD:core/options.lua
-				},]]
+				},	]]
 				bubbles = {
-					order = 11,
+					order = 102,
 					type = "toggle",
 					name = L['Chat Bubbles'],
 					desc = L['Skin the blizzard chat bubbles.'],
@@ -170,12 +164,10 @@ E.Options.args.general = {
 					set = function(info, value) E.global.general.bubbles = value; StaticPopup_Show("GLOBAL_RL") end
 				},		
 				spacer = {
-					order = 99,
+					order = 103,
 					type = "description",
 					name = "",
-				},						
-=======
-				},							
+				},					
 			},
 		},
 		panels = {
@@ -184,7 +176,6 @@ E.Options.args.general = {
 			name = L["Panels"],
 			guiInline = true,
 			args = {		
->>>>>>> origin/master:ElvUI/core/options.lua
 				panelWidth = {
 					order = 100,
 					type = 'range',

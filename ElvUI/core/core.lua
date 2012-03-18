@@ -480,7 +480,6 @@ function E:SendRecieve(event, prefix, message, channel, sender)
 	end
 end
 
-
 --[[local localBindsSet = false
 function E:SaveKeybinds()
 	if not E.global.general.profileBinds or localBindsSet then return end
@@ -499,7 +498,7 @@ function E:SaveKeybinds()
 			E.db.keybinds[TheAction] = nil;
 		end
 	end
-end
+end]]
 
 function E:LoadKeybinds()
 	if not E.global.general.profileBinds then return end
@@ -536,7 +535,7 @@ function E:LoadKeybinds()
 	
 	SaveBindings(GetCurrentBindingSet());
 	localBindsSet = false;
-end]]
+end
 
 function E:UpdateAll()
 	self.data = LibStub("AceDB-3.0"):New("ElvData", self.DF, true);
@@ -609,7 +608,7 @@ local function showMenu(dropdownMenu, which, unit, name, userData, ...)
     if f then
       button.func = UnitPopupButtons[button.value].func
       if type(f) == "function" then
-        f(dropdownMenu, button)
+		f(dropdownMenu, button)
       end
     end
   end

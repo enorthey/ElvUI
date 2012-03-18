@@ -252,23 +252,18 @@ function B:Layout(isBank)
 	
 	if not isBank then
 		bs = BAGS_BACKPACK
-<<<<<<< HEAD:modules/bags/bags.lua
 		if E.db.bags.bagCols == 0 then
-			cols = floor((E.db.general.panelWidth - 10)/370 * 10)
-			bagWidth = E.db.general.panelWidth - 10
+			cols = floor((E.db.general.panelWidth - 11)/370 * 11)
+			bagWidth = E.db.general.panelWidth - 11
 		else
 			cols = E.db.bags.bagCols
 			bagWidth = 35 * cols
 		end
 
-=======
-		cols = (floor((E.db.general.panelWidth - 10)/370 * 11))
->>>>>>> origin/master:ElvUI/modules/bags/bags.lua
 		f = bagFrame
 		bSize = 30
 	else
 		bs = BAGS_BANK
-<<<<<<< HEAD:modules/bags/bags.lua
 		if E.db.bags.bankCols == 0 then
 			cols = floor((E.db.general.panelWidth - 10)/370 * 10)
 			bagWidth = E.db.general.panelWidth - 10
@@ -277,9 +272,6 @@ function B:Layout(isBank)
 			bagWidth = 35 * cols
 		end
 
-=======
-		cols = (floor((E.db.general.panelWidth - 10)/370 * 11))
->>>>>>> origin/master:ElvUI/modules/bags/bags.lua
 		f = bankFrame
 		bSize = 30
 	end

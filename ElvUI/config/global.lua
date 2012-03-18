@@ -9,17 +9,14 @@ G['general'] = {
 	["normTex"] = "Ruben",
 	["glossTex"] = "Ruben",	
 	["dmgfont"] = "ElvUI Combat",
-<<<<<<< HEAD:config/global.lua
 	['bubbles'] = true,
 	['bags'] = true,
+	['dtlowerpanel'] = true,		
 }
 
 G['bags'] = {
 	['enable'] = true,
-=======
-	['dtlowerpanel'] = true,		
->>>>>>> origin/master:ElvUI/config/global.lua
-}
+ }
 
 G['classtimer'] = {
 	['enable'] = false,

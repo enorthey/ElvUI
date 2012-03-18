@@ -403,15 +403,14 @@ function CH:AddMessage(text, ...)
 			text = text:gsub("^%["..RAID_WARNING.."%]", '['..L['RW']..']')	
 			text = text:gsub("%[BN_CONVERSATION:", '%['..L["BN:"])
 		end
-	
+
 		if CHAT_TIMESTAMP_FORMAT ~= nil then
 			TIMESTAMP_FORMAT = CHAT_TIMESTAMP_FORMAT
 			CHAT_TIMESTAMP_FORMAT = nil;
 		elseif GetCVar('showTimestamps') == 'none' then
 			TIMESTAMP_FORMAT = nil;
 		end
-		
-<<<<<<< HEAD:modules/chat/chat.lua
+ 		
 		--Add Timestamps
 		if ( TIMESTAMP_FORMAT ) then
 			local timestamp = BetterDate(TIMESTAMP_FORMAT, time())
@@ -419,15 +418,11 @@ function CH:AddMessage(text, ...)
 			timestamp = timestamp:gsub('AM', ' AM')
 			timestamp = timestamp:gsub('PM', ' PM')
 			text = '|cffB3B3B3['..timestamp..'] |r'..text
-		end
-			
-		text = text:gsub('|Hplayer:Elv:', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Elv:')
-		text = text:gsub('|Hplayer:Elv%-', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Elv%-')
-=======
-		text = text:gsub('|Hplayer:Kazgre:', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Kazgre:')
->>>>>>> origin/master:ElvUI/modules/chat/chat.lua
+		end		
+		
+		text = text:gsub('|Hplayer:Kazgre%-', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Kazgre%-')
 	end
-
+	
 	self.OldAddMessage(self, text, ...)
 end
 
@@ -446,7 +441,7 @@ if E:IsFoolsDay() then
 				text = text:gsub("^%["..RAID_WARNING.."%]", '['..L['RW']..']')	
 				text = text:gsub("%[BN_CONVERSATION:", '%['..L["BN:"])
 			end
-				
+
 			if CHAT_TIMESTAMP_FORMAT ~= nil then
 				TIMESTAMP_FORMAT = CHAT_TIMESTAMP_FORMAT
 				CHAT_TIMESTAMP_FORMAT = nil;
@@ -461,11 +456,11 @@ if E:IsFoolsDay() then
 				timestamp = timestamp:gsub('AM', ' AM')
 				timestamp = timestamp:gsub('PM', ' PM')
 				text = '|cffB3B3B3['..timestamp..'] |r'..text
-			end			
+			end
 			
-			if playerName ~= 'Elv' then
-				text = text:gsub('|Hplayer:Elv:', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Elv:')
-				text = text:gsub('|Hplayer:Elv%-', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Elv%-')
+			if playerName ~= 'Kazgre' then
+				text = text:gsub('|Hplayer:Kazgre:', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Kazgre:')
+				text = text:gsub('|Hplayer:Kazgre%-', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Kazgre%-')
 			else
 				text = text:gsub('|Hplayer:'..playerName..':', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:'..playerName..':')
 			end
@@ -677,7 +672,6 @@ function CH:CHAT_MSG_SAY(...)
 	end
 end
 
-<<<<<<< HEAD:modules/chat/chat.lua
 function CH:AddLines(lines, ...)
   for i=select("#", ...),1,-1 do
     local x = select(i, ...)
@@ -686,7 +680,6 @@ function CH:AddLines(lines, ...)
     end
   end
 end
-
 
 function CH:CopyLineFromPlayerlinkToEdit(origin_frame, ...)
     local frame = (origin_frame and origin_frame:GetObjectType() == "ScrollingMessageFrame" and origin_frame) or self.clickedframe
@@ -716,7 +709,6 @@ function CH:CopyLineFromPlayerlinkToEdit(origin_frame, ...)
         if self.lines[i]:find(findname:gsub("%-", "%%-")) then
             local text = self.lines[i]:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h", ""):gsub("|h", "")
 			text = text:gsub('|', '')
-			
             local editBox = ChatEdit_ChooseBoxForSend(frame);
             if ( editBox ~= ChatEdit_GetActiveWindow() ) then
                 ChatFrame_OpenChat(text, frame);
@@ -724,11 +716,9 @@ function CH:CopyLineFromPlayerlinkToEdit(origin_frame, ...)
                 editBox:SetText(text);
             end
         end
-    end
+	end
 end
 
-=======
->>>>>>> origin/master:ElvUI/modules/chat/chat.lua
 function CH:Initialize()
 	self.db = E.db.chat
 	if E.global.chat.enable ~= true then return end
@@ -752,12 +742,10 @@ function CH:Initialize()
 	ChatFrameMenuButton:Kill()
 	OldChatFrame_OnHyperlinkShow = ChatFrame_OnHyperlinkShow
 	ChatFrame_OnHyperlinkShow = URLChatFrame_OnHyperlinkShow
-	
     if WIM then
       WIM.RegisterWidgetTrigger("chat_display", "whisper,chat,w2w,demo", "OnHyperlinkClick", function(self) CH.clickedframe = self end);
 	  WIM.RegisterItemRefHandler('url', WIM_URLLink)
-    end
-	
+    end	
 	self:RegisterEvent('UPDATE_CHAT_WINDOWS', 'SetupChat')
 	self:RegisterEvent('UPDATE_FLOATING_CHAT_WINDOWS', 'SetupChat')
 	

@@ -42,12 +42,8 @@ function AddOn:OnInitialize()
 	self:UIScale();
 	self:UpdateMedia();
 	self:GetModule('RaidUtility'):Initialize()
-<<<<<<< HEAD:init.lua
-	self:GetModule('Minimap'):UpdateSettings()
-=======
 	self:GetModule('Layout'):CreateFilgerPanels()	
-	self:GetModule('Maps'):Minimap_UpdateSettings()
->>>>>>> origin/master:ElvUI/init.lua
+	self:GetModule('Minimap'):UpdateSettings()
 	self:RegisterEvent('PLAYER_LOGIN', 'Initialize')
 end
 

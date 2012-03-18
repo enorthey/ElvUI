@@ -41,11 +41,11 @@ local rollpairs = locale == "deDE" and {
        ["(.*)님이 입찰을 선택했습니다: (.+)"] = "need",
        ["(.*)님이 마력 추출을 선택했습니다: (.+)"] = "disenchant",	
 } or locale == "esES" and {
-	["^(.*) pasó automáticamente de: (.+) porque no puede despojar este objeto.$"] = "pass",
-	["^(.*) pasó de: (.+|r)$"]  = "pass",
-	["(.*) eligió Codicia para: (.+)"] = "greed",
-	["(.*) eligió Necesidad para: (.+)"]  = "need",
-	["(.*) eligió Desencantar para: (.+)"]  = "disenchant",	   	   
+	["^(.*) pasÃ³ automÃ¡ticamente de: (.+) porque no puede despojar este objeto.$"] = "pass",
+	["^(.*) pasÃ³ de: (.+|r)$"]  = "pass",
+	["(.*) eligiÃ³ Codicia para: (.+)"] = "greed",
+	["(.*) eligiÃ³ Necesidad para: (.+)"]  = "need",
+	["(.*) eligiÃ³ Desencantar para: (.+)"]  = "disenchant",	   	   
 } or locale == "esMX" and {
 	["^(.*) pasó automáticamente de: (.+) porque no puede despojar este objeto.$"] = "pass",
 	["^(.*) pasó de: (.+|r)$"]  = "pass",

@@ -36,16 +36,11 @@ P['general'] = {
 	['UpperLowerPanels'] = 'SHOWBOTH',
 	
 	--misc
-<<<<<<< HEAD:config/profile.lua
-	['mapTransparency'] = 1,
-=======
 	['sellgrays'] = true,	
-	['mapTransparency'] = 0.5,
->>>>>>> origin/master:ElvUI/config/profile.lua
+	['mapTransparency'] = 1,
 	['minimapSize'] = 175,
 	['raidReminder'] = true,
 };
-
 --Bags
 P['bags'] = {
     ['bagCols'] = 0,
@@ -266,12 +261,8 @@ P['unitframe'] = {
 				['height'] = 25,
 				['icon'] = true,
 				['latency'] = true,
-<<<<<<< HEAD:config/profile.lua
-				['displayTarget'] = false,
-				['color'] = P.general.bordercolor,
-=======
+				['displayTarget'] = true,
 				['color'] = P.general.castbarcolor,
->>>>>>> origin/master:ElvUI/config/profile.lua
 				['interruptcolor'] = { r = 0.78, g = 0.25, b = 0.25 },
 				['xOffset'] = 0,
 				['yOffset'] = 0,

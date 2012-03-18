@@ -162,14 +162,13 @@ local function CreateShadow(f)
 end
 
 local function Kill(object)
-	
 	if object.UnregisterAllEvents then
 		object:UnregisterAllEvents()
 		object:SetParent(E.HiddenFrame)
 	else
 		object.Show = object.Hide
 	end
-	
+
 	object:Hide()
 end
 

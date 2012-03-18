@@ -72,7 +72,7 @@ end
 
 function AB:BindUpdate(button, spellmacro)
 	if not bind.active or InCombatLockdown() then return; end
-	
+
 	bind.button = button;
 	bind.spellmacro = spellmacro;
 	
@@ -114,7 +114,7 @@ function AB:BindUpdate(button, spellmacro)
 		GameTooltip:SetOwner(bind, "ANCHOR_TOP");
 		GameTooltip:SetPoint("BOTTOM", bind, "TOP", 0, 1);
 		GameTooltip:AddLine(bind.button.name, 1, 1, 1);
-
+		
 		bind.button.bindings = {GetBindingKey(spellmacro.." "..bind.button.name)};
 			if #bind.button.bindings == 0 then
 				GameTooltip:AddLine(L["No bindings set."], .6, .6, .6);
