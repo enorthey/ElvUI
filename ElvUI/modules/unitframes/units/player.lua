@@ -330,13 +330,13 @@ function UF:Update_PlayerFrame(frame, db)
 				portrait:SetAlpha(1)
 				portrait:Show()
 				
-				if USE_MINI_CLASSBAR and USE_CLASSBAR then
+				if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR then
 					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", 0, -((CLASSBAR_HEIGHT/2)))
 				else
 					portrait.backdrop:SetPoint("TOPLEFT", frame, "TOPLEFT")
 				end		
 				
-				if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR then
+				if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET then
 					portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", -SPACING, 0)
 				else
 					portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", -SPACING, 0)

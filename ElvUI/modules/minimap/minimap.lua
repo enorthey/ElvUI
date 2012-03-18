@@ -225,7 +225,14 @@ function M:SkinMinimapButton(f)
 	f.skinned = true
 end
 
+local blackList = {
+	['MiniMapBattlefieldFrame'] = true,
+}
+
 function M:IsMinimapButton(f)
+	if f:GetName() and blackList[f:GetName()] then
+		return false;
+	end
 	for i=1, f:GetNumRegions() do
 		local region = select(i, f:GetRegions())
 		if region:GetObjectType() == 'Texture' then

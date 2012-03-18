@@ -86,10 +86,11 @@ function S:EmbedSkada()
 		widthOffset = 14
 		heightOffset = 39
 	end
-
+	
 	for _, window in pairs(skadaWindows) do
 		window.bargroup:SetParent(RightChatPanel)
 	end
+	
 	if #skadaWindows == 1 then
 		self:EmbedSkadaWindow(skadaWindows[1], E.db.general.panelWidth - widthOffset, E.db.general.panelHeight - heightOffset, "BOTTOMRIGHT", RightChatToggleButton, "TOPRIGHT", -2, 6)
 	elseif #skadaWindows == 2 then

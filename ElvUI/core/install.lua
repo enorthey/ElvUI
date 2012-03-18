@@ -172,7 +172,7 @@ local function SetupCVars()
 	SetCVar('alwaysShowActionBars', 1)
 	SetCVar('lockActionBars', 1)
 	InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:SetValue('SHIFT')
-	InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:RefreshValue()
+	InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:RefreshValue()	
 	
 	InstallStepComplete.message = L["CVars Set"]
 	InstallStepComplete:Show()					
