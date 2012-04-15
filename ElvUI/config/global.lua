@@ -6,11 +6,12 @@ G['general'] = {
 	['profileBinds'] = false,
 	['loot'] = true,
 	['lootRoll'] = true,
-	["normTex"] = "Minimalist",
-	["glossTex"] = "Minimalist",	
+	["normTex"] = "Ruben",
+	["glossTex"] = "Ruben",	
 	["dmgfont"] = "ElvUI Combat",
 	['bubbles'] = true,
 	['bags'] = true,
+	['dtlowerpanel'] = true,
 }
 
 G['bags'] = {
@@ -21,7 +22,7 @@ G['bags'] = {
 }
 
 G['classtimer'] = {
-	['enable'] = true,
+	['enable'] = false,
 }
 
 G['reminder'] = {

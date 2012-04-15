@@ -11,10 +11,12 @@ local function SetupChat()
 	FCF_DockFrame(ChatFrame2)
 	FCF_SetLocked(ChatFrame2, 1)
 
-	FCF_OpenNewWindow(LOOT)
-	FCF_UnDockFrame(ChatFrame3)
-	FCF_SetLocked(ChatFrame3, 1)
-	ChatFrame3:Show()			
+	if not E.db.skins.embedRight == nil then
+		FCF_OpenNewWindow(LOOT)
+		FCF_UnDockFrame(ChatFrame3)
+		FCF_SetLocked(ChatFrame3, 1)
+		ChatFrame3:Show()
+	end			
 			
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format("ChatFrame%s", i)]
@@ -78,19 +80,28 @@ local function SetupChat()
 	ChatFrame_AddMessageGroup(ChatFrame1, "BN_CONVERSATION")
 	ChatFrame_AddMessageGroup(ChatFrame1, "BN_INLINE_TOAST_ALERT")
 	
-
-	ChatFrame_RemoveAllMessageGroups(ChatFrame3)	
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_FACTION_CHANGE")
-	ChatFrame_AddMessageGroup(ChatFrame3, "SKILL")
-	ChatFrame_AddMessageGroup(ChatFrame3, "LOOT")
-	ChatFrame_AddMessageGroup(ChatFrame3, "MONEY")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_XP_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_HONOR_GAIN")
-	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_GUILD_XP_GAIN")
-	ChatFrame_AddChannel(ChatFrame1, GENERAL)
-	ChatFrame_RemoveChannel(ChatFrame1, L['Trade'])
-	ChatFrame_AddChannel(ChatFrame3, L['Trade'])
-
+	if not E.db.skins.embedRight == nil then
+		ChatFrame_RemoveAllMessageGroups(ChatFrame3)	
+		ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_FACTION_CHANGE")
+		ChatFrame_AddMessageGroup(ChatFrame3, "SKILL")
+		ChatFrame_AddMessageGroup(ChatFrame3, "LOOT")
+		ChatFrame_AddMessageGroup(ChatFrame3, "MONEY")
+		ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_XP_GAIN")
+		ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_HONOR_GAIN")
+		ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_GUILD_XP_GAIN")
+		ChatFrame_AddChannel(ChatFrame1, GENERAL)
+		ChatFrame_RemoveChannel(ChatFrame1, L['Trade'])
+		ChatFrame_AddChannel(ChatFrame3, L['Trade'])
+	else
+		ChatFrame_AddMessageGroup(ChatFrame1, "COMBAT_FACTION_CHANGE")
+		ChatFrame_AddMessageGroup(ChatFrame1, "SKILL")
+		ChatFrame_AddMessageGroup(ChatFrame1, "LOOT")
+		ChatFrame_AddMessageGroup(ChatFrame1, "MONEY")
+		ChatFrame_AddMessageGroup(ChatFrame1, "COMBAT_XP_GAIN")
+		ChatFrame_AddMessageGroup(ChatFrame1, "COMBAT_HONOR_GAIN")
+		ChatFrame_AddMessageGroup(ChatFrame1, "COMBAT_GUILD_XP_GAIN")
+		ChatFrame_AddChannel(ChatFrame1, L['Trade'])
+	end
 	
 	if E.myname == "Elv" then
 		--keep losing my god damn channels everytime i resetui
@@ -130,14 +141,6 @@ local function SetupChat()
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL9")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL10")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL11")
-	
-	--Adjust Chat Colors
-	--General
-	ChangeChatColor("CHANNEL1", 195/255, 230/255, 232/255)
-	--Trade
-	ChangeChatColor("CHANNEL2", 232/255, 158/255, 121/255)
-	--Local Defense
-	ChangeChatColor("CHANNEL3", 232/255, 228/255, 121/255)
 	
 	if E.Chat then
 		E.Chat:PositionChat(true)
@@ -223,7 +226,7 @@ function E:SetupResolution()
 			["ElvUF_Player"] = "BOTTOMUIParent-106135",
 			["ElvUF_Target"] = "BOTTOMUIParent106135",
 			["ElvUF_Pet"] = "BOTTOMUIParent-10680",
-			['ElvUF_Focus'] = "BOTTOMUIParent310332",
+			["ElvUF_Focus"] = "RIGHTUIParent-468161",
 		}
 		
 		E.db.lowresolutionset = true;
@@ -272,7 +275,7 @@ function E:SetupLayout(layout)
 		E.db.unitframe.units.party.height = 52;
 		E.db.unitframe.units.party.health.text_format = 'deficit';
 		E.db.unitframe.units.party.health.position = 'BOTTOM';
-		E.db.unitframe.units.party.health.orientation = 'VERTICAL';
+		E.db.unitframe.units.party.health.orientation = 'HORIZONTAL';
 		E.db.unitframe.units.party.name.position = 'TOP';
 		E.db.unitframe.units.party.debuffs.anchorPoint = 'BOTTOMLEFT';
 		E.db.unitframe.units.party.debuffs.initialAnchor = 'TOPLEFT';
@@ -291,10 +294,10 @@ function E:SetupLayout(layout)
 		E.db.unitframe.units.party.targetsGroup.yOffset = 1;
 
 		E.db.unitframe.units.raid625.healPrediction = true;
-		E.db.unitframe.units.raid625.health.orientation = 'VERTICAL';
+		E.db.unitframe.units.raid625.health.orientation = 'HORIZONTAL';
 
 		E.db.unitframe.units.raid2640.healPrediction = true;
-		E.db.unitframe.units.raid2640.health.orientation = 'VERTICAL';		
+		E.db.unitframe.units.raid2640.health.orientation = 'HORIZONTAL';		
 		
 		if E.db.lowresolutionset then
 			E.db.unitframe.units["positions"] = {
@@ -306,19 +309,19 @@ function E:SetupLayout(layout)
 				["ElvUF_Focus"] = "RIGHTUIParent-264-43",
 				["ElvUF_Party"] = "BOTTOMUIParent0104",
 				["ElvUF_Pet"] = "BOTTOMUIParent-305187",
-				['ElvUF_Focus'] = "BOTTOMUIParent310432",
+				['ElvUF_Focus'] = "BOTTOMUIParent310632",
 			}			
 		else
 			E.db.unitframe.units["positions"] = {
 				["ElvUF_Player"] = "BOTTOMLEFTUIParent464242",
 				["ElvUF_Target"] = "BOTTOMRIGHTUIParent-464242",
-				["ElvUF_Raid2640"] = "BOTTOMUIParent050",
-				["ElvUF_Raid625"] = "BOTTOMUIParent050",
+				["ElvUF_Raid2640"] = "BOTTOMUIParent0140",
+				["ElvUF_Raid625"] = "BOTTOMUIParent0140",
 				["ElvUF_TargetTarget"] = "BOTTOMRIGHTUIParent-464151",
-				["ElvUF_Focus"] = "RIGHTUIParent-475-143",
-				["ElvUF_Party"] = "BOTTOMUIParent074",
+				["ElvUF_Focus"] = "RIGHTUIParent-300-143",
+				["ElvUF_Party"] = "BOTTOMUIParent0157",
 				["ElvUF_Pet"] = "BOTTOMLEFTUIParent464151",
-				['ElvUF_Focus'] = "BOTTOMUIParent280332",
+				["ElvUF_Focus"] = "RIGHTUIParent-468161",
 			}
 		end
 	elseif E.db.lowresolutionset then
@@ -327,7 +330,7 @@ function E:SetupLayout(layout)
 			["ElvUF_Player"] = "BOTTOMUIParent-106135",
 			["ElvUF_Target"] = "BOTTOMUIParent106135",
 			["ElvUF_Pet"] = "BOTTOMUIParent-10680",
-			['ElvUF_Focus'] = "BOTTOMUIParent310332",
+			["ElvUF_Focus"] = "RIGHTUIParent-468161",
 		}		
 	else
 		E.db.unitframe.units["positions"] = nil;
@@ -362,14 +365,14 @@ function E:SetupLayout(layout)
 	if not E.db.layoutSet then
 		E:CopyTable(E.db.datatexts.panels, P.datatexts.panels)
 		if layout == 'tank' then
-			E.db.datatexts.panels.LeftChatDataPanel.left = 'Armor';
-			E.db.datatexts.panels.LeftChatDataPanel.right = 'Avoidance';
+			E.db.datatexts.panels.LowerCDPPanel.left = 'Armor';
+			E.db.datatexts.panels.LowerLDPPanel = 'Avoidance';
 		elseif layout == 'healer' or layout == 'dpsCaster' then
-			E.db.datatexts.panels.LeftChatDataPanel.left = 'Spell/Heal Power';
-			E.db.datatexts.panels.LeftChatDataPanel.right = 'Haste';
+			E.db.datatexts.panels.LowerCDPPanel.left = 'Spell/Heal Power';
+			E.db.datatexts.panels.LowerLDPPanel = 'Crit Chance';
 		else
-			E.db.datatexts.panels.LeftChatDataPanel.left = 'Attack Power';
-			E.db.datatexts.panels.LeftChatDataPanel.right = 'Crit Chance';
+			E.db.datatexts.panels.LowerCDPPanel.left = 'Attack Power';
+			E.db.datatexts.panels.LowerLDPPanelt = 'Crit Chance';
 		end
 		
 		if InstallStepComplete then

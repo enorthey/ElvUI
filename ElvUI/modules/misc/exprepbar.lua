@@ -2,7 +2,7 @@ local E, L, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, ProfileDB,
 local M = E:GetModule('Misc');
 
 local BAR_WIDTH --Set post load so we can set it to a percent of your screen width.
-local BAR_HEIGHT = 9
+local BAR_HEIGHT = 10
 local TOPBAR_HEIGHT = ((BAR_HEIGHT + 2) * 4) + BAR_HEIGHT
 local showRepBar, showExpBar = false, false
 

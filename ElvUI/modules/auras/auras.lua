@@ -31,7 +31,7 @@ function A:StyleBuffs(buttonName, index, debuff)
 		icon:Point("TOPLEFT", buff, 2, -2)
 		icon:Point("BOTTOMRIGHT", buff, -2, 2)
 		
-		buff:Size(30)
+		buff:Size(self.db.size)
 				
 		duration:ClearAllPoints()
 		duration:Point("BOTTOM", 0, -13)
@@ -224,7 +224,7 @@ function A:Initialize()
 	TempEnchant3:Point("RIGHT", TempEnchant2, "LEFT", btnspace, 0)
 	
 	for i = 1, 3 do
-		_G["TempEnchant"..i]:Size(30)
+		_G["TempEnchant"..i]:Size(self.db.size)
 		_G["TempEnchant"..i]:CreateBackdrop('Default')
 		_G["TempEnchant"..i].backdrop:SetAllPoints()
 		_G["TempEnchant"..i.."Border"]:Hide()
