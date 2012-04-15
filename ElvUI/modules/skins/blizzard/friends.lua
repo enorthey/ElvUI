@@ -31,8 +31,11 @@ local function LoadSkin()
 	S:HandleScrollBar(FriendsFrameFriendsScrollFrameScrollBar, 5)
 	S:HandleScrollBar(WhoListScrollFrameScrollBar, 5)
 	S:HandleScrollBar(ChannelRosterScrollFrameScrollBar, 5)
+<<<<<<< HEAD
 	S:HandleScrollBar(FriendsFriendsScrollFrameScrollBar)
 	
+=======
+>>>>>>> origin/master
 	local StripAllTextures = {
 		"ScrollOfResurrectionSelectionFrame",
 		"ScrollOfResurrectionSelectionFrameList",

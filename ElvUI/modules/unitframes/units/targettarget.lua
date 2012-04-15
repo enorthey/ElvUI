@@ -257,7 +257,11 @@ function UF:Update_TargetTargetFrame(frame, db)
 	
 	if not frame.mover then
 		frame:ClearAllPoints()
+<<<<<<< HEAD
 		frame:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 75) --Set to default position
+=======
+		frame:Point('BOTTOMRIGHT', E.UIParent, 'BOTTOM', 441, 145) --Set to default position
+>>>>>>> origin/master
 	end
 	
 	frame:UpdateAllElements()

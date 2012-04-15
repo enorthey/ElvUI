@@ -23,7 +23,11 @@ local function LoadSkin()
 	
 	BattlefieldMinimap:EnableMouse(true)
 	BattlefieldMinimap:SetMovable(true)
+<<<<<<< HEAD
 	BattlefieldMinimap.backdrop:SetAlpha(1.0 - BattlefieldMinimapOptions.opacity or 0)
+=======
+	BattlefieldMinimap.backdrop:SetAlpha(1.0 - BattlefieldMinimapOptions.opacity)
+>>>>>>> origin/master
 	
 	BattlefieldMinimap:SetScript("OnMouseUp", function(self, btn)
 		if btn == "LeftButton" then
@@ -48,13 +52,21 @@ local function LoadSkin()
 	
 	
 	hooksecurefunc('BattlefieldMinimap_UpdateOpacity', function(opacity)
+<<<<<<< HEAD
 		local alpha = 1.0 - BattlefieldMinimapOptions.opacity or 0;
+=======
+		local alpha = 1.0 - BattlefieldMinimapOptions.opacity;
+>>>>>>> origin/master
 		BattlefieldMinimap.backdrop:SetAlpha(alpha)
 	end)
 	
 	local oldAlpha
 	BattlefieldMinimap:HookScript('OnEnter', function()
+<<<<<<< HEAD
 		oldAlpha = BattlefieldMinimapOptions.opacity or 0;
+=======
+		oldAlpha = BattlefieldMinimapOptions.opacity;
+>>>>>>> origin/master
 		BattlefieldMinimap_UpdateOpacity(0)
 	end)
 	
@@ -66,7 +78,11 @@ local function LoadSkin()
 	end)
 	
 	BattlefieldMinimapCloseButton:HookScript('OnEnter', function()
+<<<<<<< HEAD
 		oldAlpha = BattlefieldMinimapOptions.opacity or 0;
+=======
+		oldAlpha = BattlefieldMinimapOptions.opacity;
+>>>>>>> origin/master
 		BattlefieldMinimap_UpdateOpacity(0)
 	end)
 	

@@ -1,0 +1,3 @@
+Archarodim:
+	- Added a warning when the afflicted unit is afflicted by 'Vampiric Touch' or 'Flame Shock' (just like with 'Unstable Affliction')
+	- - Set StaticPopupDialogs 'preferredIndex' property to 3 as per http://www.tukui.org/forums/topic.php?id=15823 to reduce chance of UI taint. - Updated minimum required libs version.

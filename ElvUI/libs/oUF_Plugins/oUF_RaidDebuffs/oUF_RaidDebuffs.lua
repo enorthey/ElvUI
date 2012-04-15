@@ -222,17 +222,30 @@ end
 
 local blackList = {
 	[105171] = true, -- Deep Corruption
+<<<<<<< HEAD
+=======
+	[108220] = true, -- Deep Corruption
+	[101108] = true, -- Rage of Ragnaros
+	[101109] = true, -- Rage of Ragnaros
+	[101110] = true, -- Rage of Ragnaros
+	[101228] = true, -- Rage of Ragnaros		
+>>>>>>> origin/master
 }
 	
 local function Update(self, event, unit)
 	if unit ~= self.unit then return end
 	local _name, _icon, _count, _dtype, _duration, _endTime, _spellId
+<<<<<<< HEAD
 	local _priority, priority = 0, 0
+=======
+	local _priority, priority = 0
+>>>>>>> origin/master
 	for i = 1, 40 do
 		local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = UnitAura(unit, i, 'HARMFUL')
 		if (not name) then break end
 
 		if addon.ShowDispelableDebuff and debuffType then
+<<<<<<< HEAD
 			if addon.FilterDispellableDebuff then
 				DispellPriority[debuffType] = DispellPriority[debuffType] + addon.priority --Make Dispell buffs on top of Boss Debuffs
 				priority = DispellFilter[debuffType] and DispellPriority[debuffType] or 0
@@ -245,6 +258,16 @@ local function Update(self, event, unit)
 			end
 
 			if priority > _priority then
+=======
+			if addon.FilterDispellableDebuff then -- SUPER CODE PROTECTION OF THE /FLEX
+				DispellPriority[debuffType] = DispellPriority[debuffType] + addon.priority --Make Dispell buffs on top of Boss Debuffs
+				priority = DispellFilter[debuffType] and DispellPriority[debuffType]
+			else
+				priority = DispellPriority[debuffType]
+			end
+			
+			if priority and (priority > _priority) then
+>>>>>>> origin/master
 				_priority, _name, _icon, _count, _dtype, _duration, _endTime, _spellId = priority, name, icon, count, debuffType, duration, expirationTime, spellId
 			end
 		end

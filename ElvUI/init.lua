@@ -41,6 +41,7 @@ function AddOn:OnInitialize()
 	
 	self:UIScale();
 	self:UpdateMedia();
+<<<<<<< HEAD
 	
 	self:RegisterEvent('PLAYER_LOGIN', 'Initialize')
 	local raidUtility = self:GetModule('RaidUtility', true)
@@ -51,6 +52,12 @@ function AddOn:OnInitialize()
 	if minimap then
 		minimap:UpdateSettings()
 	end
+=======
+	self:GetModule('RaidUtility'):Initialize()
+	self:GetModule('Layout'):CreateFilgerPanels()
+	self:GetModule('Minimap'):UpdateSettings()
+	self:RegisterEvent('PLAYER_LOGIN', 'Initialize')
+>>>>>>> origin/master
 end
 
 function AddOn:OnProfileReset()

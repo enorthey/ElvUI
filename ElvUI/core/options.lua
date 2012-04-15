@@ -423,8 +423,11 @@ local DONATORS = {
 	"Paavi",
 	"Giorgio",
 	"Bearscantank",
+<<<<<<< HEAD
 	"Varok",
 	"Cosmo",
+=======
+>>>>>>> origin/master
 }
 
 table.sort(DONATORS, function(a,b) return a < b end) --Alphabetize

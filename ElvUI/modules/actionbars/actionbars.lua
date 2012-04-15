@@ -177,8 +177,13 @@ function AB:StyleButton(button, noBackdrop)
 	
 	if count then
 		count:ClearAllPoints();
+<<<<<<< HEAD
 		count:SetPoint("BOTTOMRIGHT", 0, 2);
 		count:FontTemplate(nil, 11, "OUTLINE");
+=======
+		count:SetPoint("BOTTOMRIGHT", 1, 3);
+		count:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline);
+>>>>>>> origin/master
 	end
 
 	if not button.noBackdrop and not button.backdrop then
@@ -198,7 +203,11 @@ function AB:StyleButton(button, noBackdrop)
 	end
 	
 	if self.db.hotkeytext then
+<<<<<<< HEAD
 		hotkey:FontTemplate(nil, E.db.actionbar.fontsize, "OUTLINE");
+=======
+		hotkey:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline);
+>>>>>>> origin/master
 	end
 	
 	--Extra Action Button
@@ -374,8 +383,12 @@ function AB:FixKeybindText(button)
 		text = gsub(text, 'DELETE', L['KEY_DELETE']);
 		text = gsub(text, 'MOUSEWHEELUP', L['KEY_MOUSEWHEELUP']);
 		text = gsub(text, 'MOUSEWHEELDOWN', L['KEY_MOUSEWHEELDOWN']);
+<<<<<<< HEAD
 		text = gsub(text, 'NMULTIPLY', "*");
 		
+=======
+
+>>>>>>> origin/master
 		hotkey:SetText(text);
 	end
 	

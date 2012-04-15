@@ -73,10 +73,18 @@ function CH:StyleChat(frame)
 
 	
 	tab.text = _G[name.."TabText"]
+<<<<<<< HEAD
 	tab.text:FontTemplate()
 	tab.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	tab.text.OldSetTextColor = tab.text.SetTextColor 
 	tab.text.SetTextColor = E.noop
+=======
+	tab.text:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline)
+	tab.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	tab.text.OldSetTextColor = tab.text.SetTextColor 
+	tab.text.SetTextColor = E.noop
+	tab.text:SetPoint('LEFT', 5, -4)
+>>>>>>> origin/master
 	
 	frame:SetClampRectInsets(0,0,0,0)
 	frame:SetClampedToScreen(false)
@@ -429,8 +437,13 @@ function CH:AddMessage(text, ...)
 			text = '|cffB3B3B3['..timestamp..'] |r'..text
 		end
 			
+<<<<<<< HEAD
 		text = text:gsub('|Hplayer:Elv:', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Elv:')
 		text = text:gsub('|Hplayer:Elv%-', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Elv%-')
+=======
+		text = text:gsub('|Hplayer:Burus:', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Burus:')
+		text = text:gsub('|Hplayer:Burus%-', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Burus%-')
+>>>>>>> origin/master
 	end
 
 	self.OldAddMessage(self, text, ...)

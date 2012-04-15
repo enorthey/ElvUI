@@ -1,5 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<Script file='nameplates.lua'/>
+<<<<<<< HEAD
 	<Script file='nameplate_widgets.lua'/>
+=======
+>>>>>>> origin/master
 	<Script file='options.lua'/>
 </Ui>
