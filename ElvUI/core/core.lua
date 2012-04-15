@@ -48,11 +48,7 @@ function E:UpdateMedia()
 	--Fonts
 	self["media"].normFont = LSM:Fetch("font", self.db['general'].font)
 	self["media"].combatFont = LSM:Fetch("font", self.db['general'].dmgfont)
-<<<<<<< HEAD
-	
-=======
 	self["media"].dtFont = LSM:Fetch("font", self.db["general"].dtfont)			
->>>>>>> origin/master
 
 	--Textures
 	self["media"].blankTex = LSM:Fetch("background", "ElvUI Blank")
@@ -466,11 +462,7 @@ function E:SendRecieve(event, prefix, message, channel, sender)
 
 		if prefix == "ElvUIVC" and sender ~= 'Elv' and not string.find(sender, 'Elv%-') then
 			if tonumber(message) > tonumber(E.version) then
-<<<<<<< HEAD
 				E:Print(L["Your version of ElvUI is out of date. You can download the latest version from www.tukui.org"])
-=======
-				E:Print(L["Your version of ElvUI is out of date. You can download the latest version from www.curse.com"])
->>>>>>> origin/master
 				self:UnregisterEvent("CHAT_MSG_ADDON")
 				self:UnregisterEvent("PARTY_MEMBERS_CHANGED")
 				self:UnregisterEvent("RAID_ROSTER_UPDATE")
@@ -639,11 +631,7 @@ function E:Initialize()
 	self:UIScale('PLAYER_LOGIN');
 
 	if self.db.general.loginmessage then
-<<<<<<< HEAD
-		print(format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version))
-=======
 		print(format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version, self["media"].hexvaluecolor))
->>>>>>> origin/master
 	end
 	
 	self:LoadConfig(); --Load In-Game Config
@@ -669,19 +657,6 @@ function E:Initialize()
 			StaticPopup_Show('APRIL_FOOLS')
 		end)
 	end
-<<<<<<< HEAD
-=======
-
-	StaticPopupDialogs['ELVUI_CURSE'] = {
-		text = "Starting April 15'th ElvUI will no longer be available for download on curse.com or curse client. All future builds of ElvUI will be released on tukui.org. To stop seeing this message you can update ElvUI on www.tukui.org starting Monday.",
-		button1 = ACCEPT,
-		timeout = 0,
-		whileDead = 1,	
-		hideOnEscape = false,
-		preferredIndex = 3,
-	}	
-	StaticPopup_Show('ELVUI_CURSE')
->>>>>>> origin/master
 	
 	RegisterAddonMessagePrefix('ElvUIVC')
 	RegisterAddonMessagePrefix('ElvSays')

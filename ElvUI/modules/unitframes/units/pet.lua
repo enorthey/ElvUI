@@ -292,11 +292,7 @@ function UF:Update_PetFrame(frame, db)
 	
 	if not frame.mover then
 		frame:ClearAllPoints()
-<<<<<<< HEAD
-		frame:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 118)
-=======
 		frame:Point('BOTTOMLEFT', E.UIParent, 'BOTTOM', -441, 145) --Set to default position
->>>>>>> origin/master
 	end
 	
 	frame:UpdateAllElements()

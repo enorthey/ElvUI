@@ -74,10 +74,6 @@ function S:RemovePrevious(current)
 	end
 end
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 function S:EmbedSkada()
 	local barSpacing = E:Scale(1)
 	local borderWidth = E:Scale(2)
@@ -118,17 +114,10 @@ function S:SetEmbedRight(addon)
 
 		if E.db.general.panelBackdrop == 'SHOWBOTH' or E.db.general.panelBackdrop == 'SHOWRIGHT' then
 			Recount_MainWindow:SetWidth(E.db.general.panelWidth - 10)
-<<<<<<< HEAD
-			Recount_MainWindow:SetHeight(E.db.general.panelHeight - 26)
-		else
-			Recount_MainWindow:SetWidth(E.db.general.panelWidth)
-			Recount_MainWindow:SetHeight(E.db.general.panelHeight - 20)		
-=======
 			Recount_MainWindow:SetHeight(E.db.general.panelHeight - 30)
 		else
 			Recount_MainWindow:SetWidth(E.db.general.panelWidth)
 			Recount_MainWindow:SetHeight(E.db.general.panelHeight - 30)		
->>>>>>> origin/master
 		end		
 		Recount_MainWindow:SetParent(RightChatPanel)	
 		self.lastAddon = addon

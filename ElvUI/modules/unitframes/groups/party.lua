@@ -127,11 +127,7 @@ function UF:Update_PartyHeader(header, db)
 
 	if not header.mover then
 		header:ClearAllPoints()
-<<<<<<< HEAD
-		header:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 4, 195)
-=======
 		header:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 4, 218)
->>>>>>> origin/master
 		
 		header:RegisterEvent("PLAYER_ENTERING_WORLD")
 		header:RegisterEvent("ZONE_CHANGED_NEW_AREA")

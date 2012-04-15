@@ -395,25 +395,11 @@ function UF:UpdateAllHeaders(event)
 	if event == 'PLAYER_REGEN_ENABLED' then
 		self:UnregisterEvent('PLAYER_REGEN_ENABLED')
 	end
-<<<<<<< HEAD
-	
-	local _, instanceType = IsInInstance();
-	local ORD = ns.oUF_RaidDebuffs or oUF_RaidDebuffs
-	if ORD then
-		ORD:ResetDebuffData()
-		
-		if instanceType == "party" or instanceType == "raid" then
-			ORD:RegisterDebuffs(E.global.unitframe.aurafilters.RaidDebuffs.spells)
-		else
-			ORD:RegisterDebuffs(E.global.unitframe.aurafilters.CCDebuffs.spells)
-		end
-=======
 
 	local ORD = ns.oUF_RaidDebuffs or oUF_RaidDebuffs
 	if ORD then
 		ORD:ResetDebuffData()
 		ORD:RegisterDebuffs(E.global.unitframe.aurafilters.RaidDebuffs.spells)		
->>>>>>> origin/master
 	end	
 	
 	for _, header in pairs(UF['handledheaders']) do
@@ -423,13 +409,10 @@ function UF:UpdateAllHeaders(event)
 	if E.global.unitframe.disableBlizzard then
 		ElvUF:DisableBlizzard('party')	
 	end
-<<<<<<< HEAD
-=======
 	
 	if event == 'PLAYER_ENTERING_WORLD' then
 		self:UnregisterEvent('PLAYER_ENTERING_WORLD')
 	end	
->>>>>>> origin/master
 end
 
 function HideRaid()

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<Ui xmlns="http://www.blizzard.com/wow/ui/">		<Script file='layout.lua'/></Ui>
-=======
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<Script file='layout.lua'/>
 </Ui>
->>>>>>> origin/master

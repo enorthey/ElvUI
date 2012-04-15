@@ -80,21 +80,13 @@ function RU:Initialize()
 	RaidUtilityPanel:SetTemplate('Transparent')
 	RaidUtilityPanel:Width(230)
 	RaidUtilityPanel:Height(PANEL_HEIGHT)
-<<<<<<< HEAD
-	RaidUtilityPanel:Point('TOP', E.UIParent, 'TOP', -400, 1)
-=======
 	RaidUtilityPanel:Point('TOP', E.UIParent, 'TOP', -600, -8)
->>>>>>> origin/master
 	RaidUtilityPanel:SetFrameLevel(3)
 	RaidUtilityPanel.toggled = false
 	RaidUtilityPanel:SetFrameStrata("HIGH")
 
 	--Show Button
-<<<<<<< HEAD
-	self:CreateUtilButton("ShowButton", E.UIParent, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", 136, 18, "TOP", E.UIParent, "TOP", -400, 2, RAID_CONTROL, nil)
-=======
 	self:CreateUtilButton("ShowButton", E.UIParent, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", 135, 20, "TOP", E.UIParent, "TOP", -600, -9, RAID_CONTROL, nil)
->>>>>>> origin/master
 	ShowButton:SetFrameRef("RaidUtilityPanel", RaidUtilityPanel)
 	ShowButton:SetAttribute("_onclick", [=[
 		local raidUtil = self:GetFrameRef("RaidUtilityPanel")

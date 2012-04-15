@@ -3,22 +3,16 @@ local LO = E:NewModule('Layout', 'AceEvent-3.0');
 
 local PANEL_HEIGHT = 22;
 local SIDE_BUTTON_WIDTH = 16;
-<<<<<<< HEAD
-=======
 local UPPER_PANEL_HEIGHT = 22;
 local LOWER_PANEL_HEIGHT = 22;
->>>>>>> origin/master
 
 E.Layout = LO;
 
 function LO:Initialize()
 	self:CreateChatPanels()
 	self:CreateMinimapPanels()
-<<<<<<< HEAD
-=======
 	self:CreateUpperLowerPanels()
 	if E.global.general.dtlowerpanel then self.CreateLowerDPPanel() end		
->>>>>>> origin/master
 end
 
 
@@ -150,13 +144,9 @@ end
 function LO:CreateChatPanels()
 	--Left Chat
 	local lchat = CreateFrame('Frame', 'LeftChatPanel', E.UIParent)
-<<<<<<< HEAD
-	lchat:SetFrameStrata('BACKGROUND')
-=======
 	if not E.db.general.UpperLowerPanels then 
 		lchat:SetFrameStrata('BACKGROUND') 
 	end	
->>>>>>> origin/master
 	lchat:Size(E.db.general.panelWidth, E.db.general.panelHeight)		
 	lchat:Point('BOTTOMLEFT', E.UIParent, 4, 4)
 	lchat:CreateBackdrop('Transparent')
@@ -194,25 +184,16 @@ function LO:CreateChatPanels()
 	lchattb:SetScript('OnLeave', ChatButton_OnLeave)
 	lchattb:SetScript('OnClick', ChatButton_OnClick)
 	lchattb.text = lchattb:CreateFontString(nil, 'OVERLAY')
-<<<<<<< HEAD
-	lchattb.text:FontTemplate()
-	lchattb.text:SetPoint('CENTER')
-=======
 	lchattb.text:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline)
 	lchattb.text:SetPoint('CENTER', 2, 0)
->>>>>>> origin/master
 	lchattb.text:SetJustifyH('CENTER')
 	lchattb.text:SetText('<')
 	
 	--Right Chat
 	local rchat = CreateFrame('Frame', 'RightChatPanel', E.UIParent)
-<<<<<<< HEAD
-	rchat:SetFrameStrata('BACKGROUND')
-=======
 	if not E.db.general.UpperLowerPanels then
 		rchat:SetFrameStrata('BACKGROUND')
 	end	
->>>>>>> origin/master
 	rchat:Size(E.db.general.panelWidth, E.db.general.panelHeight)
 	rchat:Point('BOTTOMRIGHT', E.UIParent, -4, 4)
 	rchat:CreateBackdrop('Transparent')
@@ -250,13 +231,8 @@ function LO:CreateChatPanels()
 	rchattb:SetScript('OnLeave', ChatButton_OnLeave)
 	rchattb:SetScript('OnClick', ChatButton_OnClick)
 	rchattb.text = rchattb:CreateFontString(nil, 'OVERLAY')
-<<<<<<< HEAD
-	rchattb.text:FontTemplate()
-	rchattb.text:SetPoint('CENTER')
-=======
 	rchattb.text:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline)
 	rchattb.text:SetPoint('CENTER', 2, 0)
->>>>>>> origin/master
 	rchattb.text:SetJustifyH('CENTER')
 	rchattb.text:SetText('>')
 	
@@ -279,21 +255,13 @@ function LO:CreateMinimapPanels()
 	lminipanel:Point('TOPLEFT', Minimap, 'BOTTOMLEFT', -2, -3)
 	lminipanel:Point('BOTTOMRIGHT', Minimap, 'BOTTOM', -1, -(3 + PANEL_HEIGHT))
 	lminipanel:SetTemplate('Default', true)
-<<<<<<< HEAD
-	E:GetModule('DataTexts'):RegisterPanel(lminipanel, 1, 'ANCHOR_BOTTOMLEFT', lminipanel:GetWidth() * 2, -4)
-=======
 	E:GetModule('DataTexts'):RegisterPanel(lminipanel, 1, 'ANCHOR_BOTTOMLEFT', lminipanel:GetWidth() * 2, -2)
->>>>>>> origin/master
 	
 	local rminipanel = CreateFrame('Frame', 'RightMiniPanel', Minimap)
 	rminipanel:Point('TOPRIGHT', Minimap, 'BOTTOMRIGHT', 2, -3)
 	rminipanel:Point('BOTTOMLEFT', Minimap, 'BOTTOM', 0, -(3 + PANEL_HEIGHT))
 	rminipanel:SetTemplate('Default', true)
-<<<<<<< HEAD
-	E:GetModule('DataTexts'):RegisterPanel(rminipanel, 1, 'ANCHOR_BOTTOM', 0, -4)
-=======
 	E:GetModule('DataTexts'):RegisterPanel(rminipanel, 1, 'ANCHOR_BOTTOM', 0, -2)
->>>>>>> origin/master
 	
 	local configtoggle = CreateFrame('Button', 'ElvConfigToggle', Minimap)
 	configtoggle:Point('TOPLEFT', rminipanel, 'TOPRIGHT', 1, 0)
@@ -301,21 +269,13 @@ function LO:CreateMinimapPanels()
 	configtoggle:Width(E.RBRWidth)
 	configtoggle:SetTemplate('Default', true)
 	configtoggle.text = configtoggle:CreateFontString(nil, 'OVERLAY')
-<<<<<<< HEAD
-	configtoggle.text:FontTemplate()
-	configtoggle.text:SetText('C')
-	configtoggle.text:SetPoint('CENTER')
-=======
 	configtoggle.text:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline)
 	configtoggle.text:SetText('C')
 	configtoggle.text:SetPoint('CENTER', 2, 1)
->>>>>>> origin/master
 	configtoggle.text:SetJustifyH('CENTER')
 	configtoggle:SetScript('OnClick', function() E:ToggleConfig() end)
 end
 
-<<<<<<< HEAD
-=======
 function LO:ToggleUpperLowerPanels()
 	if E.db.general.UpperLowerPanels == 'SHOWBOTH' then
 		LowerPanel:Show()
@@ -427,5 +387,4 @@ function LO:CreateFilgerPanels()
 	E:CreateMover(CDBars, 'CDBarsMover', 'Move CD Bars')
 end
 
->>>>>>> origin/master
 E:RegisterModule(LO:GetName())

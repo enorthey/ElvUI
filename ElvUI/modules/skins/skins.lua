@@ -53,7 +53,6 @@ function S:HandleScrollBar(frame, thumbTrim)
 	
 	if _G[frame:GetName().."Top"] then
 		_G[frame:GetName().."Top"]:SetTexture(nil)
-<<<<<<< HEAD
 	end
 	
 	if _G[frame:GetName().."Bottom"] then
@@ -61,9 +60,6 @@ function S:HandleScrollBar(frame, thumbTrim)
 	end
 	
 	if _G[frame:GetName().."Middle"] then
-=======
-		_G[frame:GetName().."Bottom"]:SetTexture(nil)
->>>>>>> origin/master
 		_G[frame:GetName().."Middle"]:SetTexture(nil)
 	end
 

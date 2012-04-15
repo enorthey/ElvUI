@@ -4,15 +4,9 @@ local S = E:GetModule('Skins')
 local function LoadSkin()
 	if E.global.skins.blizzard.enable ~= true or E.global.skins.blizzard.macro ~= true then return end
 	S:HandleCloseButton(MacroFrameCloseButton)
-<<<<<<< HEAD
 	S:HandleScrollBar(MacroButtonScrollFrameScrollBar)
 	S:HandleScrollBar(MacroFrameScrollFrameScrollBar)
 	S:HandleScrollBar(MacroPopupScrollFrameScrollBar)
-=======
-	S:HandleScrollBar(MacroButtonScrollFrameScrollBar, 5)
-	S:HandleScrollBar(MacroFrameScrollFrameScrollBar, 5)
-	S:HandleScrollBar(MacroPopupScrollFrameScrollBar, 5)
->>>>>>> origin/master
 	
 	MacroFrame:Width(360)
 	
@@ -54,15 +48,10 @@ local function LoadSkin()
 	MacroPopupScrollFrame:CreateBackdrop()
 	MacroPopupScrollFrame.backdrop:Point("TOPLEFT", 51, 2)
 	MacroPopupScrollFrame.backdrop:Point("BOTTOMRIGHT", -4, 4)
-<<<<<<< HEAD
 	S:HandleEditBox(MacroPopupEditBox)
 	MacroPopupNameLeft:SetTexture(nil)
 	MacroPopupNameMiddle:SetTexture(nil)
 	MacroPopupNameRight:SetTexture(nil)
-=======
-	MacroPopupEditBox:CreateBackdrop()
-	MacroPopupEditBox:StripTextures()
->>>>>>> origin/master
 	
 	--Reposition edit button
 	MacroEditButton:ClearAllPoints()

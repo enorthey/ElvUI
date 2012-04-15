@@ -7,12 +7,6 @@ local function LoadSkin()
 	if E.global.skins.blizzard.enable ~= true or E.global.skins.blizzard.debug ~= true then return end
 	local noscalemult = E.mult * GetCVar('uiScale')
 	
-<<<<<<< HEAD
-=======
-
-	ScriptErrorsFrame:Size(500, 300)
-	ScriptErrorsFrameScrollFrame:Size(ScriptErrorsFrame:GetWidth() - 45, ScriptErrorsFrame:GetHeight() - 71)
->>>>>>> origin/master
 	ScriptErrorsFrame:SetParent(E.UIParent)
 	ScriptErrorsFrame:SetTemplate('Transparent')
 	S:HandleScrollBar(ScriptErrorsFrameScrollFrameScrollBar)

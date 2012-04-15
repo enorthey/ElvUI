@@ -34,11 +34,7 @@ L["An X offset (in pixels) to be used when anchoring new frames."] = "An X offse
 L["Any"] = "Any"
 L["An Y offset (in pixels) to be used when anchoring new frames."] = "An Y offset (in pixels) to be used when anchoring new frames."
 L["Any Unit"] = "Any Unit"
-<<<<<<< HEAD
-L["AP"] = "AP"
-=======
 L["AP"] = "Attack Power"
->>>>>>> origin/master
 L["Archaeology Frame"] = "Archaeology Frame"
 L["Arena Frames"] = "Arena Frames"
 L["Are you sure you want to delete all your gray items?"] = "Are you sure you want to delete all your gray items?"
@@ -58,11 +54,7 @@ L["Automatically scale the User Interface based on your screen resolution"] = "A
 L["Automatically vendor gray items when visiting a vendor."] = "Automatically vendor gray items when visiting a vendor."
 L["Auto Repair"] = "Auto Repair"
 L["Auto Scale"] = "Auto Scale"
-<<<<<<< HEAD
-L["AVD: "] = "AVD: "
-=======
 L["AVD: "] = "Avoidance: "
->>>>>>> origin/master
 L["Avoidance Breakdown"] = "Avoidance Breakdown"
 L["Backdrop"] = "Backdrop"
 L["Backdrop Color"] = "Backdrop Color"
@@ -321,11 +313,7 @@ L["Horizontal"] = "Horizontal"
 L["Hours"] = "Hours"
 L["Hover your mouse over any actionbutton or spellbook button to bind it. Press the escape key or right click to clear the current actionbutton's keybinding."] = "Hover your mouse over any actionbutton or spellbook button to bind it. Press the escape key or right click to clear the current actionbutton's keybinding."
 L["How far away the portrait is from the camera."] = "How far away the portrait is from the camera."
-<<<<<<< HEAD
-L["HP"] = "HP"
-=======
 L["HP"] = "Heal Power"
->>>>>>> origin/master
 L["HPS"] = "HPS"
 L["Hyperlink Hover"] = "Hyperlink Hover"
 L["Icon"] = "Icon"
@@ -383,11 +371,7 @@ L["Local Time"] = "Local Time"
 L["Lock"] = "Lock"
 L["LOCK_AB_ERROR"] = "It has come to our attention that you do not have your actionbars locked. This may cause abilities to be used while dragging buttons to differant slots. Please run the Set CVar portion of the Installation process (Step 2). This can be done by typing /ec and clicking the Install button."
 L["Login Message"] = "Login Message"
-<<<<<<< HEAD
-L["LOGIN_MSG"] = "Welcome to %sElvUI|r version %s%s|r, type /ec to access the in-game configuration menu. If you are in need of technical support you can visit us at www.tukui.org. You can report bugs, add suggestions here: http://www.tukui.org/tickets/elvui/."
-=======
 L["LOGIN_MSG"] = "Welcome to %sElvUI:|r Potente Style %sVersion:|r %s \nType %s/ec|r to access the in-game configuration menu"
->>>>>>> origin/master
 L["Loot"] = "Loot"
 L["Loot Roll"] = "Loot Roll"
 L["low"] = "low"
@@ -602,11 +586,7 @@ L["Sort Orientation"] = "Sort Orientation"
 L["Sort Special"] = "Sort Special"
 L["Sound"] = "Sound"
 L["Sound that will play when you have a warning icon displayed."] = "Sound that will play when you have a warning icon displayed."
-<<<<<<< HEAD
-L["SP"] = "SP"
-=======
 L["SP"] = "Spell Power"
->>>>>>> origin/master
 L["Spaced"] = "Spaced"
 L["Spacing"] = "Spacing"
 L["Spam Interval"] = "Spam Interval"
@@ -817,12 +797,10 @@ L["You need to be at least level %d to whisper me."] = "You need to be at least 
 L["Your current resolution is %s, this is considered a %s resolution."] = "Your current resolution is %s, this is considered a %s resolution."
 L["Your items have been repaired for: "] = "Your items have been repaired for: "
 L["Your items have been repaired using guild bank funds for: "] = "Your items have been repaired using guild bank funds for: "
-<<<<<<< HEAD
-L["Your version of ElvUI is out of date. You can download the latest version from www.tukui.org"] = "Your version of ElvUI is out of date. You can download the latest version from www.tukui.org"
+L["Your version of ElvUI is out of date. You can download the latest version from www.curse.com"] = "Your version of ElvUI is out of date. You can download the latest version from www.curse.com"
 L['Lua error recieved. You will see it displayed when you exit combat.'] = true;
 L["%s: %s tried to call the protected function '%s'."] = true;
-=======
-L["Your version of ElvUI is out of date. You can download the latest version from www.curse.com"] = "Your version of ElvUI is out of date. You can download the latest version from www.curse.com"
+
 
 L['Upper/Lower Panel'] = true;
 L['Enable The Upper/Lower Panel Accross the UI.'] = true;
@@ -847,4 +825,3 @@ L['Bottom Only'] = true;
 L['Lower Datatexts'] = true;
 L['Enable The data texts below actiobars'] = true;
 L["Panels"] = true;
->>>>>>> origin/master

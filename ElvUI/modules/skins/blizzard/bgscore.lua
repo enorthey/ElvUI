@@ -3,22 +3,16 @@ local S = E:GetModule('Skins')
 
 local function LoadSkin()
 	if E.global.skins.blizzard.enable ~= true or E.global.skins.blizzard.bgscore ~= true then return end
-<<<<<<< HEAD
 	for i=19, MAX_WORLDSTATE_SCORE_BUTTONS do
 		_G['WorldStateScoreButton'..i]:StripTextures()
 	end
 	MAX_WORLDSTATE_SCORE_BUTTONS = 18; WorldStateScoreFrame_Resize()
 	
-=======
->>>>>>> origin/master
 	WorldStateScoreScrollFrame:StripTextures()
 	WorldStateScoreFrame:StripTextures()
 	WorldStateScoreFrame:SetTemplate("Transparent")
 	S:HandleCloseButton(WorldStateScoreFrameCloseButton)
-<<<<<<< HEAD
 	S:HandleScrollBar(WorldStateScoreScrollFrameScrollBar)
-=======
->>>>>>> origin/master
 	WorldStateScoreFrameInset:Kill()
 	S:HandleButton(WorldStateScoreFrameLeaveButton)
 	

@@ -387,11 +387,7 @@ local function LoadSkin()
 	GuildInviteFrameLevel:Kill()
 	S:HandleButton(GuildInviteFrameJoinButton)
 	S:HandleButton(GuildInviteFrameDeclineButton)
-<<<<<<< HEAD
 	GuildInviteFrame:Height(225)
-=======
-	GuildInviteFrame:Height(125)
->>>>>>> origin/master
 	GuildInviteFrame.SetHeight = E.noop
 end
 
