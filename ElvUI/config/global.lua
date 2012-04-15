@@ -16,9 +16,12 @@ G['general'] = {
 
 G['bags'] = {
 	['enable'] = true,
+<<<<<<< HEAD:ElvUI/config/global.lua
 	['bagBar'] = {
 		['enable'] = true,
 	},	
+=======
+>>>>>>> origin/master:ElvUI/config/global.lua
  }
 
 G['classtimer'] = {
