@@ -95,8 +95,14 @@ E.Options.args.general = {
 					desc = L['Automatically accept invites from guild/friends.'],
 					type = 'toggle',
 				},
-				loot = {
+				vendorGrays = {
 					order = 5,
+					name = L['Vendor Grays'],
+					desc = L['Automatically vendor gray items when visiting a vendor.'],
+					type = 'toggle',				
+				},				
+				loot = {
+					order = 6,
 					type = "toggle",
 					name = L['Loot'],
 					desc = L['Enable/Disable the loot frame.'],
@@ -104,7 +110,7 @@ E.Options.args.general = {
 					set = function(info, value) E.global.general.loot = value; StaticPopup_Show("GLOBAL_RL") end
 				},
 				lootRoll = {
-					order = 6,
+					order = 7,
 					type = "toggle",
 					name = L['Loot Roll'],
 					desc = L['Enable/Disable the loot roll frame.'],
@@ -112,14 +118,14 @@ E.Options.args.general = {
 					set = function(info, value) E.global.general.lootRoll = value; StaticPopup_Show("GLOBAL_RL") end
 				},
 				autoscale = {
-					order = 7,
+					order = 8,
 					name = L["Auto Scale"],
 					desc = L["Automatically scale the User Interface based on your screen resolution"],
 					type = "toggle",	
 					set = function(info, value) E.db.general[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end
 				},	
 				raidReminder = {
-					order = 8,
+					order = 9,
 					name = L['Raid Reminder'],
 					desc = L['Display raid reminder bar on the minimap.'],
 					type = 'toggle',
@@ -129,7 +135,7 @@ E.Options.args.general = {
 					end,					
 				},
 				mapTransparency = {
-					order = 9,
+					order = 10,
 					name = L['Map Transparency'],
 					desc = L['Controls what the transparency of the worldmap will be set to when you are moving.'],
 					type = 'range',
@@ -137,7 +143,7 @@ E.Options.args.general = {
 					min = 0, max = 1, step = 0.01,
 				},
 				minimapSize = {
-					order = 10,
+					order = 11,
 					name = L['Minimap Size'],
 					desc = L['Adjust the size of the minimap.'],
 					type = 'range',
@@ -148,34 +154,26 @@ E.Options.args.general = {
 					end,
 				},
 				--[[profileBinds = {
-					order = 101,
+					order = 12,
 					name = L['Profile Binds'],
 					desc = L['Save your keybinds with your ElvUI profile. That way if you have the dual spec feature enabled in ElvUI you can swap keybinds with your specs.'],
 					type = 'toggle',
 					get = function(info) return E.global.general.profileBinds end,		
 					set = function(info, value) E.global.general.profileBinds = value; StaticPopup_Show("GLOBAL_RL") end
-				},	]]
+				},]]
 				bubbles = {
-					order = 102,
+					order = 12,
 					type = "toggle",
 					name = L['Chat Bubbles'],
 					desc = L['Skin the blizzard chat bubbles.'],
 					get = function(info) return E.global.general.bubbles end,
 					set = function(info, value) E.global.general.bubbles = value; StaticPopup_Show("GLOBAL_RL") end
-				},		
+				},	
 				spacer = {
-					order = 103,
+					order = 99,
 					type = "description",
 					name = "",
-				},					
-			},
-		},
-		panels = {
-			order = 3,
-			type = "group",
-			name = L["Panels"],
-			guiInline = true,
-			args = {		
+				},						
 				panelWidth = {
 					order = 100,
 					type = 'range',
@@ -205,29 +203,8 @@ E.Options.args.general = {
 						['RIGHT'] = L['Right Only'],
 					},
 				},
-				UpperLowerPanels = {
-					order = 103,
-					type = 'select',
-					name = L['Upper/Lower Panel'],
-					desc = L['Enable The Upper/Lower Panel Accross the UI.'],
-					set = function(info, value) E.db.general.UpperLowerPanels = value; E:GetModule('Layout'):ToggleUpperLowerPanels() end,
-					values = {
-						['HIDEBOTH'] = L['Hide Both'],
-						['SHOWBOTH'] = L['Show Both'],					
-						['BOTTOM'] = L['Bottom Only'],
-						['TOP'] = L['Top Only'],
-					},						
-				},
-				dtlowerpanel = {
-					order = 104,
-					type = 'toggle',
-					name = L['Lower Datatexts'],
-					desc = L['Enable The data texts below actiobars'],
-					get = function(info) return E.global.general.dtlowerpanel end,
-					set = function(info, value) E.global.general.dtlowerpanel = value; StaticPopup_Show("GLOBAL_RL") end
-				},					
 				panelBackdropNameLeft = {
-					order = 105,
+					order = 103,
 					type = 'input',
 					width = 'full',
 					name = L['Panel Texture (Left)'],
@@ -238,7 +215,7 @@ E.Options.args.general = {
 					end,
 				},
 				panelBackdropNameRight = {
-					order = 106,
+					order = 104,
 					type = 'input',
 					width = 'full',
 					name = L['Panel Texture (Right)'],
@@ -249,9 +226,9 @@ E.Options.args.general = {
 					end,
 				},				
 			},
-		},		
+		},
 		media = {
-			order = 4,
+			order = 3,
 			type = "group",
 			name = L["Media"],
 			guiInline = true,
@@ -286,37 +263,7 @@ E.Options.args.general = {
 							values = AceGUIWidgetLSMlists.font,
 							get = function(info) return E.global.general[ info[#info] ] end,							
 							set = function(info, value) E.global.general[ info[#info] ] = value; E:UpdateMedia(); E:UpdateFontTemplates(); StaticPopup_Show("GLOBAL_RL"); end,
-						},	
-						dtfont = {
-							type = "select", dialogControl = 'LSM30_Font',
-							order = 4,
-							name = L["DataText Font"],
-							desc = L["The font that datatext will use."],
-							values = AceGUIWidgetLSMlists.font,		
-							set = function(info, value) E.db.general[ info[#info] ] = value; E:UpdateMedia(); E:UpdateFontTemplates(); StaticPopup_Show("GLOBAL_RL"); end,
-						},	
-						dtfontsize = {
-							order = 5,
-							name = L["Datatext Font Size"],
-							desc = L["Sets The Font size of Datatexts"],
-							type = "range",
-							min = 6, max = 22, step = 1,
-							set = function(info, value) E.db.general[ info[#info] ] = value; E:UpdateMedia(); E:UpdateFontTemplates(); StaticPopup_Show("GLOBAL_RL"); end,
-						},		
-						dtfontoutline = {
-							order = 7,
-							name = L["Font Outline"],
-							desc = L["Set the font outline."],
-							type = "select",
-							values = {
-								['NONE'] = L['None'],
-								['OUTLINE'] = 'OUTLINE',
-								['MONOCHROME'] = 'MONOCHROME',
-								['THICKOUTLINE'] = 'THICKOUTLINE',
-								['OUTLINE, MONOCHROME'] = 'OUTLINE, MONOCHROME',
-							},
-							set = function(info, value) E.db.general[ info[#info] ] = value; E:UpdateMedia(); E:UpdateFontTemplates(); StaticPopup_Show("GLOBAL_RL"); end,
-						},								
+						},							
 					},
 				},	
 				textures = {

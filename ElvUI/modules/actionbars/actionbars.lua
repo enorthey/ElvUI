@@ -13,6 +13,14 @@ AB["handledBars"] = {} --List of all bars
 AB["handledbuttons"] = {} --List of all buttons that have been modified.
 AB["movers"] = {} --List of all created movers.
 E['snapBars'] = { E.UIParent }
+AB.customExitButton = {
+	func = function(button)
+		VehicleExit()
+	end,
+	texture = "Interface\\Icons\\Spell_Shadow_SacrificialShield",
+	tooltip = LEAVE_VEHICLE,
+}
+
 
 function AB:Initialize()
 	self.db = E.db.actionbar
@@ -27,6 +35,10 @@ function AB:Initialize()
 	self:RegisterEvent("UPDATE_BINDINGS", "ReassignBindings")
 	self:RegisterEvent('CVAR_UPDATE')
 	self:ReassignBindings()
+	
+	if not GetCVarBool('lockActionBars') then
+		E:Print(L['LOCK_AB_ERROR'])
+	end	
 end
 
 function AB:CreateActionBars()
@@ -158,15 +170,15 @@ function AB:StyleButton(button, noBackdrop)
 	if normal then normal:SetTexture(nil); normal:Hide(); normal:SetAlpha(0); end	
 	if normal2 then normal2:SetTexture(nil); normal2:Hide(); normal2:SetAlpha(0); end	
 	if border then border:Kill(); end
-	
+			
 	if not button.noBackdrop then
 		button.noBackdrop = noBackdrop;
 	end
 	
 	if count then
 		count:ClearAllPoints();
-		count:SetPoint("BOTTOMRIGHT", 1, 3);
-		count:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline);
+		count:SetPoint("BOTTOMRIGHT", 0, 2);
+		count:FontTemplate(nil, 11, "OUTLINE");
 	end
 
 	if not button.noBackdrop and not button.backdrop then
@@ -186,7 +198,7 @@ function AB:StyleButton(button, noBackdrop)
 	end
 	
 	if self.db.hotkeytext then
-		hotkey:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline);
+		hotkey:FontTemplate(nil, E.db.actionbar.fontsize, "OUTLINE");
 	end
 	
 	--Extra Action Button

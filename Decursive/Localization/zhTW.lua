@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
     
-    Decursive (v 2.7.0.5) add-on for World of Warcraft UI
+    Decursive (v 2.7.0.5-2-gee01483) add-on for World of Warcraft UI
     Copyright (C) 2006-2007-2008-2009-2010-2011 John Wellesz (archarodim AT
     teaser.fr) ( http://www.2072productions.com/to/decursive.php )
 
@@ -21,7 +21,7 @@
     Decursive is distributed in the hope that it will be useful, but WITHOUT
     ANY WARRANTY.
 
-    This file was last updated on 2011-11-06T13:34:55Z
+    This file was last updated on 2012-03-24T22:26:17Z
 --]]
 -------------------------------------------------------------------------------
 
@@ -59,6 +59,7 @@ StaticPopupDialogs["DECURSIVE_ERROR_FRAME"] = {
     whileDead = 1,
     hideOnEscape = 1,
     showAlert = 1,
+    preferredIndex = 3,
     }; -- }}}
 T._FatalError = function (TheError) StaticPopup_Show ("DECURSIVE_ERROR_FRAME", TheError); end
 end
@@ -72,7 +73,7 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Decursive", "zhTW");
 
 if not L then
-    T._LoadedFiles["zhTW.lua"] = "2.7.0.5";
+    T._LoadedFiles["zhTW.lua"] = "2.7.0.5-2-gee01483";
     return;
 end;
 
@@ -139,6 +140,7 @@ L["DISABLEWARNING"] = [=[Decursive 已停用！
 如欲啟用, 輸入 |cFFFFAA44/DCR ENABLE|r]=]
 L["DISEASE"] = "疾病"
 L["DONOT_BL_PRIO"] = "不添加優先名單的玩家到排除名單"
+L["DONT_SHOOT_THE_MESSENGER"] = "Decursive is merely reporting the issue. So, don't shoot the messenger and address the actual problem." -- Needs review
 L["FAILEDCAST"] = "|cFF22FFFF%s %s|r |cFFAA0000對|r %s釋放失敗\\n|cFF00AAAA%s|r"
 L["FOCUSUNIT"] = "監控單位"
 L["FUBARMENU"] = "Fubar 選單"
@@ -434,9 +436,11 @@ L["SUCCESSCAST"] = "|cFF22FFFF%s %s|r |cFF00AA00成功淨化|r %s"
 L["TARGETUNIT"] = "選取目標"
 L["TIE_LIVELIST"] = "即時清單顯示與 DCR 視窗連結"
 L["TOOFAR"] = "太遠"
+L["TOO_MANY_ERRORS_ALERT"] = [=[There are too many Lua errors in your User Interface (%d). Your game experience is currently degraded. Disable or update the failing add-ons to turn off this message and regain a proper frame rate.
+You may want to turn on Lua error reporting ('Help' section of World of Warcraft's interface options) to identify the problematic add-ons.]=] -- Needs review
 L["UNITSTATUS"] = "玩家狀態: "
 L["UNSTABLERELEASE"] = "不穩定釋出版"
 
 
 
-T._LoadedFiles["zhTW.lua"] = "2.7.0.5";
+T._LoadedFiles["zhTW.lua"] = "2.7.0.5-2-gee01483";

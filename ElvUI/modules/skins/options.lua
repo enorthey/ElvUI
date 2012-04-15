@@ -101,7 +101,7 @@ E.Options.args.skins = {
 					name = L['Enable'],
 					type = 'toggle',
 					order = 1,				
-				},
+				},	
 				barHeight = {
 					name = L['Embedded Bar Height'],
 					desc = L['The height of the bars while skada is embedded.'],
@@ -109,7 +109,7 @@ E.Options.args.skins = {
 					type = 'range',
 					min = 10, max = 30, step = 1,
 					set = function(info, value) E.global.skins.skada.barHeight = value; S:SetEmbedRight(E.db.skins.embedRight) end,
-				},				
+				},
 			},
 		},	
 		dxe = {
@@ -396,17 +396,17 @@ E.Options.args.skins = {
 					type = "toggle",
 					name = L["Bags"],
 					desc = L["TOGGLESKIN_DESC"],									
-				},	
+				},
 				stable = {
 					type = "toggle",
 					name = L["Stable"],
 					desc = L["TOGGLESKIN_DESC"],									
-				},	
+				},
 				bgmap = {
 					type = "toggle",
 					name = L["BG Map"],
 					desc = L["TOGGLESKIN_DESC"],									
-				},					
+				},				
 			},
 		},
 	},

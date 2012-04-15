@@ -80,13 +80,13 @@ function RU:Initialize()
 	RaidUtilityPanel:SetTemplate('Transparent')
 	RaidUtilityPanel:Width(230)
 	RaidUtilityPanel:Height(PANEL_HEIGHT)
-	RaidUtilityPanel:Point('TOP', E.UIParent, 'TOP', -600, -8)
+	RaidUtilityPanel:Point('TOP', E.UIParent, 'TOP', -400, 1)
 	RaidUtilityPanel:SetFrameLevel(3)
 	RaidUtilityPanel.toggled = false
 	RaidUtilityPanel:SetFrameStrata("HIGH")
 
 	--Show Button
-	self:CreateUtilButton("ShowButton", E.UIParent, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", 135, 20, "TOP", E.UIParent, "TOP", -600, -9, RAID_CONTROL, nil)
+	self:CreateUtilButton("ShowButton", E.UIParent, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", 136, 18, "TOP", E.UIParent, "TOP", -400, 2, RAID_CONTROL, nil)
 	ShowButton:SetFrameRef("RaidUtilityPanel", RaidUtilityPanel)
 	ShowButton:SetAttribute("_onclick", [=[
 		local raidUtil = self:GetFrameRef("RaidUtilityPanel")
@@ -136,7 +136,7 @@ function RU:Initialize()
 	end)
 
 	--Close Button
-	self:CreateUtilButton("CloseButton", RaidUtilityPanel, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", 135, 18, "TOP", RaidUtilityPanel, "BOTTOM", 0, -1, CLOSE, nil)
+	self:CreateUtilButton("CloseButton", RaidUtilityPanel, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", 136, 18, "TOP", RaidUtilityPanel, "BOTTOM", 0, -1, CLOSE, nil)
 	CloseButton:SetFrameRef("ShowButton", ShowButton)
 	CloseButton:SetAttribute("_onclick", [=[self:GetParent():Hide(); self:GetFrameRef("ShowButton"):Show();]=])
 	CloseButton:SetScript("OnMouseUp", function(self) RaidUtilityPanel.toggled = false end)

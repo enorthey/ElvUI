@@ -149,7 +149,7 @@ function UF:Update_PlayerFrame(frame, db)
 			threat:Point("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT", 5, -5)
 		end				
 	end
-
+	
 	--Rest Icon
 	do
 		local rIcon = frame.Resting
@@ -330,13 +330,13 @@ function UF:Update_PlayerFrame(frame, db)
 				portrait:SetAlpha(1)
 				portrait:Show()
 				
-				if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR then
+				if USE_MINI_CLASSBAR and USE_CLASSBAR then
 					portrait.backdrop:Point("TOPLEFT", frame, "TOPLEFT", 0, -((CLASSBAR_HEIGHT/2)))
 				else
 					portrait.backdrop:SetPoint("TOPLEFT", frame, "TOPLEFT")
 				end		
 				
-				if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET then
+				if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or not USE_POWERBAR then
 					portrait.backdrop:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMLEFT", -SPACING, 0)
 				else
 					portrait.backdrop:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMLEFT", -SPACING, 0)
@@ -785,6 +785,14 @@ function UF:Update_PlayerFrame(frame, db)
 			healPrediction.otherBar:SetPoint('TOPLEFT', healPrediction.myBar:GetStatusBarTexture(), 'TOPRIGHT')	
 			healPrediction.otherBar:SetPoint('BOTTOMLEFT', healPrediction.myBar:GetStatusBarTexture(), 'BOTTOMRIGHT')	
 			healPrediction.otherBar:Width(db.width - (BORDER*2))
+			
+			if not USE_PORTRAIT_OVERLAY then
+				healPrediction.myBar:SetParent(frame)
+				healPrediction.otherBar:SetParent(frame)
+			else	
+				healPrediction.myBar:SetParent(frame.Portrait.overlay)		
+				healPrediction.otherBar:SetParent(frame.Portrait.overlay)					
+			end
 		else
 			if frame:IsElementEnabled('HealPrediction') then
 				frame:DisableElement('HealPrediction')
@@ -796,7 +804,7 @@ function UF:Update_PlayerFrame(frame, db)
 	
 	if not frame.mover then
 		frame:ClearAllPoints()
-		frame:Point('BOTTOMLEFT', E.UIParent, 'BOTTOM', -441, 220) --Set to default position
+		frame:Point('BOTTOMLEFT', E.UIParent, 'BOTTOM', -417, 75) --Set to default position
 	end
 
 	frame:UpdateAllElements()

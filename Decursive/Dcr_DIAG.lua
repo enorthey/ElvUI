@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
     
-    Decursive (v 2.7.0.5) add-on for World of Warcraft UI
+    Decursive (v 2.7.0.5-2-gee01483) add-on for World of Warcraft UI
     Copyright (C) 2006-2007-2008-2009-2010-2011 John Wellesz (archarodim AT teaser.fr) ( http://www.2072productions.com/to/decursive.php )
 
     Starting from 2009-10-31 and until said otherwise by its author, Decursive
@@ -17,7 +17,7 @@
     Decursive is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY.
 
-    This file was last updated on 2012-02-05T17:48:12Z
+    This file was last updated on 2012-03-24T22:26:17Z
 --]]
 -------------------------------------------------------------------------------
 
@@ -87,6 +87,7 @@ StaticPopupDialogs["DECURSIVE_ERROR_FRAME"] = {
     whileDead = 1,
     hideOnEscape = false,
     showAlert = 1,
+    preferredIndex = 3,
     }; -- }}}
 T._FatalError = function (TheError) StaticPopup_Show ("DECURSIVE_ERROR_FRAME", TheError); end
 
@@ -353,6 +354,7 @@ StaticPopupDialogs["Decursive_Notice_Frame"] = {
     whileDead = 1,
     hideOnEscape = false,
     showAlert = 1,
+    preferredIndex = 3,
 }; -- }}}
 
 
@@ -429,9 +431,9 @@ do
 
             ["AceGUI-3.0"] = 33,
             ["AceConfig-3.0"] = 2,
-            ["AceConfigRegistry-3.0"] = 13,
-            ["AceConfigCmd-3.0"] = 12,
-            ["AceConfigDialog-3.0"] = 54,
+            ["AceConfigRegistry-3.0"] = 14,
+            ["AceConfigCmd-3.0"] = 13,
+            ["AceConfigDialog-3.0"] = 56,
 
             ["LibDataBroker-1.1"] = 4,
             ["LibDBIcon-1.0"] = 24, --not updated for WoW 4.3
@@ -583,4 +585,4 @@ do
 end
 
 
-T._LoadedFiles["Dcr_DIAG.lua"] = "2.7.0.5";
+T._LoadedFiles["Dcr_DIAG.lua"] = "2.7.0.5-2-gee01483";

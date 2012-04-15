@@ -6,26 +6,27 @@ G['general'] = {
 	['profileBinds'] = false,
 	['loot'] = true,
 	['lootRoll'] = true,
-	["normTex"] = "Ruben",
-	["glossTex"] = "Ruben",	
+	["normTex"] = "Minimalist",
+	["glossTex"] = "Minimalist",	
 	["dmgfont"] = "ElvUI Combat",
 	['bubbles'] = true,
 	['bags'] = true,
-	['dtlowerpanel'] = true,		
 }
 
 G['bags'] = {
 	['enable'] = true,
-<<<<<<< HEAD:ElvUI/config/global.lua
 	['bagBar'] = {
 		['enable'] = true,
-	},	
-=======
->>>>>>> origin/master:ElvUI/config/global.lua
- }
+	},
+}
 
 G['classtimer'] = {
-	['enable'] = false,
+	['enable'] = true,
+}
+
+G['reminder'] = {
+	['enable'] = true,
+	['sound'] = "ElvUI Warning",
 }
 
 G["nameplate"] = {

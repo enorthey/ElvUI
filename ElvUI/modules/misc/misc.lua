@@ -35,6 +35,10 @@ function M:COMBAT_LOG_EVENT_UNFILTERED(_, _, event, _, sourceGUID, _, _, _, _, d
 end
 
 function M:MERCHANT_SHOW()
+	if E.db.general.vendorGrays then
+		E:GetModule('Bags'):VendorGrays(nil, true)
+	end
+
 	local autoRepair = E.db.general.autoRepair
 	if IsShiftKeyDown() or autoRepair == 'NONE' or not CanMerchantRepair() then return end
 	
@@ -58,27 +62,6 @@ function M:MERCHANT_SHOW()
 			E:Print(L["You don't have enough money to repair."])
 		end
 	end
-	
-	if E.db.general.sellgrays then
-		local link, payed
-		local cost = 0
-		for bag = 0, 4 do
-			for slot = 1 ,GetContainerNumSlots(bag) do
-				link = GetContainerItemLink(bag, slot)
-				if link then
-					local payed = select(11, GetItemInfo(link)) * select(2, GetContainerItemInfo(bag, slot))
-					if select(3, GetItemInfo(link)) == 0 then
-						UseContainerItem(bag, slot)
-						PickupMerchantItem()
-						cost = cost + payed
-					end
-				end
-			end
-		end
-		if cost > 0 then 
-			E:Print(L['Vendored gray items for:']..GetCoinTextureString(cost, 12))
-		end
-	end	
 end
 
 function M:DisbandRaidGroup()
@@ -122,7 +105,7 @@ end
 local hideStatic = false;
 function M:AutoInvite(event, leaderName)
 	if not E.db.general.autoAcceptInvite then return; end
-	
+
 	if event == "PARTY_INVITE_REQUEST" then
 		if MiniMapLFGFrame:IsShown() then return end -- Prevent losing que inside LFD if someone invites you to group
 		if GetNumPartyMembers() > 0 or GetNumRaidMembers() > 0 then return end
@@ -131,28 +114,29 @@ function M:AutoInvite(event, leaderName)
 		-- Update Guild and Friendlist
 		if GetNumFriends() > 0 then ShowFriends() end
 		if IsInGuild() then GuildRoster() end
+		local inGroup = false;
 		
 		for friendIndex = 1, GetNumFriends() do
 			local friendName = GetFriendInfo(friendIndex)
 			if friendName == leaderName then
 				AcceptGroup()
-				ingroup = true
+				inGroup = true
 				break
 			end
 		end
 		
-		if not ingroup then
+		if not inGroup then
 			for guildIndex = 1, GetNumGuildMembers(true) do
 				local guildMemberName = GetGuildRosterInfo(guildIndex)
 				if guildMemberName == leaderName then
 					AcceptGroup()
-					ingroup = true
+					inGroup = true
 					break
 				end
 			end
 		end
 		
-		if not ingroup then
+		if not inGroup then
 			for bnIndex = 1, BNGetNumFriends() do
 				local _, _, _, name = BNGetFriendInfo(bnIndex)
 				leaderName = leaderName:match("(.+)%-.+") or leaderName

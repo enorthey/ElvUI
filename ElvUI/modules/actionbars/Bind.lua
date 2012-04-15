@@ -53,9 +53,10 @@ function AB:BindListener(key)
 	then return; end
 	
 	if key == "MiddleButton" then key = "BUTTON3"; end
-	if key == "Button4" then key = "BUTTON4"; end
-	if key == "Button5" then key = "BUTTON5"; end
-	
+	if key:find('Button%d') then
+		key = key:upper()
+	end
+		
 	local alt = IsAltKeyDown() and "ALT-" or "";
 	local ctrl = IsControlKeyDown() and "CTRL-" or "";
 	local shift = IsShiftKeyDown() and "SHIFT-" or "";
@@ -72,7 +73,7 @@ end
 
 function AB:BindUpdate(button, spellmacro)
 	if not bind.active or InCombatLockdown() then return; end
-
+	
 	bind.button = button;
 	bind.spellmacro = spellmacro;
 	
@@ -114,7 +115,7 @@ function AB:BindUpdate(button, spellmacro)
 		GameTooltip:SetOwner(bind, "ANCHOR_TOP");
 		GameTooltip:SetPoint("BOTTOM", bind, "TOP", 0, 1);
 		GameTooltip:AddLine(bind.button.name, 1, 1, 1);
-		
+
 		bind.button.bindings = {GetBindingKey(spellmacro.." "..bind.button.name)};
 			if #bind.button.bindings == 0 then
 				GameTooltip:AddLine(L["No bindings set."], .6, .6, .6);

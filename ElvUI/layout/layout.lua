@@ -3,17 +3,14 @@ local LO = E:NewModule('Layout', 'AceEvent-3.0');
 
 local PANEL_HEIGHT = 22;
 local SIDE_BUTTON_WIDTH = 16;
-local UPPER_PANEL_HEIGHT = 21;
-local LOWER_PANEL_HEIGHT = 21;
 
 E.Layout = LO;
 
 function LO:Initialize()
 	self:CreateChatPanels()
 	self:CreateMinimapPanels()
-	self:CreateUpperLowerPanels()
-	if E.global.general.dtlowerpanel then self.CreateLowerDPPanel() end	
 end
+
 
 local function ChatPanelLeft_OnFade(self)
 	LeftChatPanel:Hide()
@@ -29,7 +26,7 @@ local function ChatButton_OnEnter(self, ...)
 		UIFrameFadeIn(self.parent, 0.2, self.parent:GetAlpha(), 1)
 		UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 	end
-	
+
 	if self == LeftChatToggleButton then
 		GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
 		GameTooltip:ClearLines()
@@ -41,7 +38,7 @@ local function ChatButton_OnEnter(self, ...)
 		GameTooltip:AddDoubleLine(L['Right Click:'], L['Toggle Embedded Addon'], 1, 1, 1)
 	end
 
-	GameTooltip:Show()	
+	GameTooltip:Show()
 end
 
 local function ChatButton_OnLeave(self, ...)
@@ -143,10 +140,8 @@ end
 function LO:CreateChatPanels()
 	--Left Chat
 	local lchat = CreateFrame('Frame', 'LeftChatPanel', E.UIParent)
-	if not E.db.general.UpperLowerPanels then 
-		lchat:SetFrameStrata('BACKGROUND') 
-	end
-	lchat:Size(E.db.general.panelWidth, E.db.general.panelHeight)	
+	lchat:SetFrameStrata('BACKGROUND')
+	lchat:Size(E.db.general.panelWidth, E.db.general.panelHeight)		
 	lchat:Point('BOTTOMLEFT', E.UIParent, 4, 4)
 	lchat:CreateBackdrop('Transparent')
 	lchat.backdrop:SetAllPoints()
@@ -169,6 +164,7 @@ function LO:CreateChatPanels()
 	lchatdp:Point('BOTTOMLEFT', lchat, 'BOTTOMLEFT', 5 + SIDE_BUTTON_WIDTH, 5)
 	lchatdp:Point('TOPRIGHT', lchat, 'BOTTOMRIGHT', -5, (5 + PANEL_HEIGHT))
 	lchatdp:SetTemplate('Default', true)
+	
 	E:GetModule('DataTexts'):RegisterPanel(lchatdp, 3, 'ANCHOR_TOPLEFT', -17, 4)
 	
 	--Left Chat Toggle Button
@@ -182,16 +178,14 @@ function LO:CreateChatPanels()
 	lchattb:SetScript('OnLeave', ChatButton_OnLeave)
 	lchattb:SetScript('OnClick', ChatButton_OnClick)
 	lchattb.text = lchattb:CreateFontString(nil, 'OVERLAY')
-	lchattb.text:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline)
-	lchattb.text:SetPoint('CENTER', 2, 0)
+	lchattb.text:FontTemplate()
+	lchattb.text:SetPoint('CENTER')
 	lchattb.text:SetJustifyH('CENTER')
 	lchattb.text:SetText('<')
 	
 	--Right Chat
 	local rchat = CreateFrame('Frame', 'RightChatPanel', E.UIParent)
-	if not E.db.general.UpperLowerPanels then
-		rchat:SetFrameStrata('BACKGROUND')
-	end
+	rchat:SetFrameStrata('BACKGROUND')
 	rchat:Size(E.db.general.panelWidth, E.db.general.panelHeight)
 	rchat:Point('BOTTOMRIGHT', E.UIParent, -4, 4)
 	rchat:CreateBackdrop('Transparent')
@@ -229,8 +223,8 @@ function LO:CreateChatPanels()
 	rchattb:SetScript('OnLeave', ChatButton_OnLeave)
 	rchattb:SetScript('OnClick', ChatButton_OnClick)
 	rchattb.text = rchattb:CreateFontString(nil, 'OVERLAY')
-	rchattb.text:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline)
-	rchattb.text:SetPoint('CENTER', 2, 0)
+	rchattb.text:FontTemplate()
+	rchattb.text:SetPoint('CENTER')
 	rchattb.text:SetJustifyH('CENTER')
 	rchattb.text:SetText('>')
 	
@@ -267,122 +261,11 @@ function LO:CreateMinimapPanels()
 	configtoggle:Width(E.RBRWidth)
 	configtoggle:SetTemplate('Default', true)
 	configtoggle.text = configtoggle:CreateFontString(nil, 'OVERLAY')
-	configtoggle.text:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline)
+	configtoggle.text:FontTemplate()
 	configtoggle.text:SetText('C')
-	configtoggle.text:SetPoint('CENTER', 2, 1)
+	configtoggle.text:SetPoint('CENTER')
 	configtoggle.text:SetJustifyH('CENTER')
 	configtoggle:SetScript('OnClick', function() E:ToggleConfig() end)
-end
-
-function LO:ToggleUpperLowerPanels()
-	if E.db.general.UpperLowerPanels == 'SHOWBOTH' then
-		LowerPanel:Show()
-		UpperPanel:Show()	
-	elseif E.db.general.UpperLowerPanels == 'HIDEBOTH' then
-		LowerPanel:Hide()
-		UpperPanel:Hide()		
-	elseif E.db.general.UpperLowerPanels == 'TOP' then
-		LowerPanel:Hide()
-		UpperPanel:Show()		
-	else
-		LowerPanel:Show()
-		UpperPanel:Hide()		
-	end
-end
-
-function LO:CreateUpperLowerPanels()
-	local lpanel = CreateFrame('Frame', 'LowerPanel', E.UIParent)
-	lpanel:SetFrameStrata('BACKGROUND')
-	lpanel:Width(E.screenwidth)
-	lpanel:Height(LOWER_PANEL_HEIGHT)
-	lpanel:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", -E.mult, -E.mult)
-	lpanel:Point("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", E.mult, -E.mult)
-	lpanel:SetTemplate('Default')	
-	
-	local upanel = CreateFrame('Frame', 'UpperPanel', E.UIParent)
-	upanel:SetFrameStrata('BACKGROUND')
-	upanel:Width(E.screenwidth)
-	upanel:Height(UPPER_PANEL_HEIGHT)
-	upanel:Point("TOPLEFT", E.UIParent, "TOPLEFT", -E.mult, E.mult)
-	upanel:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", E.mult, E.mult)
-	upanel:SetTemplate('Default')		
-	
-	self:ToggleUpperLowerPanels()
-end
-
-function LO:CreateLowerDPPanel()
-	local lcdppanel = CreateFrame('Frame', 'LowerCDPPanel', E.UIParent)
-	lcdppanel:Width(436)
-	lcdppanel:Height(PANEL_HEIGHT)
-	lcdppanel:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 9)
-	lcdppanel:SetTemplate('Default', true)	
-	E:GetModule('DataTexts'):RegisterPanel(lcdppanel, 3, 'ANCHOR_TOPLEFT', 0, 4)
-	
-	local lldppanel = CreateFrame('Frame', 'LowerLDPPanel', E.UIParent)
-	lldppanel:Width(220)
-	lldppanel:Height(PANEL_HEIGHT)
-	lldppanel:Point("RIGHT", LowerCDPPanel, "LEFT", -3, 0)
-	lldppanel:SetTemplate('Default', true)	
-	E:GetModule('DataTexts'):RegisterPanel(lldppanel, 1, 'ANCHOR_TOPLEFT', 0, 4)
-
-	local lrdppanel = CreateFrame('Frame', 'LowerRDPPanel', E.UIParent)
-	lrdppanel:Width(220)
-	lrdppanel:Height(PANEL_HEIGHT)
-	lrdppanel:Point("LEFT", LowerCDPPanel, "RIGHT", 3, 0)
-	lrdppanel:SetTemplate('Default', true)	
-	E:GetModule('DataTexts'):RegisterPanel(lrdppanel, 1, 'ANCHOR_TOPRIGHT', 0, 4)
-end
-
-function LO:CreateFilgerPanels()	
-	local PlayerBuffs = CreateFrame('Frame', 'FilgerPlayerBuffs', E.UIParent)
-	PlayerBuffs:Point('CENTER', E.UIParent, 'CENTER', -300, -62)
-	PlayerBuffs:Size(150, 36)
-	E:CreateMover(PlayerBuffs, 'PlayerBuffsMover', 'Move Player Buffs')
-	
-	local PlayerDebuffs = CreateFrame('Frame', 'FilgerPlayerDebuffs', E.UIParent)
-	PlayerDebuffs:Point('CENTER', E.UIParent, 'CENTER', -300, 0)
-	PlayerDebuffs:Size(150, 72)
-	E:CreateMover(PlayerDebuffs, 'PlayerDebuffsMover', 'Move Player debuffs')
-	
-	local PlayerProccs = CreateFrame('Frame', 'FilgerPlayerProccs', E.UIParent)
-	PlayerProccs:Point('CENTER', E.UIParent, 'CENTER', -300, -203)
-	PlayerProccs:Size(150, 32)
-	E:CreateMover(PlayerProccs, 'PlayerProccsMover', 'Move Player Proccs')
-	
-	local PlayerHealBuffs = CreateFrame('Frame', 'FilgerPlayerHealBuffs', E.UIParent)
-	PlayerHealBuffs:Point('CENTER', E.UIParent, 'CENTER', -300, -104)
-	PlayerHealBuffs:Size(150, 32)
-	E:CreateMover(PlayerHealBuffs, 'PlayerHealBuffsMover', 'Move Heal/CD Frame')
-	
-	local TargetDebuffs = CreateFrame('Frame', 'FilgerTargetDebuffs', E.UIParent)
-	TargetDebuffs:Point('CENTER', E.UIParent, 'CENTER', 300, -62)
-	TargetDebuffs:Size(150, 36)
-	E:CreateMover(TargetDebuffs, 'TargetDebuffsMover', 'Move Target Debuffs')
-	
-	local TargetHeals = CreateFrame('Frame', 'FilgerTargetHeals', E.UIParent)
-	TargetHeals:Point('CENTER', E.UIParent, 'CENTER', 300, -104)
-	TargetHeals:Size(150, 32)
-	E:CreateMover(TargetHeals, 'TargetHealsMover', 'Move Target Heals')
-	
-	local PvPBuffs = CreateFrame('Frame', 'FilgerPvPBuffs', E.UIParent)
-	PvPBuffs:Point('CENTER', E.UIParent, 'CENTER', 300, 0)
-	PvPBuffs:Size(150, 72)
-	E:CreateMover(PvPBuffs, 'CreateMoverMover', 'Move PvP Buffs')
-	
-	local WLBuffs = CreateFrame('Frame', 'FilgerWLBuffs', E.UIParent)
-	WLBuffs:Point('CENTER', E.UIParent, 'CENTER', 0, 145)
-	WLBuffs:Size(150, 50)
-	E:CreateMover(WLBuffs, 'WLBuffsMover', 'Move WL Buffs')
-	
-	local DebuffBars = CreateFrame('Frame', 'FilgerDebuffBars', E.UIParent)
-	DebuffBars:Point('CENTER', E.UIParent, 'CENTER', 300, 145)
-	DebuffBars:Size(150, 50)
-	E:CreateMover(DebuffBars, 'DebuffBarsMover', 'Move Debuff Bars')
-	
-	local CDBars = CreateFrame('Frame', 'FilgerCDBars', E.UIParent)
-	CDBars:Point('CENTER', E.UIParent, 'CENTER', -300, 145)
-	CDBars:Size(150, 50)
-	E:CreateMover(CDBars, 'CDBarsMover', 'Move CD Bars')
 end
 
 E:RegisterModule(LO:GetName())

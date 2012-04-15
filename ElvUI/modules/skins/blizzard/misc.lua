@@ -24,11 +24,7 @@ local function LoadSkin()
 		"StackSplitFrame",
 	}
 	
-	if not E:IsPTRVersion() then
-		tinsert(skins, 'LFDDungeonReadyStatus')
-		tinsert(skins, 'LFDSearchStatus')
-	end
-	
+
 	for i = 1, getn(skins) do
 		_G[skins[i]]:SetTemplate("Transparent")
 		if _G[skins[i]] ~= _G["GhostFrameContentsFrame"] or _G[skins[i]] ~= _G["AutoCompleteBox"] then -- frame to blacklist from create shadow function
@@ -203,11 +199,7 @@ local function LoadSkin()
 	ReadyCheckListenerFrame:SetAlpha(0)
 	ReadyCheckFrame:HookScript("OnShow", function(self) if UnitIsUnit("player", self.initiator) then self:Hide() end end) -- bug fix, don't show it if initiator
 	StackSplitFrame:GetRegions():Hide()
-	
-	if not E:IsPTRVersion() then
-		S:HandleButton(LFDDungeonReadyDialogEnterDungeonButton)
-		S:HandleButton(LFDDungeonReadyDialogLeaveQueueButton)
-	end
+
 	
 	RolePollPopup:SetTemplate("Transparent")
 	RolePollPopup:CreateShadow("Default")
@@ -387,8 +379,8 @@ local function LoadSkin()
 			_G["DropDownList"..i.."Backdrop"]:SetTemplate("Default", true)
 			_G["DropDownList"..i.."MenuBackdrop"]:SetTemplate("Default", true)
 		end
-	end)
-
+	end)	
+	
 	GuildInviteFrame:StripTextures()
 	GuildInviteFrame:SetTemplate('Transparent')
 	GuildInviteFrame:CreateShadow()
@@ -396,7 +388,7 @@ local function LoadSkin()
 	S:HandleButton(GuildInviteFrameJoinButton)
 	S:HandleButton(GuildInviteFrameDeclineButton)
 	GuildInviteFrame:Height(125)
-	GuildInviteFrame.SetHeight = E.noop	
+	GuildInviteFrame.SetHeight = E.noop
 end
 
 S:RegisterSkin('ElvUI', LoadSkin)

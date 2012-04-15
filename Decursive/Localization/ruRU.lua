@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
     
-    Decursive (v 2.7.0.5) add-on for World of Warcraft UI
+    Decursive (v 2.7.0.5-2-gee01483) add-on for World of Warcraft UI
     Copyright (C) 2006-2007-2008-2009-2010-2011 John Wellesz (archarodim AT
     teaser.fr) ( http://www.2072productions.com/to/decursive.php )
 
@@ -21,7 +21,7 @@
     Decursive is distributed in the hope that it will be useful, but WITHOUT
     ANY WARRANTY.
 
-    This file was last updated on 2011-11-06T13:34:55Z
+    This file was last updated on 2012-03-24T22:26:17Z
 --]]
 -------------------------------------------------------------------------------
 
@@ -59,6 +59,7 @@ StaticPopupDialogs["DECURSIVE_ERROR_FRAME"] = {
     whileDead = 1,
     hideOnEscape = 1,
     showAlert = 1,
+    preferredIndex = 3,
     }; -- }}}
 T._FatalError = function (TheError) StaticPopup_Show ("DECURSIVE_ERROR_FRAME", TheError); end
 end
@@ -72,7 +73,7 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Decursive", "ruRU");
 
 if not L then
-    T._LoadedFiles["ruRU.lua"] = "2.7.0.5";
+    T._LoadedFiles["ruRU.lua"] = "2.7.0.5-2-gee01483";
     return;
 end;
 
@@ -137,6 +138,7 @@ L["DISABLEWARNING"] = [=[Decursive отключен!
 Чтобы включить его снова, введите |cFFFFAA44/DCR ENABLE|r]=]
 L["DISEASE"] = "Болезни"
 L["DONOT_BL_PRIO"] = "Не вносить в чёрный список имена из списка приоритетов"
+L["DONT_SHOOT_THE_MESSENGER"] = "Decursive просто сообщает о проблеме. Так, что не убивайте гонца и сообщите о актуальной ошибке." -- Needs review
 L["FAILEDCAST"] = [=[|cFF22FFFF%s %s|r |cFFAA0000неудачно на|r %s
 |cFF00AAAA%s|r]=]
 L["FOCUSUNIT"] = "Фокус"
@@ -234,11 +236,24 @@ L["OPT_CURINGOPTIONS_EXPLANATION"] = [=[Выберите типы колдовс
 http://www.wowace.com/addons/decursive/]=] -- Needs review
 L["OPT_CURINGORDEROPTIONS"] = "Настройки порядка лечения"
 L["OPT_CURSECHECK_DESC"] = "Если отмечено, то вы сможете видеть и излечивать проклятых игроков"
+L["OPT_CUSTOM_SPELL_ALLOW_EDITING"] = "Разрешить изменение макросов (только для опытных пользователей)" -- Needs review
+L["OPT_CUSTOM_SPELL_ALLOW_EDITING_DESC"] = [=[Отметить, если хотите редактировать внутренний макрос Decursive для вашего заклинания.
+
+Заметка: Включение разрешит вам модифицировать заклинания управляемые Decursive .
+(--- Только для опытных пользователей ---)]=] -- Needs review
 L["OPT_CUSTOM_SPELL_CURE_TYPES"] = "Типы недугов" -- Needs review
+L["OPT_CUSTOM_SPELL_IS_DEFAULT"] = "Это заклинания часть автоматической настройки Decursive. Если это заклинание больше не работает правильно, вы можете удалить или отключить его для восстановления настроек по умолчанию." -- Needs review
+L["OPT_CUSTOM_SPELL_MACRO_MISSING_NOMINAL_SPELL"] = "ВНИМАНИЕ: Заклинание %q не используется в вашем макросе, информация о дистанции и времени перезарядки может не совпадать..." -- Needs review
+L["OPT_CUSTOM_SPELL_MACRO_MISSING_UNITID_KEYWORD"] = "Ключевое слово UNITID отсутствует" -- Needs review
+L["OPT_CUSTOM_SPELL_MACRO_TEXT"] = "Текст макроса:" -- Needs review
+L["OPT_CUSTOM_SPELL_MACRO_TOO_LONG"] = "Ваш макрос слишком длинный, необходимо удалить %d символов." -- Needs review
 L["OPT_CUSTOM_SPELL_PRIORITY"] = "Приоритеты заклинаний"
 L["OPT_CUSTOM_SPELL_PRIORITY_DESC"] = "Когда несколько заклинаний могут вылечить те же типы недугов, какое из них будет с более высоким приоритетом тому и будет отдаваться предпочтение." -- Needs review
 L["OPT_CUSTOMSPELLS"] = "Пользовательские заклинания"
 L["OPT_CUSTOMSPELLS_DESC"] = "Здесь Вы можете добавлять заклинания для расширения автоматического конфигурирования Decursive" -- Needs review
+L["OPT_CUSTOMSPELLS_EFFECTIVE_ASSIGNMENTS"] = "Эффективные задания заклинаний:" -- Needs review
+L["OPT_CUSTOM_SPELL_STOPCASTING"] = "/StopCasting" -- Needs review
+L["OPT_CUSTOM_SPELL_STOPCASTING_DESC"] = "Использование этого заклинания прервет произносимые заклинания (отключить опцию, если заклинание произносит питомец)" -- Needs review
 L["OPT_CUSTOM_SPELL_UNAVAILABLE"] = "недоступно"
 L["OPT_DEBCHECKEDBYDEF"] = [=[
 Назначен на стандарт]=]
@@ -422,4 +437,4 @@ L["UNSTABLERELEASE"] = "Нестабильный релиз"
 
 
 
-T._LoadedFiles["ruRU.lua"] = "2.7.0.5";
+T._LoadedFiles["ruRU.lua"] = "2.7.0.5-2-gee01483";

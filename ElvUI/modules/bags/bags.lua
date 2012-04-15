@@ -28,7 +28,8 @@ local function ResetAndClear(self)
 end
 
 --This one isn't for the actual bag buttons its for the buttons you can use to swap bags.
-function B:BagFrameSlotNew(frame, slot)
+function B:BagFrameSlotNew(frame, slot, nonAllInOne)
+	if not frame.buttons then frame.buttons = {}; end
 	for _, v in ipairs(frame.buttons) do
 		if v.slot == slot then
 			return v, false
@@ -52,27 +53,29 @@ function B:BagFrameSlotNew(frame, slot)
 		ret.slot = slot
 		table.insert(frame.buttons, ret)
 	end
-
-	ret.frame:HookScript("OnEnter", function()
-		local bag
-		for ind, val in ipairs(B.buttons) do
-			if val.bagOwner == ret.slot then
-				val.frame:SetAlpha(1)
-				--E:Print('Matched Bag Slot: '..val.bagOwner..' to button: '..ind)
-			else
-				val.frame:SetAlpha(0.2)
+	
+	if not nonAllInOne then
+		ret.frame:HookScript("OnEnter", function()
+			local bag
+			for ind, val in ipairs(B.buttons) do
+				if val.bagOwner == ret.slot then
+					val.frame:SetAlpha(1)
+					--E:Print('Matched Bag Slot: '..val.bagOwner..' to button: '..ind)
+				else
+					val.frame:SetAlpha(0.2)
+				end
 			end
-		end
-	end)
+		end)
 
-	ret.frame:HookScript("OnLeave", function()
-		for _, btn in ipairs(self.buttons) do
-			btn.frame:SetAlpha(1)
-		end
-	end)
+		ret.frame:HookScript("OnLeave", function()
+			for _, btn in ipairs(self.buttons) do
+				btn.frame:SetAlpha(1)
+			end
+		end)
 
-	ret.frame:SetScript('OnClick', nil)
-
+		ret.frame:SetScript('OnClick', nil)
+	end
+	
 	ret.frame:SetTemplate('Default', true)
 	ret.frame:StyleButton()
 	ret.frame:SetFrameLevel(ret.frame:GetFrameLevel() + 1)
@@ -253,8 +256,8 @@ function B:Layout(isBank)
 	if not isBank then
 		bs = BAGS_BACKPACK
 		if E.db.bags.bagCols == 0 then
-			cols = floor((E.db.general.panelWidth - 11)/370 * 11)
-			bagWidth = E.db.general.panelWidth - 11
+			cols = floor((E.db.general.panelWidth - 10)/370 * 10)
+			bagWidth = E.db.general.panelWidth - 10
 		else
 			cols = E.db.bags.bagCols
 			bagWidth = 35 * cols
@@ -299,6 +302,7 @@ function B:Layout(isBank)
 			b.frame:ClearAllPoints()
 			b.frame:Point("LEFT", f.ContainerHolder, "LEFT", xOff, 0)
 			b.frame:Size(bSize)
+			b.frame:FixDimensions()
 
 			if isBank then
 				BankFrameItemButton_Update(b.frame)
@@ -335,6 +339,7 @@ function B:Layout(isBank)
 	f.HolderFrame:SetWidth(33.5 * cols)
 	f.HolderFrame:SetHeight(f:GetHeight() - 8)
 	f.HolderFrame:SetPoint("BOTTOM", f, "BOTTOM")
+	f.HolderFrame:FixDimensions()
 
 	--Fun Part, Position Actual Bag Buttons
 	local idx = 0
@@ -371,6 +376,7 @@ function B:Layout(isBank)
 				b.frame:ClearAllPoints()
 				b.frame:Point("TOPLEFT", f.HolderFrame, "TOPLEFT", xOff, yOff)
 				b.frame:Size(bSize)
+				b.frame:FixDimensions()
 				b.frame.lock = false
 				b.frame:SetAlpha(1)
 				
@@ -444,24 +450,29 @@ function B:Bags_OnHide()
 	end
 end
 
-local UpdateSearch = function(self, t)
-	if t == true then
-		B:SearchUpdate(self:GetText(), self:GetParent())
+local UpdateSearch = function(self)
+	local text = self:GetText()
+	if ( text == SEARCH ) then
+		text = "";
 	end
+	SetItemSearch(text);
 end
 
-function B:SearchUpdate(str, frameMatch)
-	str = string.lower(str)
-
-	for _, b in ipairs(self.buttons) do
-		if b.name then
-			if not string.find (string.lower(b.name), str) and b.frame:GetParent():GetParent() == frameMatch then
-				SetItemButtonDesaturated(b.frame, 1, 1, 1, 1)
-				b.frame:SetAlpha(0.4)
-			else
-				SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
-				b.frame:SetAlpha(1)
+local BagSearch_OnChar = function(self)
+	-- clear focus if the player is repeating keys (ie - trying to move)
+	-- TODO: move into base editbox code?
+	local MIN_REPEAT_CHARACTERS = 3
+	local searchString = self:GetText();
+	if (string.len(searchString) > MIN_REPEAT_CHARACTERS) then
+		local repeatChar = true;
+		for i=1, MIN_REPEAT_CHARACTERS, 1 do 
+			if ( string.sub(searchString,(0-i), (0-i)) ~= string.sub(searchString,(-1-i),(-1-i)) ) then
+				repeatChar = false;
+				break;
 			end
+		end
+		if ( repeatChar ) then
+			ResetAndClear(self);
 		end
 	end
 end
@@ -564,6 +575,7 @@ function B:CreateBagFrame(type)
 	f.editBox:SetScript("OnEditFocusLost", f.editBox.Hide)
 	f.editBox:SetScript("OnEditFocusGained", f.editBox.HighlightText)
 	f.editBox:SetScript("OnTextChanged", UpdateSearch)
+	f.editBox:SetScript('OnChar', BagSearch_OnChar)
 	f.editBox:SetText(SEARCH)
 	f.editBox:FontTemplate()
 
@@ -876,7 +888,7 @@ function B:ToggleBags()
 	ToggleFrame(bagFrame)
 end
 
-function B:VendorGrays(delete)
+function B:VendorGrays(delete, nomsg)
 	if (not MerchantFrame or not MerchantFrame:IsShown()) and not delete then
 		E:Print(L['You must be at a vendor.'])
 		return
@@ -911,12 +923,12 @@ function B:VendorGrays(delete)
 	if c>0 and not delete then
 		local g, s, c = math.floor(c/10000) or 0, math.floor((c%10000)/100) or 0, c%100
 		E:Print(L['Vendored gray items for:'].." |cffffffff"..g..L.goldabbrev.." |cffffffff"..s..L.silverabbrev.." |cffffffff"..c..L.copperabbrev..".")
-	elseif not delete then
+	elseif not delete and not nomsg then
 		E:Print(L['No gray items to sell.'])
 	elseif count > 0 then
 		local g, s, c = math.floor(c/10000) or 0, math.floor((c%10000)/100) or 0, c%100
 		E:Print(string.format(L['Deleted %d gray items. Total Worth: %s'], count, " |cffffffff"..g..L.goldabbrev.." |cffffffff"..s..L.silverabbrev.." |cffffffff"..c..L.copperabbrev.."."))
-	else
+	elseif not nomsg then
 		E:Print(L['No gray items to delete.'])
 	end
 end
@@ -1441,10 +1453,28 @@ function B:PLAYERBANKBAGSLOTS_CHANGED()
 	B:Layout(true)
 end
 
-function B:Initialize()
-	if not E.global.bags.enable then return end
-	self:InitBags()
+function B:INVENTORY_SEARCH_UPDATE()
+	local isFiltered;
 
+	for _, btn in ipairs(self.buttons) do
+		_, _, _, _, _, _, _, isFiltered = GetContainerItemInfo(btn.bag, btn.frame:GetID());	
+		if ( isFiltered ) then
+			SetItemButtonDesaturated(btn.frame, 1, 1, 1, 1)
+			btn.frame:SetAlpha(0.4)
+		else
+			SetItemButtonDesaturated(btn.frame, 0, 1, 1, 1)
+			btn.frame:SetAlpha(1)
+		end		
+	end	
+end
+
+function B:Initialize()
+	if not E.global.bags.enable then 
+		self:LoadBagBar()
+		return 
+	end
+	self:InitBags()
+	E.bags = self
 	--Register Events
 	self:RegisterEvent("BAG_UPDATE")
 	self:RegisterEvent("ITEM_LOCK_CHANGED")
@@ -1454,7 +1484,7 @@ function B:Initialize()
 	self:RegisterEvent("BAG_CLOSED")
 	self:RegisterEvent('BAG_UPDATE_COOLDOWN')
 	self:RegisterEvent('PLAYERBANKBAGSLOTS_CHANGED')
-
+	self:RegisterEvent('INVENTORY_SEARCH_UPDATE')
 	self:RegisterEvent('GUILDBANKBAGSLOTS_CHANGED')
 	self:SecureHook('BankFrameItemButton_Update', 'PLAYERBANKSLOTS_CHANGED')
 

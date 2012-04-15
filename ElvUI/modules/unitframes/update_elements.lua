@@ -290,32 +290,6 @@ function UF:PortraitUpdate(unit)
 	self:SetCamDistanceScale(db['portrait'].camDistanceScale)
 end
 
-if E:IsFoolsDay() then
-	function UF:PortraitUpdate(unit)
-		local db = self:GetParent().db
-		
-		if not db then return end
-		
-		if db['portrait'].enable and db['portrait'].overlay then
-			self:SetAlpha(0) self:SetAlpha(0.35) 
-		else
-			self:SetAlpha(1)
-		end
-		
-		if self:GetModel() and self:GetModel().find and self:GetModel():find("worgenmale") then
-			self:SetCamera(1)
-		end	
-		
-		if self:GetModel() and unit == 'player'	then
-			self:SetModel('Creature\\Therazane\\therazane.m2')
-			self:SetCamera(1)
-		end
-
-		self:SetCamDistanceScale(db['portrait'].camDistanceScale - 0.01 >= 0.01 and db['portrait'].camDistanceScale - 0.01 or 0.01) --Blizzard bug fix
-		self:SetCamDistanceScale(db['portrait'].camDistanceScale)
-	end
-end
-
 local day, hour, minute, second = 86400, 3600, 60, 1
 function UF:FormatTime(s, reverse)
 	if s >= day then
@@ -488,14 +462,14 @@ end
 function UF:PostCastStart(unit, name, rank, castid)
 	if unit == "vehicle" then unit = "player" end
 	local db = self:GetParent().db
-	
+
 	if db.castbar.displayTarget and self.curTarget then
 		self.Text:SetText(string.sub(name..' --> '..self.curTarget, 0, math.floor((((32/245) * self:GetWidth()) / E.db['unitframe'].fontsize) * 12)))
 	else
 		self.Text:SetText(string.sub(name, 0, math.floor((((32/245) * self:GetWidth()) / E.db['unitframe'].fontsize) * 12)))
 	end
 
-	self.Spark:Height(self:GetHeight() * 2)	
+	self.Spark:Height(self:GetHeight() * 2)
 	
 	local color		
 	self.unit = unit
@@ -974,7 +948,7 @@ function UF:AuraFilter(unit, icon, name, rank, texture, count, dtype, duration, 
 	
 	icon.isPlayer = isPlayer
 	icon.owner = caster
-	
+
 	if db and db[self.type] and db[self.type].durationLimit ~= 0 and db[self.type].durationLimit ~= nil and duration ~= nil then
 		if duration > db[self.type].durationLimit or duration == 0 then
 			return false
@@ -1123,7 +1097,7 @@ end
 function UF:UpdateRoleIcon()
 	local lfdrole = self.LFDRole
 	local db = self.db.roleIcon;
-
+	
 	if not db then return; end
 	local role = UnitGroupRolesAssigned(self.unit)
 	if(role == 'TANK' or role == 'HEALER' or role == 'DAMAGER') and UnitIsConnected(self.unit) and db.enable then

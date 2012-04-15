@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
     
-    Decursive (v 2.7.0.5) add-on for World of Warcraft UI
+    Decursive (v 2.7.0.5-2-gee01483) add-on for World of Warcraft UI
     Copyright (C) 2006-2007-2008-2009-2010-2011 John Wellesz (archarodim AT
     teaser.fr) ( http://www.2072productions.com/to/decursive.php )
 
@@ -21,7 +21,7 @@
     Decursive is distributed in the hope that it will be useful, but WITHOUT
     ANY WARRANTY.
 
-    This file was last updated on 2011-11-06T13:34:55Z
+    This file was last updated on 2012-03-24T22:26:17Z
 --]]
 -------------------------------------------------------------------------------
 
@@ -59,6 +59,7 @@ StaticPopupDialogs["DECURSIVE_ERROR_FRAME"] = {
     whileDead = 1,
     hideOnEscape = 1,
     showAlert = 1,
+    preferredIndex = 3,
     }; -- }}}
 T._FatalError = function (TheError) StaticPopup_Show ("DECURSIVE_ERROR_FRAME", TheError); end
 end
@@ -71,7 +72,7 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Decursive", "esES");
 
 if not L then
-    T._LoadedFiles["esES.lua"] = "2.7.0.5";
+    T._LoadedFiles["esES.lua"] = "2.7.0.5-2-gee01483";
     return;
 end;
 
@@ -103,4 +104,4 @@ L["TOOFAR"] = "Muy lejos"
 
 
 
-T._LoadedFiles["esES.lua"] = "2.7.0.5";
+T._LoadedFiles["esES.lua"] = "2.7.0.5-2-gee01483";

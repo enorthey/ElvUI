@@ -311,7 +311,7 @@ function UF:Update_FocusFrame(frame, db)
 			healPrediction.otherBar:ClearAllPoints()
 			healPrediction.otherBar:SetPoint('TOPLEFT', healPrediction.myBar:GetStatusBarTexture(), 'TOPRIGHT')	
 			healPrediction.otherBar:SetPoint('BOTTOMLEFT', healPrediction.myBar:GetStatusBarTexture(), 'BOTTOMRIGHT')	
-			healPrediction.otherBar:Width(db.width - (BORDER*2))
+			healPrediction.otherBar:Width(db.width - (BORDER*2))	
 		else
 			if frame:IsElementEnabled('HealPrediction') then
 				frame:DisableElement('HealPrediction')
@@ -321,7 +321,7 @@ function UF:Update_FocusFrame(frame, db)
 		
 	if not frame.mover then
 		frame:ClearAllPoints()
-		frame:Point('BOTTOMRIGHT', ElvUF_Target, 'TOPRIGHT', 0, 320) --Set to default position
+		frame:Point('BOTTOMRIGHT', ElvUF_Target, 'TOPRIGHT', 0, 220) --Set to default position
 	end
 	
 	frame:UpdateAllElements()

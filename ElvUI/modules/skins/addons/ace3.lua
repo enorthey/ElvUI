@@ -333,38 +333,6 @@ local function SkinAce3()
 			if widget.treeframe then
 				widget.treeframe:SetTemplate('Transparent')
 				frame:Point("TOPLEFT", widget.treeframe, "TOPRIGHT", 1, 0)
-
-				local oldCreateButton = widget.CreateButton
-				widget.CreateButton = function(self)
-					local button = oldCreateButton(self)
-					button.toggle:StripTextures()
-					button.toggle.SetNormalTexture = E.noop
-					button.toggle.SetPushedTexture = E.noop
-					button.toggleText = button.toggle:CreateFontString(nil, 'OVERLAY')
-					button.toggleText:FontTemplate(nil, 19)
-					button.toggleText:SetPoint('CENTER')
-					button.toggleText:SetText('+')
-					return button
-				end
-				
-				local oldRefreshTree = widget.RefreshTree
-				widget.RefreshTree = function(self, scrollToSelection)		
-					oldRefreshTree(self, scrollToSelection)
-					if not self.tree then return end
-					local status = self.status or self.localstatus
-					local groupstatus = status.groups		
-					local lines = self.lines
-					local buttons = self.buttons
-					
-					for i, line in pairs(lines) do
-						local button = buttons[i]
-						if groupstatus[line.uniquevalue] and button then
-							button.toggleText:SetText('-')
-						elseif button then
-							button.toggleText:SetText('+')
-						end						
-					end			
-				end
 				
 				local oldCreateButton = widget.CreateButton
 				widget.CreateButton = function(self)
@@ -411,10 +379,6 @@ local function SkinAce3()
 			if widget.scrollbar then
 				SkinScrollBar(widget.scrollbar)
 			end
-			
-			if widget.scrollbar then
-				SkinScrollBar(widget.scrollbar)
-			end			
 		end
 
 		return oldRegisterAsContainer(self, widget)

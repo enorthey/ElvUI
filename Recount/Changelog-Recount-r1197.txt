@@ -1,0 +1,21 @@
+------------------------------------------------------------------------
+r1197 | 7destiny | 2012-03-22 08:35:11 +0000 (Thu, 22 Mar 2012) | 1 line
+Changed paths:
+   M /trunk/locales/Recount-koKR.lua
+
+- koKR Update
+------------------------------------------------------------------------
+r1195 | elsia | 2012-03-20 22:05:11 +0000 (Tue, 20 Mar 2012) | 1 line
+Changed paths:
+   M /trunk/LazySync.lua
+   M /trunk/Tracker.lua
+
+- Removed some debug spam.
+------------------------------------------------------------------------
+r1194 | elsia | 2012-03-18 17:59:07 +0000 (Sun, 18 Mar 2012) | 1 line
+Changed paths:
+   M /trunk/Recount.lua
+   M /trunk/Tracker.lua
+
+- Added support for boss frame detection for combat segment labeling. Needs testing.
+------------------------------------------------------------------------

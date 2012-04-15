@@ -157,7 +157,7 @@ end
 function AB:CreateBar3()
 	bar:CreateBackdrop('Default');
 	bar.backdrop:SetAllPoints();
-	bar:Point('BOTTOM', ElvUI_Bar1, 'TOP', 0, -(E:Scale(self.db[barName].buttonsize) + (E:Scale(self.db[barName].buttonspacing) * 2 )));
+	bar:Point('LEFT', ElvUI_Bar1, 'RIGHT', 3, 0);
 	bar.buttons = {}
 	bar.bindButtons = 'MULTIACTIONBAR1BUTTON'
 	
@@ -167,6 +167,9 @@ function AB:CreateBar3()
 		for k = 1, 11 do
 			bar.buttons[i]:SetState(k, "action", (k - 1) * 12 + i)
 		end
+		if i == 12 then
+			bar.buttons[i]:SetState(11, "custom", AB.customExitButton)
+		end			
 	end
 	self:UpdateButtonConfig(bar, bar.bindButtons)
 	bar:SetAttribute("_onstate-page", [[ 

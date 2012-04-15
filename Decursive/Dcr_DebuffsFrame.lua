@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
     
-    Decursive (v 2.7.0.5) add-on for World of Warcraft UI
+    Decursive (v 2.7.0.5-2-gee01483) add-on for World of Warcraft UI
     Copyright (C) 2006-2007-2008-2009-2010-2011 John Wellesz (archarodim AT teaser.fr) ( http://www.2072productions.com/to/decursive.php )
 
     Starting from 2009-10-31 and until said otherwise by its author, Decursive
@@ -18,7 +18,7 @@
     but WITHOUT ANY WARRANTY.
 
     
-    This file was last updated on 2011-06-06T21:10:50Z
+    This file was last updated on 2012-04-13T23:47:10Z
 --]]
 -------------------------------------------------------------------------------
 
@@ -37,6 +37,7 @@ if not T._FatalError then
         whileDead = 1,
         hideOnEscape = 1,
         showAlert = 1,
+        preferredIndex = 3,
     }; -- }}}
     T._FatalError = function (TheError) StaticPopup_Show ("DECURSIVE_ERROR_FRAME", TheError); end
 end
@@ -613,9 +614,9 @@ do
                 else
                     -- try again in 2s (a delay exists when a unit appears, is seen and its MUF is created), if a unit leavea and another joina the group at the same time, the unit number won't change but their respective unitID will.
                     D:ScheduleDelayedCall("Dcr_Delayed_Place", self.Place, 2, self);
-                    --[===[@alpha@
+                    --@alpha@
                     D:Print("|cFFFF0000Place() failed: unitRef#", D.profile.DebuffsFrameGrowToTop and 1 or FarthestVerticalMUF, "refMUF:", self.ExistingPerUNIT[Unit_Array[D.profile.DebuffsFrameGrowToTop and 1 or FarthestVerticalMUF]], "|r");
-                    --@end-alpha@]===]
+                    --@end-alpha@
                 end
             end
         end
@@ -749,14 +750,13 @@ function MicroUnitF:OnEnter(frame) -- {{{
         return; -- If the user overs the MUF befor it's completely initialized
     end
 
-    --Test for unstable affliction
+    --Test for unstable affliction like spells
     if MF.Debuffs then
         for i, Debuff in ipairs(MF.Debuffs) do
             if Debuff.Type then
-                -- Create a warning if the Unstable Affliction is detected
-                if Debuff.Name == DS["Unstable Affliction"] then
-                    --if Debuff.Name == "Malédiction de Stalvan" then -- to test easily
-                    D:Println("|cFFFF0000 ==> %s !!|r (%s)", DS["Unstable Affliction"], D:MakePlayerName((D:PetUnitName(      Unit, true    ))));
+                -- Create a warning if an Unstable Affliction like spell is detected XXX not very pretty will be integrated along with the filtering system comming 'soon'(tm)
+                if Debuff.Name == DS["Unstable Affliction"] or Debuff.Name == DS["Flame Shock"] or Debuff.Name == DS["Vampiric Touch"] then
+                    D:Println("|cFFFF0000 ==> %s !!|r (%s)", Debuff.Name, D:MakePlayerName((D:PetUnitName(      Unit, true    ))));
                     PlaySoundFile("Sound\\Doodad\\G_NecropolisWound.wav", "Master");
                 end
             end
@@ -1791,6 +1791,6 @@ local MF_Textures = { -- unused
 
 -- }}}
 
-T._LoadedFiles["Dcr_DebuffsFrame.lua"] = "2.7.0.5";
+T._LoadedFiles["Dcr_DebuffsFrame.lua"] = "2.7.0.5-2-gee01483";
 
 -- Heresy

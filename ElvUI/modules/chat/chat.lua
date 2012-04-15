@@ -54,11 +54,13 @@ end
 
 function CH:StyleChat(frame)
 	if frame.styled then return end
+	
+	frame.IgnoreFixDimensions = true; --no need to run this constantly
+	
 	local id = frame:GetID()
 	local name = frame:GetName()
 	local tab = _G[name..'Tab']
 	local editbox = _G[name..'EditBox']
-
 	
 	for _, texName in pairs(tabTexs) do
 		_G[tab:GetName()..texName..'Left']:Kill()
@@ -68,13 +70,13 @@ function CH:StyleChat(frame)
 
 	tab:SetAlpha(1)
 	tab.SetAlpha = UIFrameFadeRemoveFrame	
+
 	
 	tab.text = _G[name.."TabText"]
-	tab.text:FontTemplate(E["media"].dtFont, E.db.general.dtfontsize,  E.db.general.dtfontoutline)
+	tab.text:FontTemplate()
 	tab.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	tab.text.OldSetTextColor = tab.text.SetTextColor 
 	tab.text.SetTextColor = E.noop
-	tab.text:SetPoint('LEFT', 5, -4)
 	
 	frame:SetClampRectInsets(0,0,0,0)
 	frame:SetClampedToScreen(false)
@@ -102,11 +104,18 @@ function CH:StyleChat(frame)
 			 end
 			 ChatFrame_SendTell((unitname or L['Invalid Target']), ChatFrame1)
 		  end
+		  
 		  if text:sub(1, 4) == "/gr " then
 			self:SetText(CH:GetGroupDistribution() .. text:sub(5));
 			ChatEdit_ParseText(self, 0)		  
-		  end		  
+		  end
 	   end
+
+		local new, found = gsub(text, "|Kf(%S+)|k(%S+)%s(%S+)|k", "%2 %3")
+		if found > 0 then
+			new = new:gsub('|', '')
+			self:SetText(new)
+		end
 	end)
 	
 	hooksecurefunc("ChatEdit_UpdateHeader", function()
@@ -206,7 +215,7 @@ end
 
 function CH:PositionChat(override)
 	if (InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override) then return end
-
+	
 	RightChatPanel:Size(E.db.general.panelWidth, E.db.general.panelHeight)
 	LeftChatPanel:Size(E.db.general.panelWidth, E.db.general.panelHeight)	
 	
@@ -223,7 +232,7 @@ function CH:PositionChat(override)
 			break
 		end
 	end	
-	
+
 	if chatFound then
 		self.RightChatWindowID = id
 	else
@@ -273,7 +282,7 @@ function CH:PositionChat(override)
 				CH:SetupChatTabs(tab, true)
 			else
 				CH:SetupChatTabs(tab, false)
-			end			
+			end
 		elseif not isDocked and chat:IsShown() then
 			tab:SetParent(E.UIParent)
 			chat:SetParent(E.UIParent)
@@ -293,7 +302,7 @@ function CH:PositionChat(override)
 				CH:SetupChatTabs(tab, true)
 			else
 				CH:SetupChatTabs(tab, false)
-			end				
+			end			
 		end		
 	end
 	
@@ -403,14 +412,14 @@ function CH:AddMessage(text, ...)
 			text = text:gsub("^%["..RAID_WARNING.."%]", '['..L['RW']..']')	
 			text = text:gsub("%[BN_CONVERSATION:", '%['..L["BN:"])
 		end
-
+	
 		if CHAT_TIMESTAMP_FORMAT ~= nil then
 			TIMESTAMP_FORMAT = CHAT_TIMESTAMP_FORMAT
 			CHAT_TIMESTAMP_FORMAT = nil;
 		elseif GetCVar('showTimestamps') == 'none' then
 			TIMESTAMP_FORMAT = nil;
 		end
- 		
+		
 		--Add Timestamps
 		if ( TIMESTAMP_FORMAT ) then
 			local timestamp = BetterDate(TIMESTAMP_FORMAT, time())
@@ -418,56 +427,13 @@ function CH:AddMessage(text, ...)
 			timestamp = timestamp:gsub('AM', ' AM')
 			timestamp = timestamp:gsub('PM', ' PM')
 			text = '|cffB3B3B3['..timestamp..'] |r'..text
-		end		
-		
-		text = text:gsub('|Hplayer:Kazgre%-', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Kazgre%-')
-	end
-	
-	self.OldAddMessage(self, text, ...)
-end
-
-if E:IsFoolsDay() then
-	local playerName = UnitName('player')
-	function CH:AddMessage(text, ...)
-		if type(text) == "string" then
-			if CH.db.shortChannels then
-				text = text:gsub("|Hchannel:(.-)|h%[(.-)%]|h", CH.ShortChannel)
-				text = text:gsub('CHANNEL:', '')
-				text = text:gsub("^(.-|h) "..L['whispers'], "%1")
-				text = text:gsub("^(.-|h) "..L['says'], "%1")
-				text = text:gsub("^(.-|h) "..L['yells'], "%1")
-				text = text:gsub("<"..AFK..">", "[|cffFF0000"..L['AFK'].."|r] ")
-				text = text:gsub("<"..DND..">", "[|cffE7E716"..L['DND'].."|r] ")
-				text = text:gsub("^%["..RAID_WARNING.."%]", '['..L['RW']..']')	
-				text = text:gsub("%[BN_CONVERSATION:", '%['..L["BN:"])
-			end
-
-			if CHAT_TIMESTAMP_FORMAT ~= nil then
-				TIMESTAMP_FORMAT = CHAT_TIMESTAMP_FORMAT
-				CHAT_TIMESTAMP_FORMAT = nil;
-			elseif GetCVar('showTimestamps') == 'none' then
-				TIMESTAMP_FORMAT = nil;
-			end
-			
-			--Add Timestamps
-			if ( TIMESTAMP_FORMAT ) then
-				local timestamp = BetterDate(TIMESTAMP_FORMAT, time())
-				timestamp = timestamp:gsub(' ', '')
-				timestamp = timestamp:gsub('AM', ' AM')
-				timestamp = timestamp:gsub('PM', ' PM')
-				text = '|cffB3B3B3['..timestamp..'] |r'..text
-			end
-			
-			if playerName ~= 'Kazgre' then
-				text = text:gsub('|Hplayer:Kazgre:', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Kazgre:')
-				text = text:gsub('|Hplayer:Kazgre%-', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Kazgre%-')
-			else
-				text = text:gsub('|Hplayer:'..playerName..':', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:'..playerName..':')
-			end
 		end
-		
-		self.OldAddMessage(self, text, ...)
+			
+		text = text:gsub('|Hplayer:Elv:', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Elv:')
+		text = text:gsub('|Hplayer:Elv%-', '|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t|Hplayer:Elv%-')
 	end
+
+	self.OldAddMessage(self, text, ...)
 end
 
 local hyperLinkEntered
@@ -549,7 +515,11 @@ function CH:SetupChat(event, ...)
 	if self.db.hyperlinkHover then
 		self:EnableHyperlink()
 	end
-
+	
+	if self.db.throttleInterval ~= 0 then
+		self:EnableChatThrottle()
+	end
+	
 	GeneralDockManager:SetParent(LeftChatPanel)
 	self:ScheduleRepeatingTimer('PositionChat', 1)
 	self:PositionChat(true)
@@ -558,9 +528,6 @@ function CH:SetupChat(event, ...)
 		self:SecureHook('FCF_OpenTemporaryWindow', 'SetupChat')
 		self.HookSecured = true;
 	end
-	
-	self:UnregisterEvent('UPDATE_CHAT_WINDOWS')
-	self:UnregisterEvent('UPDATE_FLOATING_CHAT_WINDOWS')
 end
 
 local sizes = {
@@ -681,9 +648,10 @@ function CH:AddLines(lines, ...)
   end
 end
 
+
 function CH:CopyLineFromPlayerlinkToEdit(origin_frame, ...)
     local frame = (origin_frame and origin_frame:GetObjectType() == "ScrollingMessageFrame" and origin_frame) or self.clickedframe
-	
+	if not frame then return; end
 	self.lines = {};
 	
     for i=1, #self.lines do
@@ -709,6 +677,7 @@ function CH:CopyLineFromPlayerlinkToEdit(origin_frame, ...)
         if self.lines[i]:find(findname:gsub("%-", "%%-")) then
             local text = self.lines[i]:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h", ""):gsub("|h", "")
 			text = text:gsub('|', '')
+			
             local editBox = ChatEdit_ChooseBoxForSend(frame);
             if ( editBox ~= ChatEdit_GetActiveWindow() ) then
                 ChatFrame_OpenChat(text, frame);
@@ -716,8 +685,35 @@ function CH:CopyLineFromPlayerlinkToEdit(origin_frame, ...)
                 editBox:SetText(text);
             end
         end
+    end
+end
+
+
+function CH:ChatEdit_OnEnterPressed(editBox)
+	local type = editBox:GetAttribute("chatType");
+	local chatFrame = editBox:GetParent();
+	if not chatFrame.isTemporary and ChatTypeInfo[type].sticky == 1 then
+		if not self.db.sticky then type = 'SAY'; end
+		editBox:SetAttribute("chatType", type);
 	end
 end
+
+function CH:SetChatFont(dropDown, chatFrame, fontSize)
+	if ( not chatFrame ) then
+		chatFrame = FCF_GetCurrentChatFrame();
+	end
+	if ( not fontSize ) then
+		fontSize = dropDown.value;
+	end
+	chatFrame:SetFont(LSM:Fetch("font", self.db.font), fontSize, self.db.fontoutline)
+	if self.db.fontoutline ~= 'NONE' then
+		chatFrame:SetShadowColor(0, 0, 0, 0.2)
+	else
+		chatFrame:SetShadowColor(0, 0, 0, 1)
+	end
+	chatFrame:SetShadowOffset((E.mult or 1), -(E.mult or 1))	
+end
+
 
 function CH:Initialize()
 	self.db = E.db.chat
@@ -737,15 +733,18 @@ function CH:Initialize()
 	E:RegisterDropdownButton("COPYCHAT", function(menu, button) button.arg1 = CH.clickedFrame end )
 	
 	E.Chat = self
-	
+	self:SecureHook('ChatEdit_OnEnterPressed')
 	FriendsMicroButton:Kill()
 	ChatFrameMenuButton:Kill()
 	OldChatFrame_OnHyperlinkShow = ChatFrame_OnHyperlinkShow
 	ChatFrame_OnHyperlinkShow = URLChatFrame_OnHyperlinkShow
+	
     if WIM then
       WIM.RegisterWidgetTrigger("chat_display", "whisper,chat,w2w,demo", "OnHyperlinkClick", function(self) CH.clickedframe = self end);
 	  WIM.RegisterItemRefHandler('url', WIM_URLLink)
-    end	
+    end
+	
+	self:SecureHook('FCF_SetChatWindowFontSize', 'SetChatFont')
 	self:RegisterEvent('UPDATE_CHAT_WINDOWS', 'SetupChat')
 	self:RegisterEvent('UPDATE_FLOATING_CHAT_WINDOWS', 'SetupChat')
 	

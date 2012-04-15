@@ -41,11 +41,11 @@ local rollpairs = locale == "deDE" and {
        ["(.*)님이 입찰을 선택했습니다: (.+)"] = "need",
        ["(.*)님이 마력 추출을 선택했습니다: (.+)"] = "disenchant",	
 } or locale == "esES" and {
-	["^(.*) pasÃ³ automÃ¡ticamente de: (.+) porque no puede despojar este objeto.$"] = "pass",
-	["^(.*) pasÃ³ de: (.+|r)$"]  = "pass",
-	["(.*) eligiÃ³ Codicia para: (.+)"] = "greed",
-	["(.*) eligiÃ³ Necesidad para: (.+)"]  = "need",
-	["(.*) eligiÃ³ Desencantar para: (.+)"]  = "disenchant",	   	   
+	["^(.*) pasó automáticamente de: (.+) porque no puede despojar este objeto.$"] = "pass",
+	["^(.*) pasó de: (.+|r)$"]  = "pass",
+	["(.*) eligió Codicia para: (.+)"] = "greed",
+	["(.*) eligió Necesidad para: (.+)"]  = "need",
+	["(.*) eligió Desencantar para: (.+)"]  = "disenchant",	   	   
 } or locale == "esMX" and {
 	["^(.*) pasó automáticamente de: (.+) porque no puede despojar este objeto.$"] = "pass",
 	["^(.*) pasó de: (.+|r)$"]  = "pass",
@@ -246,6 +246,9 @@ function M:START_LOOT_ROLL(event, rollid, time)
 	SetDesaturation(f.needbutt:GetNormalTexture(), not canNeed)
 	SetDesaturation(f.greedbutt:GetNormalTexture(), not canGreed)
 	SetDesaturation(f.disenchantbutt:GetNormalTexture(), not canDisenchant)
+	if canNeed then f.needbutt:SetAlpha(1) else f.needbutt:SetAlpha(0.2) end
+	if canGreed then f.greedbutt:SetAlpha(1) else f.greedbutt:SetAlpha(0.2) end
+	if canDisenchant then f.disenchantbutt:SetAlpha(1) else f.disenchantbutt:SetAlpha(0.2) end
 
 	f.fsbind:SetText(bop and "BoP" or "BoE")
 	f.fsbind:SetVertexColor(bop and 1 or .3, bop and .3 or 1, bop and .1 or .3)

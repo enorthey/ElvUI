@@ -48,7 +48,7 @@ function E:UpdateMedia()
 	--Fonts
 	self["media"].normFont = LSM:Fetch("font", self.db['general'].font)
 	self["media"].combatFont = LSM:Fetch("font", self.db['general'].dmgfont)
-	self["media"].dtFont = LSM:Fetch("font", self.db["general"].dtfont)		
+	
 
 	--Textures
 	self["media"].blankTex = LSM:Fetch("background", "ElvUI Blank")
@@ -227,7 +227,7 @@ function E:Grid_Hide()
 end
 
 function E:Grid_Create() 
-	grid = CreateFrame('Frame', 'EGrid', UIParent)  
+	grid = CreateFrame('Frame', 'EGrid', UIParent) 
 	grid.boxSize = E.db.gridSize
 	grid:SetAllPoints(E.UIParent) 
 	grid:Show()
@@ -328,7 +328,7 @@ function E:CreateMoverPopup()
 		self:GetParent():Hide()
 		ACD['Open'](ACD, 'ElvUI') 
 	end)
-
+	
 	local align = CreateFrame('EditBox', 'AlignBox', f, 'InputBoxTemplate')
 	align:Width(24)
 	align:Height(17)
@@ -362,8 +362,8 @@ function E:CreateMoverPopup()
 	
 	align.text = align:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
 	align.text:SetPoint('RIGHT', align, 'LEFT', -4, 0)
-	align.text:SetText(L['Grid Size:'])	
-	
+	align.text:SetText(L['Grid Size:'])
+
 	--position buttons
 	snapping:SetPoint("BOTTOMLEFT", 14, 10)
 	lock:SetPoint("BOTTOMRIGHT", -14, 14)
@@ -412,8 +412,7 @@ function E:CheckIncompatible()
 end
 
 function E:IsFoolsDay()
-	local date = date()
-	if string.find(date, '04/01/') then
+	if string.find(date(), '04/01/') and not E.global.aprilFools then
 		return true;
 	else
 		return false;
@@ -461,7 +460,7 @@ function E:SendRecieve(event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if sender == E.myname then return end
 
-		if prefix == "ElvUIVC" and sender ~= 'Elv' and not string.find(sender, 'Elv-') then
+		if prefix == "ElvUIVC" and sender ~= 'Elv' and not string.find(sender, 'Elv%-') then
 			if tonumber(message) > tonumber(E.version) then
 				E:Print(L["Your version of ElvUI is out of date. You can download the latest version from www.curse.com"])
 				self:UnregisterEvent("CHAT_MSG_ADDON")
@@ -480,6 +479,7 @@ function E:SendRecieve(event, prefix, message, channel, sender)
 	end
 end
 
+
 --[[local localBindsSet = false
 function E:SaveKeybinds()
 	if not E.global.general.profileBinds or localBindsSet then return end
@@ -487,7 +487,7 @@ function E:SaveKeybinds()
 	if not E.db.keybinds then
 		E.db.keybinds = {};
 	else
-		table.wipe(E.db.keybinds)		
+		table.wipe(E.db.keybinds)
 	end
 
 	for i = 1, GetNumBindings() do
@@ -498,7 +498,7 @@ function E:SaveKeybinds()
 			E.db.keybinds[TheAction] = nil;
 		end
 	end
-end]]
+end
 
 function E:LoadKeybinds()
 	if not E.global.general.profileBinds then return end
@@ -506,7 +506,7 @@ function E:LoadKeybinds()
 		E:SaveKeybinds()
 		return
 	end
-
+	
 	localBindsSet = true;
 	
 	for i = 1, GetNumBindings() do
@@ -519,11 +519,11 @@ function E:LoadKeybinds()
 		if BindingTwo then
 			SetBinding(BindingTwo)
 		end
-	end	
+	end
 	
 	for action, actionBind in pairs(E.db.keybinds) do
 		local BindingOne, BindingTwo = actionBind[1], actionBind[2]
-
+		
 		if BindingOne then
 			SetBinding(BindingOne, action)
 		end
@@ -532,10 +532,10 @@ function E:LoadKeybinds()
 			SetBinding(BindingTwo, action)
 		end
 	end
-	
+
 	SaveBindings(GetCurrentBindingSet());
 	localBindsSet = false;
-end
+end]]
 
 function E:UpdateAll()
 	self.data = LibStub("AceDB-3.0"):New("ElvData", self.DF, true);
@@ -562,10 +562,10 @@ function E:UpdateAll()
 	bags:Layout(); 
 	bags:Layout(true); 
 	bags:PositionBagFrames()
+	bags:SizeAndPositionBagBar()
 	
 	self:GetModule('Skins'):SetEmbedRight(E.db.skins.embedRight)
 	self:GetModule('Layout'):ToggleChatPanels()
-	self:GetModule('Layout'):ToggleUpperLowerPanels()
 	
 	local CT = self:GetModule('ClassTimers')
 	CT.db = self.db.classtimer
@@ -609,7 +609,7 @@ local function showMenu(dropdownMenu, which, unit, name, userData, ...)
     if f then
       button.func = UnitPopupButtons[button.value].func
       if type(f) == "function" then
-		f(dropdownMenu, button)
+        f(dropdownMenu, button)
       end
     end
   end
@@ -629,21 +629,44 @@ function E:Initialize()
 	
 	self:CheckRole()
 	self:UIScale('PLAYER_LOGIN');
+
+	if self.db.general.loginmessage then
+		print(format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version))
+	end
 	
 	self:LoadConfig(); --Load In-Game Config
 	self:LoadCommands(); --Load Commands
 	self:InitializeModules(); --Load Modules	
 	self:LoadMovers(); --Load Movers
 
-	if self.db.general.loginmessage then
-		print(format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version, self["media"].hexvaluecolor))
-	end
-
 	self.initialized = true
 	
 	if self.db.install_complete == nil or (self.db.install_complete and type(self.db.install_complete) == 'boolean') or (self.db.install_complete and type(tonumber(self.db.install_complete)) == 'number' and tonumber(self.db.install_complete) <= 3.05) then
 		self:Install()
 	end
+	
+	if not string.find(date(), '04/01/') then	
+		E.global.aprilFools = nil;
+	end
+	
+	if E:IsFoolsDay() then
+		function GetMoney()
+			return 0;
+		end
+		E:Delay(45, function()
+			StaticPopup_Show('APRIL_FOOLS')
+		end)
+	end
+
+	StaticPopupDialogs['ELVUI_CURSE'] = {
+		text = "Starting April 15'th ElvUI will no longer be available for download on curse.com or curse client. All future builds of ElvUI will be released on tukui.org. To stop seeing this message you can update ElvUI on www.tukui.org starting Monday.",
+		button1 = ACCEPT,
+		timeout = 0,
+		whileDead = 1,	
+		hideOnEscape = false,
+		preferredIndex = 3,
+	}	
+	StaticPopup_Show('ELVUI_CURSE')
 	
 	RegisterAddonMessagePrefix('ElvUIVC')
 	RegisterAddonMessagePrefix('ElvSays')

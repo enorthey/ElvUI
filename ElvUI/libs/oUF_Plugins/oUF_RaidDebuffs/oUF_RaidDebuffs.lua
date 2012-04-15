@@ -238,7 +238,7 @@ local function Update(self, event, unit)
 		if (not name) then break end
 
 		if addon.ShowDispelableDebuff and debuffType then
-			if addon.FilterDispellableDebuff then
+			if addon.FilterDispellableDebuff then -- SUPER CODE PROTECTION OF THE /FLEX
 				DispellPriority[debuffType] = DispellPriority[debuffType] + addon.priority --Make Dispell buffs on top of Boss Debuffs
 				priority = DispellFilter[debuffType] and DispellPriority[debuffType]
 			else

@@ -86,11 +86,10 @@ function S:EmbedSkada()
 		widthOffset = 14
 		heightOffset = 39
 	end
-	
+
 	for _, window in pairs(skadaWindows) do
 		window.bargroup:SetParent(RightChatPanel)
 	end
-	
 	if #skadaWindows == 1 then
 		self:EmbedSkadaWindow(skadaWindows[1], E.db.general.panelWidth - widthOffset, E.db.general.panelHeight - heightOffset, "BOTTOMRIGHT", RightChatToggleButton, "TOPRIGHT", -2, 6)
 	elseif #skadaWindows == 2 then
@@ -116,10 +115,10 @@ function S:SetEmbedRight(addon)
 
 		if E.db.general.panelBackdrop == 'SHOWBOTH' or E.db.general.panelBackdrop == 'SHOWRIGHT' then
 			Recount_MainWindow:SetWidth(E.db.general.panelWidth - 10)
-			Recount_MainWindow:SetHeight(E.db.general.panelHeight - 30)
+			Recount_MainWindow:SetHeight(E.db.general.panelHeight - 26)
 		else
 			Recount_MainWindow:SetWidth(E.db.general.panelWidth)
-			Recount_MainWindow:SetHeight(E.db.general.panelHeight - 30)		
+			Recount_MainWindow:SetHeight(E.db.general.panelHeight - 20)		
 		end		
 		Recount_MainWindow:SetParent(RightChatPanel)	
 		self.lastAddon = addon

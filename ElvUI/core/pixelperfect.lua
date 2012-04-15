@@ -4,9 +4,9 @@ local E, L, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, ProfileDB,
 local scale
 function E:UIScale(event)
 	if self.db.general.autoscale then
-		scale = min(1, 768/self.screenheight);
+		scale = max(0.64, min(1, 768/self.screenheight));
 	else
-		scale = min(1, GetCVar('uiScale') or UIParent:GetScale() or 768/self.screenheight);
+		scale = max(0.64, min(1, GetCVar('uiScale') or UIParent:GetScale() or 768/self.screenheight));
 	end
 
 	if self.screenwidth < 1600 then
@@ -47,6 +47,7 @@ function E:UIScale(event)
 	if E.Round and E:Round(UIParent:GetScale(), 5) ~= E:Round(scale, 5) and (event == 'PLAYER_LOGIN') then
 		SetCVar("useUiScale", 1);
 		SetCVar("uiScale", scale);	
+		WorldMapFrame.hasTaint = true;
 	end	
 	
 	if (event == 'PLAYER_LOGIN' or event == 'UI_SCALE_CHANGED') then
@@ -78,12 +79,12 @@ function E:UIScale(event)
 			
 		self.UIParent:ClearAllPoints();
 		self.UIParent:SetPoint("CENTER");	
-
+		
 		local change
 		if E.Round then
 			change = math.abs((E:Round(UIParent:GetScale(), 5) * 100) - (E:Round(scale, 5) * 100))
-		end		
-		
+		end
+
 		if event == 'UI_SCALE_CHANGED' and change and change > 1 and self.db.general.autoscale then
 			StaticPopup_Show('FAILED_UISCALE')
 		elseif event == 'UI_SCALE_CHANGED' and change and change > 1 then

@@ -157,7 +157,7 @@ end
 function AB:CreateBar4()
 	bar:CreateBackdrop('Default');
 	bar.backdrop:SetAllPoints();
-	bar:Point('BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -4, (E.db.general.panelHeight + 8));
+	bar:Point('RIGHT', E.UIParent, 'RIGHT', -3, 0);
 	bar.buttons = {}
 	bar.bindButtons = 'MULTIACTIONBAR4BUTTON'
 	
@@ -167,6 +167,9 @@ function AB:CreateBar4()
 		for k = 1, 11 do
 			bar.buttons[i]:SetState(k, "action", (k - 1) * 12 + i)
 		end
+		if i == 12 then
+			bar.buttons[i]:SetState(11, "custom", AB.customExitButton)
+		end			
 	end
 	self:UpdateButtonConfig(bar, bar.bindButtons)
 	bar:SetAttribute("_onstate-page", [[ 

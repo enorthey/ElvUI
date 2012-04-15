@@ -38,9 +38,14 @@ local classification = {
 
 function TT:SetStatusBarAnchor(pos)
 	GameTooltipStatusBar:ClearAllPoints()
-
-	GameTooltipStatusBar:Point("BOTTOMLEFT", GameTooltipStatusBar:GetParent(), "TOPLEFT", 2, 5)
-	GameTooltipStatusBar:Point("BOTTOMRIGHT", GameTooltipStatusBar:GetParent(), "TOPRIGHT", -2, 5)			
+	
+	if pos == 'BOTTOM' then
+		GameTooltipStatusBar:Point("TOPLEFT", GameTooltipStatusBar:GetParent(), "BOTTOMLEFT", 2, -5)
+		GameTooltipStatusBar:Point("TOPRIGHT", GameTooltipStatusBar:GetParent(), "BOTTOMRIGHT", -2, -5)			
+	else	
+		GameTooltipStatusBar:Point("BOTTOMLEFT", GameTooltipStatusBar:GetParent(), "TOPLEFT", 2, 5)
+		GameTooltipStatusBar:Point("BOTTOMRIGHT", GameTooltipStatusBar:GetParent(), "TOPRIGHT", -2, 5)			
+	end
 	
 	if not GameTooltipStatusBar.text then return end
 	GameTooltipStatusBar.text:ClearAllPoints()
@@ -272,6 +277,7 @@ function TT:SetStyle(tt)
 	tt:SetBackdropBorderColor(unpack(E.media.bordercolor))
 	tt:SetBackdropColor(unpack(E.media.backdropfadecolor))
 	self:Colorize(tt)
+	tt:FixDimensions()
 end
 
 function TT:ADDON_LOADED(event, addon)
@@ -481,6 +487,7 @@ function TT:GameTooltip_OnTooltipSetUnit(tt)
 	end
 	
 	if E.db.tooltip.whostarget then token = unit TT:AddTargetedBy() end
+	GameTooltip.forceRefresh = true
 end
 
 function TT:GameTooltipStatusBar_OnValueChanged(tt, value)
@@ -522,7 +529,11 @@ function TT:GameTooltip_OnUpdate(tt)
 	if (tt.needRefresh and tt:GetAnchorType() == 'ANCHOR_CURSOR' and E.db.tooltip.anchor ~= 'CURSOR') then
 		tt:SetBackdropColor(unpack(E["media"].backdropfadecolor))
 		tt:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+		tt:FixDimensions()
 		tt.needRefresh = nil
+	elseif tt.forceRefresh then
+		tt:FixDimensions()
+		tt.forceRefresh = nil
 	end
 end
 
@@ -550,6 +561,10 @@ function TT:GameTooltip_OnTooltipSetItem(tt)
 	end
 end
 
+function TT:ContainerFrameItemButton_OnEnter()
+	GameTooltip:FixDimensions()
+end
+
 function TT:Initialize()
 	self.db = E.db["tooltip"]
 	if E.global["tooltip"].enable ~= true then return end
@@ -568,7 +583,7 @@ function TT:Initialize()
 	GameTooltipStatusBar.text:FontTemplate(nil, nil, 'OUTLINE')
 	
 	local GameTooltipAnchor = CreateFrame('Frame', 'GameTooltipAnchor', E.UIParent)
-	GameTooltipAnchor:Point('BOTTOMRIGHT', ElvUI_Bar4, 'BOTTOMLEFT', -4, -38)
+	GameTooltipAnchor:Point('BOTTOMRIGHT', RightChatToggleButton, 'BOTTOMRIGHT')
 	GameTooltipAnchor:Size(130, 20)
 	E:CreateMover(GameTooltipAnchor, 'TooltipMover', 'Tooltip')
 	
@@ -581,13 +596,15 @@ function TT:Initialize()
 	self:HookScript(GameTooltip, 'OnTooltipSetItem', 'GameTooltip_OnTooltipSetItem')
 	self:HookScript(GameTooltip, 'OnTooltipSetUnit', 'GameTooltip_OnTooltipSetUnit')
 	self:HookScript(GameTooltipStatusBar, 'OnValueChanged', 'GameTooltipStatusBar_OnValueChanged')
-	
+	self:SecureHook('ContainerFrameItemButton_OnEnter') -- multisample fix
+
 	--SpellIDs
 	hooksecurefunc(GameTooltip, "SetUnitBuff", function(self,...)
 		local id = select(11,UnitBuff(...))
 		if id then
 			self:AddLine("|cFFCA3C3C"..ID.."|r".." "..id)
 			self:Show()
+			self.forceRefresh = true;
 		end
 	end)
 
@@ -596,6 +613,7 @@ function TT:Initialize()
 		if id then
 			self:AddLine("|cFFCA3C3C"..ID.."|r".." "..id)
 			self:Show()
+			self.forceRefresh = true;
 		end
 	end)
 
@@ -604,6 +622,7 @@ function TT:Initialize()
 		if id then
 			self:AddLine("|cFFCA3C3C"..ID.."|r".." "..id)
 			self:Show()
+			self.forceRefresh = true;
 		end
 	end)
 
@@ -620,6 +639,7 @@ function TT:Initialize()
 		if id then
 			self:AddLine("|cFFCA3C3C"..ID.."|r".." "..id)
 			self:Show()
+			self.forceRefresh = true;
 		end
 	end)
 	
