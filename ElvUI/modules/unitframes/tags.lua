@@ -109,7 +109,7 @@ ElvUF.Tags.Methods['Elv:getnamecolor'] = function(unit)
 	if not unit then return end
 	
 	if E.db['unitframe']['colors'].healthclass then
-		return string.format('|cff%02x%02x%02x', 214, 191, 166)	
+		return string.format('|cff%02x%02x%02x', 255, 255, 255)	
 	else
 		local reaction = UnitReaction(unit, 'player')
 		if (UnitIsPlayer(unit)) then

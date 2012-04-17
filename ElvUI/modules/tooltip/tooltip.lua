@@ -39,13 +39,8 @@ local classification = {
 function TT:SetStatusBarAnchor(pos)
 	GameTooltipStatusBar:ClearAllPoints()
 	
-	if pos == 'BOTTOM' then
-		GameTooltipStatusBar:Point("TOPLEFT", GameTooltipStatusBar:GetParent(), "BOTTOMLEFT", 2, -5)
-		GameTooltipStatusBar:Point("TOPRIGHT", GameTooltipStatusBar:GetParent(), "BOTTOMRIGHT", -2, -5)			
-	else	
-		GameTooltipStatusBar:Point("BOTTOMLEFT", GameTooltipStatusBar:GetParent(), "TOPLEFT", 2, 5)
-		GameTooltipStatusBar:Point("BOTTOMRIGHT", GameTooltipStatusBar:GetParent(), "TOPRIGHT", -2, 5)			
-	end
+	GameTooltipStatusBar:Point("BOTTOMLEFT", GameTooltipStatusBar:GetParent(), "TOPLEFT", 2, 5)
+	GameTooltipStatusBar:Point("BOTTOMRIGHT", GameTooltipStatusBar:GetParent(), "TOPRIGHT", -2, 5)		
 	
 	if not GameTooltipStatusBar.text then return end
 	GameTooltipStatusBar.text:ClearAllPoints()
@@ -583,7 +578,7 @@ function TT:Initialize()
 	GameTooltipStatusBar.text:FontTemplate(nil, nil, 'OUTLINE')
 	
 	local GameTooltipAnchor = CreateFrame('Frame', 'GameTooltipAnchor', E.UIParent)
-	GameTooltipAnchor:Point('BOTTOMRIGHT', RightChatToggleButton, 'BOTTOMRIGHT')
+	GameTooltipAnchor:Point('BOTTOMRIGHT', ElvUI_Bar4, 'BOTTOMLEFT', -4, -38)
 	GameTooltipAnchor:Size(130, 20)
 	E:CreateMover(GameTooltipAnchor, 'TooltipMover', 'Tooltip')
 	

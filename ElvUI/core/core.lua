@@ -48,7 +48,7 @@ function E:UpdateMedia()
 	--Fonts
 	self["media"].normFont = LSM:Fetch("font", self.db['general'].font)
 	self["media"].combatFont = LSM:Fetch("font", self.db['general'].dmgfont)
-	
+	self["media"].dtFont = LSM:Fetch("font", self.db["general"].dtfont)			
 
 	--Textures
 	self["media"].blankTex = LSM:Fetch("background", "ElvUI Blank")
@@ -631,7 +631,7 @@ function E:Initialize()
 	self:UIScale('PLAYER_LOGIN');
 
 	if self.db.general.loginmessage then
-		print(format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version))
+		print(format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version, self["media"].hexvaluecolor))
 	end
 	
 	self:LoadConfig(); --Load In-Game Config

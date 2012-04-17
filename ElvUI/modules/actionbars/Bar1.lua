@@ -156,7 +156,11 @@ end
 function AB:CreateBar1()
 	bar:CreateBackdrop('Default');
 	bar.backdrop:SetAllPoints();
-	bar:Point('BOTTOM', 0, 3);
+	if E.global.general.dtlowerpanel then
+		bar:Point('BOTTOM', 0, 34);
+	else
+		bar:Point('BOTTOM', 0, 4);
+	end
 	bar.buttons = {}
 	bar.bindButtons = 'ACTIONBUTTON'
 	
