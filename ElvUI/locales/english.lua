@@ -800,6 +800,7 @@ L["Your items have been repaired using guild bank funds for: "] = "Your items ha
 L["Your version of ElvUI is out of date. You can download the latest version from www.curse.com"] = "Your version of ElvUI is out of date. You can download the latest version from www.curse.com"
 L['|cFFE30000Lua error recieved. You can view the error message when you exit combat.'] = true;
 L["%s: %s tried to call the protected function '%s'."] = true;
+L["No locals to dump"] = true;
 
 
 L['Upper/Lower Panel'] = true;

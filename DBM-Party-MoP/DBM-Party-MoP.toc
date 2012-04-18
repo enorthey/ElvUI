@@ -21,7 +21,7 @@
 ## X-DBM-Mod-Name-zhTW: 隊伍首領 (潘達利亞之謎)
 ## X-DBM-Mod-Sort: 25
 ## X-DBM-Mod-LoadZoneID: 871, 867
-## X-Curse-Packaged-Version: 4.10.10-181-g2d83f9a
+## X-Curse-Packaged-Version: 4.10.10-183-g16c4a8f
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline
