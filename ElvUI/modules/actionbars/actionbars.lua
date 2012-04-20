@@ -278,6 +278,14 @@ function AB:DisableBlizzard()
 			_G['MultiCastActionButton'..i]:UnregisterAllEvents()
 			_G['MultiCastActionButton'..i]:SetAttribute("statehidden", true)
 		end
+		
+		for index, button in pairs(ActionBarButtonEventsFrame.frames) do
+			if E.myclass ~= 'SHAMAN' and button:GetName():find('MultiCastActionButton') then
+				table.remove(ActionBarButtonEventsFrame.frames, index)
+			elseif button:GetName() ~= "ExtraActionButton1" and not button:GetName():find('MultiCastActionButton') then
+				table.remove(ActionBarButtonEventsFrame.frames, index)
+			end	
+		end
 	end
 	UIPARENT_MANAGED_FRAME_POSITIONS["MainMenuBar"] = nil
 	UIPARENT_MANAGED_FRAME_POSITIONS["ShapeshiftBarFrame"] = nil

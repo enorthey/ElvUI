@@ -8,6 +8,7 @@ local function LoadSkin()
 	ItemSocketingScrollFrame:StripTextures()
 	ItemSocketingScrollFrame:CreateBackdrop("Transparent")
 
+	S:HandleScrollBar(ItemSocketingScrollFrameScrollBar, 2)
 	for i = 1, MAX_NUM_SOCKETS  do
 		local button = _G["ItemSocketingSocket"..i]
 		local button_bracket = _G["ItemSocketingSocket"..i.."BracketFrame"]
