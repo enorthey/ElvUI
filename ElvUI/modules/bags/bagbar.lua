@@ -5,12 +5,12 @@ local TOTAL_BAGS = NUM_BAG_FRAMES + 1
 
 local function OnEnter()
 	if E.db.bags.bagBar.mouseover ~= true then return; end
-	UIFrameFadeIn(ElvUIBags, 0.2, ElvUIBags:GetAlpha(), 1)
+	E:UIFrameFadeIn(ElvUIBags, 0.2, ElvUIBags:GetAlpha(), 1)
 end
 
 local function OnLeave()
 	if E.db.bags.bagBar.mouseover ~= true then return; end
-	UIFrameFadeOut(ElvUIBags, 0.2, ElvUIBags:GetAlpha(), 0)
+	E:UIFrameFadeOut(ElvUIBags, 0.2, ElvUIBags:GetAlpha(), 0)
 end
 
 function B:SkinBag(bag)

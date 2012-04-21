@@ -108,7 +108,7 @@ ElvUF.Tags.Events['Elv:getnamecolor'] = 'UNIT_POWER'
 ElvUF.Tags.Methods['Elv:getnamecolor'] = function(unit)
 	if not unit then return end
 	
-	if E.db['unitframe']['colors'].healthclass then
+	if not E.db['unitframe']['colors'].classNames then
 		return string.format('|cff%02x%02x%02x', 255, 255, 255)	
 	else
 		local reaction = UnitReaction(unit, 'player')
@@ -118,7 +118,7 @@ ElvUF.Tags.Methods['Elv:getnamecolor'] = function(unit)
 			local c = ElvUF['colors'].reaction[reaction]
 			return string.format('|cff%02x%02x%02x', c[1] * 255, c[2] * 255, c[3] * 255)
 		else
-			return string.format('|cff%02x%02x%02x', 214, 191, 166)	
+			return string.format('|cff%02x%02x%02x', 255, 255, 255)	
 		end
 	end
 end

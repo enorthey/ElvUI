@@ -180,6 +180,7 @@ P['unitframe'] = {
 		['colorhealthbyvalue'] = false,
 		['customhealthbackdrop'] = true,
 		['classbackdrop'] = false,
+		['classNames'] = true,
 	
 		['health'] = P.general.bordercolor,
 		['health_backdrop'] = { r = .1,g = .1,b = .1 },
