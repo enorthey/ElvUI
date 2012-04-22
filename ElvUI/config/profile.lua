@@ -171,7 +171,7 @@ P['unitframe'] = {
 	['fontsize'] = 12,
 	['fontoutline'] = 'OUTLINE',
 	['OORAlpha'] = 0.35,
-	['debuffHighlighting'] = true,
+	['debuffHighlighting'] = false,
 	["smartRaidFilter"] = true,
 
 	['colors'] = {
