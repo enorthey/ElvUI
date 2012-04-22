@@ -1444,7 +1444,7 @@ C["Filger_Spells"] = {
 			-- Judgement of Justice
 			{ spellID = 20170, unitId = "target", caster = "all", filter = "DEBUFF" },			
 			-- Seal of Truth Aka Censure
-			{ spellID = 31803, unitId = "target", caster = "all", filter = "DEBUFF" },		
+			{ spellID = 31803, unitId = "target", caster = "player", filter = "DEBUFF" },		
 		},
 		{
 			Name = "Procs/Buffs",

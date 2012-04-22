@@ -22,7 +22,7 @@ local FadeFramesInOut = function(fade, unit)
 			end
 		else	
 			if frame:GetAlpha() ~= 0 then
-				E:UIFrameFadeOut(frame, 0.15)
+				UIFrameFadeOut(frame, 0.15)
 				frame.fadeInfo.finishedFunc = CheckForReset
 			else
 				showStatus = false;
