@@ -1,10 +1,10 @@
 --[[
 Name: RatingBuster
 Description: Converts combat ratings in tooltips into normal percentages.
-Revision: $Revision: 350 $
+Revision: $Revision: 354 $
 Author: Whitetooth
 Email: hotdogee [at] gmail [dot] com
-LastUpdate: $Date: 2012-01-10 00:39:00 +0000 (Tue, 10 Jan 2012) $
+LastUpdate: $Date: 2012-04-23 21:23:47 +0000 (Mon, 23 Apr 2012) $
 ]]
 
 ---------------
@@ -25,8 +25,8 @@ local BI = LibStub("LibBabble-Inventory-3.0"):GetLookupTable()
 --------------------
 -- AceAddon Initialization
 RatingBuster = LibStub("AceAddon-3.0"):NewAddon("RatingBuster", "AceConsole-3.0", "AceEvent-3.0")
-RatingBuster.version = "1.6.4 (r"..gsub("$Revision: 350 $", "$Revision: (%d+) %$", "%1")..")"
-RatingBuster.date = gsub("$Date: 2012-01-10 00:39:00 +0000 (Tue, 10 Jan 2012) $", "^.-(%d%d%d%d%-%d%d%-%d%d).-$", "%1")
+RatingBuster.version = "1.6.4 (r"..gsub("$Revision: 354 $", "$Revision: (%d+) %$", "%1")..")"
+RatingBuster.date = gsub("$Date: 2012-04-23 21:23:47 +0000 (Mon, 23 Apr 2012) $", "^.-(%d%d%d%d%-%d%d%-%d%d).-$", "%1")
 
 
 -----------
@@ -569,7 +569,7 @@ local options = {
 					get = getProfileOption,
 					set = setProfileOptionAndClearCache,
 					min = 0,
-					max = 83, -- set to level cap + 3
+					max = MAX_PLAYER_LEVEL_TABLE[#MAX_PLAYER_LEVEL_TABLE] + 3, -- set to level cap + 3
 					step = 1,
 				},
         ilvlid = {

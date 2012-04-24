@@ -1,10 +1,10 @@
 --[[
 Name: LibStatLogic-1.2
 Description: A Library for stat conversion, calculation and summarization.
-Revision: $Revision: 67 $
+Revision: $Revision: 70 $
 Author: Whitetooth
 Email: hotdogee [at] gmail [dot] com
-Last Update: $Date: 2011-08-20 01:16:41 +0000 (Sat, 20 Aug 2011) $
+Last Update: $Date: 2012-04-22 16:31:31 +0000 (Sun, 22 Apr 2012) $
 Website:
 Documentation:
 SVN: $URL $
@@ -28,12 +28,27 @@ Debug:
 ]]
 
 local MAJOR = "LibStatLogic-1.2"
-local MINOR = "$Revision: 67 $"
+local MINOR = "$Revision: 70 $"
 
 local StatLogic = LibStub:NewLibrary(MAJOR, MINOR)
 if not StatLogic then return end
 
-
+-- For Mikk's findglobals script
+local _G = _G
+local tostring,tonumber,gsub,select,next,pairs,ipairs,type,unpack,strsub,strlen =
+       tostring,tonumber,gsub,select,next,pairs,ipairs,type,unpack,strsub,strlen
+local ceil,floor = 
+       ceil,floor
+local CR_DEFENSE_SKILL, CR_DODGE, CR_PARRY = 
+       CR_DEFENSE_SKILL, CR_DODGE, CR_PARRY
+local GetCombatRating, GetCombatRatingBonus, GetParryChance, GetDodgeChance =
+       GetCombatRating, GetCombatRatingBonus, GetParryChance, GetDodgeChance
+local UnitBuff, UnitDebuff, GetItemInfo, GetItemGem, GetTime = 
+       UnitBuff, UnitDebuff, GetItemInfo, GetItemGem, GetTime
+-- GLOBALS: error, print, setmetatable, getmetatable, debugstack
+-- GLOBALS: ItemRefTooltip, UIParent, ShowUIPanel
+-- GLOBALS: DEFAULT_CHAT_FRAME
+       
 ----------------------
 -- Version Checking --
 ----------------------
@@ -1451,7 +1466,7 @@ DisplayLocale.koKR = { -- {{{
     --["EXPERTISE_RATING"] = {STAT_EXPERTISE.." "..RATING, STAT_EXPERTISE.." "..RATING},
     ["EXPERTISE_RATING"] = {"숙련".." "..RATING, "숙련".." "..RATING},
     ["ARMOR_PENETRATION_RATING"] = {"방어구 관통력", "방어구 관통력"},
-	["MASTERY_RATING"] = {"특화도"..RATING, "특화"..RATING},
+    ["MASTERY_RATING"] = {"특화도"..RATING, "특화"..RATING},
 
     ---------------------------------------------------------------------------
     -- Tier2 Stats - Stats that only show up when broken down from a Tier1 stat
@@ -1556,7 +1571,7 @@ DisplayLocale.koKR = { -- {{{
     ["MOD_RAGE_COST"] = {"효과: 분노 소비량(%)", "효과: 분노(%)"},
     ["MOD_ENERGY_COST"] = {"효과: 기력 소비량(%)", "효과: 기력(%)"},
     ["MOD_COOLDOWN"] = {"효과: 재사용 대기시간(%)", "효과: 쿨타임(%)"},
-	["CRIT_TAKEN"] = {"치명타 적중률(%)", "치타"},
+    ["CRIT_TAKEN"] = {"치명타 적중률(%)", "치타"},
     ["HIT_TAKEN"] = {"적중률(%)", "적중"},
     ["CRIT_DAMAGE_TAKEN"] = {"받는 치명타 피해(%)", "받는 크리"},
     ["DMG_TAKEN"] = {"피해(%)", "피해"},
@@ -2272,7 +2287,7 @@ DisplayLocale.zhTW = { -- {{{
     --["EXPERTISE"] = {STAT_EXPERTISE, STAT_EXPERTISE},
     ["EXPERTISE"] = {"熟練", "熟練"},
     ["ARMOR_PENETRATION"] = {"護甲穿透(%)", "護甲穿透(%)"},
-	["MASTERY"] = {"精通", "精通"},
+    ["MASTERY"] = {"精通", "精通"},
 
     ---------------------------------------------------------------------------
     -- Tier3 Stats - Stats that only show up when broken down from a Tier2 stat
@@ -2688,7 +2703,7 @@ PatternLocale.deDE = { -- {{{
 
     ["Erhöht durch Zauber und Effekte verursachte Heilung"] = {"HEAL",},
     ["Erhöht durch Zauber und magische Effekte zugefügte Heilung aller Gruppenmitglieder, die sich im Umkreis von 30 befinden,"] = {"HEAL",}, -- Atiesh
-    --					["your healing"] = {"HEAL",}, -- Atiesh
+    --                    ["your healing"] = {"HEAL",}, -- Atiesh
 
     ["Schaden pro Sekunde"] = {"DPS",},
     ["zusätzlichen Schaden pro Sekunde"] = {"DPS",}, -- [Thorium Shells] ID: 15997 "Verursacht 17.5 zusätzlichen Schaden pro Sekunde."
@@ -2724,17 +2739,17 @@ PatternLocale.deDE = { -- {{{
     ["Erhöht die kritische Zaubertrefferwertung aller Gruppenmitglieder innerhalb von 30 Metern"] = {"SPELL_CRIT_RATING",},
     ["Erhöht Eure kritische Distanztrefferwertung"] = {"RANGED_CRIT_RATING",}, -- Fletcher's Gloves ID:7348
 
-    --	["Improves hit avoidance rating"] = {"MELEE_HIT_AVOID_RATING"}, -- ITEM_MOD_HIT_TAKEN_RATING
-    --	["Improves melee hit avoidance rating"] = {"MELEE_HIT_AVOID_RATING"}, -- ITEM_MOD_HIT_TAKEN_MELEE_RATING
-    --	["Improves ranged hit avoidance rating"] = {"RANGED_HIT_AVOID_RATING"}, -- ITEM_MOD_HIT_TAKEN_RANGED_RATING
-    --	["Improves spell hit avoidance rating"] = {"SPELL_HIT_AVOID_RATING"}, -- ITEM_MOD_HIT_TAKEN_SPELL_RATING
+    --    ["Improves hit avoidance rating"] = {"MELEE_HIT_AVOID_RATING"}, -- ITEM_MOD_HIT_TAKEN_RATING
+    --    ["Improves melee hit avoidance rating"] = {"MELEE_HIT_AVOID_RATING"}, -- ITEM_MOD_HIT_TAKEN_MELEE_RATING
+    --    ["Improves ranged hit avoidance rating"] = {"RANGED_HIT_AVOID_RATING"}, -- ITEM_MOD_HIT_TAKEN_RANGED_RATING
+    --    ["Improves spell hit avoidance rating"] = {"SPELL_HIT_AVOID_RATING"}, -- ITEM_MOD_HIT_TAKEN_SPELL_RATING
     ["Abhärtung"] = {"RESILIENCE_RATING",},
     ["Abhärtungswertung"] = {"RESILIENCE_RATING",},
     ["Erhöht Eure Abhärtungswertung"] = {"RESILIENCE_RATING",},
-    --	["Improves critical avoidance rating"] = {"MELEE_CRIT_AVOID_RATING",},
-    --	["Improves melee critical avoidance rating"] = {"MELEE_CRIT_AVOID_RATING",},
-    --	["Improves ranged critical avoidance rating"] = {"RANGED_CRIT_AVOID_RATING",},
-    --	["Improves spell critical avoidance rating"] = {"SPELL_CRIT_AVOID_RATING",},
+    --    ["Improves critical avoidance rating"] = {"MELEE_CRIT_AVOID_RATING",},
+    --    ["Improves melee critical avoidance rating"] = {"MELEE_CRIT_AVOID_RATING",},
+    --    ["Improves ranged critical avoidance rating"] = {"RANGED_CRIT_AVOID_RATING",},
+    --    ["Improves spell critical avoidance rating"] = {"SPELL_CRIT_AVOID_RATING",},
 
     ["Tempowertung"] = {"MELEE_HASTE_RATING", "SPELL_HASTE_RATING"},
     ["Erhöht Tempowertung"] = {"MELEE_HASTE_RATING", "SPELL_HASTE_RATING"}, -- [Pfeilabwehrender Brustschutz] ID:33328
@@ -3433,12 +3448,12 @@ PatternLocale.frFR = { -- {{{
     ["le score de toucher"] = {"MELEE_HIT_RATING", "SPELL_HIT_RATING",},
     ["votre score de toucher"] = {"MELEE_HIT_RATING", "SPELL_HIT_RATING",},
     ["au score de toucher"] = {"MELEE_HIT_RATING", "SPELL_HIT_RATING",},
-	
-	--mastery
+    
+    --mastery
     ["score de maîtrise"] = {"MASTERY_RATING",}, -- gems
     ["votre score de maîtrise"] = {"MASTERY_RATING",},
-	["au score de maîtrise"] = {"MASTERY_RATING",},
-	["le score de maîtrise"] = {"MASTERY_RATING",},
+    ["au score de maîtrise"] = {"MASTERY_RATING",},
+    ["le score de maîtrise"] = {"MASTERY_RATING",},
 
     ["score de coup critique"] = {"MELEE_CRIT_RATING", "SPELL_CRIT_RATING",},
     ["score de critique"] = {"MELEE_CRIT_RATING", "SPELL_CRIT_RATING",},
@@ -3620,7 +3635,7 @@ DisplayLocale.frFR = { -- {{{
     ["FIST_WEAPON_RATING"] = {"Main nue "..SKILL.." "..RATING, "Main nue "..RATING},
     ["EXPERTISE_RATING"] = {"Expertise".." "..RATING, "Expertise".." "..RATING},
     ["ARMOR_PENETRATION_RATING"] = {"Pénétration d'armure".." "..RATING, "ArP".." "..RATING},
-	["MASTERY_RATING"] = {RATING .. " de maîtrise", RATING .. " de maîtrise"},
+    ["MASTERY_RATING"] = {RATING .. " de maîtrise", RATING .. " de maîtrise"},
 
     ---------------------------------------------------------------------------
     -- Tier2 Stats - Stats that only show up when broken down from a Tier1 stat
@@ -3668,7 +3683,7 @@ DisplayLocale.frFR = { -- {{{
     ["FIST_WEAPON"] = {"Main nue "..SKILL, "Main nue"},
     ["EXPERTISE"] = {"Expertise", "Expertise"},
     ["ARMOR_PENETRATION"] = {"Pénétration d'armure(%)", "PenAr(%)"},
-	["MASTERY"] = {"Maîtrise", "Maîtrise"},
+    ["MASTERY"] = {"Maîtrise", "Maîtrise"},
     ---------------------------------------------------------------------------
     -- Tier3 Stats - Stats that only show up when broken down from a Tier2 stat
     -- Defense -> Crit Avoidance, Hit Avoidance, Dodge, Parry, Block
@@ -4093,7 +4108,7 @@ PatternLocale.zhCN = { -- {{{
     ["法术伤害"] = {"SPELL_DMG",},
     ["提高法术和魔法效果所造成的伤害和治疗效果"] = {"SPELL_DMG", "HEAL"},
     ["使周围半径30码范围内的所有小队成员的法术和魔法效果所造成的伤害和治疗效果"] = {"SPELL_DMG", "HEAL"}, -- Atiesh, ID: 22630
-    ["提高所有法术和魔法效果所造成的伤害和治疗效果"] = {"SPELL_DMG", "HEAL"},		--StatLogic:GetSum("22630")
+    ["提高所有法术和魔法效果所造成的伤害和治疗效果"] = {"SPELL_DMG", "HEAL"},        --StatLogic:GetSum("22630")
     ["提高所有法术和魔法效果所造成的伤害和治疗效果，最多"] = {"SPELL_DMG", "HEAL"},
     --SetTip("22630")
     -- Atiesh ID:22630, 22631, 22632, 22589
@@ -6390,7 +6405,7 @@ SetToItem = {
   [552] = {21848, 21847, 21846}, -- Wrath of Spellfire - Increases spell power by 7% of your total Intellect.
 }
 -- Build ItemToSet from SetToItem
-ItemToSet = {}
+local ItemToSet = {}
 for set, items in pairs(SetToItem) do
   for _, item in pairs(items) do
     ItemToSet[item] = set
@@ -7146,7 +7161,7 @@ if playerClass == "DRUID" then
         ["rank"] = {
           2, 4,
         },
-        ["buff"] = 5487,		-- ["Bear Form"],
+        ["buff"] = 5487,        -- ["Bear Form"],
       },
       {-- Feral Swiftness
         ["tab"] = 2,
@@ -7154,7 +7169,7 @@ if playerClass == "DRUID" then
         ["rank"] = {
           2, 4,
         },
-        ["buff"] = 768,		-- ["Cat Form"],
+        ["buff"] = 768,        -- ["Cat Form"],
       },
       {-- Natural Reaction
         ["tab"] = 2,
@@ -7162,7 +7177,7 @@ if playerClass == "DRUID" then
         ["rank"] = {
           3, 6,
         },
-        ["buff"] = 5487,		-- ["Bear Form"],
+        ["buff"] = 5487,        -- ["Bear Form"],
       },
     },
     -- Druid: Glyph of Barkskin
@@ -7177,7 +7192,7 @@ if playerClass == "DRUID" then
         ["rank"] = {
           -0.25,
         },
-        ["buff"] = 22812,		-- ["Barkskin"],
+        ["buff"] = 22812,        -- ["Barkskin"],
         ["glyph"] = 63057,
       },
       {-- Thick Hide
@@ -7224,7 +7239,7 @@ if playerClass == "DRUID" then
         ["rank"] = {
           0.1,
         },
-        ["buff"] = 5229,		-- ["Enrage"],
+        ["buff"] = 5229,        -- ["Enrage"],
       },
       {-- Perseverance
         ["HOLY"] = true,
@@ -7253,7 +7268,7 @@ if playerClass == "DRUID" then
         ["rank"] = {
           -0.06, -0.12,
         },
-        ["buff"] = 5487,		-- ["Bear Form"],
+        ["buff"] = 5487,        -- ["Bear Form"],
       },
       {-- Barkskin
         ["MELEE"] = true,
@@ -7267,7 +7282,7 @@ if playerClass == "DRUID" then
         ["rank"] = {
           -0.2,
         },
-        ["buff"] = 22812,		-- ["Barkskin"],
+        ["buff"] = 22812,        -- ["Barkskin"],
       },
       {-- Survival Instincts - Bear
         ["MELEE"] = true,
@@ -7281,8 +7296,8 @@ if playerClass == "DRUID" then
         ["rank"] = {
           -0.5,
         },
-        ["buff"] = 61336,		-- ["Survival Instincts"],
-        ["buff2"] = 5487,		-- ["Bear Form"],
+        ["buff"] = 61336,        -- ["Survival Instincts"],
+        ["buff2"] = 5487,        -- ["Bear Form"],
       },
       {-- Survival Instincts - Cat
         ["MELEE"] = true,
@@ -7296,8 +7311,8 @@ if playerClass == "DRUID" then
         ["rank"] = {
           -0.5,
         },
-        ["buff"] = 61336,		-- ["Survival Instincts"],
-        ["buff2"] = 768,		-- ["Cat Form"],
+        ["buff"] = 61336,        -- ["Survival Instincts"],
+        ["buff2"] = 768,        -- ["Cat Form"],
       },
       {-- Moonkin Form - Buff
         ["MELEE"] = true,
@@ -7311,7 +7326,7 @@ if playerClass == "DRUID" then
         ["rank"] = {
           -0.15,
         },
-        ["buff"] = 24858,		-- ["Moonkin Form"],
+        ["buff"] = 24858,        -- ["Moonkin Form"],
       },
     },
     -- Druid: Thick Hide (Rank 3) - 2,11
@@ -7334,26 +7349,26 @@ if playerClass == "DRUID" then
         ["rank"] = {
           0.11, 0.22, 0.33,
         },
-        ["buff"] = 5487,		-- ["Bear Form"],
+        ["buff"] = 5487,        -- ["Bear Form"],
       },
       {-- Bear Form < lv40
         ["rank"] = {
           0.65,
         },
-        ["buff"] = 5487,		-- ["Bear Form"],
+        ["buff"] = 5487,        -- ["Bear Form"],
       },
       {-- Bear Form >= lv40
         ["rank"] = {
           0.333333333333333333, -- 1.65 * 1.3333 = 2.2
         },
-        ["buff"] = 5487,		-- ["Bear Form"],
+        ["buff"] = 5487,        -- ["Bear Form"],
         ["condition"] = "UnitLevel('player') >= 40",
       },
       {
         ["rank"] = {
           1.2,
         },
-        ["buff"] = 33891,		-- ["Tree of Life"],
+        ["buff"] = 33891,        -- ["Tree of Life"],
       },
     },
     -- Druid: Furor (Rank 3) - 2,2
@@ -7380,13 +7395,13 @@ if playerClass == "DRUID" then
         ["rank"] = {
           0.03, 0.07, 0.1,
         },
-        ["buff"] = 5487,		-- ["Bear Form"],
+        ["buff"] = 5487,        -- ["Bear Form"],
       },
       {-- Bear Form
         ["rank"] = {
           0.25,
         },
-        ["buff"] = 5487,		-- ["Bear Form"],
+        ["buff"] = 5487,        -- ["Bear Form"],
       },
       {-- Leather Specialization
         ["rank"] = {
@@ -7394,7 +7409,7 @@ if playerClass == "DRUID" then
         },
         ["armorspec"] = 2,
         ["known"] = 86530,
-        ["buff"] = 5487,		-- ["Bear Form"],
+        ["buff"] = 5487,        -- ["Bear Form"],
       },
     },
     -- Druid: Leather Specialization - Passive: 86530
@@ -7406,7 +7421,7 @@ if playerClass == "DRUID" then
         },
         ["armorspec"] = 2,
         ["known"] = 86530,
-        ["buff"] = 768,		-- ["Cat Form"],
+        ["buff"] = 768,        -- ["Cat Form"],
       },
     },
     -- Druid: Heart of the Wild (Rank 5) - 3,4
@@ -7420,7 +7435,7 @@ if playerClass == "DRUID" then
         ["rank"] = {
           0.03, 0.07, 0.1,
         },
-        ["buff"] = 768,		-- ["Cat Form"],
+        ["buff"] = 768,        -- ["Cat Form"],
       },
       {
         ["rank"] = {
@@ -7463,7 +7478,7 @@ elseif playerClass == "DEATHKNIGHT" then
     -- 4.0.6: Your melee attack speed is increased by 20%.
     -- Death Knight: Improved Icy Talons - Rank 1/1 - 2,13
     -- 4.0.6: Increases the melee and ranged attack speed of all party and raid 
-	--        members within 100 yards by 10%, and your own attack speed by an additional 5%.
+    --        members within 100 yards by 10%, and your own attack speed by an additional 5%.
     -- Death Knight: Unholy Presence - Stance
     -- 4.0.6: Attack speed and rune regeneration increased 10%.
     -- Death Knight: Improved Unholy Presence - Rank 2/2 - 3,16
@@ -7573,7 +7588,7 @@ elseif playerClass == "DEATHKNIGHT" then
         ["rank"] = {
           -0.02, -0.04, -0.06,
         },
-        ["buff"] = 64856,		-- ["Blade Barrier"],
+        ["buff"] = 64856,        -- ["Blade Barrier"],
       },
       {-- Icebound Fortitude
         ["MELEE"] = true,
@@ -7587,7 +7602,7 @@ elseif playerClass == "DEATHKNIGHT" then
         ["rank"] = {
           -0.20,
         },
-        ["buff"] = 48792,		-- ["Icebound Fortitude"],
+        ["buff"] = 48792,        -- ["Icebound Fortitude"],
       },
       {-- Sanguine Fortitude
         ["MELEE"] = true,
@@ -7603,7 +7618,7 @@ elseif playerClass == "DEATHKNIGHT" then
         ["rank"] = {
           -0.15, -0.30,
         },
-        ["buff"] = 48792,		-- ["Icebound Fortitude"],
+        ["buff"] = 48792,        -- ["Icebound Fortitude"],
       },
       {-- Bone Shield
         ["MELEE"] = true,
@@ -7617,7 +7632,7 @@ elseif playerClass == "DEATHKNIGHT" then
         ["rank"] = {
           -0.20,
         },
-        ["buff"] = 49222,		-- ["Bone Shield"],
+        ["buff"] = 49222,        -- ["Bone Shield"],
       },
       {-- Anti-Magic Shell
         ["HOLY"] = true,
@@ -7629,7 +7644,7 @@ elseif playerClass == "DEATHKNIGHT" then
         ["rank"] = {
           -0.75,
         },
-        ["buff"] = 48707,		-- ["Anti-Magic Shell"],
+        ["buff"] = 48707,        -- ["Anti-Magic Shell"],
       },
       {-- Blood Presence
         ["MELEE"] = true,
@@ -7675,7 +7690,7 @@ elseif playerClass == "DEATHKNIGHT" then
         ["rank"] = {
           -0.08, -0.16, -0.25,
         },
-        ["buff"] = 81162,		-- ["Will of the Necropolis"],
+        ["buff"] = 81162,        -- ["Will of the Necropolis"],
       },
       {-- Rune of Spellshattering
         ["HOLY"] = true,
@@ -7751,7 +7766,7 @@ elseif playerClass == "DEATHKNIGHT" then
         ["rank"] = {
           0.15,
         },
-        ["buff"] = 55233,		-- ["Vampiric Blood"],
+        ["buff"] = 55233,        -- ["Vampiric Blood"],
         ["condition"] = "not LibStub('LibStatLogic-1.2').PlayerHasGlyph(58676)", -- ["Glyph of Vampiric Blood"]
       },
     },
@@ -7863,7 +7878,7 @@ elseif playerClass == "DEATHKNIGHT" then
         ["rank"] = {
           0.2,
         },
-        ["buff"] = 51271,		-- ["Pillar of Frost"],
+        ["buff"] = 51271,        -- ["Pillar of Frost"],
       },
       {-- Brittle Bones
         ["tab"] = 2,
@@ -7876,7 +7891,7 @@ elseif playerClass == "DEATHKNIGHT" then
         ["rank"] = {
           0.15,
         },
-        ["buff"] = 53365,		-- ["Unholy Strength"],
+        ["buff"] = 53365,        -- ["Unholy Strength"],
       },
     },
   }
@@ -8003,7 +8018,7 @@ elseif playerClass == "MAGE" then
         ["rank"] = {
           -0.05,
         },
-        ["buff"] = 30482,		-- ["Molten Armor"],
+        ["buff"] = 30482,        -- ["Molten Armor"],
       },
       {-- Firestarter
         ["MELEE"] = true,
@@ -8019,7 +8034,7 @@ elseif playerClass == "MAGE" then
         ["rank"] = {
           0.05,
         },
-        ["buff"] = 30482,		-- ["Molten Armor"],
+        ["buff"] = 30482,        -- ["Molten Armor"],
       },
     },
     -- Improved Mana Gem - Rank 2/2 - 1,19 - Buff: 83098
@@ -8031,7 +8046,7 @@ elseif playerClass == "MAGE" then
         ["rank"] = {
           0.01, 0.02,
         },
-        ["buff"] = 83098,		-- ["Improved Mana Gem"],
+        ["buff"] = 83098,        -- ["Improved Mana Gem"],
       },
     },
     -- Improved Mana Gem - Rank 2/2 - 1,19 - Buff: 83098
@@ -8043,7 +8058,7 @@ elseif playerClass == "MAGE" then
         ["rank"] = {
           0.01, 0.02,
         },
-        ["buff"] = 83098,		-- ["Improved Mana Gem"],
+        ["buff"] = 83098,        -- ["Improved Mana Gem"],
       },
     },
     -- Mage: Mage Armor - Buff: 6117
@@ -8055,13 +8070,13 @@ elseif playerClass == "MAGE" then
         ["rank"] = {
           0.03,
         },
-        ["buff"] = 6117,		-- ["Mage Armor"],
+        ["buff"] = 6117,        -- ["Mage Armor"],
       },
       {-- Glyph of Frost Armor
         ["rank"] = {
           0.02,
         },
-        ["buff"] = 7302,		-- ["Frost Armor"],
+        ["buff"] = 7302,        -- ["Frost Armor"],
         ["glyph"] = 98397,
         ["new"] = 13914, -- 4.1.0
       },
@@ -8073,7 +8088,7 @@ elseif playerClass == "MAGE" then
         ["rank"] = {
           0.2,
         },
-        ["buff"] = 7302,		-- ["Frost Armor"],
+        ["buff"] = 7302,        -- ["Frost Armor"],
         ["old"] = 13914, -- 4.1.0
       },
     },
@@ -8103,7 +8118,7 @@ elseif playerClass == "MAGE" then
         ["rank"] = {
           -0.15,
         },
-        ["buff"] = 7302,		-- ["Frost Armor"],
+        ["buff"] = 7302,        -- ["Frost Armor"],
         ["new"] = 13914, -- 4.1.0
       },
     },
@@ -8341,14 +8356,14 @@ elseif playerClass == "PRIEST" then
         ["rank"] = {
           0.6,
         },
-        ["buff"] = 588,		-- ["Inner Fire"],
+        ["buff"] = 588,        -- ["Inner Fire"],
       },
       {-- Glyph of Inner Fire
         ["rank"] = {
           0.1875, -- 1.9/1.6=1.1875
         },
-        ["buff"] = 588,		-- ["Inner Fire"],
-        ["glyph"] = 55686,		-- ["Glyph of Inner Fire"],
+        ["buff"] = 588,        -- ["Inner Fire"],
+        ["glyph"] = 55686,        -- ["Glyph of Inner Fire"],
       },
     },
     -- Priest: Dispersion - Buff
@@ -8370,7 +8385,7 @@ elseif playerClass == "PRIEST" then
         ["rank"] = {
           -0.15,
         },
-        ["buff"] = 15473,		-- ["Shadowform"],
+        ["buff"] = 15473,        -- ["Shadowform"],
       },
       {-- Dispersion
         ["MELEE"] = true,
@@ -8384,7 +8399,7 @@ elseif playerClass == "PRIEST" then
         ["rank"] = {
           -0.9,
         },
-        ["buff"] = 65544,		-- ["Dispersion"],
+        ["buff"] = 65544,        -- ["Dispersion"],
       },
       {-- Focused Will
         ["MELEE"] = true,
@@ -8400,7 +8415,7 @@ elseif playerClass == "PRIEST" then
         ["rank"] = {
           -0.04, -0.06,
         },
-        ["buff"] = 45241,		-- ["Focused Will"],
+        ["buff"] = 45241,        -- ["Focused Will"],
         ["buffStack"] = true,
       },
       {-- Inner Sanctum
@@ -8415,7 +8430,7 @@ elseif playerClass == "PRIEST" then
         ["rank"] = {
           -0.02, -0.04, -0.06,
         },
-        ["buff"] = 588,		-- ["Inner Sanctum"],
+        ["buff"] = 588,        -- ["Inner Sanctum"],
       },
     },
     -- Priest: Enlightenment - Passive: 84732
@@ -8507,13 +8522,13 @@ elseif playerClass == "ROGUE" then
         ["rank"] = {
           50,
         },
-        ["buff"] = 5277,		-- ["Evasion"],
+        ["buff"] = 5277,        -- ["Evasion"],
       },
       {-- Ghostly Strike
         ["rank"] = {
           15,
         },
-        ["buff"] = 31022,		-- ["Ghostly Strike"],
+        ["buff"] = 31022,        -- ["Ghostly Strike"],
       },
     },
     -- Rogue: Evasion - Buff: 5277
@@ -8524,7 +8539,7 @@ elseif playerClass == "ROGUE" then
         ["rank"] = {
           -0.25,
         },
-        ["buff"] = 5277,		-- ["Evasion"],
+        ["buff"] = 5277,        -- ["Evasion"],
       },
     },
     -- Rogue: Cloak of Shadows - Buff: 31224
@@ -8549,7 +8564,7 @@ elseif playerClass == "ROGUE" then
         ["rank"] = {
           -1,
         },
-        ["buff"] = 31224,		-- ["Cloak of Shadows"],
+        ["buff"] = 31224,        -- ["Cloak of Shadows"],
       },
       {-- Glyph of Cloak of Shadows
         ["MELEE"] = true,
@@ -8557,7 +8572,7 @@ elseif playerClass == "ROGUE" then
         ["rank"] = {
           -0.4,
         },
-        ["buff"] = 31224,		-- ["Cloak of Shadows"],
+        ["buff"] = 31224,        -- ["Cloak of Shadows"],
         ["glyph"] = 63269,  -- ["Glyph of Cloak of Shadows"],
       },
       {-- Cheating Death
@@ -8572,7 +8587,7 @@ elseif playerClass == "ROGUE" then
         ["rank"] = {
           -0.9,
         },
-        ["buff"] = 45182,		-- ["Cheating Death"],
+        ["buff"] = 45182,        -- ["Cheating Death"],
         ["old"] = 13914, -- 4.1.0
       },
       {-- Cheating Death
@@ -8587,7 +8602,7 @@ elseif playerClass == "ROGUE" then
         ["rank"] = {
           -0.8,
         },
-        ["buff"] = 45182,		-- ["Cheating Death"],
+        ["buff"] = 45182,        -- ["Cheating Death"],
         ["new"] = 13914, -- 4.1.0
       },
       {-- Deadened Nerves
@@ -8619,7 +8634,7 @@ elseif playerClass == "ROGUE" then
         ["rank"] = {
           -0.03, -0.06,
         },
-        ["buff"] = 73651,		-- ["Recuperate"],
+        ["buff"] = 73651,        -- ["Recuperate"],
       },
     },
     -- Rogue: Leather Specialization - Passive: 86531
@@ -8738,7 +8753,7 @@ elseif playerClass == "SHAMAN" then
         ["rank"] = {
           -0.3,
         },
-        ["buff"] = 30823,		-- ["Shamanistic Rage"],
+        ["buff"] = 30823,        -- ["Shamanistic Rage"],
       },
     },
     -- Shaman: Toughness - Rank 3/3 - 2,8
@@ -8853,7 +8868,7 @@ elseif playerClass == "WARLOCK" then
         ["rank"] = {
           -0.2,
         },
-        ["buff"] = 25228,		-- ["Soul Link"],
+        ["buff"] = 25228,        -- ["Soul Link"],
       },
       {-- Glyph of Soul Link
         ["MELEE"] = true,
@@ -8867,7 +8882,7 @@ elseif playerClass == "WARLOCK" then
         ["rank"] = {
           -0.05,
         },
-        ["buff"] = 25228,		-- ["Soul Link"],
+        ["buff"] = 25228,        -- ["Soul Link"],
         ["glyph"] = 63312,  -- ["Glyph of Soul Link"],
       },
     },
@@ -8956,7 +8971,7 @@ elseif playerClass == "WARRIOR" then
         ["rank"] = {
           -0.4,
         },
-        ["buff"] = 871,		-- ["Shield Wall"],
+        ["buff"] = 871,        -- ["Shield Wall"],
       },
       {-- Glyph of Shield Wall
         ["MELEE"] = true,
@@ -8970,7 +8985,7 @@ elseif playerClass == "WARRIOR" then
         ["rank"] = {
           -0.2,
         },
-        ["buff"] = 871,		-- ["Shield Wall"],
+        ["buff"] = 871,        -- ["Shield Wall"],
         ["glyph"] = 63329, -- Glyph of Shield Wall,
       },
       {-- Defensive Stance
@@ -9013,7 +9028,7 @@ elseif playerClass == "WARRIOR" then
         ["rank"] = {
           0.05,
         },
-        ["buff"] = 12292,		-- ["Death Wish"],
+        ["buff"] = 12292,        -- ["Death Wish"],
       },
       {-- Glyph of Death Wish
         ["MELEE"] = true,
@@ -9027,8 +9042,8 @@ elseif playerClass == "WARRIOR" then
         ["rank"] = {
           -0.05,
         },
-        ["buff"] = 12292,		-- ["Death Wish"],
-        ["glyph"] = 94374,		-- Glyph of Death Wish
+        ["buff"] = 12292,        -- ["Death Wish"],
+        ["glyph"] = 94374,        -- Glyph of Death Wish
       },
       {-- Recklessness
         ["MELEE"] = true,
@@ -9042,7 +9057,7 @@ elseif playerClass == "WARRIOR" then
         ["rank"] = {
           0.2,
         },
-        ["buff"] = 1719,		-- ["Recklessness"],
+        ["buff"] = 1719,        -- ["Recklessness"],
       },
       {-- Shield Mastery
         ["HOLY"] = true,
@@ -9056,7 +9071,7 @@ elseif playerClass == "WARRIOR" then
         ["rank"] = {
           -0.07, -0.14, -0.2,
         },
-        ["buff"] = 97954,		-- ["Spell Block"],
+        ["buff"] = 97954,        -- ["Spell Block"],
         ["new"] = 13914, -- 4.1.0
       },
     },
@@ -9067,7 +9082,7 @@ elseif playerClass == "WARRIOR" then
         ["rank"] = {
           0.3,
         },
-        ["buff"] = 12975,		-- ["Last Stand"],
+        ["buff"] = 12975,        -- ["Last Stand"],
       },
     },
     -- Warrior: Toughness - Rank 3/3 - 3,2
@@ -9187,7 +9202,7 @@ end
         ["rank"] = {
           -20,
         },
-        ["buff"] = 69127,		-- ["Chill of the Throne"],
+        ["buff"] = 69127,        -- ["Chill of the Throne"],
       },
     },
     -- Replenishment - Buff
@@ -9198,7 +9213,7 @@ end
         ["rank"] = {
           0.005,
         },
-        ["buff"] = 57669,		-- ["Replenishment"],
+        ["buff"] = 57669,        -- ["Replenishment"],
       },
     },
     -- Priest: Inspiration - Rank 2/2 - Buff: 15357
@@ -9223,7 +9238,7 @@ end
         ["rank"] = {
           -0.1,
         },
-        ["buff"] = 65116,		-- ["Stoneform"],
+        ["buff"] = 65116,        -- ["Stoneform"],
       },
       {-- Inspiration
         ["MELEE"] = true,
@@ -9231,7 +9246,7 @@ end
         ["rank"] = {
           -0.05, -0.1,
         },
-        ["buff"] = 15357,		-- ["Inspiration"],
+        ["buff"] = 15357,        -- ["Inspiration"],
         ["group"] = D["Reduced Physical Damage Taken"],
       },
       {-- Ancestral Fortitude
@@ -9240,7 +9255,7 @@ end
         ["rank"] = {
           -0.05, -0.1,
         },
-        ["buff"] = 16236,		-- ["Ancestral Fortitude"],
+        ["buff"] = 16236,        -- ["Ancestral Fortitude"],
         ["group"] = D["Reduced Physical Damage Taken"],
       },
       {-- Pain Suppression
@@ -9255,7 +9270,7 @@ end
         ["rank"] = {
           -0.4,
         },
-        ["buff"] = 33206,		-- ["Pain Suppression"],
+        ["buff"] = 33206,        -- ["Pain Suppression"],
       },
       {-- Divine Guardian
         ["MELEE"] = true,
@@ -9269,7 +9284,7 @@ end
         ["rank"] = {
           -0.2,
         },
-        ["buff"] = 70940,		-- ["Divine Guardian"],
+        ["buff"] = 70940,        -- ["Divine Guardian"],
       },
       {-- Safeguard
         ["MELEE"] = true,
@@ -9283,7 +9298,7 @@ end
         ["rank"] = {
           -0.15, -0.3,
         },
-        ["buff"] = 46947,		-- ["Safeguard"],
+        ["buff"] = 46947,        -- ["Safeguard"],
       },
       {-- Anti-Magic Zone
         ["HOLY"] = true,
@@ -9295,7 +9310,7 @@ end
         ["rank"] = {
           -0.75,
         },
-        ["buff"] = 50461,		-- ["Anti-Magic Zone"],
+        ["buff"] = 50461,        -- ["Anti-Magic Zone"],
       },
       {-- Effulgent Skyflare Diamond
         ["HOLY"] = true,
@@ -9325,28 +9340,28 @@ end
         ["rank"] = {
           0.1,
         },
-        ["buff"] = 53646,		-- ["Demonic Pact"],
+        ["buff"] = 53646,        -- ["Demonic Pact"],
         ["group"] = D["Spell Power Multiplier"],
       },
       {-- Totemic Wrath
         ["rank"] = {
           0.1,
         },
-        ["buff"] = 77747,		-- ["Totemic Wrath"],
+        ["buff"] = 77747,        -- ["Totemic Wrath"],
         ["group"] = D["Spell Power Multiplier"],
       },
       {-- Flametongue Totem
         ["rank"] = {
           0.06,
         },
-        ["buff"] = 52109,		-- ["Flametongue Totem"],
+        ["buff"] = 52109,        -- ["Flametongue Totem"],
         ["group"] = D["Spell Power Multiplier"],
       },
       {-- Arcane Brilliance
         ["rank"] = {
           0.06,
         },
-        ["buff"] = 79058,		-- ["Arcane Brilliance"],
+        ["buff"] = 79058,        -- ["Arcane Brilliance"],
         ["group"] = D["Spell Power Multiplier"],
       },
       {-- Dalaran Brilliance
@@ -9370,7 +9385,7 @@ end
         ["rank"] = {
           0.1,
         },
-        ["buff"] = 53646,		-- ["Demonic Pact"],
+        ["buff"] = 53646,        -- ["Demonic Pact"],
         ["group"] = D["Spell Power Multiplier"],
         ["newtoc"] = 40000,
       },
@@ -9378,7 +9393,7 @@ end
         ["rank"] = {
           0.1,
         },
-        ["buff"] = 77747,		-- ["Totemic Wrath"],
+        ["buff"] = 77747,        -- ["Totemic Wrath"],
         ["group"] = D["Spell Power Multiplier"],
         ["newtoc"] = 40000,
       },
@@ -9386,7 +9401,7 @@ end
         ["rank"] = {
           0.06,
         },
-        ["buff"] = 52109,		-- ["Flametongue Totem"],
+        ["buff"] = 52109,        -- ["Flametongue Totem"],
         ["group"] = D["Spell Power Multiplier"],
         ["newtoc"] = 40000,
       },
@@ -9394,7 +9409,7 @@ end
         ["rank"] = {
           0.06,
         },
-        ["buff"] = 79058,		-- ["Arcane Brilliance"],
+        ["buff"] = 79058,        -- ["Arcane Brilliance"],
         ["group"] = D["Spell Power Multiplier"],
         ["newtoc"] = 40000,
       },
@@ -9468,28 +9483,28 @@ end
         ["rank"] = {
           0.1,
         },
-        ["buff"] = 19506,		-- ["Trueshot Aura"],
+        ["buff"] = 19506,        -- ["Trueshot Aura"],
         ["group"] = D["Attack Power Multiplier"],
       },
       {-- Abominable Might
         ["rank"] = {
           0.05, 0.1,
         },
-        ["buff"] = 55972,		-- ["Abominable Might"],
+        ["buff"] = 55972,        -- ["Abominable Might"],
         ["group"] = D["Attack Power Multiplier"],
       },
       {-- Unleashed Rage
         ["rank"] = {
           0.04, 0.07, 0.1,
         },
-        ["buff"] = 30809,		-- ["Unleashed Rage"],
+        ["buff"] = 30809,        -- ["Unleashed Rage"],
         ["group"] = D["Attack Power Multiplier"],
       },
       {-- Blessing of Might
         ["rank"] = {
           0.1,
         },
-        ["buff"] = 19740,		-- ["Blessing of Might"],
+        ["buff"] = 19740,        -- ["Blessing of Might"],
         ["group"] = D["Attack Power Multiplier"],
       },
     },
@@ -9548,28 +9563,28 @@ end
         ["rank"] = {
           0.05,
         },
-        ["buff"] = 20217,		-- ["Blessing of Kings"],
+        ["buff"] = 20217,        -- ["Blessing of Kings"],
         ["group"] = D["Stat Multiplier"],
       },
       {-- Mark of the Wild
         ["rank"] = {
           0.05,
         },
-        ["buff"] = 79061,		-- ["Mark of the Wild"],
+        ["buff"] = 79061,        -- ["Mark of the Wild"],
         ["group"] = D["Stat Multiplier"],
       },
       {-- Embrace of the Shale Spider
         ["rank"] = {
           0.05,
         },
-        ["buff"] = 90363,		-- ["Embrace of the Shale Spider"],
+        ["buff"] = 90363,        -- ["Embrace of the Shale Spider"],
         ["group"] = D["Stat Multiplier"],
       },
       {-- Blessing of Forgotten Kings
         ["rank"] = {
           0.04,
         },
-        ["buff"] = 69378,		-- ["Blessing of Forgotten Kings"],
+        ["buff"] = 69378,        -- ["Blessing of Forgotten Kings"],
         ["group"] = D["Stat Multiplier"],
       },
     },
@@ -9586,28 +9601,28 @@ end
         ["rank"] = {
           0.05,
         },
-        ["buff"] = 20217,		-- ["Blessing of Kings"],
+        ["buff"] = 20217,        -- ["Blessing of Kings"],
         ["group"] = D["Stat Multiplier"],
       },
       {-- Mark of the Wild
         ["rank"] = {
           0.05,
         },
-        ["buff"] = 79061,		-- ["Mark of the Wild"],
+        ["buff"] = 79061,        -- ["Mark of the Wild"],
         ["group"] = D["Stat Multiplier"],
       },
       {-- Embrace of the Shale Spider
         ["rank"] = {
           0.05,
         },
-        ["buff"] = 90363,		-- ["Embrace of the Shale Spider"],
+        ["buff"] = 90363,        -- ["Embrace of the Shale Spider"],
         ["group"] = D["Stat Multiplier"],
       },
       {-- Blessing of Forgotten Kings
         ["rank"] = {
           0.04,
         },
-        ["buff"] = 69378,		-- ["Blessing of Forgotten Kings"],
+        ["buff"] = 69378,        -- ["Blessing of Forgotten Kings"],
         ["group"] = D["Stat Multiplier"],
       },
     },
@@ -9624,31 +9639,78 @@ end
         ["rank"] = {
           0.05,
         },
-        ["buff"] = 20217,		-- ["Blessing of Kings"],
+        ["buff"] = 20217,        -- ["Blessing of Kings"],
         ["group"] = D["Stat Multiplier"],
       },
       {-- Mark of the Wild
         ["rank"] = {
           0.05,
         },
-        ["buff"] = 79061,		-- ["Mark of the Wild"],
+        ["buff"] = 79061,        -- ["Mark of the Wild"],
         ["group"] = D["Stat Multiplier"],
       },
       {-- Embrace of the Shale Spider
         ["rank"] = {
           0.05,
         },
-        ["buff"] = 90363,		-- ["Embrace of the Shale Spider"],
+        ["buff"] = 90363,        -- ["Embrace of the Shale Spider"],
         ["group"] = D["Stat Multiplier"],
       },
       {-- Blessing of Forgotten Kings
         ["rank"] = {
           0.04,
         },
-        ["buff"] = 69378,		-- ["Blessing of Forgotten Kings"],
+        ["buff"] = 69378,        -- ["Blessing of Forgotten Kings"],
         ["group"] = D["Stat Multiplier"],
       },
     },
+    --[[
+        Up to level 80 1 stamina grants 10 health. But levels 81..85 that value increases. 
+        It could be implemented as a GetHealthPerStamina(level) function (which i started to do), 
+        but everyone would have to change their code to stop using the hard-coded "10 health per stamina".
+        Instead we can code it as a set of conditional percentage modifiers for all classes in the "MOD_HEALTH" group
+            Level    HP/sta    % increase
+            =====    =======    ========
+            80        10.0    0.00   (confirmed 10.0 12/12/2010, 4.0.3)
+            81        10.8    0.08
+            82        11.6    0.12   (confirmed 11.6 12/11/2010, 4.0.3)
+            83        12.4    0.24   (confirmed 12.4 12/12/2010, 4.0.3)
+            84        13.2    0.32
+            85        14.0    0.40
+            
+        Question for Whitefang: Could the modifier be written as the following?:
+                {
+                    ["rank"] = { 0.08 * (UnitLevel('player') - 80) },
+                    ["condition"] = "UnitLevel('player') >= 81"
+                }
+                
+            It would be future proofed, but i don't know if it's right to code the rank based on a formula 
+                (i.e. what happens if they ding?)
+    --]]
+    ["MOD_HEALTH"] = {
+        -- Level 81..85
+        {    
+            ["rank"] = { 0.08, }, 
+            ["condition"] = "UnitLevel('player') == 81", 
+        },
+        {    
+            ["rank"] = { 0.12, }, 
+            ["condition"] = "UnitLevel('player') == 82", 
+        },
+        {    
+            ["rank"] = { 0.24, }, 
+            ["condition"] = "UnitLevel('player') == 83", 
+        },
+        {    
+            ["rank"] = { 0.32, }, 
+            ["condition"] = "UnitLevel('player') == 84", 
+        },
+        {    
+            ["rank"] = { 0.40, }, 
+            ["condition"] = "UnitLevel('player') == 85", 
+        },
+    },
+      
     -- Paladin: Blessing of Kings - Buff: 20217
     -- 4.0.1: Strength, Agility, Stamina, and Intellect increased by 5%.
     -- Druid: Mark of the Wild - Buff: 79061
@@ -9662,28 +9724,28 @@ end
         ["rank"] = {
           0.05,
         },
-        ["buff"] = 20217,		-- ["Blessing of Kings"],
+        ["buff"] = 20217,        -- ["Blessing of Kings"],
         ["group"] = D["Stat Multiplier"],
       },
       {-- Mark of the Wild
         ["rank"] = {
           0.05,
         },
-        ["buff"] = 79061,		-- ["Mark of the Wild"],
+        ["buff"] = 79061,        -- ["Mark of the Wild"],
         ["group"] = D["Stat Multiplier"],
       },
       {-- Embrace of the Shale Spider
         ["rank"] = {
           0.05,
         },
-        ["buff"] = 90363,		-- ["Embrace of the Shale Spider"],
+        ["buff"] = 90363,        -- ["Embrace of the Shale Spider"],
         ["group"] = D["Stat Multiplier"],
       },
       {-- Blessing of Forgotten Kings
         ["rank"] = {
           0.04,
         },
-        ["buff"] = 69378,		-- ["Blessing of Forgotten Kings"],
+        ["buff"] = 69378,        -- ["Blessing of Forgotten Kings"],
         ["group"] = D["Stat Multiplier"],
       },
     },
@@ -9696,7 +9758,7 @@ end
         ["rank"] = {
           3.5,
         },
-        ["buff"] = 16191,		-- ["Mana Tide"],
+        ["buff"] = 16191,        -- ["Mana Tide"],
       },
       {-- The Human Spirit
         ["rank"] = {
@@ -9882,158 +9944,158 @@ local buffGroup = {}
 function StatLogic:GetStatMod(stat, school, talentGroup, modTable)
   local statModInfo = StatModInfo[stat]
   
-	--Check that it wasn't an invalid stat
-	if (statModInfo == nil) then
-		local sError = "StatLogic:GetStatMod() Invalid stat mod requested \""..stat.."\""
-		print(sError)
-		error(sError)
-	end
-		
-	local mod = statModInfo.initialValue
-	-- if school is required for this statMod but not given
-	if statModInfo.school and not school then
-		--print("school is required for this stat, but none given. Returning finalAdjust value")
-		return mod + statModInfo.finalAdjust 
-	end
-	-- disable for 4.0.1 until we get talent/buffs data implemented
-	--if toc >= 40000 then return mod + statModInfo.finalAdjust end
-	wipe(buffGroup)
+    --Check that it wasn't an invalid stat
+    if (statModInfo == nil) then
+        local sError = "StatLogic:GetStatMod() Invalid stat mod requested \""..stat.."\""
+        print(sError)
+        error(sError)
+    end
+        
+    local mod = statModInfo.initialValue
+    -- if school is required for this statMod but not given
+    if statModInfo.school and not school then
+        --print("school is required for this stat, but none given. Returning finalAdjust value")
+        return mod + statModInfo.finalAdjust 
+    end
+    -- disable for 4.0.1 until we get talent/buffs data implemented
+    --if toc >= 40000 then return mod + statModInfo.finalAdjust end
+    wipe(buffGroup)
   
   if not modTable then modTable = "BOTH" end
-	
-	-- Class specific mods
-	if type(StatModTable[playerClass][stat]) == "table" and modTable ~= "ALL" then
-	
-		for _, case in ipairs(StatModTable[playerClass][stat]) do
-		
-			local ok = true
-			if school and not case[school] then ok = nil end
-			
-			if ok and case.newtoc and toc < case.newtoc then ok = nil end
-			if ok and case.oldtoc and toc >= case.oldtoc then ok = nil end
-			if ok and case.new and wowBuildNo < case.new then ok = nil end
-			if ok and case.old and wowBuildNo >= case.old then ok = nil end
-			if ok and case.condition and not loadstring("return "..case.condition)() then ok = nil end
-			if ok and case.buffName and not PlayerHasAura(case.buffName) then ok = nil end
-			if ok and case.buff2Name and not PlayerHasAura(case.buff2Name) then ok = nil end
-			if ok and case.stance and case.stance ~= GetStanceIcon() then ok = nil end
-			if ok and case.glyph and not PlayerHasGlyph(case.glyph, talentGroup) then ok = nil end
-			if ok and case.enchant and not SlotHasEnchant(case.enchant, case.slot) then ok = nil end
-			if ok and case.itemset and ((not PlayerItemSets[case.itemset[1]]) or PlayerItemSets[case.itemset[1]] < case.itemset[2]) then ok = nil end
-			if ok and case.armorspec and case.armorspec ~= ArmorSpecActive then ok = nil end
-			if ok and case.known and not IsSpellKnown(case.known) then ok = nil end
-			
-			if ok then
-				local r, _
-				local s = 1
-				-- if talent field
-				if case.tab and case.num then
-					_, _, _, _, r = GetTalentInfo(case.tab, case.num, nil, nil, talentGroup)
-					if case.buffName and case.buffStack then
-						_, s = GetPlayerAuraRankStack(case.buffName) -- Gets buff stack count, but use talent as rank
-					end
-					-- no talent but buff is given
-				elseif case.buffName then
-					r, s = GetPlayerAuraRankStack(case.buffName)
-					if not case.buffStack then
-						s = 1
-					end
-					-- no talent but all other given conditions are statisfied
-				else--if case.condition or case.stance then
-					r = 1
-				end
-				if r and case.rank[r] then
-					if statModInfo.initialValue == 0 and not case.mul then
-						if not case.group then
-							mod = mod + case.rank[r] * s
-						elseif not buffGroup[case.group] then -- this mod is part of a group, but not seen before
-							mod = mod + case.rank[r] * s
-							buffGroup[case.group] = case.rank[r] * s
-						elseif (case.rank[r] * s) > buffGroup[case.group] then -- seen before and this one is better, do upgrade
-							mod = mod + case.rank[r] * s - buffGroup[case.group]
-							buffGroup[case.group] = case.rank[r] * s
-						else -- seen before but not better, do nothing
-						end
-					else
-						if not case.group then
-							mod = mod * (case.rank[r] * s + 1)
-						elseif not buffGroup[case.group] then -- this mod is part of a group, but not seen before
-							mod = mod * (case.rank[r] * s + 1)
-							buffGroup[case.group] = (case.rank[r] * s + 1)
-						elseif (case.rank[r] * s + 1) > buffGroup[case.group] then -- seen before and this one is better, do upgrade
-							mod = mod * (case.rank[r] * s + 1) / buffGroup[case.group]
-							buffGroup[case.group] = (case.rank[r] * s + 1)
-						else -- seen before but not better, do nothing
-						end
-					end
-				end
-			end
-		end
-	end
-	
-	-- Non class specific mods
-	if type(StatModTable["ALL"][stat]) == "table" and modTable ~= "CLASS"  then
-		for _, case in ipairs(StatModTable["ALL"][stat]) do
-			local ok = true
-			if school and not case[school] then ok = nil end
-			if ok and case.newtoc and toc < case.newtoc then ok = nil end
-			if ok and case.oldtoc and toc >= case.oldtoc then ok = nil end
-			if ok and case.new and wowBuildNo < case.new then ok = nil end
-			if ok and case.old and wowBuildNo >= case.old then ok = nil end
-			if ok and case.condition and not loadstring("return "..case.condition)() then ok = nil end
-			if ok and case.buffName and not PlayerHasAura(case.buffName) then ok = nil end
-			if ok and case.stance and case.stance ~= GetStanceIcon() then ok = nil end
-			if ok and case.race and case.race ~= playerRace then ok = nil end
-			if ok and case.meta and not IsMetaGemActive(case.meta) then ok = nil end
-			if ok then
-				local r, _
-				local s = 1
-				-- if talent field
-				if case.tab and case.num then
-					_, _, _, _, r = GetTalentInfo(case.tab, case.num, nil, nil, talentGroup)
-					if case.buffName and case.buffStack then
-						_, s = GetPlayerAuraRankStack(case.buffName) -- Gets buff rank and stack count
-					end
-					-- no talent but buff is given
-				elseif case.buffName then
-					r, s = GetPlayerAuraRankStack(case.buffName)
-					if not case.buffStack then
-						s = 1
-					end
-					-- no talent but all other given conditions are statisfied
-				else--if case.condition or case.stance then
-					r = 1
-				end
-				if r and case.rank[r] then
-					if statModInfo.initialValue == 0 then
-						if not case.group then
-							mod = mod + case.rank[r] * s
-						elseif not buffGroup[case.group] then -- this mod is part of a group, but not seen before
-							mod = mod + case.rank[r] * s
-							buffGroup[case.group] = case.rank[r] * s
-						elseif (case.rank[r] * s) > buffGroup[case.group] then -- seen before and this one is better, do upgrade
-							mod = mod + case.rank[r] * s - buffGroup[case.group]
-							buffGroup[case.group] = case.rank[r] * s
-						else -- seen before but not better, do nothing
-						end
-					else
-						if not case.group then
-							mod = mod * (case.rank[r] * s + 1)
-						elseif not buffGroup[case.group] then -- this mod is part of a group, but not seen before
-							mod = mod * (case.rank[r] * s + 1)
-							buffGroup[case.group] = (case.rank[r] * s + 1)
-						elseif (case.rank[r] * s + 1) > buffGroup[case.group] then -- seen before and this one is better, do upgrade
-							mod = mod * (case.rank[r] * s + 1) / buffGroup[case.group]
-							buffGroup[case.group] = (case.rank[r] * s + 1)
-						else -- seen before but not better, do nothing
-						end
-					end
-				end
-			end
-		end
-	end
+    
+    -- Class specific mods
+    if type(StatModTable[playerClass][stat]) == "table" and modTable ~= "ALL" then
+    
+        for _, case in ipairs(StatModTable[playerClass][stat]) do
+        
+            local ok = true
+            if school and not case[school] then ok = nil end
+            
+            if ok and case.newtoc and toc < case.newtoc then ok = nil end
+            if ok and case.oldtoc and toc >= case.oldtoc then ok = nil end
+            if ok and case.new and wowBuildNo < case.new then ok = nil end
+            if ok and case.old and wowBuildNo >= case.old then ok = nil end
+            if ok and case.condition and not loadstring("return "..case.condition)() then ok = nil end
+            if ok and case.buffName and not PlayerHasAura(case.buffName) then ok = nil end
+            if ok and case.buff2Name and not PlayerHasAura(case.buff2Name) then ok = nil end
+            if ok and case.stance and case.stance ~= GetStanceIcon() then ok = nil end
+            if ok and case.glyph and not PlayerHasGlyph(case.glyph, talentGroup) then ok = nil end
+            if ok and case.enchant and not SlotHasEnchant(case.enchant, case.slot) then ok = nil end
+            if ok and case.itemset and ((not PlayerItemSets[case.itemset[1]]) or PlayerItemSets[case.itemset[1]] < case.itemset[2]) then ok = nil end
+            if ok and case.armorspec and case.armorspec ~= ArmorSpecActive then ok = nil end
+            if ok and case.known and not IsSpellKnown(case.known) then ok = nil end
+            
+            if ok then
+                local r, _
+                local s = 1
+                -- if talent field
+                if case.tab and case.num then
+                    _, _, _, _, r = GetTalentInfo(case.tab, case.num, nil, nil, talentGroup)
+                    if case.buffName and case.buffStack then
+                        _, s = GetPlayerAuraRankStack(case.buffName) -- Gets buff stack count, but use talent as rank
+                    end
+                    -- no talent but buff is given
+                elseif case.buffName then
+                    r, s = GetPlayerAuraRankStack(case.buffName)
+                    if not case.buffStack then
+                        s = 1
+                    end
+                    -- no talent but all other given conditions are statisfied
+                else--if case.condition or case.stance then
+                    r = 1
+                end
+                if r and case.rank[r] then
+                    if statModInfo.initialValue == 0 and not case.mul then
+                        if not case.group then
+                            mod = mod + case.rank[r] * s
+                        elseif not buffGroup[case.group] then -- this mod is part of a group, but not seen before
+                            mod = mod + case.rank[r] * s
+                            buffGroup[case.group] = case.rank[r] * s
+                        elseif (case.rank[r] * s) > buffGroup[case.group] then -- seen before and this one is better, do upgrade
+                            mod = mod + case.rank[r] * s - buffGroup[case.group]
+                            buffGroup[case.group] = case.rank[r] * s
+                        else -- seen before but not better, do nothing
+                        end
+                    else
+                        if not case.group then
+                            mod = mod * (case.rank[r] * s + 1)
+                        elseif not buffGroup[case.group] then -- this mod is part of a group, but not seen before
+                            mod = mod * (case.rank[r] * s + 1)
+                            buffGroup[case.group] = (case.rank[r] * s + 1)
+                        elseif (case.rank[r] * s + 1) > buffGroup[case.group] then -- seen before and this one is better, do upgrade
+                            mod = mod * (case.rank[r] * s + 1) / buffGroup[case.group]
+                            buffGroup[case.group] = (case.rank[r] * s + 1)
+                        else -- seen before but not better, do nothing
+                        end
+                    end
+                end
+            end
+        end
+    end
+    
+    -- Non class specific mods
+    if type(StatModTable["ALL"][stat]) == "table" and modTable ~= "CLASS"  then
+        for _, case in ipairs(StatModTable["ALL"][stat]) do
+            local ok = true
+            if school and not case[school] then ok = nil end
+            if ok and case.newtoc and toc < case.newtoc then ok = nil end
+            if ok and case.oldtoc and toc >= case.oldtoc then ok = nil end
+            if ok and case.new and wowBuildNo < case.new then ok = nil end
+            if ok and case.old and wowBuildNo >= case.old then ok = nil end
+            if ok and case.condition and not loadstring("return "..case.condition)() then ok = nil end
+            if ok and case.buffName and not PlayerHasAura(case.buffName) then ok = nil end
+            if ok and case.stance and case.stance ~= GetStanceIcon() then ok = nil end
+            if ok and case.race and case.race ~= playerRace then ok = nil end
+            if ok and case.meta and not IsMetaGemActive(case.meta) then ok = nil end
+            if ok then
+                local r, _
+                local s = 1
+                -- if talent field
+                if case.tab and case.num then
+                    _, _, _, _, r = GetTalentInfo(case.tab, case.num, nil, nil, talentGroup)
+                    if case.buffName and case.buffStack then
+                        _, s = GetPlayerAuraRankStack(case.buffName) -- Gets buff rank and stack count
+                    end
+                    -- no talent but buff is given
+                elseif case.buffName then
+                    r, s = GetPlayerAuraRankStack(case.buffName)
+                    if not case.buffStack then
+                        s = 1
+                    end
+                    -- no talent but all other given conditions are statisfied
+                else--if case.condition or case.stance then
+                    r = 1
+                end
+                if r and case.rank[r] then
+                    if statModInfo.initialValue == 0 then
+                        if not case.group then
+                            mod = mod + case.rank[r] * s
+                        elseif not buffGroup[case.group] then -- this mod is part of a group, but not seen before
+                            mod = mod + case.rank[r] * s
+                            buffGroup[case.group] = case.rank[r] * s
+                        elseif (case.rank[r] * s) > buffGroup[case.group] then -- seen before and this one is better, do upgrade
+                            mod = mod + case.rank[r] * s - buffGroup[case.group]
+                            buffGroup[case.group] = case.rank[r] * s
+                        else -- seen before but not better, do nothing
+                        end
+                    else
+                        if not case.group then
+                            mod = mod * (case.rank[r] * s + 1)
+                        elseif not buffGroup[case.group] then -- this mod is part of a group, but not seen before
+                            mod = mod * (case.rank[r] * s + 1)
+                            buffGroup[case.group] = (case.rank[r] * s + 1)
+                        elseif (case.rank[r] * s + 1) > buffGroup[case.group] then -- seen before and this one is better, do upgrade
+                            mod = mod * (case.rank[r] * s + 1) / buffGroup[case.group]
+                            buffGroup[case.group] = (case.rank[r] * s + 1)
+                        else -- seen before but not better, do nothing
+                        end
+                    end
+                end
+            end
+        end
+    end
 
-	return mod + statModInfo.finalAdjust
+    return mod + statModInfo.finalAdjust
 end
 
 --=====================================--
@@ -10509,7 +10571,7 @@ Arguments:
   number - mastery value.
   [optional] number - talent spec to use. Default: player's talent spec
   [optional] string or number - ClassID or "ClassName". Default: PlayerClass<br>See :GetClassIdOrName(class) for valid class values.
-			1=first, 2=second, 3=third (e.g. Paladin: 1=Holy, 2=Protection, 3=Retribution)
+            1=first, 2=second, 3=third (e.g. Paladin: 1=Holy, 2=Protection, 3=Retribution)
 Returns:
   ; effect : number - 0.04% per effective defense.
 Example:
@@ -10782,25 +10844,25 @@ local H_Res = {
 --       CR_ARMOR_PENETRATION = 25;
 --       CR_MASTERY = 26;
 -- @param level [optional] number - The level of the player being calculated. e.g. CR_PARRY
---		If omitted, the player's current level will be used, i.e. UnitLevel("player")
+--        If omitted, the player's current level will be used, i.e. UnitLevel("player")
 -- @param class [optional] number - A constant indicating the class of the player being calculated.
---		If omitted, the player's current class will be used. Can be one of the following values:
---			WARRIOR = 1
---			PALADIN = 2
---			HUNTER = 3
---			ROGUE = 4
---			PRIEST = 5
---			DEATHKNIGHT = 6
---			SHAMAN = 7
---			MAGE = 8
---			WARLOCK = 9
---			DRUID = 10
+--        If omitted, the player's current class will be used. Can be one of the following values:
+--            WARRIOR = 1
+--            PALADIN = 2
+--            HUNTER = 3
+--            ROGUE = 4
+--            PRIEST = 5
+--            DEATHKNIGHT = 6
+--            SHAMAN = 7
+--            MAGE = 8
+--            WARLOCK = 9
+--            DRUID = 10
 -- @return Returns effect, effectName
 --     effect : number - Effect value as a percentage e.g. 6.47162208
 --     effectName : string - Stat ID of converted effect, e.g. "PARRY"
 --
 -- Example - Get the effect of 871 Parry Rating on Parry for a level 84 Paladin:
---		6.47162208, "PARRY" = GetEffectFromRating(871, CR_PARRY, 84, 2)
+--        6.47162208, "PARRY" = GetEffectFromRating(871, CR_PARRY, 84, 2)
 function StatLogic:GetEffectFromRating(rating, id, level, class)
   -- if id is stringID then convert to numberID
   if type(id) == "string" and RatingNameToID[id] then
@@ -11753,7 +11815,7 @@ function StatLogic:GetNormalManaRegenFromSpi(spi, int, level)
   self:argCheck(level, 4, "nil", "number")
 
   -- if level is invalid input, default to player level
-  if type(level) ~= "number" or level < 1 or level > 80 then
+  if type(level) ~= "number" or level < 1 or level > 85 then
     level = UnitLevel("player")
   end
 
@@ -12156,8 +12218,9 @@ function StatLogic:GetGemID(item)
   local t = GetTime()
   -- Check item
   if (type(item) == "string") or (type(item) == "number") then
+	-- We have link
   elseif type(item) == "table" and type(item.GetItem) == "function" then
-    -- Get the link
+    -- We were given a tooltip - get the link
     _, item = item:GetItem()
     if type(item) ~= "string" then return false end
   else
@@ -12183,21 +12246,45 @@ function StatLogic:GetGemID(item)
     return
   end
   local itemID = strmatch(link, "item:(%d+)")
-  local len = strlen(itemID)-1
+  local itemIDPattern=format("item:%d:", itemID)    -- for testing against gem itemlinks that we find
+  local gemScanLink = "item:6948:0:0:0:%d:%d"
+  
+
+  -- Method 1: Try to find the gem already in our gear. Provides a layer of safety for future expansions (and might avoid unnecessary disconnects from scanning)
+  for i=INVSLOT_FIRST_EQUIPPED, INVSLOT_LAST_EQUIPPED do
+    local eqLink = GetInventoryItemLink("player", i)
+	if(eqLink ~= nil) then
+		local gemIDs = { strmatch(eqLink, "item:[-0-9]+:[-0-9]+:([-0-9]+):([-0-9]+):([-0-9]+):") }    -- yah garbage. this is a manual operation; it matters not.
+		for i=1, #gemIDs do
+			local gemID = gemIDs[i]
+			local gemName, gemLink = GetItemGem(eqLink, i)
+			if gemLink and gemLink:match(itemIDPattern) then
+			  tipMiner:ClearLines() -- this is required or SetX won't work the second time its called
+			  tipMiner:SetHyperlink(gemScanLink:format(gemID, gemID))
+			  if GetCVarBool("colorblindMode") then
+				return gemID, StatLogicMinerTooltipTextLeft6:GetText(), GetTime()-t
+			  else
+				return gemID, StatLogicMinerTooltipTextLeft5:GetText(), GetTime()-t
+			  end
+			end
+		end
+	end
+  end
+  
+  
+  -- Method 2: Fallback scanner if we didn't find the gem in our gear. This will fail if gemIDs go higher than our assumed maximum
   if not GetItemInfo(6948) then -- Hearthstone
     -- Query server for Hearthstone
     tipMiner:ClearLines()
     tipMiner:SetHyperlink("item:6948")
     return
   end
-  local gemScanLink = "item:6948:0:0:0:%d:%d"
   local gemID
   -- Start GemID scan
-  for gemID = 4300, 1, -1 do
+  for gemID = 5000, 1, -1 do    -- THIS NUMBER MAY NEED TO BE INCREASED IN NEW EXPANSIONS
     local itemLink = gemScanLink:format(gemID, gemID)
     local _, gem1Link = GetItemGem(itemLink, 3)
-    --if gem1Link and itemID == gem1Link:match("item:(%d+)") then
-    if gem1Link and strsub(gem1Link, 18, 18 + len) == itemID then
+    if gem1Link and gem1Link:match(itemIDPattern) then
       tipMiner:ClearLines() -- this is required or SetX won't work the second time its called
       tipMiner:SetHyperlink(itemLink)
       if GetCVarBool("colorblindMode") then
@@ -12271,9 +12358,9 @@ Arguments:
 Returns:
   ; sumTable : table - The table with stat sum values
   :{
-  ::	["itemType"] = itemType,
-  ::	["STAT_ID1"] = value,
-  ::	["STAT_ID2"] = value,
+  ::    ["itemType"] = itemType,
+  ::    ["STAT_ID1"] = value,
+  ::    ["STAT_ID2"] = value,
   :}
 Example:
   StatLogic:GetSum(21417) -- [Ring of Unspoken Names]
@@ -12549,8 +12636,8 @@ function StatLogic:GetSum(item, table)
         -- Get a local copy
         local text = text
         -- Strip leading "Equip: ", "Socket Bonus: "
-        text = gsub(text, ITEM_SPELL_TRIGGER_ONEQUIP, "") -- ITEM_SPELL_TRIGGER_ONEQUIP = "Equip:";
-        text = gsub(text, StripGlobalStrings(ITEM_SOCKET_BONUS), "") -- ITEM_SOCKET_BONUS = "Socket Bonus: %s"; -- Tooltip tag for socketed item matched socket bonuses
+        text = gsub(text, _G.ITEM_SPELL_TRIGGER_ONEQUIP, "") -- ITEM_SPELL_TRIGGER_ONEQUIP = "Equip:";
+        text = gsub(text, StripGlobalStrings(_G.ITEM_SOCKET_BONUS), "") -- ITEM_SOCKET_BONUS = "Socket Bonus: %s"; -- Tooltip tag for socketed item matched socket bonuses
         -- Trim spaces
         text = strtrim(text)
         -- Strip trailing "."
@@ -12628,9 +12715,9 @@ function StatLogic:GetSum(item, table)
                   debugText = debugText..", ".."|cffffff59"..tostring(id).."="..tostring(value2)
                 end
                 debugPrint(debugText)
-                if dEnd ~= string.len(lowered) then
+                if dEnd ~= strlen(lowered) then
                   foundWholeText = false
-                  text = string.sub(text, dEnd + 1)
+                  text = strsub(text, dEnd + 1)
                 end
                 break
               end
@@ -12944,7 +13031,7 @@ function StatLogic:GetDiffID(item, ignoreEnchant, ignoreGem, red, yellow, blue, 
   if itemType == "INVTYPE_WEAPON" then
     linkDiff1 = GetInventoryItemLink("player", 16) or "NOITEM"
     -- If player can Dual Wield, calculate offhand difference
-    if IsUsableSpell(GetSpellInfo(674)) then		-- ["Dual Wield"]
+    if IsUsableSpell(GetSpellInfo(674)) then        -- ["Dual Wield"]
       local _, _, _, _, _, _, _, _, eqItemType = GetItemInfo(linkDiff1)
       -- If 2h is equipped, copy diff1 to diff2
       if eqItemType == "INVTYPE_2HWEAPON" and not HasTitanGrip() then
@@ -13043,13 +13130,13 @@ Arguments:
 Returns:
   ; diff1 : table - The table with stat diff values for item 1
   :{
-  ::	["STAT_ID1"] = value,
-  ::	["STAT_ID2"] = value,
+  ::    ["STAT_ID1"] = value,
+  ::    ["STAT_ID2"] = value,
   :}
   ; diff2 : table - The table with stat diff values for item 2
   :{
-  ::	["STAT_ID1"] = value,
-  ::	["STAT_ID2"] = value,
+  ::    ["STAT_ID1"] = value,
+  ::    ["STAT_ID2"] = value,
   :}
 Example:
   StatLogic:GetDiff(21417, {}) -- Ring of Unspoken Names
@@ -13058,10 +13145,10 @@ Example:
 
 -- TODO 2.1.0: Use SetHyperlinkCompareItem in StatLogic:GetDiff
 function StatLogic:GetDiff(item, diff1, diff2, ignoreEnchant, ignoreGem, red, yellow, blue, meta, ignorePris)
-	debugPrint("StatLogic:GetDiff");
-	--debugPrint("	item="..item)
+    debugPrint("StatLogic:GetDiff");
+    --debugPrint("    item="..item)
 
-	
+    
 
   -- Locale check
   if noPatternLocale then return end
@@ -13084,7 +13171,7 @@ function StatLogic:GetDiff(item, diff1, diff2, ignoreEnchant, ignoreGem, red, ye
   end
 
   -- Get item sum, results are written into diff1 table
-  itemSum = self:GetSum(link)
+  local itemSum = self:GetSum(link)
   if not itemSum then return end
   local itemType = itemSum.itemType
 

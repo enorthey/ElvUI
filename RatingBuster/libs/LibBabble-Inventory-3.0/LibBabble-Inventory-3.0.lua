@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Inventory-3.0
-Revision: $Rev: 144 $
+Revision: $Rev: 146 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-inventory-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Inventory-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 144 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 146 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -367,7 +367,7 @@ elseif GAME_LOCALE == "frFR" then
 	Bullet = "Balle",
 	Chest = "Torse",
 	Cloth = "Tissu",
-	Cogwheel = "Cogwheel", -- Needs review
+	Cogwheel = "Crémaillère",
 	Companion = "Compagnon",
 	Companions = "Compagnons",
 	Consumable = "Consommable",
@@ -393,20 +393,20 @@ elseif GAME_LOCALE == "frFR" then
 	["First Aid"] = "Secourisme",
 	Fish = "Pêche",
 	Fishing = "Pêche",
-	["Fishing Lure"] = "Appât de pêche", -- Needs review
+	["Fishing Lure"] = "Appât de pêche",
 	["Fishing Pole"] = "Canne à pêche",
 	["Fishing Poles"] = "Cannes à pêche",
 	["Fist Weapon"] = "Arme de pugilat",
 	["Fist Weapons"] = "Armes de pugilat",
 	Flask = "Flacon",
-	["Flying Mount"] = "Monture volante", -- Needs review
+	["Flying Mount"] = "Monture volante",
 	Food = "Ration",
 	["Food & Drink"] = "Nourriture & boissons",
 	Gem = "Gemme",
 	["Gem Bag"] = "Sac de gemmes",
 	Glyph = "Glyphe",
 	Green = "Verte",
-	["Ground Mount"] = "Ground Mount", -- Needs review
+	["Ground Mount"] = "Monture terrestre",
 	Gun = "Arme à feu",
 	Guns = "Fusils",
 	Hands = "Mains",
@@ -417,12 +417,12 @@ elseif GAME_LOCALE == "frFR" then
 	["Herb Bag"] = "Sac d'herbes",
 	Holiday = "Vacances",
 	Hunter = "Chasseur",
-	Hydraulic = "Hydraulic", -- Needs review
+	Hydraulic = "Hydraulique",
 	Idol = "Idole",
 	Idols = "Idoles",
 	Inscription = "Calligraphie",
 	["Inscription Bag"] = "Sac de calligraphie",
-	["Item Enchantment"] = "Item Enchantment", -- Needs review
+	["Item Enchantment"] = "Enchantement d'objet",
 	["Item Enhancement"] = "Amélioration d'objet",
 	Jewelcrafting = "Joaillerie",
 	Junk = "Camelote",
@@ -490,7 +490,7 @@ elseif GAME_LOCALE == "frFR" then
 	Sword = "Epée",
 	Tabard = "Tabard",
 	Tabards = "Tabards",
-	["Tackle Box"] = "Tackle Box", -- Needs review
+	["Tackle Box"] = "Tackle Box",
 	Tailoring = "Couture",
 	Thrown = "Armes de jets",
 	Totem = "Totem",
