@@ -3,7 +3,7 @@
 ## Notes: Item stat breakdown, analysis and comparison
 ## Notes-zhTW: 裝備數值解析與比較
 ## Author: Whitetooth
-## Version: r354
+## Version: 1.6.7
 ## X-eMail: hotdogee [at] gmail [dot] com
 ## SavedVariables: RatingBusterDB
 ## OptionalDeps: Ace3, LibTipHooker-1.1, LibStatLogic-1.2, UTF8, LibBabble-Inventory-3.0, LibDualSpec-1.0, TankPoints
@@ -13,7 +13,7 @@
 ## X-RelSite-Curse: 4991
 ## X-License: GPL v2
 ## X-Encoding: UTF-8
-## X-Curse-Packaged-Version: r354
+## X-Curse-Packaged-Version: 1.6.7
 ## X-Curse-Project-Name: RatingBuster
 ## X-Curse-Project-ID: rating-buster
 ## X-Curse-Repository-ID: wow/rating-buster/mainline

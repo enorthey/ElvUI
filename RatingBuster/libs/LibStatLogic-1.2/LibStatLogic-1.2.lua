@@ -1,10 +1,10 @@
 --[[
 Name: LibStatLogic-1.2
 Description: A Library for stat conversion, calculation and summarization.
-Revision: $Revision: 70 $
+Revision: $Revision: 74 $
 Author: Whitetooth
 Email: hotdogee [at] gmail [dot] com
-Last Update: $Date: 2012-04-22 16:31:31 +0000 (Sun, 22 Apr 2012) $
+Last Update: $Date: 2012-04-25 19:18:36 +0000 (Wed, 25 Apr 2012) $
 Website:
 Documentation:
 SVN: $URL $
@@ -28,7 +28,7 @@ Debug:
 ]]
 
 local MAJOR = "LibStatLogic-1.2"
-local MINOR = "$Revision: 70 $"
+local MINOR = "$Revision: 74 $"
 
 local StatLogic = LibStub:NewLibrary(MAJOR, MINOR)
 if not StatLogic then return end
@@ -12253,22 +12253,20 @@ function StatLogic:GetGemID(item)
   -- Method 1: Try to find the gem already in our gear. Provides a layer of safety for future expansions (and might avoid unnecessary disconnects from scanning)
   for i=INVSLOT_FIRST_EQUIPPED, INVSLOT_LAST_EQUIPPED do
     local eqLink = GetInventoryItemLink("player", i)
-	if(eqLink ~= nil) then
-		local gemIDs = { strmatch(eqLink, "item:[-0-9]+:[-0-9]+:([-0-9]+):([-0-9]+):([-0-9]+):") }    -- yah garbage. this is a manual operation; it matters not.
-		for i=1, #gemIDs do
-			local gemID = gemIDs[i]
-			local gemName, gemLink = GetItemGem(eqLink, i)
-			if gemLink and gemLink:match(itemIDPattern) then
-			  tipMiner:ClearLines() -- this is required or SetX won't work the second time its called
-			  tipMiner:SetHyperlink(gemScanLink:format(gemID, gemID))
-			  if GetCVarBool("colorblindMode") then
-				return gemID, StatLogicMinerTooltipTextLeft6:GetText(), GetTime()-t
-			  else
-				return gemID, StatLogicMinerTooltipTextLeft5:GetText(), GetTime()-t
-			  end
-			end
-		end
-	end
+    local gemIDs = { strmatch(eqLink or "", "item:[-0-9]+:[-0-9]+:([-0-9]+):([-0-9]+):([-0-9]+):") }    -- yah garbage. this is a manual operation; it matters not.
+    for i=1, #gemIDs do
+		local gemID = gemIDs[i]
+        local gemName, gemLink = GetItemGem(eqLink, i)
+        if gemLink and gemLink:match(itemIDPattern) then
+          tipMiner:ClearLines() -- this is required or SetX won't work the second time its called
+          tipMiner:SetHyperlink(gemScanLink:format(gemID, gemID))
+          if GetCVarBool("colorblindMode") then
+            return gemID, StatLogicMinerTooltipTextLeft6:GetText(), GetTime()-t
+          else
+            return gemID, StatLogicMinerTooltipTextLeft5:GetText(), GetTime()-t
+          end
+        end
+    end
   end
   
   

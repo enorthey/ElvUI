@@ -2601,7 +2601,7 @@ C["Filger_Spells"] = {
 	["TANKS"] = {
 		{
 			Name = "Tanks CDs", -- requested by Nâmi@EU-Culte de la Rive noire 
-			Enable = false,
+			Enable = true,
 			Direction = "HORIZONTAL",
 			Interval = 4,
 			Mode = "ICON",
@@ -2735,7 +2735,7 @@ C["Filger_Spells"] = {
 		},
 		{
 			Name = "Tanks Boss Debuff",
-			Enable = false,
+			Enable = true,
 			Direction = "LEFT",
 			Interval = 4,
 			Mode = "ICON",
