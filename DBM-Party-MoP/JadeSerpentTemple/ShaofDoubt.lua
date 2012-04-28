@@ -1,7 +1,7 @@
-local mod	= DBM:NewMod("ShaOfDoubt", "DBM-Party-MoP", 1)
+local mod	= DBM:NewMod(335, "DBM-Party-MoP", 1, 313) -- encounter ID looks odd compared to others
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7497 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7511 $"):sub(12, -3))
 mod:SetCreatureID(56439)
 --mod:SetModelID(40904)
 mod:SetZone()

@@ -7,6 +7,7 @@
 	<Script file='mirror.lua'/>
 	<Script file='loot.lua'/>
 	<Script file='loot_roll.lua'/>
+	<Script file='threatbar.lua'/>
 	<Script file='raidutility.lua'/>
 	<Script file='raidbuffreminder.lua'/>
 </Ui>

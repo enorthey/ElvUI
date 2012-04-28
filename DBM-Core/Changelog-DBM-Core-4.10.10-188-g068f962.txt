@@ -1,4 +1,8 @@
 subversion:
+	- arta via svn r7512: beta build 15650 mapSize update
+	- arta via svn r7511: changed party mods to use the journal 'format' so we need less localizations :)  (someone with beta access confirm please) Updated map sizes based on latest beta build (still a lot missing or inaccurate)
+	- arta via svn r7510: beta build 15640 - model IDs
+	- Omega via svn r7509: Some party mod updates based on latest beta patch.
 	- nbluewiz via svn r7508: # Hagara : chat bubble option also disables party chat bubbles.
 	- Omega via svn r7507: forgot model idea, now that mod is correct
 	- Omega via svn r7506: Some mod prep

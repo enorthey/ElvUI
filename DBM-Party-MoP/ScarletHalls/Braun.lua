@@ -1,9 +1,9 @@
-local mod	= DBM:NewMod("Braun", "DBM-Party-MoP", 8)
+local mod	= DBM:NewMod(660, "DBM-Party-MoP", 8, 311)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7464 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7511 $"):sub(12, -3))
 mod:SetCreatureID(59303)
---mod:SetModelID(42264)--Still need correct modelId, wowhead has no data on this guy yet  -- Datamined might also be: 42252
+--mod:SetModelID(42264)
 
 mod:RegisterCombat("combat")
 

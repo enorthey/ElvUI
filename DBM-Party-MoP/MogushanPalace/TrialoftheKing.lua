@@ -1,9 +1,9 @@
-local mod	= DBM:NewMod("TrialoftheKing", "DBM-Party-MoP", 5)
+local mod	= DBM:NewMod(708, "DBM-Party-MoP", 5, 321)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7509 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7511 $"):sub(12, -3))
 --mod:SetCreatureID(54432)
---mod:SetModelID(42059)
+--mod:SetModelID(42060)	-- 42060=Haiyan the Unstoppable | 42059=Ming the Cunning | 42058=Kuai the Brute
 mod:SetZone()
 
 --mod:RegisterCombat("combat")

@@ -167,7 +167,7 @@ P['tooltip'] = {
 --UnitFrame
 P['unitframe'] = {
 	['smoothbars'] = true,
-	['statusbar'] = "Ruben",
+	['statusbar'] = "Minimalist",
 	['font'] = 'ElvUI Font',
 	['fontsize'] = 12,
 	['fontoutline'] = 'OUTLINE',
@@ -179,7 +179,7 @@ P['unitframe'] = {
 		['healthclass'] = true,
 		['powerclass'] = false,
 		['colorhealthbyvalue'] = false,
-		['customhealthbackdrop'] = true,
+		['customhealthbackdrop'] = false,
 		['classbackdrop'] = false,
 		['classNames'] = false,
 	

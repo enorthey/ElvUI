@@ -6,12 +6,13 @@ G['general'] = {
 	['profileBinds'] = false,
 	['loot'] = true,
 	['lootRoll'] = true,
-	["normTex"] = "Ruben",
-	["glossTex"] = "Ruben",	
+	["normTex"] = "Minimalist",
+	["glossTex"] = "Minimalist",	
 	["dmgfont"] = "ElvUI Combat",
 	['bubbles'] = true,
 	['bags'] = true,
 	['dtlowerpanel'] = true,
+	['threatbar'] = true,
 }
 
 G['bags'] = {

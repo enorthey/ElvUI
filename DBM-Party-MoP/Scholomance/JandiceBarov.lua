@@ -1,7 +1,7 @@
-local mod	= DBM:NewMod("JandiceBarov", "DBM-Party-MoP", 7)
+local mod	= DBM:NewMod(663, "DBM-Party-MoP", 7, 246)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7479 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7511 $"):sub(12, -3))
 mod:SetCreatureID(59184)--59220 seem to be her mirror images
 --mod:SetModelID(40639)
 mod:SetZone()

@@ -29,6 +29,8 @@ local function OnEvent(self, event)
 	active = GetActiveTalentGroup(false, false)
 	if GetPrimaryTalentTree(false, false, active) then
 		self.text:SetFormattedText(displayString, select(2, GetTalentTabInfo(GetPrimaryTalentTree(false, false, active))), talent[active][1], talent[active][2], talent[active][3])
+	else
+		self.text:SetFormattedText(displayString, "Talents", 0, 0, 0)
 	end
 end
 

@@ -1,9 +1,9 @@
-local mod	= DBM:NewMod("LibraryEvent", "DBM-Party-MoP", 1)
+local mod	= DBM:NewMod(664, "DBM-Party-MoP", 1, 313)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7495 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7511 $"):sub(12, -3))
 mod:SetCreatureID(59051, 59726, 58826)--59051 (Strife), 59726 (Anger), 58826 (Zao Sunseeker). This event has a random chance to be Zao (solo) or Anger and Strife (together)
---mod:SetModelID(39506)
+--mod:SetModelID(41448)	-- Sha of Anger model
 mod:SetZone()
 
 mod:RegisterCombat("combat")--Might work? if not might have to change to a yell. Without transcriptor cannot see combat regen or engage unit events

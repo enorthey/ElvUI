@@ -830,3 +830,4 @@ L['Bottom Only'] = true;
 L['Lower Datatexts'] = true;
 L['Enable The data texts below actiobars'] = true;
 L["Panels"] = true;
+L['Threat on current target:'] = true;

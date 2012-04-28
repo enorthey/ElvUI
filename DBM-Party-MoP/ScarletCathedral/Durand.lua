@@ -1,9 +1,9 @@
-local mod	= DBM:NewMod("Durand", "DBM-Party-MoP", 9)
+local mod	= DBM:NewMod(674, "DBM-Party-MoP", 9, 316)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7477 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7511 $"):sub(12, -3))
 mod:SetCreatureID(60040)--3977 is High Inquisitor Whitemane and 60040 is Commander Durand, we don't really need to add her ID, because we don't ever engage her, and he true death is at same time as her.
---mod:SetModelID(41220)--Still need correct modelId, wowhead has no data on this guy yet
+--mod:SetModelID(41220) -- 41220=Durand | 2043=Whitemane
 
 mod:RegisterCombat("combat")
 

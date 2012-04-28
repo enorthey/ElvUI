@@ -1,9 +1,9 @@
-local mod	= DBM:NewMod("Salyis", "DBM-Party-MoP", 10)
+local mod	= DBM:NewMod(725, "DBM-Party-MoP", 10, 322)	-- 322 = Pandaria/Outdoor I assume
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7507 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7511 $"):sub(12, -3))
 mod:SetCreatureID(62352, 62346)--Salyis 62352, Galleon 62346
-mod:SetModelID(42468)
+mod:SetModelID(42468)	--Galleon=42439
 mod:SetZone(807)--Valley of the Four winds now?
 
 mod:RegisterCombat("combat")

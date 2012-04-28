@@ -1,7 +1,7 @@
-local mod	= DBM:NewMod("Chillheart", "DBM-Party-MoP", 7)
+local mod	= DBM:NewMod(659, "DBM-Party-MoP", 7, 246)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7479 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7511 $"):sub(12, -3))
 mod:SetCreatureID(58633, 58664)--58633 is boss, 58664 is Phylactery. We register 58664 to avoid pre mature combat ending cause boss dies twice.
 --mod:SetModelID(40301)
 mod:SetZone()
