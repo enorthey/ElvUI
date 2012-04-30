@@ -123,7 +123,7 @@ function UF:Update_PartyHeader(header, db)
 
 	if not header.mover then
 		header:ClearAllPoints()
-		header:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 4, 218)
+		header:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 4, 195)
 		
 		header:RegisterEvent("PLAYER_ENTERING_WORLD")
 		header:RegisterEvent("ZONE_CHANGED_NEW_AREA")
@@ -281,6 +281,7 @@ function UF:Update_PartyFrames(frame, db)
 					name:ClearAllPoints()
 					name:Point(db.name.position, frame.Health, db.name.position, x, y)				
 				end
+				
 				if db.name.length == "SHORT" then
 					frame:Tag(name, '[Elv:getnamecolor][Elv:nameshort]')
 				elseif db.name.length == "MEDIUM" then
@@ -289,7 +290,7 @@ function UF:Update_PartyFrames(frame, db)
 					frame:Tag(name, '[Elv:getnamecolor][Elv:namelong]')
 				else
 					frame:Tag(name, '[Elv:diffcolor][level] [Elv:getnamecolor][Elv:namelong]')
-				end				
+				end
 			else
 				name:Hide()
 			end
@@ -301,7 +302,7 @@ function UF:Update_PartyFrames(frame, db)
 			
 			if USE_POWERBAR then
 				frame:EnableElement('Power')
-				power:Show()			
+				power:Show()		
 				power.Smooth = self.db.smoothbars
 				
 				--Text

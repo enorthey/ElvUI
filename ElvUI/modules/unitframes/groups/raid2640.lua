@@ -217,6 +217,7 @@ function UF:Update_Raid2640Frames(frame, db)
 				name:ClearAllPoints()
 				name:Point(db.name.position, frame.Health, db.name.position, x, y)				
 			end
+			
 			if db.name.length == "SHORT" then
 				frame:Tag(name, '[Elv:getnamecolor][Elv:nameshort]')
 			elseif db.name.length == "MEDIUM" then
@@ -225,7 +226,7 @@ function UF:Update_Raid2640Frames(frame, db)
 				frame:Tag(name, '[Elv:getnamecolor][Elv:namelong]')
 			else
 				frame:Tag(name, '[Elv:diffcolor][level] [Elv:getnamecolor][Elv:namelong]')
-			end			
+			end				
 		else
 			name:Hide()
 		end

@@ -222,6 +222,7 @@ function UF:Update_Raid625Frames(frame, db)
 				name:ClearAllPoints()
 				name:Point(db.name.position, frame.Health, db.name.position, x, y)				
 			end
+			
 			if db.name.length == "SHORT" then
 				frame:Tag(name, '[Elv:getnamecolor][Elv:nameshort]')
 			elseif db.name.length == "MEDIUM" then
@@ -239,7 +240,6 @@ function UF:Update_Raid625Frames(frame, db)
 	--Power
 	do
 		local power = frame.Power
-		
 		if USE_POWERBAR then
 			frame:EnableElement('Power')
 			power:Show()		
@@ -251,7 +251,7 @@ function UF:Update_Raid625Frames(frame, db)
 				
 				local x, y = self:GetPositionOffset(db.power.position)
 				power.value:ClearAllPoints()
-				power.value:Point(db.power.position, frame.Health, db.power.position, x, y)		
+				power.value:Point(db.power.position, frame.Health, db.power.position, x, y)					
 			else
 				power.value:Hide()
 			end
@@ -289,6 +289,7 @@ function UF:Update_Raid625Frames(frame, db)
 			power:Hide()
 			power.value:Hide()
 		end
+		
 	end
 	
 	--Target Glow
