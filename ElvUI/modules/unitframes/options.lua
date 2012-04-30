@@ -6024,12 +6024,6 @@ E.Options.args.unitframe.args.raid2640 = {
 					order = 8,
 					name = L['Position'],
 					values = positionValues,
-				},		
-				length = {
-					type = 'select',
-					order = 3,
-					name = L['Length'],
-					values = lengthValues,
 				},				
 			},
 		},	
@@ -6050,7 +6044,13 @@ E.Options.args.unitframe.args.raid2640 = {
 					order = 2,
 					name = L['Position'],
 					values = positionValues,
-				},					
+				},		
+				length = {
+					type = 'select',
+					order = 3,
+					name = L['Length'],
+					values = lengthValues,
+				},						
 			},
 		},
 		buffs = {
