@@ -4,6 +4,7 @@ local LSM = LibStub("LibSharedMedia-3.0");
 
 function UF:SpawnMenu()
 	local unit = E:StringTitle(self.unit)
+	if self.unit:find("targettarget") then return; end
 	if _G[unit.."FrameDropDown"] then
 		ToggleDropDownMenu(1, nil, _G[unit.."FrameDropDown"], "cursor")
 	elseif (self.unit:match("party")) then
@@ -279,6 +280,11 @@ function UF:Construct_DeathKnightResourceBar(frame)
 		
 		runes[i]:CreateBackdrop('Default')
 		runes[i].backdrop:SetParent(runes)
+		
+		runes[i].bg = runes[i]:CreateTexture(nil, 'BORDER')
+		runes[i].bg:SetAllPoints()
+		runes[i].bg:SetTexture(E['media'].blankTex)
+		runes[i].bg.multiplier = 0.2		
 	end
 	
 	return runes

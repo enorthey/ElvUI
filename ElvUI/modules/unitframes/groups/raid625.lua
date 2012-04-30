@@ -66,10 +66,6 @@ function UF:Raid625SmartVisibility(event)
 		self:RegisterEvent("PLAYER_REGEN_ENABLED")
 		return
 	end
-
-	if event == 'PARTY_MEMBERS_CHANGED' or event == "PLAYER_REGEN_ENABLED" then
-		UF:UpdateGroupChildren(self, self.db)
-	end
 end
 
 function UF:Update_Raid625Header(header, db)
@@ -226,6 +222,15 @@ function UF:Update_Raid625Frames(frame, db)
 				name:ClearAllPoints()
 				name:Point(db.name.position, frame.Health, db.name.position, x, y)				
 			end
+			if db.name.length == "SHORT" then
+				frame:Tag(name, '[Elv:getnamecolor][Elv:nameshort]')
+			elseif db.name.length == "MEDIUM" then
+				frame:Tag(name, '[Elv:getnamecolor][Elv:namemedium]')
+			elseif db.name.length == "LONG" then
+				frame:Tag(name, '[Elv:getnamecolor][Elv:namelong]')
+			else
+				frame:Tag(name, '[Elv:diffcolor][level] [Elv:getnamecolor][Elv:namelong]')
+			end			
 		else
 			name:Hide()
 		end
@@ -236,10 +241,8 @@ function UF:Update_Raid625Frames(frame, db)
 		local power = frame.Power
 		
 		if USE_POWERBAR then
-			if not frame:IsElementEnabled('Power') then
-				frame:EnableElement('Power')
-				power:Show()
-			end				
+			frame:EnableElement('Power')
+			power:Show()		
 			power.Smooth = self.db.smoothbars
 			
 			--Text
@@ -248,7 +251,7 @@ function UF:Update_Raid625Frames(frame, db)
 				
 				local x, y = self:GetPositionOffset(db.power.position)
 				power.value:ClearAllPoints()
-				power.value:Point(db.power.position, frame.Health, db.power.position, x, y)			
+				power.value:Point(db.power.position, frame.Health, db.power.position, x, y)		
 			else
 				power.value:Hide()
 			end
@@ -281,7 +284,7 @@ function UF:Update_Raid625Frames(frame, db)
 				power:Point("TOPLEFT", frame.Health.backdrop, "BOTTOMLEFT", BORDER, -(BORDER + SPACING))
 				power:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -(BORDER), BORDER)
 			end
-		elseif frame:IsElementEnabled('Power') then
+		else
 			frame:DisableElement('Power')
 			power:Hide()
 			power.value:Hide()

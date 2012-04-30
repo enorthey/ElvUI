@@ -93,6 +93,7 @@ function CH:StyleChat(frame)
 	editbox:HookScript("OnEditFocusGained", function(self) self:Show(); if not LeftChatPanel:IsShown() then LeftChatPanel.editboxforced = true; LeftChatToggleButton:GetScript('OnEnter')(LeftChatToggleButton) end end)
 	editbox:HookScript("OnEditFocusLost", function(self) if LeftChatPanel.editboxforced then LeftChatPanel.editboxforced = nil; if LeftChatPanel:IsShown() then LeftChatToggleButton:GetScript('OnLeave')(LeftChatToggleButton) end end self:Hide() end)	
 	editbox:SetAllPoints(LeftChatDataPanel)
+	self:SecureHook(editbox, "AddHistoryLine", "ChatEdit_AddHistory")
 	editbox:HookScript("OnTextChanged", function(self)
 	   local text = self:GetText()
 	   if text:len() < 5 then
@@ -118,6 +119,10 @@ function CH:StyleChat(frame)
 			self:SetText(new)
 		end
 	end)
+
+	for i, text in pairs(ElvCharacterData.ChatEditHistory) do
+		editbox:AddHistoryLine(text)
+	end
 	
 	hooksecurefunc("ChatEdit_UpdateHeader", function()
 		local type = editbox:GetAttribute("chatType")
@@ -715,10 +720,29 @@ function CH:SetChatFont(dropDown, chatFrame, fontSize)
 	chatFrame:SetShadowOffset((E.mult or 1), -(E.mult or 1))	
 end
 
+function CH:ChatEdit_AddHistory(editBox, line)
+	if line:find("/rl") then return; end
+
+	if ( strlen(line) > 0 ) then
+		for i, text in pairs(ElvCharacterData.ChatEditHistory) do
+			if text == line then
+				return
+			end
+		end
+
+		table.insert(ElvCharacterData.ChatEditHistory, #ElvCharacterData.ChatEditHistory + 1, line)
+		if #ElvCharacterData.ChatEditHistory > 5 then
+			table.remove(ElvCharacterData.ChatEditHistory, 1)
+		end
+	end
+end
 
 function CH:Initialize()
 	self.db = E.db.chat
 	if E.global.chat.enable ~= true then return end
+	if not ElvCharacterData.ChatEditHistory then
+		ElvCharacterData.ChatEditHistory = {};
+	end
 	
     UnitPopupButtons["COPYCHAT"] = { 
 		text =L["Copy Text"], 

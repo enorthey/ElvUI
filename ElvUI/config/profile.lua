@@ -41,6 +41,7 @@ P['general'] = {
 	['mapTransparency'] = 1,
 	['minimapSize'] = 176,
 	['raidReminder'] = true,
+	['tinyWorldMap'] = true,
 };
 
 --Bags
@@ -810,6 +811,7 @@ P['unitframe'] = {
 			['name'] = {
 				['enable'] = true,
 				['position'] = 'TOP',
+				['length'] = 'LONG',				
 			},
 			['buffs'] = {
 				['enable'] = false,
@@ -906,6 +908,7 @@ P['unitframe'] = {
 			['name'] = {
 				['enable'] = true,
 				['position'] = 'TOP',
+				['length'] = 'SHORT',
 			},
 			['buffs'] = {
 				['enable'] = false,
@@ -989,6 +992,7 @@ P['unitframe'] = {
 			['name'] = {
 				['enable'] = true,
 				['position'] = 'TOP',
+				['length'] = 'SHORT',
 			},
 			['buffs'] = {
 				['enable'] = false,
