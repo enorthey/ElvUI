@@ -1,4 +1,8 @@
 subversion:
+	- Omega via svn r7516: Now that MoP has it's own branch, Kill off party mods for MoP in live version, since they'd probably just lua error if someone manually loaded them anyways.
+	- Arta via svn r7515: Added file with currently known changes in MoP
+	- tandanu via svn r7514: add branch for MoP beta
+	- nbluewiz via svn r7513: # Alysrazor: Removed Wings of Flame timer. The timer not refreshing, and mismatch.
 	- arta via svn r7512: beta build 15650 mapSize update
 	- arta via svn r7511: changed party mods to use the journal 'format' so we need less localizations :)  (someone with beta access confirm please) Updated map sizes based on latest beta build (still a lot missing or inaccurate)
 	- arta via svn r7510: beta build 15640 - model IDs
