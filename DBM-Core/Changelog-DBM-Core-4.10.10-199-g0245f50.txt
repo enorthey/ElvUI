@@ -1,4 +1,11 @@
 subversion:
+	- Omega via svn r7523: rest of Mogu Shan Palace complete
+	- Omega via svn r7522: Fix some party mod bugs (forgot to put right creatureIDs, also a nil error in libraryEvent Added Gekkan Mod
+	- Arta via svn r7521: Build 15662 updated some maps and model IDs
+	- Arta via svn r7520: updated mapsizes. Hope I did it correctly this time :P WorldMapArea / DungeonFloor 1 = Scale factor Scale factor * DungeonFloor # = mapSize
+	- Arta via svn r7519: Mogu'shan Vaults initial commit (only 3 are known so far)
+	- Omega via svn r7518: oops, fix some stuff that wasn't supposed to be left in Hoptallus mod
+	- Omega via svn r7517: Brewery done
 	- Omega via svn r7516: Now that MoP has it's own branch, Kill off party mods for MoP in live version, since they'd probably just lua error if someone manually loaded them anyways.
 	- Arta via svn r7515: Added file with currently known changes in MoP
 	- tandanu via svn r7514: add branch for MoP beta

@@ -812,6 +812,7 @@ L["Medium"] = true;
 L["Long"] = true;
 L["Long (Include Level)"] = true;
 L["Length"] = true;
+L["Tanks First"] = true;
 
 L['Upper/Lower Panel'] = true;
 L['Enable The Upper/Lower Panel Accross the UI.'] = true;
