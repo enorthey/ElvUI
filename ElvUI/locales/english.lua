@@ -801,11 +801,14 @@ L["Your version of ElvUI is out of date. You can download the latest version fro
 L['|cFFE30000Lua error recieved. You can view the error message when you exit combat.'] = true;
 L["%s: %s tried to call the protected function '%s'."] = true;
 L['Class Names'] = true;
+L['CD Fade'] = true;
 L['Color the name text by class or reaction.'] = true;
 L["No locals to dump"] = true;
 L["Log Taints"] = true;
 L["Send ADDON_ACTION_BLOCKED errors to the Lua Error frame. These errors are less important in most cases and will not effect your game performance. Also a lot of these errors cannot be fixed. Please only report these errors if you notice a Defect in gameplay."] = true;
 L["Tiny Map"] = true;
+L["Cooldown"] = true;
+L["Spell ID"] = true;
 L["Don't scale the large world map to block out sides of the screen."] = true;
 L["Short"] = true;
 L["Medium"] = true;
@@ -813,6 +816,7 @@ L["Long"] = true;
 L["Long (Include Level)"] = true;
 L["Length"] = true;
 L["Tanks First"] = true;
+L["A setting you have changed will change an option for this character only. This setting that you have changed will be uneffected by changing user profiles. Changing this setting requires that you reload your User Interface."] = true;
 
 L['Upper/Lower Panel'] = true;
 L['Enable The Upper/Lower Panel Accross the UI.'] = true;

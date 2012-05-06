@@ -1,4 +1,4 @@
-local E, L, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local UF = E:NewModule('UnitFrames', 'AceTimer-3.0', 'AceEvent-3.0');
 local LSM = LibStub("LibSharedMedia-3.0");
 
@@ -175,7 +175,7 @@ function UF:UpdateColors()
 				[1] = {1, 0, 0},   -- blood
 				[2] = {0, .5, 0},  -- unholy
 				[3] = {0, 1, 1},   -- frost
-				[4] = {.9, .1, 1}, -- death
+				[4] = {.9, .1, 1}, -- death				
 		}, {__index = ElvUF['colors'].runes}),
 		reaction = setmetatable({
 			[1] = {bad.r, bad.g, bad.b}, -- Hated
@@ -233,7 +233,7 @@ end
 
 function UF:Update_AllFrames()
 	if InCombatLockdown() then self:RegisterEvent('PLAYER_REGEN_ENABLED'); return end
-	if E.global["unitframe"].enable ~= true then return; end
+	if E.private["unitframe"].enable ~= true then return; end
 	self:UpdateColors()
 	self:Update_FontStrings()
 	self:Update_StatusBars()	
@@ -398,24 +398,26 @@ function UF:UpdateAllHeaders(event)
 	if event == 'PLAYER_REGEN_ENABLED' then
 		self:UnregisterEvent('PLAYER_REGEN_ENABLED')
 	end
-
+	
+	local _, instanceType = IsInInstance();
 	local ORD = ns.oUF_RaidDebuffs or oUF_RaidDebuffs
 	if ORD then
 		ORD:ResetDebuffData()
-		ORD:RegisterDebuffs(E.global.unitframe.aurafilters.RaidDebuffs.spells)		
+		
+		if instanceType == "party" or instanceType == "raid" then
+			ORD:RegisterDebuffs(E.global.unitframe.aurafilters.RaidDebuffs.spells)
+		else
+			ORD:RegisterDebuffs(E.global.unitframe.aurafilters.CCDebuffs.spells)
+		end
 	end	
 	
 	for _, header in pairs(UF['handledheaders']) do
 		header:Update()
 	end	
 	
-	if E.global.unitframe.disableBlizzard then
+	if E.private.unitframe.disableBlizzard then
 		ElvUF:DisableBlizzard('party')	
 	end
-	
-	if event == 'PLAYER_ENTERING_WORLD' then
-		self:UnregisterEvent('PLAYER_ENTERING_WORLD')
-	end	
 end
 
 function HideRaid()
@@ -564,7 +566,7 @@ end
 
 function UF:Initialize()	
 	self.db = E.db["unitframe"]
-	if E.global["unitframe"].enable ~= true then return; end
+	if E.private["unitframe"].enable ~= true then return; end
 	E.UnitFrames = UF;
 	
 	--Database conversion from ElvUI v3.2.2 and below.
@@ -583,7 +585,7 @@ function UF:Initialize()
 	self:LoadUnits()
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'Update_AllFrames')
 	
-	if E.global["unitframe"].disableBlizzard then
+	if E.private["unitframe"].disableBlizzard then
 		self:DisableBlizzard()	
 
 		UnitPopupMenus["SELF"] = { "PVP_FLAG", "LOOT_METHOD", "LOOT_THRESHOLD", "OPT_OUT_LOOT_TITLE", "LOOT_PROMOTE", "DUNGEON_DIFFICULTY", "RAID_DIFFICULTY", "RESET_INSTANCES", "RAID_TARGET_ICON", "SELECT_ROLE", "CONVERT_TO_PARTY", "CONVERT_TO_RAID", "LEAVE", "CANCEL" };
@@ -658,5 +660,6 @@ function UF:MergeUnitSettings(fromUnit, toUnit)
 	
 	self:Update_AllFrames()
 end
+
 
 E:RegisterInitialModule(UF:GetName())

@@ -1,4 +1,4 @@
-local E, L, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local AB = E:GetModule('ActionBars');
 
 local ceil = math.ceil;
@@ -156,7 +156,7 @@ end
 function AB:CreateBar1()
 	bar:CreateBackdrop('Default');
 	bar.backdrop:SetAllPoints();
-	if E.global.general.dtlowerpanel then
+	if E.private.general.dtlowerpanel then
 		bar:Point('BOTTOM', 0, 33);
 	else
 		bar:Point('BOTTOM', 0, 4);

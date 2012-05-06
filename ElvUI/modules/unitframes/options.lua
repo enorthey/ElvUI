@@ -1,4 +1,4 @@
-local E, L, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local UF = E:GetModule('UnitFrames');
 local _, ns = ...
 local ElvUF = ns.oUF
@@ -258,8 +258,8 @@ E.Options.args.unitframe = {
 			order = 1,
 			type = "toggle",
 			name = L["Enable"],
-			get = function(info) return E.global.unitframe[ info[#info] ] end,
-			set = function(info, value) E.global.unitframe[ info[#info] ] = value; StaticPopup_Show("GLOBAL_RL") end
+			get = function(info) return E.private.unitframe.enable end,
+			set = function(info, value) E.private.unitframe.enable = value; StaticPopup_Show("PRIVATE_RL") end
 		},
 		moveuf = {
 			order = 2,
@@ -278,7 +278,7 @@ E.Options.args.unitframe = {
 			type = 'group',
 			name = L['General'],
 			guiInline = true,
-			disabled = function() return not E.global.unitframe.enable end,
+			disabled = function() return not E.private.unitframe.enable end,
 			set = function(info, value) E.db.unitframe[ info[#info] ] = value; UF:Update_AllFrames() end,
 			args = {
 				generalGroup = {
@@ -293,7 +293,7 @@ E.Options.args.unitframe = {
 							desc = L['Disables the blizzard party/raid frames.'],
 							type = 'toggle',
 							get = function(info) return E.global.unitframe[ info[#info] ] end,
-							set = function(info, value) E.global["unitframe"][ info[#info] ] = value; StaticPopup_Show("GLOBAL_RL") end
+							set = function(info, value) E.global["unitframe"][ info[#info] ] = value; StaticPopup_Show("PRIVATE_RL") end
 						},
 						OORAlpha = {
 							order = 2,
@@ -416,7 +416,7 @@ E.Options.args.unitframe = {
 							desc = L['Color the health backdrop by class or reaction.'],
 						},
 						classNames = {
- 							order = 6,
+							order = 6,
 							type = 'toggle',
 							name = L['Class Names'],
 							desc = L['Color the name text by class or reaction.'],
@@ -4864,13 +4864,13 @@ E.Options.args.unitframe.args.party = {
 					order = 2,
 					name = L['Position'],
 					values = positionValues,
-				},	
+				},			
 				length = {
 					type = 'select',
 					order = 3,
 					name = L['Length'],
-					values = lengthValues,
-				},				
+					values = lengthValues,				
+				},
 			},
 		},
 		buffs = {
@@ -5494,12 +5494,12 @@ E.Options.args.unitframe.args.raid625 = {
 					order = 2,
 					name = L['Position'],
 					values = positionValues,
-				},	
+				},		
 				length = {
 					type = 'select',
 					order = 3,
 					name = L['Length'],
-					values = lengthValues,
+					values = lengthValues,				
 				},				
 			},
 		},
@@ -5919,7 +5919,7 @@ E.Options.args.unitframe.args.raid2640 = {
 						['TANK'] = L["Tanks First"],
 						['GROUP'] = GROUP,
 					},
-				},			
+				},		
 				visibility = {
 					order = 200,
 					type = 'input',
@@ -6024,7 +6024,7 @@ E.Options.args.unitframe.args.raid2640 = {
 					order = 8,
 					name = L['Position'],
 					values = positionValues,
-				},				
+				},					
 			},
 		},	
 		name = {
@@ -6044,13 +6044,13 @@ E.Options.args.unitframe.args.raid2640 = {
 					order = 2,
 					name = L['Position'],
 					values = positionValues,
-				},		
+				},	
 				length = {
 					type = 'select',
 					order = 3,
 					name = L['Length'],
-					values = lengthValues,
-				},						
+					values = lengthValues,				
+				},				
 			},
 		},
 		buffs = {

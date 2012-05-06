@@ -1,13 +1,12 @@
-local E, L, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local S = E:GetModule('Skins')
 
 local function LoadSkin()
-	if E.global.skins.blizzard.enable ~= true or E.global.skins.blizzard.socket ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.socket ~= true then return end
 	ItemSocketingFrame:StripTextures()
 	ItemSocketingFrame:SetTemplate("Transparent")
 	ItemSocketingScrollFrame:StripTextures()
 	ItemSocketingScrollFrame:CreateBackdrop("Transparent")
-
 	S:HandleScrollBar(ItemSocketingScrollFrameScrollBar, 2)
 	for i = 1, MAX_NUM_SOCKETS  do
 		local button = _G["ItemSocketingSocket"..i]

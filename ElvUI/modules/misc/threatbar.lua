@@ -1,4 +1,4 @@
-local E, L, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local M = E:GetModule('Misc')
 
 local aggroColors = {
@@ -73,7 +73,7 @@ end
 
 
 function M:LoadThreatBar()
-	if E.global.general.threatbar ~= true then return end
+	if E.private.general.threatbar ~= true then return end
 	
 	local OUIThreat = CreateFrame("StatusBar", "OUIThreatBar", RightChatDataPanel)
 	OUIThreat:Point("TOPLEFT", 2, -2)

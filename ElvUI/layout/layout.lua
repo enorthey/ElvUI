@@ -1,4 +1,4 @@
-local E, L, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local LO = E:NewModule('Layout', 'AceEvent-3.0');
 
 local PANEL_HEIGHT = 22;
@@ -12,7 +12,7 @@ function LO:Initialize()
 	self:CreateChatPanels()
 	self:CreateMinimapPanels()
 	self:CreateUpperLowerPanels()
-	if E.global.general.dtlowerpanel then self.CreateLowerDPPanel() end		
+	if E.private.general.dtlowerpanel then self.CreateLowerDPPanel() end		
 end
 
 

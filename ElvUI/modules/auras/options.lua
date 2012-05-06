@@ -1,4 +1,4 @@
-local E, L, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
 E.Options.args.auras = {
 	type = "group",
@@ -23,8 +23,8 @@ E.Options.args.auras = {
 					name = L["Enable"],
 					desc = L["Enable Auras near minimap"],
 					type = "toggle",
-					get = function(info) return E.global.auras.enable end,					
-					set = function(info, value) E.global.auras.enable = value; StaticPopup_Show("GLOBAL_RL") end
+					get = function(info) return E.private.auras.enable end,					
+					set = function(info, value) E.private.auras.enable = value; StaticPopup_Show("PRIVATE_RL") end
 				},
 				size = {
 					order = 2,

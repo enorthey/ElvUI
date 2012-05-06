@@ -1,8 +1,8 @@
-local E, L, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local S = E:GetModule('Skins')
 
 local function LoadSkin()
-	if E.global.skins.blizzard.enable ~= true or E.global.skins.blizzard.worldmap ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true then return end
 	
 	S:HandleScrollBar(WorldMapQuestScrollFrameScrollBar)
 	S:HandleScrollBar(WorldMapQuestDetailScrollFrameScrollBar, 4)
@@ -91,8 +91,8 @@ local function LoadSkin()
 		WorldMapFrameAreaDescription:SetShadowOffset(2, -2)	
 		
 		WorldMapZoneInfo:FontTemplate(nil, 27, "OUTLINE")
-		WorldMapZoneInfo:SetShadowOffset(2, -2)	
-
+		WorldMapZoneInfo:SetShadowOffset(2, -2)		
+		
 		if InCombatLockdown() then return end
 		WorldMapFrame:SetFrameLevel(3)
 		WorldMapDetailFrame:SetFrameLevel(WorldMapFrame:GetFrameLevel() + 1)
