@@ -48,7 +48,7 @@ function E:UpdateMedia()
 	--Fonts
 	self["media"].normFont = LSM:Fetch("font", self.db['general'].font)
 	self["media"].combatFont = LSM:Fetch("font", self.db['general'].dmgfont)
-	self["media"].dtFont = LSM:Fetch("font", self.db["general"].dtfont)			
+	self["media"].dtFont = LSM:Fetch("font", self.db["general"].dtfont)		
 
 	--Textures
 	self["media"].blankTex = LSM:Fetch("background", "ElvUI Blank")
@@ -562,7 +562,7 @@ function E:UpdateAll()
 	self.data.RegisterCallback(self, "OnProfileReset", "OnProfileReset")
 	self.db = self.data.profile;
 	self.global = self.data.global;
-		
+
 	self:UpdateMedia()
 	self:UpdateFrameTemplates()
 	self:SetMoversPositions()
@@ -640,14 +640,13 @@ function E:Initialize()
 	self.data.RegisterCallback(self, "OnProfileChanged", "UpdateAll")
 	self.data.RegisterCallback(self, "OnProfileCopied", "UpdateAll")
 	self.data.RegisterCallback(self, "OnProfileReset", "OnProfileReset")
-	
+
 	if self.data and self.data.profile and self.data.profile.keybinds then
 		self.data.profile.keybinds = nil;
-	end	
-	
+	end
+
 	self.db = self.data.profile;
 	self.global = self.data.global;
-
 	self:CheckIncompatible()
 	
 	self:CheckRole()
@@ -701,7 +700,7 @@ function E:Initialize()
 	--self:SaveKeybinds()
 	
 	self:GetModule('Minimap'):UpdateSettings()
-	
+
 	collectgarbage("collect");
 end
 

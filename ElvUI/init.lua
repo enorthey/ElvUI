@@ -13,7 +13,7 @@ local AddOnName, Engine = ...;
 local AddOn = LibStub("AceAddon-3.0"):NewAddon(AddOnName, "AceConsole-3.0", "AceEvent-3.0", 'AceTimer-3.0', 'AceHook-3.0');
 local DEFAULT_WIDTH = 890;
 local DEFAULT_HEIGHT = 651;
-AddOn.DF = {}; AddOn.DF["profile"] = {}; AddOn.DF["global"] = {}; AddOn.privateVars = {}; AddOn.privateVars["profile"] = {};
+AddOn.DF = {}; AddOn.DF["profile"] = {}; AddOn.DF["global"] = {}; AddOn.privateVars = {}; AddOn.privateVars["profile"] = {}; -- Defaults
 AddOn.Options = {
 	type = "group",
 	name = AddOnName,
@@ -39,15 +39,17 @@ function AddOn:OnInitialize()
 	if not ElvCharacterData then
 		ElvCharacterData = {};
 	end
-	self.data = LibStub("AceDB-3.0"):New("ElvData", self.DF);	
-	self.charSettings = LibStub("AceDB-3.0"):New("ElvPrivateData", self.privateVars);
+	
+	self.data = LibStub("AceDB-3.0"):New("ElvData", self.DF);
+	
+	self.charSettings = LibStub("AceDB-3.0"):New("ElvPrivateData", self.privateVars);	
 	self.db = self.data.profile;
-	self.global = self.data.global;
+	self.global = self.data.global;	
 	self.private = self.charSettings.profile
 	
 	self:UIScale();
 	self:UpdateMedia();
-
+	
 	self:RegisterEvent('PLAYER_LOGIN', 'Initialize')
 	self:InitializeInitialModules()
 end
