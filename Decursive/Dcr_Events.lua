@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
     
-    Decursive (v 2.7.0.5-2-gee01483) add-on for World of Warcraft UI
+    Decursive (v 2.7.0.5-3-gf80092a) add-on for World of Warcraft UI
     Copyright (C) 2006-2007-2008-2009-2010-2011 John Wellesz (archarodim AT teaser.fr) ( http://www.2072productions.com/to/decursive.php )
 
     Starting from 2009-10-31 and until said otherwise by its author, Decursive
@@ -17,7 +17,7 @@
     Decursive is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY.
     
-    This file was last updated on 2012-03-24T22:26:17Z
+    This file was last updated on 2012-05-08T09:33:28Z
 --]]
 -------------------------------------------------------------------------------
 
@@ -722,14 +722,14 @@ do -- Combat log event handling {{{1
                 end
                 self.Status.ClickedMF = false;
 
-            elseif event == "SPELL_MISSED" or event == "SPELL_DISPEL_FAILED" then -- XXX to test
+            elseif event == "SPELL_MISSED" or event == "SPELL_DISPEL_FAILED" then
                 destName = self:PetUnitName( self.Status.ClickedMF.CurrUnit, true);
 
                 D:Println(L["FAILEDCAST"], spellNAME, (select(2, GetSpellInfo(spellID))), D:MakePlayerName(destName), auraTYPE_failTYPE);
                 PlaySoundFile(DC.FailedSound, "Master");
                 self.Status.ClickedMF = false;
                 --@alpha@
-                D:AddDebugText("sanitycheck ", event, spellNAME);
+                -- D:AddDebugText("sanitycheck ", event, spellNAME); -- It works!
                 --@end-alpha@
             end
             --  }}}
@@ -1123,6 +1123,6 @@ do
     end
 end
 
-T._LoadedFiles["Dcr_Events.lua"] = "2.7.0.5-2-gee01483";
+T._LoadedFiles["Dcr_Events.lua"] = "2.7.0.5-3-gf80092a";
 
 -- The Great Below

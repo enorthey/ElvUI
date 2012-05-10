@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
     
-    Decursive (v 2.7.0.5-2-gee01483) add-on for World of Warcraft UI
+    Decursive (v 2.7.0.5-3-gf80092a) add-on for World of Warcraft UI
     Copyright (C) 2006-2007-2008-2009-2010-2011 John Wellesz (archarodim AT teaser.fr) ( http://www.2072productions.com/to/decursive.php )
 
     Starting from 2009-10-31 and until said otherwise by its author, Decursive
@@ -54,7 +54,7 @@ T.Dcr         = LibStub("AceAddon-3.0"):NewAddon("Decursive", "AceConsole-3.0", 
 local D = T.Dcr;
 
 D.name = "Decursive";
-D.version = "2.7.0.5-2-gee01483";
+D.version = "2.7.0.5-3-gf80092a";
 D.author = "John Wellesz";
 
 D.L         = LibStub("AceLocale-3.0"):GetLocale("Decursive", true);
@@ -243,7 +243,7 @@ function D:VersionWarnings()
     alpha = true;
     --@end-alpha@
 
-    if (("2.7.0.5-2-gee01483"):lower()):find("beta") or ("2.7.0.5-2-gee01483"):find("RC") or ("2.7.0.5-2-gee01483"):find("Candidate") or alpha then
+    if (("2.7.0.5-3-gf80092a"):lower()):find("beta") or ("2.7.0.5-3-gf80092a"):find("RC") or ("2.7.0.5-3-gf80092a"):find("Candidate") or alpha then
 
         D.RunningADevVersion = true;
 
@@ -256,7 +256,7 @@ function D:VersionWarnings()
                 DC.DevVersionExpired = true;
                 -- Display the expiration notice only once evry 48 hours
                 if time() - self.db.global.LastExpirationAlert > 48 * 3600  then
-                    StaticPopup_Show ("Decursive_Notice_Frame", "|cff00ff00Decursive version: 2.7.0.5-2-gee01483|r\n\n" .. "|cFFFFAA66" .. L["DEV_VERSION_EXPIRED"] .. "|r");
+                    StaticPopup_Show ("Decursive_Notice_Frame", "|cff00ff00Decursive version: 2.7.0.5-3-gf80092a|r\n\n" .. "|cFFFFAA66" .. L["DEV_VERSION_EXPIRED"] .. "|r");
 
                     self.db.global.LastExpirationAlert = time();
                 end
@@ -266,16 +266,16 @@ function D:VersionWarnings()
 
         end
 
-        if self.db.global.NonRealease ~= "2.7.0.5-2-gee01483" then
-            self.db.global.NonRealease = "2.7.0.5-2-gee01483";
-            StaticPopup_Show ("Decursive_Notice_Frame", "|cff00ff00Decursive version: 2.7.0.5-2-gee01483|r\n\n" .. "|cFFFFAA66" .. L["DEV_VERSION_ALERT"] .. "|r");
+        if self.db.global.NonRealease ~= "2.7.0.5-3-gf80092a" then
+            self.db.global.NonRealease = "2.7.0.5-3-gf80092a";
+            StaticPopup_Show ("Decursive_Notice_Frame", "|cff00ff00Decursive version: 2.7.0.5-3-gf80092a|r\n\n" .. "|cFFFFAA66" .. L["DEV_VERSION_ALERT"] .. "|r");
         end
     end
 
     --[===[@debug@
     fromCheckOut = true;
     if time() - self.db.global.LastChekOutAlert > 24 * 3600  then
-        StaticPopup_Show ("Decursive_Notice_Frame", "|cff00ff00Decursive version: 2.7.0.5-2-gee01483|r\n\n" .. "|cFFFFAA66" .. 
+        StaticPopup_Show ("Decursive_Notice_Frame", "|cff00ff00Decursive version: 2.7.0.5-3-gf80092a|r\n\n" .. "|cFFFFAA66" .. 
         [[
         |cFFFF0000You're using an unpackaged version of Decursive.|r
         Decursive is not meant to be used this way.
@@ -313,7 +313,7 @@ function D:VersionWarnings()
         if D.db.global.NewerVersionDetected > D.VersionTimeStamp and D.db.global.NewerVersionName ~= D.version then -- it's still newer than this one
             if time() - D.db.global.NewerVersionAlert > 3600 * 24 * 4 then -- it's been more than 4 days since the new version alert was shown
                 if not D.db.global.NewVersionsBugMeNot then -- the user did not disable new version alerts
-                    StaticPopup_Show ("Decursive_Notice_Frame", "|cff55ff55Decursive version: 2.7.0.5-2-gee01483|r\n\n" .. "|cFF55FFFF" .. (L["NEW_VERSION_ALERT"]):format(D.db.global.NewerVersionName or "none", date("%Y-%m-%d", D.db.global.NewerVersionDetected)) .. "|r");
+                    StaticPopup_Show ("Decursive_Notice_Frame", "|cff55ff55Decursive version: 2.7.0.5-3-gf80092a|r\n\n" .. "|cFF55FFFF" .. (L["NEW_VERSION_ALERT"]):format(D.db.global.NewerVersionName or "none", date("%Y-%m-%d", D.db.global.NewerVersionDetected)) .. "|r");
                     D.db.global.NewerVersionAlert = time();
                 end
             end
@@ -1467,9 +1467,9 @@ function D:LocalizeBindings ()
 
 end
 
-D.Revision = "ee01483";
-D.date = "2012-04-13T23:47:10Z";
-D.version = "2.7.0.5-2-gee01483";
+D.Revision = "f80092a";
+D.date = "2012-05-08T09:33:28Z";
+D.version = "2.7.0.5-3-gf80092a";
 do
 
     if D.date ~= "@project".."-date-iso@" then
@@ -1488,7 +1488,7 @@ do
 
 end
 
-T._LoadedFiles["DCR_init.lua"] = "2.7.0.5-2-gee01483";
+T._LoadedFiles["DCR_init.lua"] = "2.7.0.5-3-gf80092a";
 
 -------------------------------------------------------------------------------
 
@@ -1506,12 +1506,12 @@ Simple replacements
 ee014836fa43b63ecf13b643c2f3e54859061340
     Turns into the hash of the file in hex form. e.g. 106c634df4b3dd4691bf24e148a23e9af35165ea
     Note: does not work for svn
-ee014836fa43b63ecf13b643c2f3e54859061340
+f80092ae993d83502f5e8a610d2eec0a5d039dee
     Turns into the hash of the entire project in hex form. e.g. 106c634df4b3dd4691bf24e148a23e9af35165ea
     Note: does not work for svn
 ee01483
     Turns into the abbreviated hash of the file in hex form. e.g. 106c63 Note: does not work for svn
-ee01483
+f80092a
     Turns into the abbreviated hash of the entire project in hex form. e.g. 106c63
     Note: does not work for svn
 Archarodim
@@ -1520,17 +1520,17 @@ Archarodim
     Turns into the last author of the entire project. e.g. ckknight
 2012-04-13T23:47:10Z
     Turns into the last changed date (by UTC) of the file in ISO 8601. e.g. 2008-05-01T12:34:56Z
-2012-04-13T23:47:10Z
+2012-05-08T09:33:28Z
     Turns into the last changed date (by UTC) of the entire project in ISO 8601. e.g. 2008-05-01T12:34:56Z
 20120413234710
     Turns into the last changed date (by UTC) of the file in a readable integer fashion. e.g. 20080501123456
-20120413234710
+20120508093328
     Turns into the last changed date (by UTC) of the entire project in a readable integer fashion. e.g. 2008050123456
 @file-timestamp@
     Turns into the last changed date (by UTC) of the file in POSIX timestamp. e.g. 1209663296
 @project-timestamp@
     Turns into the last changed date (by UTC) of the entire project in POSIX timestamp. e.g. 1209663296
-2.7.0.5-2-gee01483
+2.7.0.5-3-gf80092a
     Turns into an approximate version of the project. The tag name if on a tag, otherwise it's up to the repo.
     :SVN returns something like "r1234"
     :Git returns something like "v0.1-873fc1"

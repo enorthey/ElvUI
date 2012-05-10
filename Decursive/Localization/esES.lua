@@ -1,7 +1,7 @@
 --[[
     This file is part of Decursive.
     
-    Decursive (v 2.7.0.5-2-gee01483) add-on for World of Warcraft UI
+    Decursive (v 2.7.0.5-3-gf80092a) add-on for World of Warcraft UI
     Copyright (C) 2006-2007-2008-2009-2010-2011 John Wellesz (archarodim AT
     teaser.fr) ( http://www.2072productions.com/to/decursive.php )
 
@@ -72,7 +72,7 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Decursive", "esES");
 
 if not L then
-    T._LoadedFiles["esES.lua"] = "2.7.0.5-2-gee01483";
+    T._LoadedFiles["esES.lua"] = "2.7.0.5-3-gf80092a";
     return;
 end;
 
@@ -104,4 +104,4 @@ L["TOOFAR"] = "Muy lejos"
 
 
 
-T._LoadedFiles["esES.lua"] = "2.7.0.5-2-gee01483";
+T._LoadedFiles["esES.lua"] = "2.7.0.5-3-gf80092a";
