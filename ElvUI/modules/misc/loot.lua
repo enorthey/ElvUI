@@ -32,6 +32,10 @@ local OnLeave = function(self)
 end
 
 local OnClick = function(self)
+	LootFrame.selectedQuality = self.quality;
+	LootFrame.selectedItemName = self.name:GetText()
+	LootFrame.selectedSlot = self:GetID()
+	
 	if(IsModifiedClick()) then
 		HandleModifiedItemClick(GetLootSlotLink(self:GetID()))
 	else
@@ -85,7 +89,6 @@ local function createSlot(id)
 	iconFrame:Height(iconsize)
 	iconFrame:Width(iconsize)
 	iconFrame:SetPoint("RIGHT", frame)
-	
 	iconFrame:SetTemplate("Default")
 	E["frames"][iconFrame] = nil;
 
@@ -255,6 +258,7 @@ function M:LoadLoot()
 	lootFrameHolder:Height(22)
 	
 	lootFrame = CreateFrame('Button', 'ElvLootFrame', lootFrameHolder)
+	lootFrame:SetClampedToScreen(true)
 	lootFrame:SetPoint('TOPLEFT')
 	lootFrame:Size(256, 64)
 	lootFrame:SetTemplate('Default')

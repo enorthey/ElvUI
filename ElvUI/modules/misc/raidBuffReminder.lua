@@ -18,12 +18,12 @@ RBR.Spell1Buffs = {
 RBR.BattleElixir = {
 	--Scrolls
 	89343, --Agility
-	63308, --Armor
+	63308, --Armor 
 	89347, --Int
 	89342, --Spirit
 	63306, --Stam
 	89346, --Strength
-
+	
 	--Elixirs
 	79481, --Hit
 	79632, --Haste
@@ -32,12 +32,12 @@ RBR.BattleElixir = {
 	79474, --Expertise
 	79468, --Spirit
 }
-
+	
 RBR.GuardianElixir = {
 	79480, --Armor
 	79631, --Resistance+90
 }
-
+	
 RBR.Spell2Buffs = {
 	87545, --90 STR
 	87546, --90 AGI
@@ -74,15 +74,12 @@ RBR.Spell4Buffs = {
 	6307, -- Blood Pact
 	90364, -- Qiraji Fortitude
 	72590, -- Drums of fortitude
-	21562, -- Fortitude
+	21562, -- Fortitude	
 }
 
 RBR.CasterSpell5Buffs = {
 	61316, --"Dalaran Brilliance" (6% SP)
-	52109, --"Flametongue Totem" (6% SP)
-	53646, --"Demonic Pact" (10% SP)
-	77747, --"Totemic Wrath" (10% SP)
-	1459, --"Arcane Brilliance" (6% SP)
+	1459, --"Arcane Brilliance" (6% SP)	
 }
 
 RBR.MeleeSpell5Buffs = {
@@ -99,7 +96,7 @@ RBR.CasterSpell6Buffs = {
 }
 
 RBR.MeleeSpell6Buffs = {
-	19740, --"Blessing of Might" placing it twice because i like the icon better :D code will stop after this one is read, we want this first
+	19740, --"Blessing of Might" placing it twice because i like the icon better :D code will stop after this one is read, we want this first 
 	30808, --"Unleashed Rage"
 	53138, --Abom Might
 	19506, --Trushot
@@ -121,7 +118,7 @@ end
 function RBR:UpdateReminder(event, unit)
 	if (event == "UNIT_AURA" and unit ~= "player") then return end
 	local frame = self.frame
-
+	
 	if E.role == 'Caster' then
 		self.Spell5Buffs = self.CasterSpell5Buffs
 		self.Spell6Buffs = self.CasterSpell6Buffs
@@ -129,7 +126,7 @@ function RBR:UpdateReminder(event, unit)
 		self.Spell5Buffs = self.MeleeSpell5Buffs
 		self.Spell6Buffs = self.MeleeSpell6Buffs
 	end
-
+	
 	local hasFlask, flaskTex = self:CheckFilterForActiveBuff(self.Spell1Buffs)
 	if hasFlask then
 		frame.spell1.t:SetTexture(flaskTex)
@@ -140,16 +137,16 @@ function RBR:UpdateReminder(event, unit)
 
 		if (hasBattle and hasGuardian) or not hasGuardian and hasBattle then
 			frame.spell1:SetAlpha(1)
-			frame.spell1.t:SetTexture(battleTex)
+			frame.spell1.t:SetTexture(battleTex)				
 		elseif hasGuardian then
 			frame.spell1:SetAlpha(1)
-			frame.spell1.t:SetTexture(guardianTex)
+			frame.spell1.t:SetTexture(guardianTex)		
 		else
 			frame.spell1:SetAlpha(1)
 			frame.spell1.t:SetTexture(flaskTex)
 		end
 	end
-
+	
 	for i = 2, 6 do
 		local hasBuff, texture = self:CheckFilterForActiveBuff(self['Spell'..i..'Buffs'])
 		frame['spell'..i].t:SetTexture(texture)
@@ -170,17 +167,17 @@ function RBR:CreateButton(relativeTo, isFirst, isLast)
 	else
 		button:Point("TOP", relativeTo, "BOTTOM", 0, -1)
 	end
-
+	
 	if isLast then
 		button:Point("BOTTOM", RaidBuffReminder, "BOTTOM", 0, 2)
 	end
-
+	
 	button.t = button:CreateTexture(nil, "OVERLAY")
 	button.t:SetTexCoord(unpack(E.TexCoords))
 	button.t:Point("TOPLEFT", 2, -2)
 	button.t:Point("BOTTOMRIGHT", -2, 2)
 	button.t:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
-
+	
 	return button
 end
 
@@ -225,7 +222,7 @@ function RBR:Initialize()
 	frame.spell5 = self:CreateButton(frame.spell4)
 	frame.spell6 = self:CreateButton(frame.spell5, nil, true)
 	self.frame = frame
-
+	
 	if E.db.general.raidReminder then
 		self:EnableRBR()
 	else
