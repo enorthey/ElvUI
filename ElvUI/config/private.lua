@@ -69,6 +69,12 @@ V['skins'] = {
 	['tinydps'] = {
 		['enable'] = true,
 	},
+	['clcret'] = {
+		['enable'] = true,
+	},
+	['clcprot'] = {
+		['enable'] = true,
+	},	
 	['blizzard'] = {
 		['enable'] = true,
 		["bags"] = true,

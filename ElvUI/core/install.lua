@@ -170,28 +170,24 @@ local function SetupCVars()
 end	
 
 function E:SetupResolution()
-	if E.lowversion then
+	E:ResetMovers('')
+
+	if self == 'low' then
+		if not E.db.movers then E.db.movers = {}; end
 		E.db.general.panelWidth = 400
 		E.db.general.panelHeight = 180
 		
 		E:CopyTable(E.db.actionbar, P.actionbar)
-		
+				
 		E.db.actionbar.bar1.heightMult = 2;
 		E.db.actionbar.bar2.enabled = true;
 		E.db.actionbar.bar3.enabled = false;
 		E.db.actionbar.bar5.enabled = false;
-		E:GetModule('ActionBars'):ResetMovers('')
-		E.db.actionbar.bar2["position"] = {
-			["p2"] = "BOTTOM",
-			["p"] = "CENTER",
-			["p3"] = 0,
-			["p4"] = 56.18668365478516,
-		}
-
-		
+		E.db.movers.ElvAB_2 = "CENTERUIParentBOTTOM056.18"
+	
 		E:CopyTable(E.db.unitframe.units, P.unitframe.units)
 		
-		E.db.unitframe.fontsize = 11
+		E.db.unitframe.fontsize = 10
 		
 		E.db.unitframe.units.player.width = 200;
 		E.db.unitframe.units.player.castbar.width = 200;
@@ -214,13 +210,12 @@ function E:SetupResolution()
 		E.db.unitframe.units.arena.width = 200;
 		E.db.unitframe.units.arena.castbar.width = 200;			
 		
-		E.db.unitframe.units["positions"] = {
-			["ElvUF_TargetTarget"] = "BOTTOMUIParent10680",
-			["ElvUF_Player"] = "BOTTOMUIParent-106135",
-			["ElvUF_Target"] = "BOTTOMUIParent106135",
-			["ElvUF_Pet"] = "BOTTOMUIParent-10680",
-			["ElvUF_Focus"] = "RIGHTUIParent-468161",
-		}
+		
+		E.db.movers.ElvUF_PlayerMover = "BOTTOMUIParentBOTTOM-106135"
+		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM10680"
+		E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM106135"
+		E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM-10680"
+		E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM310332"
 		
 		E.db.lowresolutionset = true;
 	else
@@ -229,9 +224,7 @@ function E:SetupResolution()
 		
 		E:CopyTable(E.db.actionbar, P.actionbar)
 		E:CopyTable(E.db.unitframe.units, P.unitframe.units)
-		E.db.unitframe.fontsize = 12
-		E.db.unitframe.units["positions"] = nil;
-		E:GetModule('ActionBars'):ResetMovers('')
+
 		E.db.lowresolutionset = nil;
 	end
 
@@ -252,8 +245,8 @@ function E:SetupLayout(layout)
 		end
 		
 		E.db.unitframe.units.party.health.frequentUpdates = true;
-		E.db.unitframe.units.raid625.health.frequentUpdates = true;
-		E.db.unitframe.units.raid2640.health.frequentUpdates = true;
+		E.db.unitframe.units.raid25.health.frequentUpdates = true;
+		E.db.unitframe.units.raid40.health.frequentUpdates = true;
 		
 		E.db.unitframe.units.boss.width = 200;
 		E.db.unitframe.units.boss.castbar.width = 200;
@@ -268,7 +261,7 @@ function E:SetupLayout(layout)
 		E.db.unitframe.units.party.height = 52;
 		E.db.unitframe.units.party.health.text_format = 'deficit';
 		E.db.unitframe.units.party.health.position = 'BOTTOM';
-		E.db.unitframe.units.party.health.orientation = 'HORIZONTAL';
+		E.db.unitframe.units.party.health.orientation = 'VERTICAL';
 		E.db.unitframe.units.party.name.position = 'TOP';
 		E.db.unitframe.units.party.name.length = "SHORT";
 		E.db.unitframe.units.party.debuffs.anchorPoint = 'BOTTOMLEFT';
@@ -288,52 +281,46 @@ function E:SetupLayout(layout)
 		E.db.unitframe.units.party.targetsGroup.xOffset = 0;
 		E.db.unitframe.units.party.targetsGroup.yOffset = 1;
 
-		E.db.unitframe.units.raid625.healPrediction = true;
-		E.db.unitframe.units.raid625.health.orientation = 'HORIZONTAL';
+		E.db.unitframe.units.raid25.healPrediction = true;
+		E.db.unitframe.units.raid25.health.orientation = 'VERTICAL';
 
-		E.db.unitframe.units.raid2640.healPrediction = true;
-		E.db.unitframe.units.raid2640.health.orientation = 'HORIZONTAL';		
+		E.db.unitframe.units.raid40.healPrediction = true;
+		E.db.unitframe.units.raid40.health.orientation = 'VERTICAL';		
 		
+		
+		if not E.db.movers then E.db.movers = {}; end
 		if E.db.lowresolutionset then
-			E.db.unitframe.units["positions"] = {
-				["ElvUF_Player"] = "BOTTOMUIParent-305242",
-				["ElvUF_Target"] = "BOTTOMUIParent305242",
-				["ElvUF_Raid2640"] = "BOTTOMUIParent080",
-				["ElvUF_Raid625"] = "BOTTOMUIParent080",
-				["ElvUF_TargetTarget"] = "BOTTOMUIParent305187",
-				["ElvUF_Focus"] = "RIGHTUIParent-264-43",
-				["ElvUF_Party"] = "BOTTOMUIParent0104",
-				["ElvUF_Pet"] = "BOTTOMUIParent-305187",
-				['ElvUF_Focus'] = "BOTTOMUIParent310632",
-			}			
+			E.db.movers.ElvUF_PlayerMover = "BOTTOMUIParentBOTTOM-305242"
+			E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM305242"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMUIParentBOTTOM080"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMUIParentBOTTOM080"
+			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM305187"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMUIParentBOTTOM0104"
+			E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM-305187"
+			E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM310432"
+			
 		else
-			E.db.unitframe.units["positions"] = {
-				["ElvUF_Player"] = "BOTTOMLEFTUIParent464242",
-				["ElvUF_Target"] = "BOTTOMRIGHTUIParent-464242",
-				["ElvUF_Raid2640"] = "BOTTOMUIParent0140",
-				["ElvUF_Raid625"] = "BOTTOMUIParent0140",
-				["ElvUF_TargetTarget"] = "BOTTOMRIGHTUIParent-464151",
-				["ElvUF_Focus"] = "RIGHTUIParent-300-143",
-				["ElvUF_Party"] = "BOTTOMUIParent0157",
-				["ElvUF_Pet"] = "BOTTOMLEFTUIParent464151",
-				["ElvUF_Focus"] = "RIGHTUIParent-468161",
-			}
+			E.db.movers.ElvUF_PlayerMover = "BOTTOMLEFTUIParentBOTTOMLEFT464242"
+			E.db.movers.ElvUF_TargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-464242"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMUIParentBOTTOM050"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMUIParentBOTTOM050"
+			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-464151"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMUIParentBOTTOM074"
+			E.db.movers.ElvUF_PetMover = "BOTTOMLEFTUIParentBOTTOMLEFT464151"
+			E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM280332"			
 		end
 	elseif E.db.lowresolutionset then
-		E.db.unitframe.units["positions"] = {
-			["ElvUF_TargetTarget"] = "BOTTOMUIParent10680",
-			["ElvUF_Player"] = "BOTTOMUIParent-106135",
-			["ElvUF_Target"] = "BOTTOMUIParent106135",
-			["ElvUF_Pet"] = "BOTTOMUIParent-10680",
-			["ElvUF_Focus"] = "RIGHTUIParent-468161",
-		}		
+		if not E.db.movers then E.db.movers = {}; end
+		E.db.movers.ElvUF_PlayerMover = "BOTTOMUIParentBOTTOM-106135"
+		E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM106135"
+		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM10680"
+		E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM-10680"
+		E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM310332"			
 	else
-		E.db.unitframe.units["positions"] = nil;
+		E:ResetMovers('')
 	end
 	
 	if E.db.lowresolutionset then
-		E.db.unitframe.fontsize = 11
-		
 		E.db.unitframe.units.player.width = 200;
 		E.db.unitframe.units.player.castbar.width = 200;
 		E.db.unitframe.units.player.classbar.fill = 'fill';
@@ -360,14 +347,14 @@ function E:SetupLayout(layout)
 	if not E.db.layoutSet then
 		E:CopyTable(E.db.datatexts.panels, P.datatexts.panels)
 		if layout == 'tank' then
-			E.db.datatexts.panels.LowerCDPPanel.left = 'Armor';
-			E.db.datatexts.panels.LowerLDPPanel = 'Avoidance';
+			E.db.datatexts.panels.LeftChatDataPanel.left = 'Armor';
+			E.db.datatexts.panels.LeftChatDataPanel.right = 'Avoidance';
 		elseif layout == 'healer' or layout == 'dpsCaster' then
-			E.db.datatexts.panels.LowerCDPPanel.left = 'Spell/Heal Power';
-			E.db.datatexts.panels.LowerLDPPanel = 'Crit Chance';
+			E.db.datatexts.panels.LeftChatDataPanel.left = 'Spell/Heal Power';
+			E.db.datatexts.panels.LeftChatDataPanel.right = 'Haste';
 		else
-			E.db.datatexts.panels.LowerCDPPanel.left = 'Attack Power';
-			E.db.datatexts.panels.LowerLDPPanelt = 'Crit Chance';
+			E.db.datatexts.panels.LeftChatDataPanel.left = 'Attack Power';
+			E.db.datatexts.panels.LeftChatDataPanel.right = 'Crit Chance';
 		end
 		
 		if InstallStepComplete then
@@ -397,6 +384,9 @@ local function ResetAll()
 	InstallOption1Button:Hide()
 	InstallOption1Button:SetScript("OnClick", nil)
 	InstallOption1Button:SetText("")
+	InstallOption2Button:Hide()
+	InstallOption2Button:SetScript('OnClick', nil)
+	InstallOption2Button:SetText('')
 	InstallRoleOptionTank:Hide()
 	InstallRoleOptionTank:SetScript('OnClick', nil)
 	InstallRoleOptionHealer:Hide()
@@ -409,6 +399,7 @@ local function ResetAll()
 	ElvUIInstallFrame.Desc1:SetText("")
 	ElvUIInstallFrame.Desc2:SetText("")
 	ElvUIInstallFrame.Desc3:SetText("")
+	InstallTutorialImage:Size(250)
 	InstallTutorialImage:SetTexture(nil)
 	InstallTutorialImage:Hide()
 	ElvUIInstallFrame:Size(550, 400)
@@ -432,11 +423,16 @@ local function SetPage(PageNum)
 		InstallPrevButton:Enable()
 	end
 	
+	InstallTutorialImage:Size(256, 128)
+	InstallTutorialImage:SetTexture('Interface\\AddOns\\ElvUI\\media\\textures\\logo_elvui.tga')
+	InstallTutorialImage:Show()	
+	
 	if PageNum == 1 then
 		f.SubTitle:SetText(format(L["Welcome to ElvUI version %s!"], E.version))
 		f.Desc1:SetText(L["This install process will help you learn some of the features in ElvUI has to offer and also prepare your user interface for usage."])
 		f.Desc2:SetText(L["The in-game configuration menu can be accesses by typing the /ec command or by clicking the 'C' button on the minimap. Press the button below if you wish to skip the installation process."])
 		f.Desc3:SetText(L["Please press the continue button to go onto the next step."])
+				
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript("OnClick", InstallComplete)
 		InstallOption1Button:SetText(L["Skip Process"])			
@@ -469,7 +465,10 @@ local function SetPage(PageNum)
 		
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript("OnClick", E.SetupResolution)
-		InstallOption1Button:SetText(L["Resolution Setup"])	
+		InstallOption1Button:SetText(L["High Resolution"])	
+		InstallOption2Button:Show()
+		InstallOption2Button:SetScript('OnClick', function() E.SetupResolution('low') end)
+		InstallOption2Button:SetText(L['Low Resolution'])
 	elseif PageNum == 5 then
 		f.SubTitle:SetText(L["Layout"])
 		f.Desc1:SetText(L["You can now choose what layout you wish to use based on your combat role."])
@@ -493,6 +492,7 @@ local function SetPage(PageNum)
 		InstallTutorialImage:Show()
 		InstallTutorialImage:SetTexture([[Interface\AddOns\ElvUI\media\textures\micromenu_tutorial.tga]])
 		ElvUIInstallFrame:Size(550, 500)
+		InstallTutorialImage:Size(250)
 	end
 end
 
@@ -624,6 +624,17 @@ function E:Install()
 		f.Option1:Hide()
 		E.Skins:HandleButton(f.Option1, true)
 		
+		f.Option2 = CreateFrame("Button", "InstallOption2Button", f, "UIPanelButtonTemplate2")
+		f.Option2:StripTextures()
+		f.Option2:SetTemplate("Default", true)
+		f.Option2:Size(110, 30)
+		f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45)
+		f.Option2:SetText("")
+		f.Option2:Hide()
+		f.Option2:SetScript('OnShow', function() f.Option1:SetWidth(110); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45) end)
+		f.Option2:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point("BOTTOM", 0, 45) end)
+		E.Skins:HandleButton(f.Option1, true)		
+		
 		f.RoleOptionTank = CreateFrame('Button', 'InstallRoleOptionTank', f, 'UIPanelButtonTemplate2')
 		f.RoleOptionTank:StripTextures()
 		f.RoleOptionTank:SetTemplate("Default", true)
@@ -688,7 +699,7 @@ function E:Install()
 		
 		f.tutorialImage = f:CreateTexture('InstallTutorialImage', 'OVERLAY')
 		f.tutorialImage:Size(250)
-		f.tutorialImage:Point('BOTTOM', f.Option1, 'TOP', 0, 4)
+		f.tutorialImage:Point('BOTTOM', 0, 70)
 
 	end
 	

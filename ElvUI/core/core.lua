@@ -48,7 +48,7 @@ function E:UpdateMedia()
 	--Fonts
 	self["media"].normFont = LSM:Fetch("font", self.db['general'].font)
 	self["media"].combatFont = LSM:Fetch("font", self.db['general'].dmgfont)
-	self["media"].dtFont = LSM:Fetch("font", self.db["general"].dtfont)		
+	
 
 	--Textures
 	self["media"].blankTex = LSM:Fetch("background", "ElvUI Blank")
@@ -222,7 +222,6 @@ function E:RefreshModulesDB()
 	local UF = self:GetModule('UnitFrames')
 	table.wipe(UF.db)
 	UF.db = self.db.unitframe
-	ElvUF:ResetDB()
 end
 
 function E:InitializeModules()	
@@ -481,16 +480,16 @@ end
 --MESSAGE = Actual Message
 --SENDTO = For whispers, force users to whisper other users
 --/run SendAddonMessage('ElvSays', '<SENDTO>,<CHANNEL>,<MESSAGE>,<SENDTO>', 'PARTY')
-function E:SendRecieve(event, prefix, message, channel, sender)
+local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if sender == E.myname then return end
 
 		if prefix == "ElvUIVC" and sender ~= 'Elv' and not string.find(sender, 'Elv%-') then
 			if tonumber(message) > tonumber(E.version) then
 				E:Print(L["Your version of ElvUI is out of date. You can download the latest version from www.tukui.org"])
-				self:UnregisterEvent("CHAT_MSG_ADDON")
-				self:UnregisterEvent("PARTY_MEMBERS_CHANGED")
-				self:UnregisterEvent("RAID_ROSTER_UPDATE")
+				E:UnregisterEvent("CHAT_MSG_ADDON")
+				E:UnregisterEvent("PARTY_MEMBERS_CHANGED")
+				E:UnregisterEvent("RAID_ROSTER_UPDATE")
 			end
 		elseif prefix == 'ElvSays' and (sender == 'Elv' or string.find(sender, 'Elv-')) then ---HAHHAHAHAHHA
 			local user, channel, msg, sendTo = string.split(',', message)
@@ -504,63 +503,6 @@ function E:SendRecieve(event, prefix, message, channel, sender)
 	end
 end
 
-
---[[local localBindsSet = false
-function E:SaveKeybinds()
-	if not E.global.general.profileBinds or localBindsSet then return end
-	
-	if not E.db.keybinds then
-		E.db.keybinds = {};
-	else
-		table.wipe(E.db.keybinds)
-	end
-
-	for i = 1, GetNumBindings() do
-		local TheAction, BindingOne, BindingTwo = GetBinding(i);
-		if BindingOne then
-			E.db.keybinds[TheAction] = {BindingOne, BindingTwo};
-		else
-			E.db.keybinds[TheAction] = nil;
-		end
-	end
-end
-
-function E:LoadKeybinds()
-	if not E.global.general.profileBinds then return end
-	if not E.db.keybinds then
-		E:SaveKeybinds()
-		return
-	end
-	
-	localBindsSet = true;
-	
-	for i = 1, GetNumBindings() do
-		local TheAction, BindingOne, BindingTwo = GetBinding(i);
-		
-		if BindingOne then
-			SetBinding(BindingOne)
-		end
-		
-		if BindingTwo then
-			SetBinding(BindingTwo)
-		end
-	end
-	
-	for action, actionBind in pairs(E.db.keybinds) do
-		local BindingOne, BindingTwo = actionBind[1], actionBind[2]
-		
-		if BindingOne then
-			SetBinding(BindingOne, action)
-		end
-		
-		if BindingTwo then
-			SetBinding(BindingTwo, action)
-		end
-	end
-
-	SaveBindings(GetCurrentBindingSet());
-	localBindsSet = false;
-end]]
 
 function E:UpdateAll()
 	self.data = LibStub("AceDB-3.0"):New("ElvData", self.DF);
@@ -581,7 +523,6 @@ function E:UpdateAll()
 	local AB = self:GetModule('ActionBars')
 	AB.db = self.db.actionbar
 	AB:UpdateButtonSettings()
-	AB:SetMoverPositions()
 	 
 	local bags = E:GetModule('Bags'); 
 	bags:Layout(); 
@@ -608,8 +549,6 @@ function E:UpdateAll()
 	local UF = self:GetModule('UnitFrames')
 	UF.db = self.db.unitframe
 	UF:Update_AllFrames()
-	ElvUF:ResetDB()
-	ElvUF:PositionUF()
 	
 	self:GetModule('Auras').db = self.db.auras
 	self:GetModule('Tooltip').db = self.db.tooltip
@@ -645,15 +584,19 @@ hooksecurefunc("UnitPopup_ShowMenu", showMenu)
 function E:Initialize()
 	table.wipe(self.db)
 	table.wipe(self.global)
-
+	table.wipe(self.private)
+	
 	self.data = LibStub("AceDB-3.0"):New("ElvData", self.DF);
 	self.data.RegisterCallback(self, "OnProfileChanged", "UpdateAll")
 	self.data.RegisterCallback(self, "OnProfileCopied", "UpdateAll")
 	self.data.RegisterCallback(self, "OnProfileReset", "OnProfileReset")
+	
+	self.charSettings = LibStub("AceDB-3.0"):New("ElvPrivateData", self.privateVars);	
+	self.private = self.charSettings.profile
 	self.db = self.data.profile;
 	self.global = self.data.global;
 	self:CheckIncompatible()
-
+	
 	--Database conversion for aura filters
 	for spellList, _ in pairs(self.global.unitframe.aurafilters) do
 		if self.global.unitframe.aurafilters[spellList] and self.global.unitframe.aurafilters[spellList].spells then
@@ -663,16 +606,16 @@ function E:Initialize()
 						['enable'] = true,
 						['priority'] = 0,
 					}
-				end
+				end		
 			end
 		end
-	end
+	end		
 	
 	self:CheckRole()
 	self:UIScale('PLAYER_LOGIN');
 
 	if self.db.general.loginmessage then
-		print(format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version, self["media"].hexvaluecolor))
+		print(format(L['LOGIN_MSG'], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version))
 	end
 	
 	self:LoadConfig(); --Load In-Game Config
@@ -710,9 +653,6 @@ function E:Initialize()
 	self:RegisterEvent("CHARACTER_POINTS_CHANGED", "CheckRole");
 	self:RegisterEvent("UNIT_INVENTORY_CHANGED", "CheckRole");
 	self:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "CheckRole");	
-	self:RegisterEvent("RAID_ROSTER_UPDATE", "SendRecieve")
-	self:RegisterEvent("PARTY_MEMBERS_CHANGED", "SendRecieve")
-	self:RegisterEvent("CHAT_MSG_ADDON", "SendRecieve")
 	self:RegisterEvent('UI_SCALE_CHANGED', 'UIScale')
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 	--self:RegisterEvent('UPDATE_BINDINGS', 'SaveKeybinds')
@@ -742,42 +682,17 @@ function E:MoveUI(override, type)
 	elseif ElvUIMoverPopupWindow then
 		ElvUIMoverPopupWindow:Hide()
 	end
-	
-	if type == 'unitframes' and self.UnitFrames then
-		ElvUF:MoveUF(toggle)
-		return
-	elseif type == 'actionbars' and self.ActionBars then
-		self.ActionBars:ToggleMovers(toggle)
-		return
-	end
-	
+
 	self:ToggleMovers(toggle)
-	
-	if self.UnitFrames then
-		ElvUF:MoveUF(toggle)
-	end
-	
-	if self.ActionBars then
-		self.ActionBars:ToggleMovers(toggle)
-	end	
 end
 
 function E:ResetAllUI()
 	self:ResetMovers()
-	
-	if self.UnitFrames then
-		ElvUF:ResetUF()	
-	end
-	
-	if self.ActionBars then
-		self.ActionBars:ResetMovers('')
-	end	
 
 	if E.db.lowresolutionset then
 		E:SetupResolution()
 	end	
-	
-	
+
 	if E.db.layoutSet then
 		E:SetupLayout(E.db.layoutSet)
 	end
@@ -792,12 +707,10 @@ function E:ResetUI(...)
 	end
 	
 	self:ResetMovers(...)
-	
-	if self.UnitFrames then
-		ElvUF:ResetUF(...)	
-	end
-	
-	if self.ActionBars then
-		self.ActionBars:ResetMovers(...)
-	end	
 end
+
+local f = CreateFrame('Frame')
+f:RegisterEvent("RAID_ROSTER_UPDATE")
+f:RegisterEvent("PARTY_MEMBERS_CHANGED")
+f:RegisterEvent("CHAT_MSG_ADDON")
+f:SetScript('OnEvent', SendRecieve)

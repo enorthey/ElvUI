@@ -58,8 +58,17 @@ function AddOn:OnInitialize()
 		end
 	end
 	
-	self.charSettings = LibStub("AceDB-3.0"):New("ElvPrivateData", self.privateVars);	
-	self.private = self.charSettings.profile
+	self.private = table.copy(self.privateVars.profile, true);
+	if ElvPrivateData then
+		local profileKey
+		if ElvPrivateData.profileKeys then
+			profileKey = ElvPrivateData.profileKeys[self.myname..' - '..self.myrealm]
+		end
+
+		if profileKey and ElvPrivateData.profiles and ElvPrivateData.profiles[profileKey] then
+			self:CopyTable(self.private, ElvPrivateData.profiles[profileKey])
+		end
+	end
 	
 	self:UIScale();
 	self:UpdateMedia();
@@ -69,11 +78,13 @@ function AddOn:OnInitialize()
 end
 
 function AddOn:OnProfileReset()
-	StaticPopup_Show("CONFIG_RL")
+	ElvData = nil;
+	ElvPrivateData = nil;
+	ElvCharacterData = nil;
+	ReloadUI()
 end
 
 function AddOn:OnProfileCopied(arg1, arg2, arg3)
-	print(arg1, arg2, arg3)
 	StaticPopup_Show("COPY_PROFILE")
 end
 
