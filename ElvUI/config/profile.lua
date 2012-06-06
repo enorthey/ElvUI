@@ -15,8 +15,8 @@ P['general'] = {
 	['autoAcceptInvite'] = true,
 	
 	-- fonts
-	["fontsize"] = 11,
-	["font"] = "ElvUI Pixel",
+	["fontsize"] = 10,
+	["font"] = "Pixelfont 2",
 	["dtfont"] = "Pixelfont 2",
 	['dtfontsize'] = 10,
 	["dtfontoutline"] = "OUTLINE, MONOCHROME",
@@ -170,9 +170,9 @@ P['tooltip'] = {
 P['unitframe'] = {
 	['smoothbars'] = true,
 	['statusbar'] = "Minimalist",
-	['font'] = 'ElvUI Pixel',
+	['font'] = 'Pixelfont 2',
 	['fontsize'] = 10,
-	['fontoutline'] = 'MONOCHROMEOUTLINE',
+	['fontoutline'] = 'OUTLINE, MONOCHROME',
 	['OORAlpha'] = 0.35,
 	['debuffHighlighting'] = false,
 	["smartRaidFilter"] = true,
@@ -1146,7 +1146,7 @@ P['unitframe'] = {
 P["actionbar"] = {
 	["macrotext"] = true,
 	["hotkeytext"] = true,
-	['fontsize'] = 11,
+	['fontsize'] = 10,
 	["enablecd"] = true,
 	["treshold"] = 3,
 	["expiringcolor"] = { r = 1, g = 0, b = 0 },

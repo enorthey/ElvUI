@@ -261,7 +261,7 @@ function E:SetupLayout(layout)
 		E.db.unitframe.units.party.height = 52;
 		E.db.unitframe.units.party.health.text_format = 'deficit';
 		E.db.unitframe.units.party.health.position = 'BOTTOM';
-		E.db.unitframe.units.party.health.orientation = 'VERTICAL';
+		E.db.unitframe.units.party.health.orientation = 'HORIZONTAL';
 		E.db.unitframe.units.party.name.position = 'TOP';
 		E.db.unitframe.units.party.name.length = "SHORT";
 		E.db.unitframe.units.party.debuffs.anchorPoint = 'BOTTOMLEFT';
@@ -282,10 +282,10 @@ function E:SetupLayout(layout)
 		E.db.unitframe.units.party.targetsGroup.yOffset = 1;
 
 		E.db.unitframe.units.raid25.healPrediction = true;
-		E.db.unitframe.units.raid25.health.orientation = 'VERTICAL';
+		E.db.unitframe.units.raid25.health.orientation = 'HORIZONTAL';
 
 		E.db.unitframe.units.raid40.healPrediction = true;
-		E.db.unitframe.units.raid40.health.orientation = 'VERTICAL';		
+		E.db.unitframe.units.raid40.health.orientation = 'HORIZONTAL';		
 		
 		
 		if not E.db.movers then E.db.movers = {}; end
@@ -302,10 +302,10 @@ function E:SetupLayout(layout)
 		else
 			E.db.movers.ElvUF_PlayerMover = "BOTTOMLEFTUIParentBOTTOMLEFT464242"
 			E.db.movers.ElvUF_TargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-464242"
-			E.db.movers.ElvUF_Raid40Mover = "BOTTOMUIParentBOTTOM050"
-			E.db.movers.ElvUF_Raid25Mover = "BOTTOMUIParentBOTTOM050"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMUIParentBOTTOM0140"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMUIParentBOTTOM0140"
 			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-464151"
-			E.db.movers.ElvUF_PartyMover = "BOTTOMUIParentBOTTOM074"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMUIParentBOTTOM0157"
 			E.db.movers.ElvUF_PetMover = "BOTTOMLEFTUIParentBOTTOMLEFT464151"
 			E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM280332"			
 		end
@@ -347,14 +347,14 @@ function E:SetupLayout(layout)
 	if not E.db.layoutSet then
 		E:CopyTable(E.db.datatexts.panels, P.datatexts.panels)
 		if layout == 'tank' then
-			E.db.datatexts.panels.LeftChatDataPanel.left = 'Armor';
-			E.db.datatexts.panels.LeftChatDataPanel.right = 'Avoidance';
+			E.db.datatexts.panels.LowerCDPPanel.left = 'Armor';
+			E.db.datatexts.panels.LowerLDPPanel = 'Avoidance';
 		elseif layout == 'healer' or layout == 'dpsCaster' then
-			E.db.datatexts.panels.LeftChatDataPanel.left = 'Spell/Heal Power';
-			E.db.datatexts.panels.LeftChatDataPanel.right = 'Haste';
+			E.db.datatexts.panels.LowerCDPPanel.left = 'Spell/Heal Power';
+			E.db.datatexts.panels.LowerLDPPanel = 'Crit Chance';
 		else
-			E.db.datatexts.panels.LeftChatDataPanel.left = 'Attack Power';
-			E.db.datatexts.panels.LeftChatDataPanel.right = 'Crit Chance';
+			E.db.datatexts.panels.LowerCDPPanel.left = 'Attack Power';
+			E.db.datatexts.panels.LowerLDPPanelt = 'Crit Chance';
 		end
 		
 		if InstallStepComplete then

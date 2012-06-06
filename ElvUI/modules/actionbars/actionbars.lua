@@ -15,19 +15,19 @@ AB["barDefaults"] = {
 		['page'] = 1,
 		['bindButtons'] = "ACTIONBUTTON",
 		['conditions'] = "[bonusbar:5] 11; [bar:2] 2; [bar:3] 3; [bar:4] 4; [bar:5] 5; [bar:6] 6;",
-		['position'] = "BOTTOM,ElvUIParent,BOTTOM,0,4",
+		['position'] = "BOTTOM,ElvUIParent,BOTTOM,0,33",	
 	},
 	["bar2"] = {
 		['page'] = 5,
 		['bindButtons'] = "MULTIACTIONBAR2BUTTON",
 		['conditions'] = "",
-		['position'] = "BOTTOM,ElvUI_Bar1,TOP,0,2",
+		['position'] = "LEFT,ElvUI_Bar1,RIGHT,2,0",
 	},
 	["bar3"] = {
 		['page'] = 6,
 		['bindButtons'] = "MULTIACTIONBAR1BUTTON",
 		['conditions'] = "",
-		['position'] = "LEFT,ElvUI_Bar1,RIGHT,4,0",
+		['position'] = "BOTTOM,ElvUI_Bar1,TOP,0,-40",
 	},
 	["bar4"] = {
 		['page'] = 4,
@@ -39,7 +39,7 @@ AB["barDefaults"] = {
 		['page'] = 3,
 		['bindButtons'] = "MULTIACTIONBAR3BUTTON",
 		['conditions'] = "",
-		['position'] = "RIGHT,ElvUI_Bar1,LEFT,-4,0",
+		['position'] = "RIGHT,ElvUI_Bar1,LEFT,-2,0",
 	},	
 }
 
